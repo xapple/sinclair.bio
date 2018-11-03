@@ -20,8 +20,8 @@ form:
 # Contact info
 contact:
     email: contact@sinclair.bio
-    skype: skype@sinclair.bio
-    skypeid: skype:x-apple
+    skype: x-apple
+    skypeid: x-apple
     discord: sinclair.bio
     riot: sinclair.bio
 
