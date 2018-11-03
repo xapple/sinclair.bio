@@ -1,0 +1,65 @@
+# Site settings
+title: Sinclair.Bio | Bioinformatics consulting
+description: "All your DNA/RNA sequence data analysis needs covered by us."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: https://sinclair.bio
+enforce_ssl: sinclair.bio
+logo_url: svg/art/logo.svg
+
+# Hero
+hero:
+    hero_img: hero.jpg
+    hero_title: Sinclair.Bio - Bioinformatics consulting
+    hero_description: You bring the data. We'll bring the insight. <br>Let's work on a project together.
+
+# Contact form
+form:
+    title: Project inquiry or quote
+    api_token: 7aa120b58b3dcb388c08bce7848b8fb6
+
+# Contact info
+contact:
+    email: contact@sinclair.bio
+    skype: skype@sinclair.bio
+    skypeid: skype:x-apple
+    discord: sinclair.bio
+    riot: sinclair.bio
+
+# Languages
+languages: English - French
+
+# Address info
+locations:
+    display: 3 Chemin des Fraisiers, <br> 1212 Geneva, <br> Switzerland
+    string: 3 Chemin des Fraisiers, 1212 Grand-Lancy, Switzerland
+
+# Testimonials
+testimonials:
+    testimonials_img: parallax.jpg
+
+# Social settings
+facebook:
+twitter:
+linkedin:
+instagram:
+youtube:
+skype:
+feed:
+
+# Footer
+copyright: © 2017 Lucas Sinclair&nbsp;&nbsp;-&nbsp;&nbsp;All rights reserved
+company:
+numbers:
+
+# Build settings
+markdown: kramdown
+
+exclude: [
+    package.json,
+    Gruntfile.js,
+    node_modules,
+    .sass-cache,
+    Gemfile,
+    Gemfile.lock,
+    .gitignore
+]

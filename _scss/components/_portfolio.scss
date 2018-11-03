@@ -1,0 +1,17 @@
+/* PORTFOLIO
+-------------------------------------------------*/
+.portfolio {
+    @extend %space;
+    background: $colorBg;
+    .row {
+        @include breakpoint(small) {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+    [class^="col-"] {
+        @include breakpoint(small) {
+            display: flex;
+        }
+    }
+}

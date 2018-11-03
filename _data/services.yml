@@ -1,0 +1,23 @@
+- icon: icon-globe
+  title: Environment monitoring
+  description: We specialize in environmental surveillance and have brought many such studies to success. Are you still relying on microscopy? Our methods could interest you, we use DNA based technologies to assess biodiversity.
+
+- icon: icon-bed
+  title: Human micobiome
+  description: We can also provide our expertise in the analysis and study of human microflora samples. Data confidentiality is a priority. We specialize in both targeted metagenomics as well as shotgun metagenomics.
+
+- icon: icon-diamond
+  title: Custom software creation
+  description: We have a large experience in developing software for biological applications. Anything from automated analysis pipelines to novel data processing algorithms and infrastructure development.
+
+- icon: icon-flask
+  title: Education and teaching
+  description: We are trained as teachers and in pedagogy. We are able to effectively transfer our skills and know-how to your team. For instance, inquire about our python course for biologists and big data.
+
+- icon: icon-user-md
+  title: Project management
+  description: We aim to become active scientific partners in your research starting from the study design and method validation to the result production and publication. We can help you deliver in a fast and reproducible manner.
+
+- icon: icon-ambulance
+  title: Miscellaneous
+  description: Actually, we are ready to provide many different types of services that you could need, given our expertise extends there. Just ask us, the first dicussion is always free.

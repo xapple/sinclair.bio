@@ -1,0 +1,14 @@
+# Temporary files #
+.DS_Store
+*.pyc
+*.swp
+*.swo
+*~
+\#*
+.#*
+._*
+
+# Jekyll #
+_site
+.sass-cache
+node_modules/
