@@ -29,5 +29,6 @@ pnpm-debug.log*
 
 # IDE files
 /.idea
+/.vscode
 /.cursorignore
 /.cursorrules
