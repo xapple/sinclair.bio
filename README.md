@@ -5,6 +5,8 @@ It is an [Astro template](https://docs.astro.build).
 
 ### Interesting templates:
 
+Coming from https://getastrothemes.com/free-astro-themes-templates/
+
 * https://github.com/danielunited/codefolio
 * https://github.com/manuelernestog/astrofy
 * https://github.com/EFEELE/NeonMint
