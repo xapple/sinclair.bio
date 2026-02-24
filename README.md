@@ -1,46 +1,20 @@
-# Astro Starter Kit: Basics
+# `www.sinclair` version 0.0.1
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+This is the website at `www.sinclair.bio`.
+It is an [Astro template](https://docs.astro.build).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Interesting templates:
 
-## 🚀 Project Structure
+* https://github.com/danielunited/codefolio
+* https://github.com/manuelernestog/astrofy
+* https://github.com/EFEELE/NeonMint
+* https://github.com/rishikesh2003/my-portfolio
 
-Inside of your Astro project, you'll see the following folders and files:
+### Descriptive text
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+OK, let's start with the general layout of the site I want to make.
+I would like to have a top bar with, left to right:
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+* On the left, a placeholder for an SVG logo,
+* In the middle, categories such as "Home, Journey, Projects, Quote, Contact".
+* On the right, two widgets, one for switching language and one for switching light to dark.
