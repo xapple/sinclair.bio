@@ -1,0 +1,69 @@
+---
+import { Languages, getLangFromUrl } from '../../i18n/translations';
+
+const lang = getLangFromUrl(Astro.url);
+const currentPath = Astro.url.pathname;
+
+/**
+ * Compute the alternate-language path.
+ * With prefixDefaultLocale: true, URLs are always /{lang}/...
+ * Swapping language = replacing the first path segment.
+ */
+function getAlternatePath(
+  currentLang: Languages,
+  targetLang: Languages,
+  path: string
+): string {
+  return path.replace(
+    new RegExp(`^/${currentLang}(/|$)`),
+    `/${targetLang}$1`
+  );
+}
+
+interface LangLink {
+  lang: Languages;
+  href: string | null; // null = current language (not clickable)
+  label: string;
+}
+
+const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
+  lang: l,
+  href: l === lang ? null : getAlternatePath(lang, l, currentPath),
+  label: l.toUpperCase(),
+}));
+---
+
+<div class="flex items-center gap-0.5 rounded-md border border-gray-200 dark:border-gray-700">
+  {langLinks.map((link, i) => {
+    const isFirst = i === 0;
+    const isLast = i === langLinks.length - 1;
+    const roundingClass = isFirst ? 'rounded-l-md' : isLast ? 'rounded-r-md' : '';
+    const isActive = link.href === null;
+
+    return isActive ? (
+      <span
+        class:list={[
+          roundingClass,
+          'px-2 py-1 text-xs font-medium',
+          'bg-gray-900 text-white dark:bg-white dark:text-gray-900',
+        ]}
+        aria-current="true"
+      >
+        {link.label}
+      </span>
+    ) : (
+      <a
+        href={link.href}
+        rel="alternate"
+        hreflang={link.lang}
+        class:list={[
+          roundingClass,
+          'px-2 py-1 text-xs font-medium transition-colors',
+          'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800',
+        ]}
+      >
+        {link.label}
+      </a>
+    );
+  })}
+</div>

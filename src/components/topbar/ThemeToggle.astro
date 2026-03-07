@@ -1,0 +1,46 @@
+---
+import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import themeSwitcherSvg from '../../assets/theme-switcher.svg?raw';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<script>
+  import { themeSwitcherManager } from "../../scripts/theme-switcher";
+  // Astro module scripts are deferred, so DOMContentLoaded may have already fired.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", themeSwitcherManager);
+  } else {
+    themeSwitcherManager();
+  }
+</script>
+
+<button
+  title={t("a11y:theme-switcher")}
+  class="theme-switcher relative flex items-center self-center p-0 border-none bg-transparent cursor-pointer"
+  aria-label="Theme switcher"
+>
+  <Fragment set:html={themeSwitcherSvg} />
+</button>
+
+<style is:global>
+  .theme-switcher {
+    height: 1.4rem;
+    width: calc(2 * 1.4rem);
+  }
+
+  .theme-switcher svg {
+    position: absolute;
+    height: inherit;
+    width: auto;
+  }
+
+  .theme-switcher svg #theme-switcher-circle {
+    color: var(--color-back);
+  }
+
+  .theme-switcher svg #theme-switcher-sun,
+  .theme-switcher svg #theme-switcher-moon {
+    color: var(--color-back);
+  }
+</style>

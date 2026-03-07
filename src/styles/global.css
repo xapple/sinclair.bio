@@ -1,3 +1,46 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- FOUC prevention ---- */
+/* Hide main content until DOMContentLoaded fires */
+html:not([data-dom-loaded]) main,
+html:not([data-dom-loaded]) footer {
+  display: none;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Theme switcher SVG custom properties ---- */
+/* Bridge between Tailwind's .dark class and the theme-switcher SVG */
+:root {
+  --color-text: #111827; /* gray-900 */
+  --color-back: #ffffff; /* white */
+}
+.dark {
+  --color-text: #f3f4f6; /* gray-100 */
+  --color-back: #030712; /* gray-950 */
+}
+
+/* Sliding circle: moves right in light mode, stays left in dark */
+html[data-theme="light"] #theme-switcher-circle {
+  transform: translate(50%, 0);
+}
+
+#theme-switcher-circle {
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+#theme-switcher-bg {
+  transition: fill 0.3s ease;
+}

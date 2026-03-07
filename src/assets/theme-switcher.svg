@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <!-- Pill-shaped track -->
+  <rect
+    id="theme-switcher-bg"
+    width="200"
+    height="100"
+    rx="50"
+    ry="50"
+    fill="var(--color-text)"
+  />
+
+  <!-- Sun icon (left side, centered on 50,50) -->
+  <g id="theme-switcher-sun" fill="currentColor" stroke="none">
+    <!-- Core -->
+    <circle cx="50" cy="50" r="9" />
+    <!-- Rays (8 lines, 45° apart) -->
+    <rect x="48.5" y="28" width="3" height="8" rx="1.5" />
+    <rect x="48.5" y="64" width="3" height="8" rx="1.5" />
+    <rect x="28" y="48.5" width="8" height="3" rx="1.5" />
+    <rect x="64" y="48.5" width="8" height="3" rx="1.5" />
+    <rect x="34.2" y="34.2" width="3" height="8" rx="1.5" transform="rotate(-45 35.7 38.2)" />
+    <rect x="62.8" y="34.2" width="3" height="8" rx="1.5" transform="rotate(45 64.3 38.2)" />
+    <rect x="34.2" y="57.8" width="3" height="8" rx="1.5" transform="rotate(45 35.7 61.8)" />
+    <rect x="62.8" y="57.8" width="3" height="8" rx="1.5" transform="rotate(-45 64.3 61.8)" />
+  </g>
+
+  <!-- Moon icon (right side, centered on 150,50) -->
+  <g id="theme-switcher-moon" fill="currentColor" stroke="none">
+    <path d="M158.5,33a18,18 0 1 0 0,34a14.5,14.5 0 0 1 0,-34z" />
+  </g>
+
+  <!-- Sliding knob -->
+  <circle
+    id="theme-switcher-circle"
+    cx="50"
+    cy="50"
+    r="42"
+    fill="var(--color-back)"
+  />
+</svg>

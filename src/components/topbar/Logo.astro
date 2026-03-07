@@ -1,0 +1,18 @@
+---
+import { Languages } from '../../i18n/translations';
+
+interface Props {
+  lang?: Languages;
+}
+
+const { lang = Languages.en } = Astro.props;
+---
+
+<a href={`/${lang}/`} class="flex items-center gap-2 text-gray-900 dark:text-white" aria-label="Home">
+  <!-- Placeholder SVG logo — replace with your actual logo -->
+  <svg class="h-8 w-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="32" height="32" rx="8" fill="currentColor" opacity="0.1" />
+    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="currentColor" font-size="16" font-weight="bold">S</text>
+  </svg>
+  <span class="text-lg font-semibold tracking-tight">Sinclair</span>
+</a>

@@ -1,11 +1,15 @@
 # `www.sinclair` version 0.0.1
 
 This is the website at `www.sinclair.bio`.
-It is an [Astro template](https://docs.astro.build).
+It is made with the following build technology: [Astro](https://docs.astro.build).
 
 ### Interesting templates:
 
-Coming from https://getastrothemes.com/free-astro-themes-templates/
+A big list of free astro template:
+
+* https://getastrothemes.com/free-astro-themes-templates/
+
+Selected templates:
 
 * https://github.com/danielunited/codefolio
 * https://github.com/manuelernestog/astrofy
