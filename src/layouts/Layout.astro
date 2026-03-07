@@ -30,15 +30,13 @@ const { title = 'Sinclair', lang = Languages.en } = Astro.props;
 
       // Blocking theme init to prevent FOUC
       (function() {
-        var stored = localStorage.getItem('theme');
-        var color = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var color = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
         // .dark class for Tailwind dark: utilities
         if (color === 'dark') document.documentElement.classList.add('dark');
 
         // data-theme for custom SVG toggle styling
         document.documentElement.dataset.theme = color;
-        localStorage.setItem('theme', color);
 
         // Update meta theme-color for mobile browser chrome
         var meta = document.querySelector('meta[name="theme-color"]');

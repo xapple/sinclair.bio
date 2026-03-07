@@ -7,7 +7,7 @@ const ANIMATION_DURATION = window.matchMedia("(prefers-reduced-motion: reduce)")
 
 /**
  * Sets the global theme.
- * Updates: .dark class (Tailwind), data-theme (SVG), localStorage,
+ * Updates: .dark class (Tailwind), data-theme (SVG),
  * meta[name="theme-color"], meta[name="color-scheme"], aria-label.
  */
 export function setTheme(color: "light" | "dark" | null): void {
@@ -18,14 +18,7 @@ export function setTheme(color: "light" | "dark" | null): void {
   const themeSwitchers =
     document.querySelectorAll<HTMLButtonElement>(".theme-switcher");
 
-  // Resolve color: explicit > localStorage > OS preference
-  if (color === null || color === undefined) {
-    const stored = localStorage.getItem("theme");
-    if (stored === "light" || stored === "dark") {
-      color = stored;
-    }
-  }
-
+  // Resolve color: explicit > OS preference
   if (color === null) {
     color = window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
@@ -37,9 +30,6 @@ export function setTheme(color: "light" | "dark" | null): void {
 
   // SVG toggle styling: set data-theme
   document.documentElement.dataset.theme = color;
-
-  // Persist
-  localStorage.setItem("theme", color);
 
   // Update color-scheme meta
   if (colorSchemeMeta) colorSchemeMeta.content = color;
@@ -79,7 +69,11 @@ export function themeSwitcherManager(): void {
         runningAnimation = undefined;
       }
 
-      if (localStorage.getItem("theme") === "dark") {
+      const isDark =
+        document.documentElement.dataset.theme === "dark" ||
+        document.documentElement.classList.contains("dark");
+
+      if (isDark) {
         // Switching to light: animate the sun icon in
         runningAnimation = gsap.from("#theme-switcher-sun", {
           x: -movement,
