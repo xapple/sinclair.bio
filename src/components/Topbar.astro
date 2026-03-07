@@ -26,8 +26,10 @@ const { lang = Languages.en } = Astro.props;
 
     <!-- Right: Widgets + Hamburger -->
     <div class="flex items-center gap-2">
-      <LanguageSwitcher lang={lang} />
-      <ThemeToggle />
+      <div class="flex items-center gap-12">
+        <LanguageSwitcher lang={lang} />
+        <ThemeToggle />
+      </div>
 
       <!-- Hamburger button (mobile only) -->
       <button
