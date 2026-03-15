@@ -26,10 +26,14 @@ html:not([data-dom-loaded]) footer {
 :root {
   --color-text: #111827; /* gray-900 */
   --color-back: #ffffff; /* white */
+  --color-ink: #111217;
+  --color-muted: #555b68;
 }
 .dark {
   --color-text: #f3f4f6; /* gray-100 */
   --color-back: #030712; /* gray-950 */
+  --color-ink: #eef3ff;
+  --color-muted: #b8c0d5;
 }
 
 /* Sliding circle: moves right in light mode, stays left in dark */

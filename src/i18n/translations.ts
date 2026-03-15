@@ -18,6 +18,11 @@ type TranslationKey = {
   "nav:quote": string;
   "nav:contact": string;
   "a11y:theme-switcher": string;
+  "journey:page-title": string;
+  "journey:heading-start": string;
+  "journey:heading-accent": string;
+  "journey:intro": string;
+  "journey:aria-label": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -30,6 +35,11 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:quote": "Quote",
     "nav:contact": "Contact",
     "a11y:theme-switcher": "Theme switcher",
+    "journey:page-title": "Sinclair | Journey",
+    "journey:heading-start": "Work",
+    "journey:heading-accent": "Experience",
+    "journey:intro": "A concise timeline of my professional path, key responsibilities, and delivery impact.",
+    "journey:aria-label": "Work Experience",
   },
   fr: {
     "nav:home": "Accueil",
@@ -38,6 +48,11 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:quote": "Citation",
     "nav:contact": "Contact",
     "a11y:theme-switcher": "Changer de thème",
+    "journey:page-title": "Sinclair | Parcours",
+    "journey:heading-start": "Work",
+    "journey:heading-accent": "Experience",
+    "journey:intro": "Un aperçu de mon parcours, des livrables clés et des responsabilités que je prends au quotidien.",
+    "journey:aria-label": "Expérience professionnelle",
   },
 };
 

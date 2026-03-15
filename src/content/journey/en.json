@@ -1,0 +1,16 @@
+{
+  "experiences": [
+    {
+      "role": "Software Development Coordinator",
+      "company": "EFEELE.DEV",
+      "period": "2021 - Present",
+      "summary": "I lead planning, development, and implementation for software initiatives. I coordinate multidisciplinary teams, streamline administrative workflows, and ensure reliable delivery of digital platforms."
+    },
+    {
+      "role": "Technical Project Lead",
+      "company": "EFEELE.DEV",
+      "period": "2019 - 2020",
+      "summary": "I owned technical scoping, aligned product decisions with business needs, and supported engineering teams in shipping high-value features on a predictable cadence."
+    }
+  ]
+}

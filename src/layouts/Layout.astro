@@ -5,10 +5,11 @@ import '../styles/global.css';
 
 interface Props {
   title?: string;
+  description?: string;
   lang?: Languages;
 }
 
-const { title = 'Sinclair', lang = Languages.en } = Astro.props;
+const { title = 'Sinclair', description, lang = Languages.en } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,6 +20,7 @@ const { title = 'Sinclair', lang = Languages.en } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
+    {description && <meta name="description" content={description} />}
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#ffffff" />
     <title>{title}</title>

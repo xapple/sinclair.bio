@@ -10,11 +10,11 @@ const { mobile = false, lang = Languages.en } = Astro.props;
 const t = useTranslations(lang);
 
 const links = [
-  { label: t('nav:home'), href: '#' },
-  { label: t('nav:journey'), href: '#journey' },
-  { label: t('nav:projects'), href: '#projects' },
-  { label: t('nav:quote'), href: '#quote' },
-  { label: t('nav:contact'), href: '#contact' },
+  { label: t('nav:home'), href: `/${lang}/` },
+  { label: t('nav:journey'), href: `/${lang}/journey` },
+  { label: t('nav:projects'), href: `/${lang}/#projects` },
+  { label: t('nav:quote'), href: `/${lang}/#quote` },
+  { label: t('nav:contact'), href: `/${lang}/#contact` },
 ];
 
 const baseClasses = mobile

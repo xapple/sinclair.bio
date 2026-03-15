@@ -1,0 +1,16 @@
+{
+  "experiences": [
+    {
+      "role": "Coordinateur en developpement logiciel",
+      "company": "EFEELE.DEV",
+      "period": "2021 - Aujourd'hui",
+      "summary": "Je pilote la planification, le developpement et le deploiement de projets logiciels. Je coordonne les equipes, optimise les processus administratifs et garantis une execution fiable des plateformes numeriques."
+    },
+    {
+      "role": "Responsable de projets techniques",
+      "company": "EFEELE.DEV",
+      "period": "2019 - 2020",
+      "summary": "J'ai encadre les phases de cadrage technique, aligne les besoins metier avec les solutions produit, et accompagne les equipes dans la livraison de fonctionnalites a forte valeur."
+    }
+  ]
+}
