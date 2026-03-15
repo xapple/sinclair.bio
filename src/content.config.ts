@@ -15,4 +15,17 @@ const journey = defineCollection({
   }),
 });
 
-export const collections = { journey };
+const cv = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/cv' }),
+  schema: z.object({
+    name: z.string(),
+    title: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    location: z.string(),
+    website: z.string(),
+    linkedin: z.string(),
+  }),
+});
+
+export const collections = { journey, cv };

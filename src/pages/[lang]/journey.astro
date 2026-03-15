@@ -22,7 +22,7 @@ const { experiences } = entry.data;
   <section class="journey-page">
     <div class="page-shell">
       <header class="page-header">
-        <h1>
+        <h1 id="journey-heading">
           <span class="icon" aria-hidden="true">
             <Fragment set:html={BriefcaseIcon} />
           </span>
@@ -32,7 +32,7 @@ const { experiences } = entry.data;
         <p>{t('journey:intro')}</p>
       </header>
 
-      <ol class="timeline" aria-label={t('journey:aria-label')}>
+      <ol class="timeline" aria-labelledby="journey-heading">
         {experiences.map((item, index) => (
           <li class="timeline-item" style={`--item-index:${index};`}>
             <span class="timeline-dot" aria-hidden="true"></span>
@@ -78,7 +78,7 @@ const { experiences } = entry.data;
     align-items: center;
     gap: 0.85rem;
     font-family: 'Space Grotesk', 'Avenir Next', 'Segoe UI', sans-serif;
-    font-size: clamp(1.9rem, 4.8vw, 3.35rem);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
     line-height: 1;
     letter-spacing: -0.03em;
     font-weight: 800;
@@ -157,7 +157,7 @@ const { experiences } = entry.data;
     margin: 0;
     color: var(--mint-strong);
     font-family: 'Space Grotesk', 'Avenir Next', 'Segoe UI', sans-serif;
-    font-size: clamp(1.3rem, 2.2vw, 2rem);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
     font-weight: 700;
@@ -166,7 +166,7 @@ const { experiences } = entry.data;
   .company {
     margin: 0.7rem 0 0;
     color: #4c505d;
-    font-size: clamp(1rem, 1.9vw, 1.45rem);
+    font-size: clamp(0.8rem, 1vw, 0.9rem);
     font-weight: 700;
     letter-spacing: 0.015em;
   }
@@ -174,13 +174,13 @@ const { experiences } = entry.data;
   .period {
     margin: 0.35rem 0 0;
     color: #666d79;
-    font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+    font-size: clamp(0.75rem, 0.9vw, 0.85rem);
   }
 
   .summary {
     margin: 0;
     color: var(--color-ink);
-    font-size: clamp(1rem, 1.6vw, 1.5rem);
+    font-size: clamp(0.875rem, 1vw, 1rem);
     line-height: 1.5;
     letter-spacing: -0.015em;
     max-width: 38ch;

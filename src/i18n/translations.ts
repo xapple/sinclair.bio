@@ -22,7 +22,8 @@ type TranslationKey = {
   "journey:heading-start": string;
   "journey:heading-accent": string;
   "journey:intro": string;
-  "journey:aria-label": string;
+  "cv:experience-heading": string;
+  "cv:print-button": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -39,7 +40,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:heading-start": "Work",
     "journey:heading-accent": "Experience",
     "journey:intro": "A concise timeline of my professional path, key responsibilities, and delivery impact.",
-    "journey:aria-label": "Work Experience",
+    "cv:experience-heading": "Work Experience",
+    "cv:print-button": "Print / Save as PDF",
   },
   fr: {
     "nav:home": "Accueil",
@@ -52,7 +54,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:heading-start": "Work",
     "journey:heading-accent": "Experience",
     "journey:intro": "Un aperçu de mon parcours, des livrables clés et des responsabilités que je prends au quotidien.",
-    "journey:aria-label": "Expérience professionnelle",
+    "cv:experience-heading": "Expérience professionnelle",
+    "cv:print-button": "Imprimer / Enregistrer en PDF",
   },
 };
 
