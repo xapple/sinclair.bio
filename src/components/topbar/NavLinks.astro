@@ -8,6 +8,7 @@ interface Props {
 
 const { mobile = false, lang = Languages.en } = Astro.props;
 const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
 
 const links = [
   { label: t('nav:home'), href: `/${lang}/` },
@@ -17,13 +18,29 @@ const links = [
   { label: t('nav:contact'), href: `/${lang}/#contact` },
 ];
 
-const baseClasses = mobile
+const activeClasses = mobile
+  ? 'block rounded-md px-3 py-2 text-base font-medium text-bar-fg bg-white/10'
+  : 'rounded-md px-3 py-2 text-sm font-medium text-bar-fg bg-white/10';
+
+const inactiveClasses = mobile
   ? 'block rounded-md px-3 py-2 text-base font-medium text-bar-fg/70 hover:bg-white/10 hover:text-bar-fg transition-colors'
   : 'rounded-md px-3 py-2 text-sm font-medium text-bar-fg/60 hover:bg-white/10 hover:text-bar-fg transition-colors';
+
+function isActive(href: string): boolean {
+  // Strip hash for comparison — hash links all belong to the same page
+  const hrefPath = href.split('#')[0];
+  return currentPath === hrefPath || currentPath === hrefPath + '/';
+}
 ---
 
-{links.map(({ label, href }) => (
-  <a href={href} class={baseClasses}>
-    {label}
-  </a>
-))}
+{links.map(({ label, href }) =>
+  isActive(href) ? (
+    <span class={activeClasses} aria-current="page">
+      {label}
+    </span>
+  ) : (
+    <a href={href} class={inactiveClasses}>
+      {label}
+    </a>
+  )
+)}

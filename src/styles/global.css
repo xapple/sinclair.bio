@@ -15,7 +15,7 @@
   --color-accent:  #6b2c2c; /* brand burgundy */
 
   /* Topbar — always dark regardless of mode */
-  --color-bar:    #2c1810;
+  --color-bar:    #4a1e1e;
   --color-bar-fg: #f0e4d8;
 }
 
@@ -28,7 +28,7 @@
   --color-border:  #352218;
   --color-accent:  #b85252;
 
-  --color-bar:    #0d0806;
+  --color-bar:    #3a1414;
   --color-bar-fg: #ede0d0;
 }
 
