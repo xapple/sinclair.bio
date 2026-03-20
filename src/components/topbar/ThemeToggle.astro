@@ -40,13 +40,13 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <button
   id="compact-theme-toggle"
   title={t("a11y:theme-switcher")}
-  class="compact-theme-toggle md:hidden flex items-center justify-center w-8 h-8 p-0 border-none bg-transparent cursor-pointer text-bar-fg"
+  class="compact-theme-toggle md:hidden flex items-center justify-center w-11 h-11 p-0 border-none bg-transparent cursor-pointer hover:bg-white/10 transition-colors rounded-md text-bar-fg"
   aria-label="Toggle theme"
 >
   <!-- Sun: shown in light mode -->
-  <span class="compact-sun w-5 h-5" aria-hidden="true"><Fragment set:html={sunSvg} /></span>
+  <span class="compact-sun w-6 h-6" aria-hidden="true"><Fragment set:html={sunSvg} /></span>
   <!-- Moon: shown in dark mode -->
-  <span class="compact-moon w-5 h-5" aria-hidden="true"><Fragment set:html={moonSvg} /></span>
+  <span class="compact-moon w-6 h-6" aria-hidden="true"><Fragment set:html={moonSvg} /></span>
 </button>
 
 <style is:global>
@@ -80,8 +80,8 @@ const t = useTranslations(getLangFromUrl(Astro.url));
   /* Compact toggle icon sizing */
   .compact-theme-toggle .compact-sun svg,
   .compact-theme-toggle .compact-moon svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   /* Compact toggle: show sun in light mode, moon in dark mode */
