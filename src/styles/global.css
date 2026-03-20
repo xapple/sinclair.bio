@@ -42,6 +42,17 @@
   --color-text: #ede0d0;
 }
 
+/* ---- Logo sizing — here so it's render-blocking and never flashes ---- */
+.logo-mark {
+  display: block;
+  height: 2.75rem;
+  width: auto;
+}
+.logo-mark svg {
+  height: 100%;
+  width: auto;
+}
+
 /* ---- FOUC prevention ---- */
 /* Hide main content until DOMContentLoaded fires */
 html:not([data-dom-loaded]) main,
