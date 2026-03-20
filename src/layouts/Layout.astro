@@ -40,7 +40,9 @@ const { title = 'Sinclair', description, lang = Languages.en } = Astro.props;
         // data-theme for custom SVG toggle styling
         document.documentElement.dataset.theme = color;
 
-        // Update meta theme-color for mobile browser chrome
+        // Update meta theme-color for mobile browser chrome.
+        // These literals MUST match --color-back in global.css and theme-switcher.ts —
+        // CSS variables are not yet available when this blocking script runs.
         var meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.setAttribute('content', color === 'dark' ? '#140c07' : '#fffff8');
 

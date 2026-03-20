@@ -1,5 +1,6 @@
 ---
 import { Languages, getLangFromUrl } from '../../i18n/translations';
+import globeSvg from '../../assets/icons/globe2.svg?raw';
 
 const lang = getLangFromUrl(Astro.url);
 const currentPath = Astro.url.pathname;
@@ -33,7 +34,8 @@ const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
 }));
 ---
 
-<div class="flex items-center gap-0.5 rounded-md border border-white/20">
+<!-- Full pill switcher — desktop only -->
+<div class="hidden md:flex items-center gap-0.5 rounded-md border border-white/20">
   {langLinks.map((link, i) => {
     const isFirst = i === 0;
     const isLast = i === langLinks.length - 1;
@@ -67,3 +69,72 @@ const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
     );
   })}
 </div>
+
+<!-- Compact globe dropdown — mobile only -->
+<div class="relative md:hidden">
+  <button
+    id="lang-dropdown-toggle"
+    class="flex items-center justify-center w-8 h-8 text-bar-fg"
+    aria-expanded="false"
+    aria-label="Select language"
+  >
+    <!-- Globe icon -->
+    <span class="w-5 h-5" aria-hidden="true"><Fragment set:html={globeSvg} /></span>
+  </button>
+
+  <!-- Dropdown menu -->
+  <div
+    id="lang-dropdown"
+    class="hidden absolute right-0 top-full mt-1 min-w-[4rem] rounded-md bg-bar border border-white/20 overflow-hidden shadow-lg"
+    role="menu"
+  >
+    {langLinks.map((link) => {
+      const isActive = link.href === null;
+      return isActive ? (
+        <span
+          class="block px-4 py-2 text-sm font-medium text-bar-fg bg-white/10"
+          role="menuitem"
+          aria-current="true"
+        >
+          {link.label}
+        </span>
+      ) : (
+        <a
+          href={link.href}
+          rel="alternate"
+          hreflang={link.lang}
+          class="block px-4 py-2 text-sm font-medium text-bar-fg/60 hover:bg-white/10 hover:text-bar-fg transition-colors"
+          role="menuitem"
+        >
+          {link.label}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('lang-dropdown-toggle');
+  const dropdown = document.getElementById('lang-dropdown');
+
+  toggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', () => {
+    if (!dropdown?.classList.contains('hidden')) {
+      dropdown?.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+<style is:global>
+  #lang-dropdown-toggle svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+</style>
