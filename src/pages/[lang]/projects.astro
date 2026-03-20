@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Languages, useTranslations } from '../../i18n/translations';
+
+export function getStaticPaths() {
+  return Object.values(Languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Languages;
+const t = useTranslations(lang);
+---
+
+<Layout lang={lang} title="Sinclair | Projects">
+  <section class="placeholder-page">
+    <div class="page-shell">
+      <header class="page-header">
+        <h1>{t('nav:projects')}</h1>
+        <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </header>
+
+      <div class="card-grid">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div class="card">
+            <div class="card-thumb"></div>
+            <div class="card-body">
+              <h2>Project {i}</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <span class="tag">Lorem</span>
+              <span class="tag">Ipsum</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .placeholder-page {
+    min-height: calc(100vh - 4rem);
+    color: var(--color-ink);
+    background: var(--color-back);
+    padding: clamp(2rem, 5vw, 5rem) 1.25rem clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .page-shell {
+    margin: 0 auto;
+    width: min(1100px, 100%);
+  }
+
+  .page-header {
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-ink);
+  }
+
+  .subtitle {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--color-muted);
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    line-height: 1.6;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: var(--color-surface);
+    animation: reveal 500ms ease-out both;
+  }
+
+  .card:nth-child(1) { animation-delay: 0ms; }
+  .card:nth-child(2) { animation-delay: 80ms; }
+  .card:nth-child(3) { animation-delay: 160ms; }
+  .card:nth-child(4) { animation-delay: 240ms; }
+  .card:nth-child(5) { animation-delay: 320ms; }
+  .card:nth-child(6) { animation-delay: 400ms; }
+
+  .card-thumb {
+    height: 140px;
+    background: linear-gradient(135deg, var(--color-border), var(--color-muted));
+    opacity: 0.3;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  p {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color-ink);
+    line-height: 1.5;
+  }
+
+  .tag {
+    display: inline-block;
+    margin: 0.25rem 0.25rem 0 0;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

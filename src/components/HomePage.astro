@@ -11,16 +11,16 @@ const t = useTranslations(lang);
 
 <!-- Hero -->
 <section class="mx-auto max-w-3xl px-6 pt-24 pb-20">
-  <p class="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
+  <p class="home-reveal mb-3 text-sm font-medium uppercase tracking-widest text-accent" style="--delay:0ms">
     {t('home:location')}
   </p>
-  <h1 class="mb-4 text-6xl font-black leading-none tracking-tight text-ink">
+  <h1 class="home-reveal mb-4 text-6xl font-black leading-none tracking-tight text-ink" style="--delay:80ms">
     Lucas<br />Sinclair
   </h1>
-  <p class="mb-10 text-lg text-muted">
+  <p class="home-reveal mb-10 text-lg text-muted" style="--delay:160ms">
     {t('home:tagline')}
   </p>
-  <div class="flex flex-wrap gap-3">
+  <div class="home-reveal flex flex-wrap gap-3" style="--delay:240ms">
     <a
       href={`/${lang}/journey`}
       class="inline-block rounded-sm border border-ink bg-ink px-5 py-2.5 text-sm font-medium text-back transition-colors hover:bg-accent hover:border-accent"
@@ -28,7 +28,7 @@ const t = useTranslations(lang);
       {t('home:cta-journey')}
     </a>
     <a
-      href={`/${lang}/#contact`}
+      href={`/${lang}/contact`}
       class="inline-block rounded-sm border border-border px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink"
     >
       {t('home:cta-contact')}
@@ -36,10 +36,10 @@ const t = useTranslations(lang);
   </div>
 </section>
 
-<hr class="border-border" />
+<hr class="home-reveal border-border" style="--delay:340ms" />
 
 <!-- About -->
-<section class="mx-auto max-w-3xl px-6 py-16">
+<section class="home-reveal mx-auto max-w-3xl px-6 py-16" style="--delay:400ms">
   <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
     {t('home:about-heading')}
   </h2>
@@ -48,10 +48,10 @@ const t = useTranslations(lang);
   </p>
 </section>
 
-<hr class="border-border" />
+<hr class="home-reveal border-border" style="--delay:500ms" />
 
 <!-- Experience -->
-<section class="mx-auto max-w-3xl px-6 py-16">
+<section class="home-reveal mx-auto max-w-3xl px-6 py-16" style="--delay:540ms">
   <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
     {t('home:experience-heading')}
   </h2>
@@ -68,3 +68,16 @@ const t = useTranslations(lang);
     </div>
   </div>
 </section>
+
+<style>
+  .home-reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: home-reveal 500ms ease-out both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @keyframes home-reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
