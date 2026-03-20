@@ -1,7 +1,7 @@
 ---
-import Welcome from '../../components/Welcome.astro';
+import HomePage from '../../components/HomePage.astro';
 import Layout from '../../layouts/Layout.astro';
-import { Languages } from '../../i18n/translations';
+import { Languages, useTranslations } from '../../i18n/translations';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({
@@ -10,8 +10,9 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const t = useTranslations(lang as Languages);
 ---
 
-<Layout lang={lang as Languages} title="Sinclair">
-  <Welcome />
+<Layout lang={lang as Languages} title={t('home:page-title')}>
+  <HomePage lang={lang as Languages} />
 </Layout>

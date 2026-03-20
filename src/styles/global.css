@@ -2,6 +2,46 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ---- Design tokens ---- */
+@theme {
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Semantic color palette (light mode defaults) */
+  --color-back:    #fffff8; /* page background */
+  --color-surface: #f5f0e8; /* elevated / secondary bg */
+  --color-ink:     #2c1810; /* primary text */
+  --color-muted:   #7a6a5a; /* secondary text */
+  --color-border:  #c8bfa8; /* borders / dividers */
+  --color-accent:  #6b2c2c; /* brand burgundy */
+
+  /* Topbar — always dark regardless of mode */
+  --color-bar:    #2c1810;
+  --color-bar-fg: #f0e4d8;
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-back:    #140c07;
+  --color-surface: #1f1209;
+  --color-ink:     #ede0d0;
+  --color-muted:   #a08870;
+  --color-border:  #352218;
+  --color-accent:  #b85252;
+
+  --color-bar:    #0d0806;
+  --color-bar-fg: #ede0d0;
+}
+
+/* ---- Theme switcher SVG custom properties ---- */
+/* --color-text  = track fill  (dark in light mode, light in dark mode)  */
+/* --color-back  = knob fill   (already a Tailwind token above, same values) */
+:root {
+  --color-text: #2c1810;
+}
+.dark {
+  --color-text: #ede0d0;
+}
+
 /* ---- FOUC prevention ---- */
 /* Hide main content until DOMContentLoaded fires */
 html:not([data-dom-loaded]) main,
@@ -19,21 +59,6 @@ html:not([data-dom-loaded]) footer {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* ---- Theme switcher SVG custom properties ---- */
-/* Bridge between Tailwind's .dark class and the theme-switcher SVG */
-:root {
-  --color-text: #111827; /* gray-900 */
-  --color-back: #ffffff; /* white */
-  --color-ink: #111217;
-  --color-muted: #555b68;
-}
-.dark {
-  --color-text: #f3f4f6; /* gray-100 */
-  --color-back: #030712; /* gray-950 */
-  --color-ink: #eef3ff;
-  --color-muted: #b8c0d5;
 }
 
 /* Sliding circle: moves right in light mode, stays left in dark */

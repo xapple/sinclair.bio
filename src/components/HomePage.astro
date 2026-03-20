@@ -1,0 +1,70 @@
+---
+import { useTranslations, Languages } from '../i18n/translations';
+
+interface Props {
+  lang?: Languages;
+}
+
+const { lang = Languages.en } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!-- Hero -->
+<section class="mx-auto max-w-3xl px-6 pt-24 pb-20">
+  <p class="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
+    {t('home:location')}
+  </p>
+  <h1 class="mb-4 text-6xl font-black leading-none tracking-tight text-ink">
+    Lucas<br />Sinclair
+  </h1>
+  <p class="mb-10 text-lg text-muted">
+    {t('home:tagline')}
+  </p>
+  <div class="flex flex-wrap gap-3">
+    <a
+      href={`/${lang}/journey`}
+      class="inline-block rounded-sm border border-ink bg-ink px-5 py-2.5 text-sm font-medium text-back transition-colors hover:bg-accent hover:border-accent"
+    >
+      {t('home:cta-journey')}
+    </a>
+    <a
+      href={`/${lang}/#contact`}
+      class="inline-block rounded-sm border border-border px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink"
+    >
+      {t('home:cta-contact')}
+    </a>
+  </div>
+</section>
+
+<hr class="border-border" />
+
+<!-- About -->
+<section class="mx-auto max-w-3xl px-6 py-16">
+  <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
+    {t('home:about-heading')}
+  </h2>
+  <p class="text-base leading-relaxed text-ink/80">
+    {t('home:about-body')}
+  </p>
+</section>
+
+<hr class="border-border" />
+
+<!-- Experience -->
+<section class="mx-auto max-w-3xl px-6 py-16">
+  <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
+    {t('home:experience-heading')}
+  </h2>
+  <div class="flex flex-col gap-8">
+    <!-- Entry -->
+    <div class="flex gap-6">
+      <div class="mt-1 h-2 w-2 shrink-0 rounded-full bg-accent"></div>
+      <div>
+        <p class="text-base font-semibold text-ink">{t('home:exp-1-title')}</p>
+        <p class="mt-0.5 text-sm text-muted">{t('home:exp-1-company')}</p>
+        <p class="mt-0.5 text-xs text-muted">{t('home:exp-1-period')}</p>
+        <p class="mt-3 text-sm leading-relaxed text-ink/70">{t('home:exp-1-desc')}</p>
+      </div>
+    </div>
+  </div>
+</section>

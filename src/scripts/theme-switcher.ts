@@ -36,7 +36,7 @@ export function setTheme(color: "light" | "dark" | null): void {
 
   // Update theme-color for mobile browser chrome
   if (themeColorMeta) {
-    const themeColor = color === "dark" ? "#030712" : "#ffffff";
+    const themeColor = color === "dark" ? "#140c07" : "#fffff8";
     themeColorMeta.setAttribute("content", themeColor);
   }
 

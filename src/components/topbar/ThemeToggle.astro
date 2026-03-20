@@ -35,12 +35,19 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     width: auto;
   }
 
+  /* Track: always semi-transparent white — visible on the dark bar in both modes */
+  .theme-switcher svg #theme-switcher-bg {
+    fill: rgba(255, 255, 255, 0.18);
+  }
+
+  /* Knob + icons: always bar-fg — contrasts with the dark bar and semi-transparent track */
   .theme-switcher svg #theme-switcher-circle {
-    color: var(--color-back);
+    fill: var(--color-bar-fg);
+    color: var(--color-bar-fg);
   }
 
   .theme-switcher svg #theme-switcher-sun,
   .theme-switcher svg #theme-switcher-moon {
-    color: var(--color-back);
+    color: var(--color-bar-fg);
   }
 </style>

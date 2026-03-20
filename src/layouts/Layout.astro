@@ -22,7 +22,7 @@ const { title = 'Sinclair', description, lang = Languages.en } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     {description && <meta name="description" content={description} />}
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fffff8" />
     <title>{title}</title>
     <script is:inline>
       // DOMContentLoaded: reveal content after scripts are ready
@@ -42,7 +42,7 @@ const { title = 'Sinclair', description, lang = Languages.en } = Astro.props;
 
         // Update meta theme-color for mobile browser chrome
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', color === 'dark' ? '#030712' : '#ffffff');
+        if (meta) meta.setAttribute('content', color === 'dark' ? '#140c07' : '#fffff8');
 
         // Update color-scheme meta
         var csMeta = document.querySelector('meta[name="color-scheme"]');
@@ -50,7 +50,7 @@ const { title = 'Sinclair', description, lang = Languages.en } = Astro.props;
       })();
     </script>
   </head>
-  <body class="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors">
+  <body class="min-h-screen bg-back text-ink font-sans transition-colors">
     <Topbar lang={lang} />
     <main>
       <slot />
