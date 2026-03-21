@@ -1,10 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'ChicagoFLF';
+  src: url('/fonts/ChicagoFLF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---- Design tokens ---- */
 @theme {
   --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-chicago: 'ChicagoFLF', monospace;
 
   /* Semantic color palette (light mode defaults) */
   --color-back:    #fffff8; /* page background */
@@ -49,6 +58,18 @@
   width: auto;
 }
 .logo-mark svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.logo-name {
+  display: block;
+  height: 2rem;
+  width: auto;
+}
+.logo-name svg {
+  display: block;
   height: 100%;
   width: auto;
 }

@@ -1,6 +1,6 @@
 ---
 import { Languages } from '../../i18n/translations';
-import logoSvg from '../../assets/logo.svg?raw';
+import logoNameSvg from '../../assets/logo-name.svg?raw';
 
 interface Props {
   lang?: Languages;
@@ -9,10 +9,7 @@ interface Props {
 const { lang = Languages.en } = Astro.props;
 ---
 
-<a href={`/${lang}/`} class="flex items-center gap-2 text-bar-fg" aria-label="Home">
-  <span class="logo-mark" aria-hidden="true"><Fragment set:html={logoSvg} /></span>
-  <span class="rounded-2xl border-2 border-bar-fg/70 px-4 py-1.5 text-xl font-bold tracking-tight leading-none">
-    Sinclair.Bio
-  </span>
+<a href={`/${lang}/`} class="flex items-center text-bar-fg" aria-label="Home">
+  <span class="logo-name" style="display:block;height:2rem;width:auto" aria-hidden="true"><Fragment set:html={logoNameSvg} /></span>
 </a>
 
