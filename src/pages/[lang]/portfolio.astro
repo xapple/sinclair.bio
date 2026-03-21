@@ -32,6 +32,24 @@ const t = useTranslations(lang);
         ))}
       </div>
     </div>
+
+    <div class="testimonials">
+      <h2 class="section-heading">Testimonials</h2>
+      <div class="testimonial-list">
+
+        <figure class="testimonial">
+          <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."</blockquote>
+          <figcaption>— Jane Doe, <span>CTO at Acme Corp</span></figcaption>
+        </figure>
+
+        <figure class="testimonial">
+          <blockquote>"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."</blockquote>
+          <figcaption>— John Smith, <span>Head of Data at Globex</span></figcaption>
+        </figure>
+
+      </div>
+    </div>
+
   </section>
 </Layout>
 
@@ -122,6 +140,49 @@ const t = useTranslations(lang);
     border-radius: 999px;
     border: 1px solid var(--color-border);
     color: var(--color-muted);
+  }
+
+  .testimonials {
+    margin-top: clamp(3rem, 5vw, 4.5rem);
+    border-top: 1px solid var(--color-border);
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .section-heading {
+    margin: 0 0 2rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+  }
+
+  .testimonial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .testimonial {
+    margin: 0;
+  }
+
+  .testimonial blockquote {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+    opacity: 0.8;
+    font-style: italic;
+  }
+
+  .testimonial figcaption {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .testimonial figcaption span {
+    opacity: 0.7;
   }
 
   @keyframes reveal {

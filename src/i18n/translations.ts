@@ -14,17 +14,15 @@ const defaultLang = Languages.en;
 type TranslationKey = {
   "nav:home": string;
   "nav:journey": string;
-  "nav:projects": string;
-  "nav:quote": string;
-  "nav:contact": string;
+  "nav:portfolio": string;
+  "nav:talk": string;
+  "nav:blog": string;
   "a11y:theme-switcher": string;
   "journey:page-title": string;
   "journey:heading-start": string;
   "journey:heading-accent": string;
   "journey:intro": string;
-  "cv:experience-heading": string;
-  "cv:print-button": string;
-  "home:page-title": string;
+"home:page-title": string;
   "home:tagline": string;
   "home:location": string;
   "home:cta-journey": string;
@@ -42,19 +40,17 @@ export type TranslationKeyType = keyof TranslationKey;
 
 export const translations: { [language in Languages]: TranslationKey } = {
   en: {
-    "nav:home": "Home",
+    "nav:home": "Contact",
     "nav:journey": "Journey",
-    "nav:projects": "Projects",
-    "nav:quote": "Quote",
-    "nav:contact": "Contact",
+    "nav:portfolio": "Portfolio",
+    "nav:talk": "Talk",
+    "nav:blog": "Blog",
     "a11y:theme-switcher": "Theme switcher",
-    "journey:page-title": "Sinclair | Journey",
+    "journey:page-title": "Sinclair.Bio | Journey",
     "journey:heading-start": "Work",
     "journey:heading-accent": "Experience",
     "journey:intro": "A concise timeline of my professional path, key responsibilities, and delivery impact.",
-    "cv:experience-heading": "Work Experience",
-    "cv:print-button": "Print / Save as PDF",
-    "home:page-title": "Sinclair",
+"home:page-title": "Sinclair.Bio",
     "home:tagline": "Senior Data Scientist · PhD in Bioinformatics · EPFL",
     "home:location": "Geneva, Switzerland · FR & EN native",
     "home:cta-journey": "View my journey",
@@ -68,19 +64,17 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:exp-1-desc": "Developing advanced digital products and solutions for private clients. Specialising in agentic LLMs, project management, and full-stack delivery.",
   },
   fr: {
-    "nav:home": "Accueil",
+    "nav:home": "Contact",
     "nav:journey": "Parcours",
-    "nav:projects": "Projets",
-    "nav:quote": "Citation",
-    "nav:contact": "Contact",
+    "nav:portfolio": "Portfolio",
+    "nav:talk": "Talk",
+    "nav:blog": "Blog",
     "a11y:theme-switcher": "Changer de thème",
-    "journey:page-title": "Sinclair | Parcours",
+    "journey:page-title": "Sinclair.Bio | Parcours",
     "journey:heading-start": "Work",
     "journey:heading-accent": "Experience",
     "journey:intro": "Un aperçu de mon parcours, des livrables clés et des responsabilités que je prends au quotidien.",
-    "cv:experience-heading": "Expérience professionnelle",
-    "cv:print-button": "Imprimer / Enregistrer en PDF",
-    "home:page-title": "Sinclair",
+"home:page-title": "Sinclair.Bio",
     "home:tagline": "Data Scientist Senior · Doctorat en bioinformatique · EPFL",
     "home:location": "Genève, Suisse · FR & EN natif",
     "home:cta-journey": "Mon parcours",
