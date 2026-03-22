@@ -1,5 +1,6 @@
 ---
 import Topbar from '../components/Topbar.astro';
+import GridDecoration from '../components/GridDecoration.astro';
 import { Languages } from '../i18n/translations';
 import '../styles/global.css';
 
@@ -52,7 +53,8 @@ const { title = 'Sinclair.Bio', description, lang = Languages.en } = Astro.props
       })();
     </script>
   </head>
-  <body class="min-h-screen bg-back text-ink font-sans transition-colors">
+  <body class="relative min-h-screen bg-back text-ink font-sans transition-colors overflow-x-hidden">
+    <GridDecoration />
     <Topbar lang={lang} />
     <main>
       <slot />
