@@ -36,11 +36,22 @@ function isActive(href: string): boolean {
 {links.map(({ label, href }) =>
   isActive(href) ? (
     <span class={activeClasses} aria-current="page">
-      {label}
+      <span class="nav-label" data-label={label}>{label}</span>
     </span>
   ) : (
     <a href={href} class={inactiveClasses}>
-      {label}
+      <span class="nav-label" data-label={label}>{label}</span>
     </a>
   )
 )}
+
+<style>
+  .nav-label::after {
+    content: attr(data-label);
+    font-weight: 600; /* semibold — reserves bold width */
+    display: block;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+  }
+</style>
