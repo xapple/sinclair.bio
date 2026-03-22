@@ -18,11 +18,13 @@ export function setTheme(color: "light" | "dark" | null): void {
   const themeSwitchers =
     document.querySelectorAll<HTMLButtonElement>(".theme-switcher");
 
-  // Resolve color: explicit > OS preference
+  // Resolve color: explicit > localStorage > OS preference
   if (color === null) {
     color = window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
+  } else {
+    localStorage.setItem("theme", color);
   }
 
   // Tailwind dark mode: toggle .dark class
