@@ -59,9 +59,14 @@
 .grid-decoration__grid {
   position: absolute;
   inset: 0;
+  opacity: 0.4;
   background-image:
     repeating-linear-gradient(to right,  var(--color-border) 0px, var(--color-border) 1px, transparent 1px, transparent 32px),
     repeating-linear-gradient(to bottom, var(--color-border) 0px, var(--color-border) 1px, transparent 1px, transparent 32px);
+}
+
+.dark .grid-decoration__grid {
+  opacity: 1;
 }
 
 /* Fade: paints background color over the left and bottom edges of the grid */
