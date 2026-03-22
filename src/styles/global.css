@@ -51,6 +51,36 @@
   --color-text: #ede0d0;
 }
 
+/* ---- Grid decoration ---- */
+.grid-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 66.667%;
+  height: 420px;
+  pointer-events: none;
+  user-select: none;
+  background-image:
+    repeating-linear-gradient(to right,  var(--color-border) 0px, var(--color-border) 1px, transparent 1px, transparent 32px),
+    repeating-linear-gradient(to bottom, var(--color-border) 0px, var(--color-border) 1px, transparent 1px, transparent 32px);
+}
+
+/* Fade: two overlapping gradients paint the background color over the left and bottom edges */
+.grid-decoration::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,  var(--color-back) 0%, rgba(255,255,248,0) 50%),
+    linear-gradient(to top,    var(--color-back) 0%, rgba(255,255,248,0) 50%);
+  pointer-events: none;
+}
+.dark .grid-decoration::after {
+  background:
+    linear-gradient(to right,  var(--color-back) 0%, rgba(20,12,7,0) 50%),
+    linear-gradient(to top,    var(--color-back) 0%, rgba(20,12,7,0) 50%);
+}
+
 /* ---- Logo sizing — here so it's render-blocking and never flashes ---- */
 .logo-name {
   display: block;
