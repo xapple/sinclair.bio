@@ -1,5 +1,6 @@
 ---
 import Topbar from '../components/Topbar.astro';
+import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
 import { Languages } from '../i18n/translations';
 import { ClientRouter } from 'astro:transitions';
@@ -66,11 +67,12 @@ const { title = 'Sinclair.Bio', description, lang = Languages.en } = Astro.props
       });
     </script>
   </head>
-  <body class="relative z-0 min-h-screen bg-back text-ink font-sans transition-colors overflow-x-hidden">
+  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-back font-sans text-ink transition-colors">
     <GridDecoration />
     <Topbar lang={lang} />
-    <main class="relative">
+    <main class="relative flex-1">
       <slot />
     </main>
+    <Footer lang={lang} />
   </body>
 </html>

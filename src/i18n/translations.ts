@@ -17,6 +17,8 @@ type TranslationKey = {
   "nav:portfolio": string;
   "nav:talk": string;
   "nav:blog": string;
+  "footer:copyright": string;
+  "footer:made-with": string;
   "a11y:theme-switcher": string;
   "journey:page-title": string;
   "journey:heading-start": string;
@@ -41,6 +43,21 @@ type TranslationKey = {
   "home:contact-message": string;
   "home:contact-send": string;
   "home:dm-heading": string;
+  "login:page-title": string;
+  "login:heading": string;
+  "login:intro": string;
+  "login:email-label": string;
+  "login:email-placeholder": string;
+  "login:password-label": string;
+  "login:password-placeholder": string;
+  "login:remember": string;
+  "login:forgot": string;
+  "login:notice": string;
+  "login:submit": string;
+  "login:divider": string;
+  "login:google": string;
+  "login:github": string;
+  "login:client-only": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -52,6 +69,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:portfolio": "Portfolio",
     "nav:talk": "Talk",
     "nav:blog": "Blog",
+    "footer:copyright": "© 2026 Lucas Sinclair - All rights reserved",
+    "footer:made-with": "Made with:",
     "a11y:theme-switcher": "Theme switcher",
     "journey:page-title": "Sinclair.Bio | Journey",
     "journey:heading-start": "Work",
@@ -75,7 +94,22 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-email": "Your email",
     "home:contact-message": "Your message",
     "home:contact-send": "Send",
-    "home:dm-heading": "Send a private DM",
+    "home:dm-heading": "Direct Messaging",
+    "login:page-title": "Sinclair.Bio | Client Login",
+    "login:heading": "Already a client with us?",
+    "login:intro": "Log in here to access your private space.",
+    "login:email-label": "Email",
+    "login:email-placeholder": "name@company.com",
+    "login:password-label": "Password",
+    "login:password-placeholder": "••••••••••••",
+    "login:remember": "Remember me",
+    "login:forgot": "Forgot your password?",
+    "login:notice": "This portal is not yet active.",
+    "login:submit": "Log in",
+    "login:divider": "or continue with",
+    "login:google": "Google",
+    "login:github": "GitHub",
+    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
   },
   fr: {
     "nav:home": "Contact",
@@ -83,6 +117,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:portfolio": "Portfolio",
     "nav:talk": "Talk",
     "nav:blog": "Blog",
+    "footer:copyright": "© 2026 Lucas Sinclair - Tous droits reserves",
+    "footer:made-with": "Fait avec",
     "a11y:theme-switcher": "Changer de thème",
     "journey:page-title": "Sinclair.Bio | Parcours",
     "journey:heading-start": "Work",
@@ -106,7 +142,22 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-email": "Votre email",
     "home:contact-message": "Votre message",
     "home:contact-send": "Envoyer",
-    "home:dm-heading": "Message privé",
+    "home:dm-heading": "Messagerie directe",
+    "login:page-title": "Sinclair.Bio | Espace client",
+    "login:heading": "Déjà client chez nous ?",
+    "login:intro": "Connectez-vous ici pour accéder à votre espace privé.",
+    "login:email-label": "Email",
+    "login:email-placeholder": "nom@entreprise.com",
+    "login:password-label": "Mot de passe",
+    "login:password-placeholder": "••••••••••••",
+    "login:remember": "Se souvenir de moi",
+    "login:forgot": "Mot de passe oublié ?",
+    "login:notice": "Ce portail n'est pas encore actif.",
+    "login:submit": "Se connecter",
+    "login:divider": "ou continuer avec",
+    "login:google": "Google",
+    "login:github": "GitHub",
+    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
   },
 };
 
