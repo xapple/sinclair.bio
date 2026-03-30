@@ -97,11 +97,4 @@ export function themeSwitcherManager(): void {
       }
     });
   });
-
-  // Listen for OS preference changes
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      setTheme(e.matches ? "dark" : "light");
-    });
 }

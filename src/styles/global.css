@@ -69,14 +69,24 @@
   opacity: 1;
 }
 
-/* Fade: paints background color over the left and bottom edges of the grid */
+/* Fade: paints background color over the left and bottom edges of the grid.
+   Uses background-color + CSS mask (instead of a gradient background) so the
+   color transitions smoothly with the rest of the page on theme switch.
+   background-image gradients cannot transition; background-color can. */
 .grid-decoration__fade {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(to right, var(--color-back) 0%, rgb(from var(--color-back) r g b / 0) 50%),
-    linear-gradient(to top,   var(--color-back) 0%, rgb(from var(--color-back) r g b / 0) 50%);
+  background-color: var(--color-back);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-mask-image:
+    linear-gradient(to right, black 0%, transparent 50%),
+    linear-gradient(to top,   black 0%, transparent 50%);
+  -webkit-mask-composite: source-over;
+  mask-image:
+    linear-gradient(to right, black 0%, transparent 50%),
+    linear-gradient(to top,   black 0%, transparent 50%);
+  mask-composite: add;
 }
 
 /* ---- Logo sizing — here so it's render-blocking and never flashes ---- */
