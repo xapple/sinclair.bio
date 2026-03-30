@@ -1,61 +1,61 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { Languages } from '../../i18n/translations';
+import { Languages, useTranslations } from '../../i18n/translations';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({ params: { lang } }));
 }
 
 const lang = Astro.params.lang as Languages;
+const t = useTranslations(lang);
+const loginAction = "https://client.sinclair.bio/login";
+const forgotPasswordUrl = "https://client.sinclair.bio/forgot-password";
 ---
 
-<Layout lang={lang} title="Sinclair | Login">
+<Layout lang={lang} title={t("login:page-title")}>
   <section class="login-page">
     <div class="login-shell">
       <header class="login-header">
-        <h1>Lorem ipsum</h1>
-        <p>Dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+        <h1>{t("login:heading")}</h1>
+        <p>{t("login:intro")}</p>
       </header>
 
-      <form class="login-form">
+      <form class="login-form" action={loginAction} method="post">
         <div class="field">
-          <label for="email">Consectetur</label>
-          <input id="email" type="email" placeholder="adipiscing@elit.com" disabled />
+          <label for="email">{t("login:email-label")}</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="username"
+            placeholder={t("login:email-placeholder")}
+            required
+          />
         </div>
         <div class="field">
-          <label for="password">Adipiscing elit</label>
-          <input id="password" type="password" placeholder="••••••••••••" disabled />
+          <label for="password">{t("login:password-label")}</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder={t("login:password-placeholder")}
+            required
+          />
         </div>
 
         <div class="form-options">
           <label class="checkbox-label">
-            <input type="checkbox" disabled />
-            Lorem ipsum dolor
+            <input type="checkbox" name="remember" value="true" />
+            {t("login:remember")}
           </label>
-          <a href="#" class="forgot-link">Consectetur adipiscing?</a>
+          <a href={forgotPasswordUrl} class="forgot-link">{t("login:forgot")}</a>
         </div>
 
-        <div class="placeholder-notice">
-          <span>⚠</span> Lorem ipsum dolor sit amet — this form is not yet active.
-        </div>
-
-        <button type="button" disabled>Lorem ipsum</button>
-
-        <p class="divider"><span>— Lorem ipsum —</span></p>
-
-        <div class="oauth-buttons">
-          <button type="button" class="oauth-btn" disabled>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Lorem ipsum
-          </button>
-          <button type="button" class="oauth-btn" disabled>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            Dolor sit amet
-          </button>
-        </div>
+        <button type="submit" class="submit-button">{t("login:submit")}</button>
       </form>
 
-      <p class="signup-link">Lorem ipsum dolor? <a href="#">Consectetur adipiscing</a></p>
+      <p class="signup-link">{t("login:client-only")}</p>
     </div>
   </section>
 </Layout>
@@ -125,8 +125,14 @@ const lang = Astro.params.lang as Languages;
     color: var(--color-ink);
     font-size: 0.95rem;
     font-family: inherit;
-    opacity: 0.6;
-    cursor: not-allowed;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
   }
 
   .form-options {
@@ -140,28 +146,28 @@ const lang = Astro.params.lang as Languages;
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--color-muted);
-    cursor: not-allowed;
-    opacity: 0.6;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .checkbox-label input {
+    accent-color: var(--color-accent);
+    cursor: pointer;
   }
 
   .forgot-link {
     color: var(--color-accent);
     text-decoration: none;
-    opacity: 0.5;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .placeholder-notice {
-    padding: 0.65rem 0.85rem;
-    border-radius: 0.5rem;
-    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
-    color: var(--color-muted);
-    font-size: 0.8rem;
+  .forgot-link:hover {
+    text-decoration: underline;
   }
 
-  button {
+  .submit-button {
+    appearance: none;
     width: 100%;
     padding: 0.7rem;
     border-radius: 0.5rem;
@@ -171,33 +177,21 @@ const lang = Astro.params.lang as Languages;
     font-size: 0.95rem;
     font-weight: 600;
     font-family: inherit;
-    opacity: 0.4;
-    cursor: not-allowed;
+    cursor: pointer;
+    transition: background-color 150ms ease, transform 150ms ease;
   }
 
-  .divider {
-    margin: 0;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--color-muted);
-    opacity: 0.6;
+  .submit-button:hover {
+    background: color-mix(in srgb, var(--color-accent) 88%, black);
   }
 
-  .oauth-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+  .submit-button:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+    outline-offset: 2px;
   }
 
-  .oauth-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    background: var(--color-back);
-    border: 1px solid var(--color-border) !important;
-    color: var(--color-ink);
-    font-size: 0.9rem;
+  .submit-button:active {
+    transform: translateY(1px);
   }
 
   .signup-link {
@@ -205,13 +199,7 @@ const lang = Astro.params.lang as Languages;
     text-align: center;
     font-size: 0.9rem;
     color: var(--color-muted);
-  }
-
-  .signup-link a {
-    color: var(--color-accent);
-    text-decoration: none;
-    opacity: 0.5;
-    pointer-events: none;
+    line-height: 1.5;
   }
 
   @keyframes reveal {
