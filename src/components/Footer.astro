@@ -1,0 +1,39 @@
+---
+import { useTranslations, Languages } from '../i18n/translations';
+
+import botIcon from '../assets/icons/bot.svg?raw';
+import heartIcon from '../assets/icons/heart.svg?raw';
+
+interface Props {
+  lang?: Languages;
+}
+
+const { lang = Languages.en } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<footer class="bg-bar">
+  <div class="mx-auto flex max-w-3xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-bar-fg/70 sm:flex-row">
+    <span>{t('footer:copyright')}</span>
+    <span class="flex items-center gap-2">
+      {t('footer:made-with')}
+      <span class="icon-sm" set:html={botIcon} />
+      <span>+</span>
+      <span class="icon-sm" set:html={heartIcon} />
+    </span>
+  </div>
+</footer>
+
+<style>
+  .icon-sm {
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .icon-sm > svg {
+    width: 100%;
+    height: 100%;
+  }
+</style>

@@ -5,8 +5,6 @@ import mapPin       from '../assets/icons/map-pin.svg?raw';
 import msgSquare    from '../assets/icons/message-square.svg?raw';
 import extLink      from '../assets/icons/external-link.svg?raw';
 import lockIcon     from '../assets/icons/lock.svg?raw';
-import botIcon      from '../assets/icons/bot.svg?raw';
-import heartIcon    from '../assets/icons/heart.svg?raw';
 import githubIcon   from '../assets/icons/github.svg?raw';
 import gitlabIcon   from '../assets/icons/gitlab.svg?raw';
 import linkedinIcon from '../assets/icons/linkedin.svg?raw';
@@ -171,7 +169,7 @@ const t = useTranslations(lang);
       <div class="bg-border/50 px-5 py-3">
         <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
           <span class="icon-sm" set:html={lockIcon} />
-          <span>Send us a<br />private note</span>
+          <span>{t('home:dm-heading')}</span>
         </h3>
       </div>
       <ul class="space-y-3 text-sm px-5 py-4">
@@ -208,19 +206,6 @@ const t = useTranslations(lang);
 
   </div>
 </section>
-
-<!-- Footer -->
-<footer class="bg-bar">
-  <div class="mx-auto max-w-3xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-bar-fg/70">
-    <span>© 2026 Lucas Sinclair — All rights reserved</span>
-    <span class="flex items-center gap-2">
-      Made with
-      <span class="icon-sm" set:html={botIcon} />
-      <span>+</span>
-      <span class="icon-sm" set:html={heartIcon} />
-    </span>
-  </div>
-</footer>
 
 <script>
   const form = document.getElementById('form') as HTMLFormElement;
