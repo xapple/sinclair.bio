@@ -16,6 +16,10 @@ Selected templates:
 * https://github.com/EFEELE/NeonMint
 * https://github.com/rishikesh2003/my-portfolio
 
+Nice portofolio:
+
+* https://www.raycast.com
+
 ### Run
 
     $ pnpm dev
