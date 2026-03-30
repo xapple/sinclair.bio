@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
 import { getCollection } from 'astro:content';
-import BriefcaseIcon from '../../assets/briefcase.svg?raw';
+import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({

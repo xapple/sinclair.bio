@@ -22,18 +22,25 @@ type TranslationKey = {
   "journey:heading-start": string;
   "journey:heading-accent": string;
   "journey:intro": string;
-"home:page-title": string;
+  "home:page-title": string;
+  "home:greeting": string;
+  "home:name": string;
   "home:tagline": string;
-  "home:location": string;
-  "home:cta-journey": string;
-  "home:cta-contact": string;
+  "home:card-location-heading": string;
+  "home:card-languages-heading": string;
+  "home:card-links-heading": string;
   "home:about-heading": string;
-  "home:about-body": string;
-  "home:experience-heading": string;
-  "home:exp-1-title": string;
-  "home:exp-1-company": string;
-  "home:exp-1-period": string;
-  "home:exp-1-desc": string;
+  "home:about-p1": string;
+  "home:about-p2": string;
+  "home:about-p3": string;
+  "home:about-p4": string;
+  "home:about-p5": string;
+  "home:contact-heading": string;
+  "home:contact-name": string;
+  "home:contact-email": string;
+  "home:contact-message": string;
+  "home:contact-send": string;
+  "home:dm-heading": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -50,18 +57,25 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:heading-start": "Work",
     "journey:heading-accent": "Experience",
     "journey:intro": "A concise timeline of my professional path, key responsibilities, and delivery impact.",
-"home:page-title": "Sinclair.Bio",
-    "home:tagline": "Senior Data Scientist · PhD in Bioinformatics · EPFL",
-    "home:location": "Geneva, Switzerland · FR & EN native",
-    "home:cta-journey": "View my journey",
-    "home:cta-contact": "Get in touch",
+    "home:page-title": "Sinclair.Bio",
+    "home:greeting": "Hello 👋",
+    "home:name": "I'm Lucas Sinclair",
+    "home:tagline": "Senior Data Scientist · PhD in Bioinformatics",
+    "home:card-location-heading": "Location",
+    "home:card-languages-heading": "Languages",
+    "home:card-links-heading": "Links",
     "home:about-heading": "About",
-    "home:about-body": "I've spent the last 15 years leading data-driven projects in life sciences and several other fields, turning complex research into actionable insights and driving cross-functional collaboration between scientists, clinicians, and senior management. I build digital products end-to-end — from command-line pipelines to graphical mobile applications — mastering the full tool-chain from interface design through prototyping, development, and cloud deployment. As an EPFL engineer with a PhD, I reason beyond specific tools: what matters is grasping the theoretical concepts behind computation and fundamental data structures to combine them into efficient, useful products. I lead projects end-to-end, scoping requirements with key stakeholders, assembling and mentoring the right team, and delivering results that inform strategic decision-makers.",
-    "home:experience-heading": "Experience",
-    "home:exp-1-title": "Senior Consultant Contractor",
-    "home:exp-1-company": "Various missions · Contract",
-    "home:exp-1-period": "Mar 2025 – Present · Geneva, Switzerland",
-    "home:exp-1-desc": "Developing advanced digital products and solutions for private clients. Specialising in agentic LLMs, project management, and full-stack delivery.",
+    "home:about-p1": "I've spent the last 15 years leading data-driven projects in life sciences and several other fields, turning complex research into actionable insights and driving cross-functional collaboration between scientists, clinicians, and senior management.",
+    "home:about-p2": "To do this, I build digital products. Whether it's a command line tool to automate an analysis pipeline, or a graphical mobile application, I master the full tool-chain from the initial interface design, all the way through prototyping, development and deployment to cloud servers.",
+    "home:about-p3": "I am fluent in most common technologies, but as an EPFL engineer with a PhD, I reason beyond specific brands or flavors of tools: what matters is grasping the theoretical concepts behind computation and fundamental data structures to combine these into efficient and useful products.",
+    "home:about-p4": "I lead projects end-to-end — scoping requirements with key stakeholders, assembling and mentoring the right team, finally delivering results that inform strategic decision-makers at the organizational level.",
+    "home:about-p5": "I excel at acquiring expertise in new domains very rapidly and am always keen to tackle interesting new challenges.",
+    "home:contact-heading": "Get in Touch",
+    "home:contact-name": "Your name",
+    "home:contact-email": "Your email",
+    "home:contact-message": "Your message",
+    "home:contact-send": "Send",
+    "home:dm-heading": "Send a private DM",
   },
   fr: {
     "nav:home": "Contact",
@@ -74,18 +88,25 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:heading-start": "Work",
     "journey:heading-accent": "Experience",
     "journey:intro": "Un aperçu de mon parcours, des livrables clés et des responsabilités que je prends au quotidien.",
-"home:page-title": "Sinclair.Bio",
-    "home:tagline": "Data Scientist Senior · Doctorat en bioinformatique · EPFL",
-    "home:location": "Genève, Suisse · FR & EN natif",
-    "home:cta-journey": "Mon parcours",
-    "home:cta-contact": "Me contacter",
+    "home:page-title": "Sinclair.Bio",
+    "home:greeting": "Bonjour 👋",
+    "home:name": "Je suis Lucas Sinclair",
+    "home:tagline": "Data Scientist Senior · Doctorat en bioinformatique",
+    "home:card-location-heading": "Localisation",
+    "home:card-languages-heading": "Langues",
+    "home:card-links-heading": "Liens",
     "home:about-heading": "À propos",
-    "home:about-body": "J'ai passé les 15 dernières années à piloter des projets fondés sur la donnée dans les sciences du vivant et d'autres domaines, transformant des recherches complexes en insights actionnables et facilitant la collaboration entre scientifiques, cliniciens et direction. Je construis des produits numériques de bout en bout — des pipelines en ligne de commande aux applications mobiles — en maîtrisant toute la chaîne, du design d'interface au déploiement cloud. Ingénieur EPFL avec un doctorat, je raisonne au-delà des outils spécifiques : ce qui compte, c'est la compréhension des concepts fondamentaux du calcul et des structures de données pour les combiner en produits efficaces et utiles. Je dirige les projets de A à Z, en cadrant les besoins avec les parties prenantes, en constituant et accompagnant l'équipe, et en livrant des résultats qui éclairent les décideurs stratégiques.",
-    "home:experience-heading": "Expérience",
-    "home:exp-1-title": "Consultant Indépendant Senior",
-    "home:exp-1-company": "Diverses missions · Contrat",
-    "home:exp-1-period": "Mar 2025 – Présent · Genève, Suisse",
-    "home:exp-1-desc": "Développement de produits numériques avancés pour des clients privés. Spécialisation en LLMs agentiques, gestion de projet et livraison full-stack.",
+    "home:about-p1": "J'ai passé les 15 dernières années à piloter des projets fondés sur la donnée dans les sciences du vivant et d'autres domaines, transformant des recherches complexes en insights actionnables et facilitant la collaboration entre scientifiques, cliniciens et direction.",
+    "home:about-p2": "Pour cela, je conçois des produits numériques. Qu'il s'agisse d'un outil en ligne de commande pour automatiser un pipeline d'analyse ou d'une application mobile graphique, je maîtrise l'ensemble de la chaîne : du design d'interface initial jusqu'au prototypage, au développement et au déploiement sur serveurs cloud.",
+    "home:about-p3": "Je maîtrise la plupart des technologies courantes, mais en tant qu'ingénieur EPFL avec un doctorat, je raisonne au-delà des marques ou outils spécifiques : ce qui compte, c'est la compréhension des concepts théoriques du calcul et des structures de données fondamentales pour les combiner en produits efficaces et utiles.",
+    "home:about-p4": "Je pilote les projets de bout en bout — en cadrant les besoins avec les parties prenantes clés, en constituant et accompagnant la bonne équipe, et en livrant des résultats qui éclairent les décideurs stratégiques à l'échelle organisationnelle.",
+    "home:about-p5": "J'excelle à acquérir une expertise dans de nouveaux domaines très rapidement et je suis toujours prêt à relever de nouveaux défis intéressants.",
+    "home:contact-heading": "Me contacter",
+    "home:contact-name": "Votre nom",
+    "home:contact-email": "Votre email",
+    "home:contact-message": "Votre message",
+    "home:contact-send": "Envoyer",
+    "home:dm-heading": "Message privé",
   },
 };
 

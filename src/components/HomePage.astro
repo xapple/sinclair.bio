@@ -1,6 +1,20 @@
 ---
 import { useTranslations, Languages } from '../i18n/translations';
 
+import mapPin       from '../assets/icons/map-pin.svg?raw';
+import msgSquare    from '../assets/icons/message-square.svg?raw';
+import extLink      from '../assets/icons/external-link.svg?raw';
+import lockIcon     from '../assets/icons/lock.svg?raw';
+import botIcon      from '../assets/icons/bot.svg?raw';
+import heartIcon    from '../assets/icons/heart.svg?raw';
+import githubIcon   from '../assets/icons/github.svg?raw';
+import gitlabIcon   from '../assets/icons/gitlab.svg?raw';
+import linkedinIcon from '../assets/icons/linkedin.svg?raw';
+import telegramIcon from '../assets/icons/telegram.svg?raw';
+import signalIcon   from '../assets/icons/signal.svg?raw';
+import threemaIcon  from '../assets/icons/threema.svg?raw';
+import matrixIcon   from '../assets/icons/matrix.svg?raw';
+
 interface Props {
   lang?: Languages;
 }
@@ -10,67 +24,265 @@ const t = useTranslations(lang);
 ---
 
 <!-- Hero -->
-<section class="mx-auto max-w-3xl px-6 pt-24 pb-20">
-  <p class="home-reveal mb-3 text-sm font-medium uppercase tracking-widest text-accent" style="--delay:0ms">
-    {t('home:location')}
-  </p>
-  <h1 class="home-reveal mb-4 text-6xl font-black leading-none tracking-tight text-ink" style="--delay:80ms">
-    Lucas<br />Sinclair
-  </h1>
-  <p class="home-reveal mb-10 text-lg text-muted" style="--delay:160ms">
-    {t('home:tagline')}
-  </p>
-  <div class="home-reveal flex flex-wrap gap-3" style="--delay:240ms">
-    <a
-      href={`/${lang}/journey`}
-      class="inline-block rounded-sm border border-ink bg-ink px-5 py-2.5 text-sm font-medium text-back transition-colors hover:bg-accent hover:border-accent"
-    >
-      {t('home:cta-journey')}
-    </a>
-    <a
-      href={`/${lang}/talk`}
-      class="inline-block rounded-sm border border-border px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink"
-    >
-      {t('home:cta-contact')}
-    </a>
-  </div>
-</section>
-
-<hr class="home-reveal border-border" style="--delay:340ms" />
-
-<!-- About -->
-<section class="home-reveal mx-auto max-w-3xl px-6 py-16" style="--delay:400ms">
-  <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
-    {t('home:about-heading')}
-  </h2>
-  <p class="text-base leading-relaxed text-ink/80">
-    {t('home:about-body')}
-  </p>
-</section>
-
-<hr class="home-reveal border-border" style="--delay:500ms" />
-
-<!-- Experience -->
-<section class="home-reveal mx-auto max-w-3xl px-6 py-16" style="--delay:540ms">
-  <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
-    {t('home:experience-heading')}
-  </h2>
-  <div class="flex flex-col gap-8">
-    <!-- Entry -->
-    <div class="flex gap-6">
-      <div class="mt-1 h-2 w-2 shrink-0 rounded-full bg-accent"></div>
-      <div>
-        <p class="text-base font-semibold text-ink">{t('home:exp-1-title')}</p>
-        <p class="mt-0.5 text-sm text-muted">{t('home:exp-1-company')}</p>
-        <p class="mt-0.5 text-xs text-muted">{t('home:exp-1-period')}</p>
-        <p class="mt-3 text-sm leading-relaxed text-ink/70">{t('home:exp-1-desc')}</p>
-      </div>
+<section class="home-reveal mx-auto max-w-3xl px-6 pt-16 pb-10" style="--delay:0ms">
+  <div class="flex items-center gap-6">
+    <img
+      src="/profile.jpg"
+      alt="Lucas Sinclair"
+      class="h-32 w-32 rounded-xl object-cover shrink-0 border border-ink"
+    />
+    <div>
+      <p class="text-2xl leading-snug">{t('home:greeting')}</p>
+      <h1 class="text-4xl font-black text-ink leading-tight">{t('home:name')}</h1>
+      <p class="mt-1.5 text-base text-muted">{t('home:tagline')}</p>
     </div>
   </div>
 </section>
 
+<!-- Info cards -->
+<section class="home-reveal mx-auto max-w-3xl px-6 pb-12" style="--delay:80ms">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-12">
+
+    <!-- Location -->
+    <div class="rounded-xl bg-surface border border-border overflow-hidden">
+      <div class="bg-border/50 px-5 py-3">
+        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
+          <span class="icon-sm" set:html={mapPin} />
+          {t('home:card-location-heading')}
+        </h3>
+      </div>
+      <div class="px-5 py-4 space-y-0.5">
+        <a href="https://www.openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
+        <p class="text-sm text-ink">1202, Geneva</p>
+        <p class="text-sm text-ink flex items-center gap-1">Switzerland <span>🇨🇭</span></p>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="rounded-xl bg-surface border border-border overflow-hidden">
+      <div class="bg-border/50 px-5 py-3">
+        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
+          <span class="icon-sm" set:html={msgSquare} />
+          {t('home:card-languages-heading')}
+        </h3>
+      </div>
+      <div class="px-5 py-4 space-y-0.5">
+        <p class="text-sm text-ink"><strong>English</strong>: native</p>
+        <p class="text-sm text-ink"><strong>French</strong>: native</p>
+        <p class="text-sm text-ink">Others: German (~B2)</p>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="rounded-xl bg-surface border border-border overflow-hidden">
+      <div class="bg-border/50 px-5 py-3">
+        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
+          <span class="icon-sm" set:html={extLink} />
+          {t('home:card-links-heading')}
+        </h3>
+      </div>
+      <div class="px-5 py-4 space-y-2">
+        <a href="https://github.com/xapple" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+          <span class="icon-sm" set:html={githubIcon} />
+          github/xapple
+        </a>
+        <a href="https://gitlab.com/sinclair" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+          <span class="icon-sm" set:html={gitlabIcon} />
+          gitlab/sinclair
+        </a>
+        <a href="https://linkedin.com/in/sinclair-bio" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+          <span class="icon-sm" set:html={linkedinIcon} />
+          in/sinclair-bio
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="home-reveal border-border mx-6 sm:mx-auto sm:max-w-3xl" style="--delay:160ms" />
+
+<!-- About -->
+<section class="home-reveal mx-auto max-w-3xl px-6 py-12" style="--delay:200ms">
+  <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
+    {t('home:about-heading')}
+  </h2>
+  <div class="space-y-4 text-base leading-relaxed text-ink/80">
+    <p>{t('home:about-p1')}</p>
+    <p>{t('home:about-p2')}</p>
+    <p>{t('home:about-p3')}</p>
+    <p>{t('home:about-p4')}</p>
+    <p>{t('home:about-p5')}</p>
+  </div>
+</section>
+
+<hr class="home-reveal border-border mx-6 sm:mx-auto sm:max-w-3xl" style="--delay:300ms" />
+
+<!-- Get in Touch -->
+<section class="home-reveal mx-auto max-w-3xl px-6 py-12" style="--delay:340ms">
+  <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
+    {t('home:contact-heading')}
+  </h2>
+  <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
+
+    <!-- Form -->
+    <form id="form" class="flex-1 flex flex-col gap-3 w-full">
+      <input
+        type="text"
+        name="name"
+        placeholder={t('home:contact-name')}
+        required
+        class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder={t('home:contact-email')}
+        required
+        class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+      />
+      <textarea
+        name="message"
+        placeholder={t('home:contact-message')}
+        rows={5}
+        required
+        class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none"
+      ></textarea>
+      <div class="flex items-center gap-3">
+        <button
+          type="submit"
+          class="rounded-lg bg-ink px-6 py-2.5 text-sm font-semibold text-back hover:bg-accent transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {t('home:contact-send')}
+        </button>
+        <span id="contact-status" class="text-sm"></span>
+      </div>
+    </form>
+
+    <!-- OR divider -->
+    <div class="flex md:flex-col items-center self-center gap-2 md:gap-3 text-muted/40">
+      <div class="flex-1 h-px md:h-12 w-full md:w-px bg-border"></div>
+      <span class="text-xl font-bold">OR</span>
+      <div class="flex-1 h-px md:h-12 w-full md:w-px bg-border"></div>
+    </div>
+
+    <!-- Private note -->
+    <div class="w-full md:w-56 rounded-xl bg-surface border border-border overflow-hidden">
+      <div class="bg-border/50 px-5 py-3">
+        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
+          <span class="icon-sm" set:html={lockIcon} />
+          <span>Send us a<br />private note</span>
+        </h3>
+      </div>
+      <ul class="space-y-3 text-sm px-5 py-4">
+        <li class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-1.5 text-muted shrink-0">
+            <span class="icon-xs" set:html={telegramIcon} />
+            Telegram:
+          </span>
+          <a href="https://t.me/sinclair99" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
+        </li>
+        <li class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-1.5 text-muted shrink-0">
+            <span class="icon-xs" set:html={signalIcon} />
+            Signal:
+          </span>
+          <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
+        </li>
+        <li class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-1.5 text-muted shrink-0">
+            <span class="icon-xs" set:html={threemaIcon} />
+            Threema:
+          </span>
+          <a href="https://threema.id/p3wmfn9c" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
+        </li>
+        <li class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-1.5 text-muted shrink-0">
+            <span class="icon-xs" set:html={matrixIcon} />
+            Matrix:
+          </span>
+          <a href="https://matrix.to/#/@sinclair.bio:matrix.org" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-bar">
+  <div class="mx-auto max-w-3xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-bar-fg/70">
+    <span>© 2026 Lucas Sinclair — All rights reserved</span>
+    <span class="flex items-center gap-2">
+      Made with
+      <span class="icon-sm" set:html={botIcon} />
+      <span>+</span>
+      <span class="icon-sm" set:html={heartIcon} />
+    </span>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('form') as HTMLFormElement;
+  const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const status = document.getElementById('contact-status') as HTMLSpanElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    formData.append('access_key', 'cb34a33c-14b3-4b35-b978-25080a102993');
+
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        status.textContent = '✓ Message sent!';
+        status.className = 'text-sm text-green-600 dark:text-green-400';
+        form.reset();
+      } else {
+        status.textContent = 'Error: ' + data.message;
+        status.className = 'text-sm text-red-500';
+      }
+    } catch (error) {
+      status.textContent = 'Something went wrong. Please try again.';
+      status.className = 'text-sm text-red-500';
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+</script>
 
 <style>
+  /* Icon wrappers — control size; SVG inherits currentColor from parent */
+  .icon-sm {
+    display: inline-flex;
+    width:  1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+  .icon-xs {
+    display: inline-flex;
+    width:  0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+  .icon-sm > svg,
+  .icon-xs > svg {
+    width: 100%;
+    height: 100%;
+  }
+
   .home-reveal {
     opacity: 0;
     transform: translateY(12px);
