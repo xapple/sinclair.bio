@@ -1,16 +1,115 @@
 {
   "experiences": [
     {
-      "role": "Software Development Coordinator",
-      "company": "EFEELE.DEV",
-      "period": "2021 - Present",
-      "summary": "I lead planning, development, and implementation for software initiatives. I coordinate multidisciplinary teams, streamline administrative workflows, and ensure reliable delivery of digital platforms."
+      "role": "Senior Digital Consultant",
+      "company": "Contractor",
+      "period": "2025 - Present",
+      "location": "Geneva, Switzerland",
+      "summary": "Building advanced digital products and AI-assisted solutions for private clients.",
+      "highlights": [
+        "Project management for custom digital delivery",
+        "Agentic LLM workflows and product strategy"
+      ]
     },
     {
-      "role": "Technical Project Lead",
-      "company": "EFEELE.DEV",
+      "role": "Senior Data Scientist",
+      "company": "GSK",
+      "period": "2022 - 2025",
+      "location": "Rixensart, Belgium",
+      "summary": "Led bioinformatics and data analytics work for Vaccines R&D, spanning assay design, microbial genomics, and cross-study evidence generation.",
+      "highlights": [
+        "Data and knowledge integration for hypothesis generation",
+        "Exploratory models for pre-clinical, clinical, and epidemiological datasets",
+        "Study design, readout selection, analysis strategy, and publication support"
+      ]
+    },
+    {
+      "role": "Leading Projects in Data Science, Biology, Education and IT",
+      "company": "Sinclair.Bio",
+      "period": "2017 - 2022",
+      "location": "Post-geographical",
+      "summary": "Delivered consulting work across Europe for research, education, and innovation teams, combining programming, design, and scientific leadership.",
+      "highlights": [
+        "Clients included EPFL, University of Warwick, Biomilenia, Arcadia, HUG, BRTA, University of Bergen, Insight Technology Solutions, and Oxford IR",
+        "Work ranged from data science and software delivery to UX/UI design and technical education"
+      ]
+    },
+    {
+      "role": "Application Architect",
+      "company": "European Commission",
       "period": "2019 - 2020",
-      "summary": "I owned technical scoping, aligned product decisions with business needs, and supported engineering teams in shipping high-value features on a predictable cadence."
+      "location": "Ispra, Italy",
+      "summary": "Designed and built automated data-processing pipelines for the Joint Research Centre to model forest biomass dynamics across 26 EU member countries.",
+      "highlights": [
+        "Python tools to harvest, harmonize, and compare international forest statistics",
+        "Scenario-based biomass supply and demand projections through 2050",
+        "Open-source packages and peer-reviewed publication support"
+      ]
+    },
+    {
+      "role": "Post-Doctoral Fellow",
+      "company": "University of Geneva",
+      "period": "2017",
+      "location": "Geneva, Switzerland",
+      "summary": "Studied microbial communities with DNA sequencing data in the Molecular Systematics and Environmental Genomics laboratory.",
+      "highlights": [
+        "Built infrastructure for repeatable analyses",
+        "Automated statistical workflows and visualization generation"
+      ]
+    },
+    {
+      "role": "Lead Teacher for Graduate Python Course",
+      "company": "Uppsala University",
+      "period": "2016",
+      "location": "Uppsala, Sweden",
+      "summary": "Designed and delivered a four-week Python course for 20 PhD students within the graduate education program.",
+      "highlights": [
+        "Secured stakeholder support and funding",
+        "Hired and coordinated two teaching assistants"
+      ]
+    },
+    {
+      "role": "Scientific Assistant",
+      "company": "Bioinformatics and Biostatistics Core Facility at EPFL",
+      "period": "2010 - 2012",
+      "location": "Ecublens, Switzerland",
+      "summary": "Supported research projects and developed tools for processing and analyzing high-throughput genomic sequencing data.",
+      "highlights": [
+        "Bioinformatics support across multiple collaborations",
+        "Python tooling for sequencing analysis"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "Uppsala University",
+      "degree": "Doctor of Philosophy (PhD), Bioinformatics",
+      "period": "2012 - 2016",
+      "summary": "Built automated analysis pipelines for high-throughput DNA sequencing data to characterize microbial communities in freshwater ecosystems.",
+      "details": [
+        "Developed novel bioinformatics methods during doctoral research",
+        "Activities: triathlon sport group"
+      ]
+    },
+    {
+      "school": "EPFL",
+      "degree": "Master of Science (MS), Life Sciences and Technologies",
+      "period": "2008 - 2010",
+      "summary": "Dual specialization in Bioinformatics and Computational Neuroscience, with a strong computational focus across biology and machine learning.",
+      "details": [
+        "Built and ran a student-operated wiki for teaching resource exchange",
+        "Coursework included computational molecular biology, pattern classification, and machine learning"
+      ]
+    },
+    {
+      "school": "EPFL",
+      "degree": "Bachelor of Science (BS), Life Sciences and Technologies",
+      "period": "2005 - 2008",
+      "summary": "Specialized in Biotechnology and Bioengineering with a broad quantitative foundation in science and computing.",
+      "details": [
+        "Member of the student coaching program association",
+        "Coursework included mathematical analysis, physics, chemistry, linear algebra, and computer science"
+      ]
     }
   ]
 }

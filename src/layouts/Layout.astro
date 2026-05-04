@@ -56,15 +56,39 @@ const { title = 'Sinclair.Bio', description, lang = Languages.en } = Astro.props
         if (csMeta) csMeta.content = color;
       }
 
+      function alignJourneyTimeline() {
+        window.requestAnimationFrame(function() {
+          window.requestAnimationFrame(function() {
+            var lists = document.querySelectorAll('.journey-page .entry-list');
+            lists.forEach(function(list) {
+              var axis = parseFloat(getComputedStyle(list, '::before').left || '0');
+              var paddingLeft = parseFloat(getComputedStyle(list).paddingLeft || '0');
+              Array.from(list.children).forEach(function(item) {
+                var dot = item.querySelector('.entry-dot');
+                if (!dot) return;
+                dot.style.left = (axis - paddingLeft) + 'px';
+                dot.style.transform = 'translate(-50%, -50%)';
+              });
+            });
+          });
+        });
+      }
+
       // Blocking call on hard navigation (prevents FOUC)
       applyTheme();
+      alignJourneyTimeline();
 
       // Re-apply after each SPA swap — ClientRouter resets <html> attrs to the
       // new page's static values, wiping .dark / data-theme / data-dom-loaded.
       document.addEventListener("astro:after-swap", function() {
         applyTheme();
         document.documentElement.dataset.domLoaded = "true";
+        alignJourneyTimeline();
       });
+
+      document.addEventListener("astro:page-load", alignJourneyTimeline);
+      document.addEventListener("DOMContentLoaded", alignJourneyTimeline);
+      window.addEventListener("resize", alignJourneyTimeline);
     </script>
   </head>
   <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-back font-sans text-ink transition-colors">

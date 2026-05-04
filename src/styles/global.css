@@ -132,3 +132,29 @@ html[data-theme="light"] #theme-switcher-circle {
 #theme-switcher-bg {
   transition: fill 0.3s ease;
 }
+
+/* Journey timeline markers need global, high-specificity overrides so they stay
+   aligned across Astro client-side view transitions and cached page styles. */
+.journey-page .journey-section .entry-list {
+  --timeline-axis: 0.38rem;
+  --entry-indent: clamp(1.1rem, 2vw, 1.45rem);
+  padding-left: var(--entry-indent);
+}
+
+.journey-page .journey-section .entry-list::before {
+  left: var(--timeline-axis);
+  transform: translateX(-50%);
+}
+
+.journey-page .journey-section .entry-list > .entry-item > .entry-dot {
+  left: calc(var(--timeline-axis) - var(--entry-indent));
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 700px) {
+  .journey-page .journey-section .entry-list {
+    --timeline-axis: 0.28rem;
+    --entry-indent: 0.95rem;
+    padding-left: var(--entry-indent);
+  }
+}

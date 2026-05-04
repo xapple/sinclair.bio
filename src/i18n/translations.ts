@@ -24,6 +24,12 @@ type TranslationKey = {
   "journey:heading-start": string;
   "journey:heading-accent": string;
   "journey:intro": string;
+  "journey:experience-eyebrow": string;
+  "journey:experience-title": string;
+  "journey:experience-intro": string;
+  "journey:education-eyebrow": string;
+  "journey:education-title": string;
+  "journey:education-intro": string;
   "home:page-title": string;
   "home:greeting": string;
   "home:name": string;
@@ -73,9 +79,15 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "footer:made-with": "Made with:",
     "a11y:theme-switcher": "Theme switcher",
     "journey:page-title": "Sinclair.Bio | Journey",
-    "journey:heading-start": "Work",
-    "journey:heading-accent": "Experience",
-    "journey:intro": "A concise timeline of my professional path, key responsibilities, and delivery impact.",
+    "journey:heading-start": "Professional",
+    "journey:heading-accent": "Journey",
+    "journey:intro": "A focused view of the roles, research environments, and education that shape how I build data products.",
+    "journey:experience-eyebrow": "Career",
+    "journey:experience-title": "Experience",
+    "journey:experience-intro": "From research labs and EU institutions to biotech and independent consulting.",
+    "journey:education-eyebrow": "Education",
+    "journey:education-title": "Education",
+    "journey:education-intro": "Training in life sciences, bioinformatics, and computation.",
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Hello 👋",
     "home:name": "I'm Lucas Sinclair",
@@ -117,13 +129,19 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:portfolio": "Portfolio",
     "nav:talk": "Talk",
     "nav:blog": "Blog",
-    "footer:copyright": "© 2026 Lucas Sinclair - Tous droits reserves",
+    "footer:copyright": "© 2026 Lucas Sinclair - Tous droits réservés",
     "footer:made-with": "Fait avec",
     "a11y:theme-switcher": "Changer de thème",
     "journey:page-title": "Sinclair.Bio | Parcours",
-    "journey:heading-start": "Work",
-    "journey:heading-accent": "Experience",
-    "journey:intro": "Un aperçu de mon parcours, des livrables clés et des responsabilités que je prends au quotidien.",
+    "journey:heading-start": "Parcours",
+    "journey:heading-accent": "professionnel",
+    "journey:intro": "Un aperçu resserré des rôles, des environnements de recherche et du parcours académique qui façonnent ma manière de construire des produits data.",
+    "journey:experience-eyebrow": "Carrière",
+    "journey:experience-title": "Expérience",
+    "journey:experience-intro": "Entre laboratoires de recherche, institutions européennes, biotech et conseil indépendant.",
+    "journey:education-eyebrow": "Formation",
+    "journey:education-title": "Formation",
+    "journey:education-intro": "Une formation en sciences du vivant, bioinformatique et informatique.",
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Bonjour 👋",
     "home:name": "Je suis Lucas Sinclair",

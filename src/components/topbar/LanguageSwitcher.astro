@@ -32,25 +32,30 @@ const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
   href: l === lang ? null : getAlternatePath(lang, l, currentPath),
   label: l.toUpperCase(),
 }));
+
+const activeIndex = langLinks.findIndex((link) => link.href === null);
 ---
 
 <!-- Full pill switcher — desktop only -->
-<div class="hidden md:flex items-center gap-0.5 rounded-md border border-white/20">
-  {langLinks.map((link, i) => {
-    const isFirst = i === 0;
-    const isLast = i === langLinks.length - 1;
-    const roundingClass = isFirst ? 'rounded-l-md' : isLast ? 'rounded-r-md' : '';
+<div class="language-switcher-desktop relative hidden overflow-hidden rounded-md border border-white/20 md:grid" style={`--lang-count:${langLinks.length};`}>
+  <span
+    transition:name="language-switcher-active"
+    aria-hidden="true"
+    class="language-switcher-active pointer-events-none absolute inset-y-0 left-0 z-0 rounded-[5px] bg-bar-fg"
+    style={`--lang-index:${activeIndex};`}
+  ></span>
+
+  {langLinks.map((link) => {
     const isActive = link.href === null;
+    const itemClasses = [
+      'relative z-10 flex items-center justify-center px-2.5 py-1.5 text-sm font-medium leading-none whitespace-nowrap',
+      isActive
+        ? 'text-bar'
+        : 'text-bar-fg/60 transition-colors hover:text-bar-fg',
+    ];
 
     return isActive ? (
-      <span
-        class:list={[
-          roundingClass,
-          'px-2.5 py-1.5 text-sm font-medium leading-none',
-          'bg-bar-fg text-bar',
-        ]}
-        aria-current="true"
-      >
+      <span class:list={itemClasses} aria-current="true">
         {link.label}
       </span>
     ) : (
@@ -58,11 +63,7 @@ const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
         href={link.href}
         rel="alternate"
         hreflang={link.lang}
-        class:list={[
-          roundingClass,
-          'px-2.5 py-1.5 text-sm font-medium leading-none transition-colors',
-          'text-bar-fg/60 hover:bg-white/10 hover:text-bar-fg',
-        ]}
+        class:list={itemClasses}
       >
         {link.label}
       </a>
@@ -143,6 +144,26 @@ const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
 </script>
 
 <style is:global>
+  .language-switcher-desktop {
+    grid-template-columns: repeat(var(--lang-count), minmax(0, 1fr));
+  }
+
+  .language-switcher-active {
+    width: calc(100% / var(--lang-count));
+    transform: translateX(calc(var(--lang-index) * 100%));
+  }
+
+  ::view-transition-group(language-switcher-active) {
+    animation-duration: 360ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(language-switcher-active) {
+      animation-duration: 0.01ms;
+    }
+  }
+
   #lang-dropdown-toggle svg {
     width: 1.5rem;
     height: 1.5rem;
