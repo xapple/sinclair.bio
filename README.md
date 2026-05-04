@@ -15,6 +15,7 @@ Selected templates:
 * https://github.com/manuelernestog/astrofy
 * https://github.com/EFEELE/NeonMint
 * https://github.com/rishikesh2003/my-portfolio
+* https://agentsofchaos.baulab.info
 
 Nice portofolio:
 
