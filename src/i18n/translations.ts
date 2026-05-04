@@ -97,7 +97,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Hello 👋",
     "home:name": "I'm Lucas Sinclair",
-    "home:tagline": "Senior Data Scientist · PhD in Bioinformatics",
+    "home:tagline": "Senior Data Scientist · PhD in Bioinformatics",
     "home:card-location-heading": "Location",
     "home:location-city": "1202, Geneva",
     "home:location-country": "Switzerland",
@@ -133,7 +133,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:divider": "or continue with",
     "login:google": "Google",
     "login:github": "GitHub",
-    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
+    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
   },
   fr: {
     "nav:home": "Contact",
@@ -157,7 +157,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Hello 👋",
     "home:name": "Moi c'est Lucas Sinclair",
-    "home:tagline": "Senior Data Scientist · PhD en bioinformatique",
+    "home:tagline": "Senior Data Scientist · PhD en bioinformatique",
     "home:card-location-heading": "Localisation",
     "home:location-city": "1202, Genève",
     "home:location-country": "Suisse",
@@ -193,7 +193,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:divider": "ou continuer avec",
     "login:google": "Google",
     "login:github": "GitHub",
-    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
+    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
   },
 };
 
