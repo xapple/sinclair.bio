@@ -55,7 +55,11 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
     ];
 
     return isActive ? (
-      <span class:list={itemClasses} aria-current="true">
+      <span
+        transition:name="language-switcher-active-label"
+        class:list={itemClasses}
+        aria-current="true"
+      >
         {link.label}
       </span>
     ) : (
