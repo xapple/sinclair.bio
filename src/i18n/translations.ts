@@ -35,7 +35,12 @@ type TranslationKey = {
   "home:name": string;
   "home:tagline": string;
   "home:card-location-heading": string;
+  "home:location-city": string;
+  "home:location-country": string;
   "home:card-languages-heading": string;
+  "home:language-english": string;
+  "home:language-french": string;
+  "home:language-others": string;
   "home:card-links-heading": string;
   "home:about-heading": string;
   "home:about-p1": string;
@@ -48,6 +53,7 @@ type TranslationKey = {
   "home:contact-email": string;
   "home:contact-message": string;
   "home:contact-send": string;
+  "home:contact-divider": string;
   "home:dm-heading": string;
   "login:page-title": string;
   "login:heading": string;
@@ -93,7 +99,12 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:name": "I'm Lucas Sinclair",
     "home:tagline": "Senior Data Scientist · PhD in Bioinformatics",
     "home:card-location-heading": "Location",
+    "home:location-city": "1202, Geneva",
+    "home:location-country": "Switzerland",
     "home:card-languages-heading": "Languages",
+    "home:language-english": "English: native",
+    "home:language-french": "French: native",
+    "home:language-others": "Others: German (~B2)",
     "home:card-links-heading": "Links",
     "home:about-heading": "About",
     "home:about-p1": "I've spent the last 15 years leading exciting data-driven projects in life sciences and several other fields, turning complex research into actionable business insights and driving cross-functional collaboration between scientists, clinicians, and senior management.",
@@ -106,6 +117,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-email": "Your email",
     "home:contact-message": "Your message",
     "home:contact-send": "Send",
+    "home:contact-divider": "OR",
     "home:dm-heading": "Direct Messaging",
     "login:page-title": "Sinclair.Bio | Client Login",
     "login:heading": "Already a client with us?",
@@ -143,11 +155,16 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:education-title": "Formation",
     "journey:education-intro": "Une formation en sciences du vivant, bioinformatique et informatique.",
     "home:page-title": "Sinclair.Bio",
-    "home:greeting": "Bonjour 👋",
-    "home:name": "Je suis Lucas Sinclair",
-    "home:tagline": "Data Scientist Senior · Doctorat en bioinformatique",
+    "home:greeting": "Hello 👋",
+    "home:name": "Moi c'est Lucas Sinclair",
+    "home:tagline": "Senior Data Scientist · PhD en bioinformatique",
     "home:card-location-heading": "Localisation",
+    "home:location-city": "1202, Genève",
+    "home:location-country": "Suisse",
     "home:card-languages-heading": "Langues",
+    "home:language-english": "Anglais: maternelle",
+    "home:language-french": "Francais: maternelle",
+    "home:language-others": "Autres: allemand (~B2)",
     "home:card-links-heading": "Liens",
     "home:about-heading": "À propos",
     "home:about-p1": "J'ai passé les 15 dernières années à piloter des projets fondés sur la donnée dans les sciences du vivant et d'autres domaines, transformant des recherches complexes en insights actionnables et facilitant la collaboration entre scientifiques, cliniciens et direction.",
@@ -160,6 +177,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-email": "Votre email",
     "home:contact-message": "Votre message",
     "home:contact-send": "Envoyer",
+    "home:contact-divider": "OU",
     "home:dm-heading": "Messagerie directe",
     "login:page-title": "Sinclair.Bio | Espace client",
     "login:heading": "Déjà client chez nous ?",

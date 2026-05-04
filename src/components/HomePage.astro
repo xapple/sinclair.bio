@@ -51,8 +51,8 @@ const t = useTranslations(lang);
       </div>
       <div class="px-5 py-4 space-y-0.5">
         <a href="https://www.openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
-        <p class="text-sm text-ink">1202, Geneva</p>
-        <p class="text-sm text-ink flex items-center gap-1">Switzerland <span>🇨🇭</span></p>
+        <p class="text-sm text-ink">{t('home:location-city')}</p>
+        <p class="text-sm text-ink flex items-center gap-1">{t('home:location-country')} <span>🇨🇭</span></p>
       </div>
     </div>
 
@@ -65,9 +65,9 @@ const t = useTranslations(lang);
         </h3>
       </div>
       <div class="px-5 py-4 space-y-0.5">
-        <p class="text-sm text-ink"><strong>English</strong>: native</p>
-        <p class="text-sm text-ink"><strong>French</strong>: native</p>
-        <p class="text-sm text-ink">Others: German (~B2)</p>
+        <p class="text-sm text-ink">{t('home:language-english')}</p>
+        <p class="text-sm text-ink">{t('home:language-french')}</p>
+        <p class="text-sm text-ink">{t('home:language-others')}</p>
       </div>
     </div>
 
@@ -156,7 +156,7 @@ const t = useTranslations(lang);
     <!-- OR divider -->
     <div class="flex md:flex-col items-center self-center gap-2 md:gap-3 text-muted/40">
       <div class="flex-1 h-px md:h-12 w-full md:w-px bg-border"></div>
-      <span class="text-xl font-bold">OR</span>
+      <span class="text-xl font-bold">{t('home:contact-divider')}</span>
       <div class="flex-1 h-px md:h-12 w-full md:w-px bg-border"></div>
     </div>
 
