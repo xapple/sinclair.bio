@@ -19,6 +19,7 @@ const journey = defineCollection({
       z.object({
         school: z.string(),
         degree: z.string(),
+        field: z.string().optional(),
         period: z.string(),
         summary: z.string(),
         details: z.array(z.string()).optional(),

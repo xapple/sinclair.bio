@@ -2,7 +2,7 @@
   "experiences": [
     {
       "role": "Consultant digital senior",
-      "company": "Contractor",
+      "company": "Contractant indépendant",
       "period": "2026 - Aujourd'hui",
       "location": "Genève, Suisse",
       "summary": "Conception de produits numériques avancés et de solutions assistées par l'IA pour des clients privés.",
@@ -13,7 +13,7 @@
     },
     {
       "role": "Senior Data Scientist",
-      "company": "GSK",
+      "company": "GSK (anciennement GlaxoSmithKline)",
       "period": "2022 - 2025",
       "location": "Rixensart, Belgique",
       "summary": "Pilotage d'activités de bioinformatique et d'analytics pour la R&D vaccins, entre design d'essais, génomique microbienne et génération d'hypothèses.",
@@ -58,6 +58,17 @@
       ]
     },
     {
+      "role": "Fondateur et CTO",
+      "company": "Envonautics AB",
+      "period": "2017",
+      "location": "Uppsala, Suède",
+      "summary": "CRO offrant des solutions complètes basées sur l'ADN environnemental (eDNA) pour la surveillance environnementale, avec une gestion intégrale de projet : de l'échantillonnage et du séquençage à l'analyse, jusqu'à la communication des résultats et la rédaction scientifique.",
+      "highlights": [
+        "Évaluation et atténuation des impacts environnementaux",
+        "Création de logiciels et de pipelines sur mesure."
+      ]
+    },
+    {
       "role": "Responsable du cours graduate Python",
       "company": "Uppsala University",
       "period": "2016",
@@ -83,7 +94,8 @@
   "education": [
     {
       "school": "Uppsala University",
-      "degree": "Doctorat (PhD), Bioinformatique",
+      "degree": "Doctorat (PhD)",
+      "field": "Bioinformatique",
       "period": "2012 - 2016",
       "summary": "Construction de pipelines d'analyse automatisés pour caractériser des communautés microbiennes de milieux aquatiques à partir de données de séquençage ADN.",
       "details": [
@@ -93,7 +105,8 @@
     },
     {
       "school": "EPFL",
-      "degree": "Master of Science (MS), Life Sciences and Technologies",
+      "degree": "Master of Science (MS)",
+      "field": "Life Sciences and Technologies",
       "period": "2008 - 2010",
       "summary": "Double spécialisation en bioinformatique et neurosciences computationnelles, avec un fort socle en biologie computationnelle et apprentissage automatique.",
       "details": [
@@ -103,7 +116,8 @@
     },
     {
       "school": "EPFL",
-      "degree": "Bachelor of Science (BS), Life Sciences and Technologies",
+      "degree": "Bachelor of Science (BS)",
+      "field": "Life Sciences and Technologies",
       "period": "2005 - 2008",
       "summary": "Spécialisation en biotechnologie et bio-ingénierie, avec une base quantitative large en sciences et en informatique.",
       "details": [
