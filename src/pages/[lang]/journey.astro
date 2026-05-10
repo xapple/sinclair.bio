@@ -4,6 +4,7 @@ import { Languages, useTranslations } from '../../i18n/translations';
 import { getCollection } from 'astro:content';
 import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
 import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
+import CertificateIcon from '../../assets/icons/certificate.svg?raw';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({
@@ -16,7 +17,7 @@ const t = useTranslations(lang);
 const journeyEntries = await getCollection('journey');
 const entry = journeyEntries.find((e) => e.id === lang || e.id === `${lang}.json`);
 if (!entry) throw new Error(`No journey content found for lang: ${lang}`);
-const { experiences, education } = entry.data;
+const { experiences, education, certifications = [] } = entry.data;
 ---
 
 <Layout lang={lang} title={t('journey:page-title')} description={t('journey:intro')}>
@@ -101,6 +102,52 @@ const { experiences, education } = entry.data;
             </li>
           ))}
         </ol>
+
+        {certifications.length > 0 && (
+          <>
+            <h2 class="section-heading" id="certifications-heading">
+              <span class="icon" aria-hidden="true">
+                <Fragment set:html={CertificateIcon} />
+              </span>
+              <span>{t('journey:certifications-eyebrow')}</span>
+            </h2>
+
+            <ol class="entry-list is-certifications" aria-labelledby="certifications-heading">
+              {certifications.map((item, index) => (
+                <li
+                  class="entry-item"
+                  style={`--item-index:${index + experiences.length + education.length};`}
+                >
+                  <span class="entry-dot" aria-hidden="true"></span>
+                  <article class="entry-panel">
+                    <div class="entry-left">
+                      <div class="entry-meta">
+                        <p class="period-badge">{item.period}</p>
+                      </div>
+
+                      <div class="entry-heading">
+                        <h3>{item.name}</h3>
+                        <p class="primary-meta">{item.issuer}</p>
+                        {item.field && <p class="field-meta">{item.field}</p>}
+                      </div>
+                    </div>
+
+                    <div class="entry-body">
+                      <p class="summary">{item.summary}</p>
+                      {item.details && item.details.length > 0 && (
+                        <ul class="detail-list">
+                          {item.details.map((detail) => (
+                            <li>{detail}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
       </div>
     </div>
   </section>
@@ -216,7 +263,8 @@ const { experiences, education } = entry.data;
     align-items: start;
   }
 
-  .is-education .entry-panel {
+  .is-education .entry-panel,
+  .is-certifications .entry-panel {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   }
 
@@ -325,7 +373,8 @@ const { experiences, education } = entry.data;
 
   @media (max-width: 820px) {
     .entry-panel,
-    .is-education .entry-panel {
+    .is-education .entry-panel,
+    .is-certifications .entry-panel {
       grid-template-columns: 1fr;
       gap: 0.9rem;
     }

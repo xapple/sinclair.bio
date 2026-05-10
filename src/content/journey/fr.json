@@ -125,5 +125,29 @@
         "Cours incluant analyse mathématique, physique, chimie, algèbre linéaire et informatique"
       ]
     }
+  ],
+  "certifications": [
+    {
+      "name": "Formation pédagogique universitaire",
+      "issuer": "Uppsala University",
+      "field": "Pédagogie de l'enseignement supérieur",
+      "period": "2016",
+      "summary": "Formation formelle à l'enseignement supérieur, à la conception de cours et à l'évaluation des apprentissages, qualifiant pour l'enseignement de niveau gradué dans les universités suédoises.",
+      "details": [
+        "Conception de cours, méthodes d'enseignement et évaluation des étudiants",
+        "Pratique réflexive de l'enseignement et revue par les pairs"
+      ]
+    },
+    {
+      "name": "Deep Learning Specialization",
+      "issuer": "DeepLearning.AI (Coursera)",
+      "field": "Machine Learning",
+      "period": "2018",
+      "summary": "Spécialisation en cinq cours par Andrew Ng couvrant les fondements du deep learning moderne, des réseaux de neurones aux modèles séquentiels.",
+      "details": [
+        "Réseaux de neurones, tuning des hyperparamètres, régularisation et optimisation",
+        "Structuration de projets ML, réseaux convolutifs et modèles séquentiels"
+      ]
+    }
   ]
 }

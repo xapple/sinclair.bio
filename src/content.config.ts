@@ -25,6 +25,18 @@ const journey = defineCollection({
         details: z.array(z.string()).optional(),
       })
     ),
+    certifications: z
+      .array(
+        z.object({
+          name: z.string(),
+          issuer: z.string(),
+          field: z.string().optional(),
+          period: z.string(),
+          summary: z.string(),
+          details: z.array(z.string()).optional(),
+        })
+      )
+      .optional(),
   }),
 });
 
