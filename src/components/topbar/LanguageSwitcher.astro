@@ -67,6 +67,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
         href={link.href}
         rel="alternate"
         hreflang={link.lang}
+        data-astro-reload
         class:list={itemClasses}
       >
         {link.label}
@@ -113,6 +114,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
           href={link.href}
           rel="alternate"
           hreflang={link.lang}
+          data-astro-reload
           class="block px-4 py-2 text-sm font-medium text-bar-fg/60 hover:bg-white/10 hover:text-bar-fg transition-colors"
           role="menuitem"
         >
@@ -145,22 +147,16 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
       toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // Preserve scroll across language navigation. Without this, ClientRouter
-    // scrolls to top — disorienting since the alternate-language page is the
-    // same page just translated.
+    // Preserve scroll across language navigation. The links use
+    // data-astro-reload (full page reload, no view transition) to avoid the
+    // visual artifacts that occur when SPA-swapping with content in different
+    // languages while scrolled. Layout.astro's inline script reads
+    // 'lang-switch-scroll' on the next load and restores window.scrollY.
     document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((link) => {
       link.addEventListener('click', () => {
         sessionStorage.setItem('lang-switch-scroll', String(window.scrollY));
       });
     });
-  });
-
-  document.addEventListener('astro:after-swap', () => {
-    const saved = sessionStorage.getItem('lang-switch-scroll');
-    if (saved !== null) {
-      sessionStorage.removeItem('lang-switch-scroll');
-      window.scrollTo({ top: parseInt(saved, 10), left: 0, behavior: 'instant' });
-    }
   });
 </script>
 
