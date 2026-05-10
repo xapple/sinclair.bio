@@ -1,6 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
+import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
+import QuoteIcon from '../../assets/icons/quote.svg?raw';
+import BookIcon from '../../assets/icons/book.svg?raw';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({ params: { lang } }));
@@ -11,84 +14,124 @@ const t = useTranslations(lang);
 ---
 
 <Layout lang={lang} title="Sinclair | Projects">
-  <section class="placeholder-page">
+  <section class="portfolio-page">
     <div class="page-shell">
-      <header class="page-header">
-        <h1>{t('nav:projects')}</h1>
-        <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </header>
+      <div class="section-stack">
+        <h2 class="section-heading" id="open-source-heading">
+          <span class="icon" aria-hidden="true">
+            <Fragment set:html={PackageOpenIcon} />
+          </span>
+          <span>Open Source Projects</span>
+        </h2>
 
-      <div class="card-grid">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div class="card">
-            <div class="card-thumb"></div>
-            <div class="card-body">
-              <h2>Project {i}</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-              <span class="tag">Lorem</span>
-              <span class="tag">Ipsum</span>
+        <div class="card-grid">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div class="card">
+              <div class="card-thumb"></div>
+              <div class="card-body">
+                <h3>Project {i}</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                <span class="tag">Lorem</span>
+                <span class="tag">Ipsum</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <h2 class="section-heading" id="testimonials-heading">
+          <span class="icon" aria-hidden="true">
+            <Fragment set:html={QuoteIcon} />
+          </span>
+          <span>Testimonials</span>
+        </h2>
+
+        <div class="testimonial-list">
+          <figure class="testimonial">
+            <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."</blockquote>
+            <figcaption>— Jane Doe, <span>CTO at Acme Corp</span></figcaption>
+          </figure>
+
+          <figure class="testimonial">
+            <blockquote>"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."</blockquote>
+            <figcaption>— John Smith, <span>Head of Data at Globex</span></figcaption>
+          </figure>
+        </div>
+
+        <h2 class="section-heading" id="publications-heading">
+          <span class="icon" aria-hidden="true">
+            <Fragment set:html={BookIcon} />
+          </span>
+          <span>Publications</span>
+        </h2>
+
+        <ul class="publication-list">
+          <li class="publication">
+            <p class="pub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="pub-meta">Doe J., Smith J., Sinclair L. — <em>Journal of Lorem Ipsum</em>, 2024</p>
+          </li>
+          <li class="publication">
+            <p class="pub-title">Sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+            <p class="pub-meta">Sinclair L., Doe J. — <em>Nature Lorem</em>, 2023</p>
+          </li>
+          <li class="publication">
+            <p class="pub-title">Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
+            <p class="pub-meta">Smith J., Sinclair L. — <em>Bioinformatics Ipsum</em>, 2022</p>
+          </li>
+        </ul>
       </div>
     </div>
-
-    <div class="testimonials">
-      <h2 class="section-heading">Testimonials</h2>
-      <div class="testimonial-list">
-
-        <figure class="testimonial">
-          <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."</blockquote>
-          <figcaption>— Jane Doe, <span>CTO at Acme Corp</span></figcaption>
-        </figure>
-
-        <figure class="testimonial">
-          <blockquote>"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."</blockquote>
-          <figcaption>— John Smith, <span>Head of Data at Globex</span></figcaption>
-        </figure>
-
-      </div>
-    </div>
-
   </section>
 </Layout>
 
 <style>
-  .placeholder-page {
+  .portfolio-page {
     min-height: calc(100vh - 4rem);
     color: var(--color-ink);
     padding: clamp(2rem, 5vw, 5rem) 1.25rem clamp(3rem, 5vw, 4.5rem);
   }
 
   .page-shell {
+    --section-indent: clamp(1.1rem, 2vw, 1.45rem);
+    --section-inner-pad: 1rem;
     margin: 0 auto;
     width: min(1100px, 100%);
   }
 
-  .page-header {
-    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  .section-stack {
+    display: grid;
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
   }
 
-  h1 {
-    margin: 0 0 0.75rem;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    font-weight: 800;
+  .section-heading {
+    margin: 0;
+    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+    line-height: 1;
     letter-spacing: -0.03em;
+    font-weight: 800;
     color: var(--color-ink);
   }
 
-  .subtitle {
-    margin: 0;
-    max-width: 60ch;
-    color: var(--color-muted);
-    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-    line-height: 1.6;
+  .section-heading .icon {
+    width: clamp(1.3rem, 2.2vw, 1.85rem);
+    height: clamp(1.3rem, 2.2vw, 1.85rem);
+    color: var(--color-accent);
+    display: inline-flex;
+  }
+
+  .section-stack > .section-heading ~ .section-heading {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
   }
 
   .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
+    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
   }
 
   .card {
@@ -116,14 +159,14 @@ const t = useTranslations(lang);
     padding: 1.25rem;
   }
 
-  h2 {
+  .card-body h3 {
     margin: 0 0 0.5rem;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--color-accent);
   }
 
-  p {
+  .card-body p {
     margin: 0 0 0.75rem;
     font-size: 0.9rem;
     color: var(--color-ink);
@@ -141,25 +184,11 @@ const t = useTranslations(lang);
     color: var(--color-muted);
   }
 
-  .testimonials {
-    margin-top: clamp(3rem, 5vw, 4.5rem);
-    border-top: 1px solid var(--color-border);
-    padding-top: clamp(2rem, 4vw, 3rem);
-  }
-
-  .section-heading {
-    margin: 0 0 2rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-  }
-
   .testimonial-list {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
   }
 
   .testimonial {
@@ -171,7 +200,7 @@ const t = useTranslations(lang);
     font-size: 1rem;
     line-height: 1.7;
     color: var(--color-ink);
-    opacity: 0.8;
+    opacity: 0.85;
     font-style: italic;
   }
 
@@ -184,8 +213,47 @@ const t = useTranslations(lang);
     opacity: 0.7;
   }
 
+  .publication-list {
+    list-style: none;
+    margin: 0;
+    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .publication {
+    border-left: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
+    padding: 0.15rem 0 0.15rem 1rem;
+  }
+
+  .pub-title {
+    margin: 0 0 0.3rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    line-height: 1.45;
+  }
+
+  .pub-meta {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+
   @keyframes reveal {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 700px) {
+    .portfolio-page {
+      padding-inline: 1rem;
+    }
+
+    .page-shell {
+      --section-indent: 0.95rem;
+      --section-inner-pad: 0.8rem;
+    }
   }
 </style>
