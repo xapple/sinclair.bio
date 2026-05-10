@@ -78,8 +78,21 @@ const { title = 'Sinclair.Bio', description, lang = Languages.en } = Astro.props
       applyTheme();
       alignJourneyTimeline();
 
-      // Re-apply after each SPA swap — ClientRouter resets <html> attrs to the
-      // new page's static values, wiping .dark / data-theme / data-dom-loaded.
+      // Apply theme to the INCOMING document before the swap. Setting it
+      // post-swap leaves a frame where <html> has no data-theme, which makes
+      // CSS-transitioned styles (e.g. the theme-switcher knob) animate from
+      // default to correct on every navigation.
+      document.addEventListener("astro:before-swap", function(e) {
+        var stored = localStorage.getItem('theme');
+        var color = stored === 'dark' || stored === 'light'
+          ? stored
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var html = e.newDocument.documentElement;
+        html.classList.toggle('dark', color === 'dark');
+        html.dataset.theme = color;
+        html.dataset.domLoaded = "true";
+      });
+
       document.addEventListener("astro:after-swap", function() {
         applyTheme();
         document.documentElement.dataset.domLoaded = "true";
