@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
 import { getCollection } from 'astro:content';
 import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
+import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({
@@ -21,93 +22,84 @@ const { experiences, education } = entry.data;
 <Layout lang={lang} title={t('journey:page-title')} description={t('journey:intro')}>
   <section class="journey-page">
     <div class="page-shell">
-      <header class="page-header">
-        <h1 id="journey-heading">
+      <div class="section-stack">
+        <h2 class="section-heading" id="experience-heading">
           <span class="icon" aria-hidden="true">
             <Fragment set:html={BriefcaseIcon} />
           </span>
-          <span>{t('journey:heading-start')}</span>
-          <span class="accent">{t('journey:heading-accent')}</span>
-        </h1>
-        <p>{t('journey:intro')}</p>
-      </header>
+          <span>{t('journey:experience-eyebrow')}</span>
+        </h2>
 
-      <div class="section-stack">
-        <section class="journey-section" aria-labelledby="experience-heading">
-          <div class="section-copy">
-            <p class="eyebrow" id="experience-heading">{t('journey:experience-eyebrow')}</p>
-          </div>
+        <ol class="entry-list" aria-labelledby="experience-heading">
+          {experiences.map((item, index) => (
+            <li class="entry-item" style={`--item-index:${index};`}>
+              <span class="entry-dot" aria-hidden="true"></span>
+              <article class="entry-panel">
+                <div class="entry-meta">
+                  <p class="period-badge">{item.period}</p>
+                  {item.location && <p class="entry-location">{item.location}</p>}
+                </div>
 
-          <ol class="entry-list">
-            {experiences.map((item, index) => (
-              <li class="entry-item" style={`--item-index:${index};`}>
-                <span class="entry-dot" aria-hidden="true"></span>
-                <article class="entry-panel">
-                  <div class="entry-meta">
-                    <p class="period-badge">{item.period}</p>
-                    {item.location && <p class="entry-location">{item.location}</p>}
+                <div class="entry-grid">
+                  <div class="entry-heading">
+                    <h3>{item.role}</h3>
+                    <p class="primary-meta">{item.company}</p>
+                    {item.employmentType && <p class="secondary-meta">{item.employmentType}</p>}
                   </div>
 
-                  <div class="entry-grid">
-                    <div class="entry-heading">
-                      <h3>{item.role}</h3>
-                      <p class="primary-meta">{item.company}</p>
-                      {item.employmentType && <p class="secondary-meta">{item.employmentType}</p>}
-                    </div>
-
-                    <div class="entry-body">
-                      <p class="summary">{item.summary}</p>
-                      {item.highlights && item.highlights.length > 0 && (
-                        <ul class="detail-list">
-                          {item.highlights.map((highlight) => (
-                            <li>{highlight}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+                  <div class="entry-body">
+                    <p class="summary">{item.summary}</p>
+                    {item.highlights && item.highlights.length > 0 && (
+                      <ul class="detail-list">
+                        {item.highlights.map((highlight) => (
+                          <li>{highlight}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                </article>
-              </li>
-            ))}
-          </ol>
-        </section>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
 
-        <section class="journey-section is-education" aria-labelledby="education-heading">
-          <div class="section-copy">
-            <p class="eyebrow" id="education-heading">{t('journey:education-eyebrow')}</p>
-          </div>
+        <h2 class="section-heading" id="education-heading">
+          <span class="icon" aria-hidden="true">
+            <Fragment set:html={GraduationCapIcon} />
+          </span>
+          <span>{t('journey:education-eyebrow')}</span>
+        </h2>
 
-          <ol class="entry-list">
-            {education.map((item, index) => (
-              <li class="entry-item" style={`--item-index:${index + experiences.length};`}>
-                <span class="entry-dot" aria-hidden="true"></span>
-                <article class="entry-panel">
-                  <div class="entry-meta">
-                    <p class="period-badge">{item.period}</p>
+        <ol class="entry-list is-education" aria-labelledby="education-heading">
+          {education.map((item, index) => (
+            <li class="entry-item" style={`--item-index:${index + experiences.length};`}>
+              <span class="entry-dot" aria-hidden="true"></span>
+              <article class="entry-panel">
+                <div class="entry-meta">
+                  <p class="period-badge">{item.period}</p>
+                </div>
+
+                <div class="entry-grid">
+                  <div class="entry-heading">
+                    <h3>{item.school}</h3>
+                    <p class="primary-meta">{item.degree}</p>
                   </div>
 
-                  <div class="entry-grid">
-                    <div class="entry-heading">
-                      <h3>{item.school}</h3>
-                      <p class="primary-meta">{item.degree}</p>
-                    </div>
-
-                    <div class="entry-body">
-                      <p class="summary">{item.summary}</p>
-                      {item.details && item.details.length > 0 && (
-                        <ul class="detail-list">
-                          {item.details.map((detail) => (
-                            <li>{detail}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+                  <div class="entry-body">
+                    <p class="summary">{item.summary}</p>
+                    {item.details && item.details.length > 0 && (
+                      <ul class="detail-list">
+                        {item.details.map((detail) => (
+                          <li>{detail}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                </article>
-              </li>
-            ))}
-          </ol>
-        </section>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   </section>
@@ -125,115 +117,50 @@ const { experiences, education } = entry.data;
     width: min(920px, 100%);
   }
 
-  .page-header {
-    margin: 0 auto;
-    max-width: 52rem;
-    text-align: center;
-  }
-
-  .page-header h1 {
+  .section-heading {
     margin: 0;
-    display: inline-flex;
+    padding-left: calc(clamp(1.1rem, 2vw, 1.45rem) + 1rem);
+    display: flex;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    font-size: clamp(1.65rem, 3vw, 2.45rem);
+    justify-content: flex-start;
+    gap: 0.6rem;
+    font-size: clamp(1.45rem, 2.6vw, 2.05rem);
     line-height: 1;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
     font-weight: 800;
-  }
-
-  .icon {
-    width: clamp(1.45rem, 2.5vw, 2.1rem);
-    height: clamp(1.45rem, 2.5vw, 2.1rem);
     color: var(--color-ink);
-    display: inline-flex;
   }
 
-  .accent {
+  .section-heading .icon {
+    width: clamp(1.3rem, 2.2vw, 1.85rem);
+    height: clamp(1.3rem, 2.2vw, 1.85rem);
     color: var(--color-accent);
-  }
-
-  .page-header p {
-    margin: 1rem auto 0;
-    max-width: 62ch;
-    color: var(--color-muted);
-    font-size: clamp(0.98rem, 1.2vw, 1.08rem);
-    line-height: 1.7;
+    display: inline-flex;
   }
 
   .section-stack {
     display: grid;
-    gap: clamp(1.5rem, 3vw, 2.25rem);
-    margin-top: clamp(2.5rem, 4vw, 3.5rem);
+    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
-  .journey-section {
-    position: relative;
-    border: 1px solid color-mix(in srgb, var(--color-border) 88%, transparent);
-    border-radius: 1.6rem;
-    padding: clamp(1.3rem, 3.5vw, 2rem);
-    background:
-      radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 38%),
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-surface) 82%, var(--color-back) 18%),
-        color-mix(in srgb, var(--color-back) 92%, var(--color-surface) 8%)
-      );
-    box-shadow: 0 18px 50px color-mix(in srgb, var(--color-ink) 8%, transparent);
-    overflow: hidden;
-  }
-
-  .journey-section::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(135deg, color-mix(in srgb, white 18%, transparent), transparent 45%);
-    opacity: 0.35;
-  }
-
-  .section-copy {
-    position: relative;
-    z-index: 1;
-    max-width: 42rem;
-  }
-
-  .eyebrow {
-    margin: 0;
-    color: var(--color-accent);
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+  .section-stack > .section-heading + .entry-list + .section-heading {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
   }
 
   .entry-list {
     --timeline-axis: 0.38rem;
     --entry-indent: clamp(1.1rem, 2vw, 1.45rem);
+    --entry-gap: 1.15rem;
     position: relative;
-    z-index: 1;
-    margin: 1rem 0 0;
+    margin: 0;
     padding: 0 0 0 var(--entry-indent);
     list-style: none;
   }
 
-  .entry-list::before {
-    content: '';
-    position: absolute;
-    left: var(--timeline-axis);
-    top: 0.25rem;
-    bottom: 0.25rem;
-    width: 2px;
-    background: color-mix(in srgb, var(--color-border) 88%, transparent);
-    transform: translateX(-50%);
-  }
-
   .entry-item {
     position: relative;
-    padding: 0 0 1.15rem 1rem;
+    padding: 0 0 0 1rem;
+    margin-bottom: var(--entry-gap);
     opacity: 0;
     transform: translateY(14px);
     animation: reveal 560ms ease-out forwards;
@@ -241,13 +168,32 @@ const { experiences, education } = entry.data;
   }
 
   .entry-item:last-child {
-    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .entry-item::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--timeline-axis) - var(--entry-indent));
+    top: 0;
+    bottom: calc(-1 * var(--entry-gap));
+    width: 2px;
+    background: color-mix(in srgb, var(--color-border) 88%, transparent);
+    transform: translateX(-50%);
+  }
+
+  .entry-item:first-child::before {
+    top: 50%;
+  }
+
+  .entry-item:last-child::before {
+    bottom: 50%;
   }
 
   .entry-dot {
     position: absolute;
     left: calc(var(--timeline-axis) - var(--entry-indent));
-    top: 1.05rem;
+    top: 50%;
     width: 0.72rem;
     height: 0.72rem;
     border-radius: 999px;
