@@ -30,6 +30,9 @@ type TranslationKey = {
   "journey:education-eyebrow": string;
   "journey:education-title": string;
   "journey:education-intro": string;
+  "journey:certifications-eyebrow": string;
+  "journey:certifications-title": string;
+  "journey:certifications-intro": string;
   "home:page-title": string;
   "home:greeting": string;
   "home:name": string;
@@ -97,6 +100,9 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:education-eyebrow": "Education",
     "journey:education-title": "Education",
     "journey:education-intro": "Training in life sciences, bioinformatics, and computation.",
+    "journey:certifications-eyebrow": "Certifications",
+    "journey:certifications-title": "Certifications",
+    "journey:certifications-intro": "Specialized programs in pedagogy and machine learning.",
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Hello 👋",
     "home:name": "I'm Lucas Sinclair",
@@ -160,6 +166,9 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:education-eyebrow": "Formation",
     "journey:education-title": "Formation",
     "journey:education-intro": "Une formation en sciences du vivant, bioinformatique et informatique.",
+    "journey:certifications-eyebrow": "Certifications",
+    "journey:certifications-title": "Certifications",
+    "journey:certifications-intro": "Programmes spécialisés en pédagogie et apprentissage automatique.",
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Hello 👋",
     "home:name": "Moi c'est Lucas Sinclair",
