@@ -70,6 +70,9 @@ type TranslationKey = {
   "login:google": string;
   "login:github": string;
   "login:client-only": string;
+  "talk:page-title": string;
+  "talk:heading": string;
+  "talk:intro": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -133,6 +136,9 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:divider": "or continue with",
     "login:google": "Google",
     "login:github": "GitHub",
+    "talk:page-title": "Sinclair.Bio | Talk",
+    "talk:heading": "Let's talk",
+    "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
     "login:client-only": "Accounts are issued to new clients. Registration is not available.",
   },
   fr: {
@@ -193,6 +199,9 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:divider": "ou continuer avec",
     "login:google": "Google",
     "login:github": "GitHub",
+    "talk:page-title": "Sinclair.Bio | Échange",
+    "talk:heading": "Discutons",
+    "talk:intro": "Choisissez un créneau qui vous convient. Un échange rapide pour voir comment je peux vous aider — sans engagement, sans préparation.",
     "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
   },
 };

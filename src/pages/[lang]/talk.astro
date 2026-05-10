@@ -8,67 +8,140 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
+
+// Cal.com inline embed configuration.
+const CAL_LINK = 'sinclair.bio';
+const CAL_NAMESPACE = '30min';
+const CAL_ORIGIN = 'https://app.cal.eu';
+const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
 ---
 
-<Layout lang={lang} title="Sinclair | Quote">
-  <section class="placeholder-page">
-    <div class="page-shell">
-      <header class="page-header">
-        <h1>{t('nav:quote')}</h1>
-        <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+<Layout lang={lang} title={t('talk:page-title')}>
+  <section class="talk-page">
+    <div class="talk-shell">
+      <header class="talk-header">
+        <h1>{t('talk:heading')}</h1>
+        <p class="subtitle">{t('talk:intro')}</p>
       </header>
 
-      <form class="quote-form">
-        <div class="field-row">
-          <div class="field">
-            <label for="name">Lorem ipsum</label>
-            <input id="name" type="text" placeholder="Dolor sit amet" disabled />
-          </div>
-          <div class="field">
-            <label for="email">Consectetur</label>
-            <input id="email" type="email" placeholder="adipiscing@elit.com" disabled />
-          </div>
-        </div>
-        <div class="field">
-          <label for="org">Adipiscing elit</label>
-          <input id="org" type="text" placeholder="Sed do eiusmod" disabled />
-        </div>
-        <div class="field">
-          <label for="scope">Tempor incididunt</label>
-          <textarea id="scope" rows="5" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam…" disabled></textarea>
-        </div>
-        <div class="field">
-          <label for="budget">Labore et dolore</label>
-          <select id="budget" disabled>
-            <option>Lorem ipsum</option>
-            <option>Dolor sit amet</option>
-            <option>Consectetur adipiscing</option>
-          </select>
-        </div>
-        <div class="placeholder-notice">
-          <span>⚠</span> Lorem ipsum dolor sit amet — this form is not yet active.
-        </div>
-        <button type="button" disabled>Lorem ipsum</button>
-      </form>
+      <div
+        id="cal-inline"
+        class="cal-inline"
+        data-cal-link={CAL_LINK}
+        data-cal-namespace={CAL_NAMESPACE}
+        data-cal-origin={CAL_ORIGIN}
+        data-cal-embed-src={CAL_EMBED_SRC}
+      ></div>
     </div>
   </section>
 </Layout>
 
+<script>
+  // Cal.com inline embed — re-initialised on every Astro view-transition load.
+  function getCalTheme(): 'dark' | 'light' {
+    return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  }
+
+  function initCalEmbed() {
+    const el = document.getElementById('cal-inline');
+    if (!el) return;
+
+    const calLink = el.dataset.calLink;
+    const namespace = el.dataset.calNamespace;
+    const origin = el.dataset.calOrigin || 'https://cal.com';
+    const embedSrc = el.dataset.calEmbedSrc || 'https://app.cal.com/embed/embed.js';
+    if (!calLink || !namespace) return;
+
+    // Official Cal.com embed bootstrap (loads embed.js once, queues calls).
+    (function (C: any, A: string, L: string) {
+      let p = function (a: any, ar: any) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api: any = function () { p(api, arguments); };
+          const ns = ar[1];
+          api.q = api.q || [];
+          if (typeof ns === 'string') {
+            cal.ns[ns] = cal.ns[ns] || api;
+            p(cal.ns[ns], ar);
+            p(cal, ['initNamespace', ns]);
+          } else {
+            p(cal, ar);
+          }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, embedSrc, 'init');
+
+    const Cal = (window as any).Cal;
+    const theme = getCalTheme();
+
+    Cal('init', namespace, { origin });
+
+    // Clear any previous render (SPA re-mount).
+    el.innerHTML = '';
+
+    Cal.ns[namespace]('inline', {
+      elementOrSelector: '#cal-inline',
+      config: { layout: 'month_view', theme, useSlotsViewOnSmallScreen: 'true' },
+      calLink,
+    });
+
+    Cal.ns[namespace]('ui', {
+      hideEventTypeDetails: false,
+      layout: 'month_view',
+      theme,
+      cssVarsPerTheme: {
+        light: { 'cal-brand': '#c2410c' },
+        dark: { 'cal-brand': '#fb923c' },
+      },
+    });
+  }
+
+  // Re-mount Cal embed when the user toggles the site theme — the iframe
+  // bakes the theme into its URL, so a soft `ui` update doesn't re-theme it.
+  let lastTheme: string | null = null;
+  function watchThemeChanges() {
+    const html = document.documentElement;
+    lastTheme = getCalTheme();
+    const observer = new MutationObserver(() => {
+      const theme = getCalTheme();
+      if (theme === lastTheme) return;
+      lastTheme = theme;
+      initCalEmbed();
+    });
+    observer.observe(html, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+
+  initCalEmbed();
+  watchThemeChanges();
+  document.addEventListener('astro:page-load', initCalEmbed);
+</script>
+
 <style>
-  .placeholder-page {
+  .talk-page {
     min-height: calc(100vh - 4rem);
     color: var(--color-ink);
     padding: clamp(2rem, 5vw, 5rem) 1.25rem clamp(3rem, 5vw, 4.5rem);
   }
 
-  .page-shell {
+  .talk-shell {
     margin: 0 auto;
-    width: min(680px, 100%);
+    width: min(960px, 100%);
     animation: reveal 400ms ease-out both;
   }
 
-  .page-header {
-    margin-bottom: clamp(2rem, 4vw, 3rem);
+  .talk-header {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
   }
 
   h1 {
@@ -87,69 +160,13 @@ const t = useTranslations(lang);
     line-height: 1.6;
   }
 
-  .quote-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-muted);
-    letter-spacing: 0.02em;
-  }
-
-  input, textarea, select {
-    padding: 0.6rem 0.85rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
+  .cal-inline {
+    width: 100%;
+    min-height: 640px;
+    border-radius: 0.75rem;
+    overflow: hidden;
     background: var(--color-surface);
-    color: var(--color-ink);
-    font-size: 0.95rem;
-    font-family: inherit;
-    opacity: 0.6;
-    cursor: not-allowed;
-    resize: vertical;
-  }
-
-  .placeholder-notice {
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
-    color: var(--color-muted);
-    font-size: 0.85rem;
-  }
-
-  button {
-    align-self: flex-start;
-    padding: 0.65rem 1.75rem;
-    border-radius: 0.5rem;
-    border: none;
-    background: var(--color-accent);
-    color: #fff;
-    font-size: 0.95rem;
-    font-weight: 600;
-    font-family: inherit;
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  @media (max-width: 540px) {
-    .field-row { grid-template-columns: 1fr; }
+    border: 1px solid var(--color-border);
   }
 
   @keyframes reveal {
