@@ -16,7 +16,6 @@ type TranslationKey = {
   "nav:journey": string;
   "nav:portfolio": string;
   "nav:talk": string;
-  "nav:blog": string;
   "footer:copyright": string;
   "footer:made-with": string;
   "a11y:theme-switcher": string;
@@ -76,6 +75,10 @@ type TranslationKey = {
   "talk:page-title": string;
   "talk:heading": string;
   "talk:intro": string;
+  "portfolio:open-source-heading": string;
+  "portfolio:testimonials-heading": string;
+  "portfolio:publications-heading": string;
+  "portfolio:classes-heading": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -86,7 +89,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:journey": "Journey",
     "nav:portfolio": "Portfolio",
     "nav:talk": "Talk",
-    "nav:blog": "Blog",
     "footer:copyright": "© 2026 Lucas Sinclair - All rights reserved",
     "footer:made-with": "Made with:",
     "a11y:theme-switcher": "Theme switcher",
@@ -120,7 +122,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:about-p2": "To achieve this, I build innovative digital products. Whether it's a command line tool to automate an analysis pipeline, or a graphical mobile application, I master the full production chain from the initial interface design, all the way through prototyping, development and deployment to cloud servers.",
     "home:about-p3": "I am fluent in most common technologies, and as an EPFL engineer with a PhD, I reason beyond specific brands or flavors of tools: what matters is grasping the theoretical concepts behind computation and fundamental data structures to combine these into efficient and useful products that deliver value.",
     "home:about-p4": "I lead projects end-to-end — scoping requirements with key stakeholders, assembling and mentoring the right team, in order to delivering results that inform strategic decision-makers at the organizational level.",
-    "home:about-p5": "I excel at acquiring expertise in new domains very rapidly and am always keen to tackle interesting new challenges.",
+    "home:about-p5": "I excel at acquiring expertise in novel domains very rapidly and am always keen to tackle interesting new challenges.",
     "home:contact-heading": "Get in Touch",
     "home:contact-name": "Your name",
     "home:contact-email": "Your email",
@@ -145,14 +147,17 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "talk:page-title": "Sinclair.Bio | Talk",
     "talk:heading": "Let's talk",
     "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
-    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
+    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
+    "portfolio:open-source-heading": "Some Open Source Projects I've Built",
+    "portfolio:testimonials-heading": "Some Testimonials I've Received",
+    "portfolio:publications-heading": "Some Publications I Wrote",
+    "portfolio:classes-heading": "Some Classes I've Taken",
   },
   fr: {
     "nav:home": "Contact",
     "nav:journey": "Parcours",
     "nav:portfolio": "Portfolio",
     "nav:talk": "Discuter",
-    "nav:blog": "Blog",
     "footer:copyright": "© 2026 Lucas Sinclair - Tous droits réservés",
     "footer:made-with": "Fait avec",
     "a11y:theme-switcher": "Changer de thème",
@@ -170,9 +175,9 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "journey:certifications-title": "Certifications",
     "journey:certifications-intro": "Programmes spécialisés en pédagogie et apprentissage automatique.",
     "home:page-title": "Sinclair.Bio",
-    "home:greeting": "Hello 👋",
+    "home:greeting": "Bonjour 👋",
     "home:name": "Moi c'est Lucas Sinclair",
-    "home:tagline": "Senior Data Scientist · PhD en bioinformatique",
+    "home:tagline": "Data Scientist Senior · PhD en bioinformatique",
     "home:card-location-heading": "Localisation",
     "home:location-city": "1202, Genève",
     "home:location-country": "Suisse",
@@ -182,11 +187,11 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:language-others": "Autres: allemand (~B2)",
     "home:card-links-heading": "Liens",
     "home:about-heading": "À propos",
-    "home:about-p1": "J'ai passé les 15 dernières années à piloter des projets fondés sur la donnée dans les sciences du vivant et d'autres domaines, transformant des recherches complexes en insights actionnables et facilitant la collaboration entre scientifiques, cliniciens et direction.",
-    "home:about-p2": "Pour cela, je conçois des produits numériques. Qu'il s'agisse d'un outil en ligne de commande pour automatiser un pipeline d'analyse ou d'une application mobile graphique, je maîtrise l'ensemble de la chaîne : du design d'interface initial jusqu'au prototypage, au développement et au déploiement sur serveurs cloud.",
-    "home:about-p3": "Je maîtrise la plupart des technologies courantes, mais en tant qu'ingénieur EPFL avec un doctorat, je raisonne au-delà des marques ou outils spécifiques : ce qui compte, c'est la compréhension des concepts théoriques du calcul et des structures de données fondamentales pour les combiner en produits efficaces et utiles.",
-    "home:about-p4": "Je pilote les projets de bout en bout — en cadrant les besoins avec les parties prenantes clés, en constituant et accompagnant la bonne équipe, et en livrant des résultats qui éclairent les décideurs stratégiques à l'échelle organisationnelle.",
-    "home:about-p5": "J'excelle à acquérir une expertise dans de nouveaux domaines très rapidement et je suis toujours prêt à relever de nouveaux défis intéressants.",
+    "home:about-p1": "J'ai passé les 15 dernières années à piloter des projets axés sur les data dans les sciences de la vie ainsi que dans plusieurs autres domaines, transformant des travaux de recherche complexes en informations exploitables pour l’entreprise, tout en favorisant la collaboration transverse entre scientifiques, cliniciens et membres de la direction.",
+    "home:about-p2": "Dans cet objectif, je conçois des produits numériques innovants. Qu’il s’agisse d’un outil en ligne de commande pour automatiser un pipeline d’analyse ou d’une application mobile dotée d’une interface graphique, je maîtrise l’ensemble de la chaîne de production, de la conception initiale de l’interface au prototypage, puis au développement et au déploiement sur des serveurs cloud.",
+    "home:about-p3": "Je maîtrise la plupart des technologies courantes mais, en tant qu’ingénieur EPFL titulaire d’un doctorat, j’aborde les outils au-delà de leurs spécificités. Pour moi, l’essentiel est de comprendre les concepts théoriques computationnels et les structures de données fondamentales, afin de les combiner en solutions adaptées, efficaces et créatrices de valeur.",
+    "home:about-p4": "Je mène des projets de bout en bout — en commençant par la définition des besoins avec les parties prenantes, puis en constituant et accompagnant la bonne équipe, et finalement en livrant des résultats qui éclairent les décideurs stratégiques à l'échelle organisationnelle.",
+    "home:about-p5": "J’excelle dans l’acquisition rapide d’expertise dans de nouveaux domaines et je suis toujours enthousiaste à l’idée de relever des défis stimulants.",
     "home:contact-heading": "Me contacter",
     "home:contact-name": "Votre nom",
     "home:contact-email": "Votre email",
@@ -210,8 +215,12 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:github": "GitHub",
     "talk:page-title": "Sinclair.Bio | Échange",
     "talk:heading": "Discutons",
-    "talk:intro": "Choisissez un créneau qui vous convient. Un échange rapide pour voir comment je peux vous aider — sans engagement, sans préparation.",
-    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
+    "talk:intro": "Choisissez un créneau qui vous convient. Un échange rapide pour voir comment je peux vous aider — sans engagement, sans préparation nécessaire.",
+    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
+    "portfolio:open-source-heading": "Quelques projets open source que j'ai créés",
+    "portfolio:testimonials-heading": "Quelques témoignages que j'ai reçus",
+    "portfolio:publications-heading": "Quelques publications que j'ai écrites",
+    "portfolio:classes-heading": "Quelques cours que j'ai suivis",
   },
 };
 
