@@ -179,6 +179,9 @@ const { experiences, education, certifications = [] } = entry.data;
     letter-spacing: -0.03em;
     font-weight: 800;
     color: var(--color-ink);
+    opacity: 0;
+    transform: translateY(14px);
+    animation: reveal 560ms ease-out forwards;
   }
 
   .section-heading .icon {

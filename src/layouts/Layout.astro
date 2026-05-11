@@ -31,16 +31,6 @@ const { title = 'Sinclair.Bio', description, lang = Languages.en } = Astro.props
       // DOMContentLoaded: reveal content after scripts are ready
       document.addEventListener("DOMContentLoaded", function() {
         document.documentElement.dataset.domLoaded = "true";
-
-        // Restore scroll after a language switch. The language links use
-        // data-astro-reload (full reload, no view transition) — see
-        // LanguageSwitcher.astro for why. Scroll is saved to sessionStorage
-        // on click and restored here once main/footer are visible.
-        var langScroll = sessionStorage.getItem('lang-switch-scroll');
-        if (langScroll !== null) {
-          sessionStorage.removeItem('lang-switch-scroll');
-          window.scrollTo(0, parseInt(langScroll, 10));
-        }
       });
 
       function applyTheme() {

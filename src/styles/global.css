@@ -120,6 +120,17 @@ html:not([data-dom-loaded]) footer {
   }
 }
 
+/* ---- View transition policy ----
+   The default `root` group fades the entire page on every SPA swap, which
+   produces a jarring fade-out / fade-in (and partial-render artifacts when
+   scrolled, since old/new snapshots show different content). We disable it
+   here so navigation looks instant. Named groups still animate on their own
+   timing — see ::view-transition-group(language-switcher-active) below. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
 /* Sliding circle: moves right in light mode, stays left in dark */
 html[data-theme="light"] #theme-switcher-circle {
   transform: translate(50%, 0);
