@@ -151,7 +151,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "nav:home": "Contact",
     "nav:journey": "Parcours",
     "nav:portfolio": "Portfolio",
-    "nav:talk": "Talk",
+    "nav:talk": "Discuter",
     "nav:blog": "Blog",
     "footer:copyright": "© 2026 Lucas Sinclair - Tous droits réservés",
     "footer:made-with": "Fait avec",
