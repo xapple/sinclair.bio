@@ -4,6 +4,7 @@ import { Languages, useTranslations } from '../../i18n/translations';
 import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
 import QuoteIcon from '../../assets/icons/quote.svg?raw';
 import BookIcon from '../../assets/icons/book.svg?raw';
+import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({ params: { lang } }));
@@ -21,7 +22,7 @@ const t = useTranslations(lang);
           <span class="icon" aria-hidden="true">
             <Fragment set:html={PackageOpenIcon} />
           </span>
-          <span>Open Source Projects</span>
+          <span>{t("portfolio:open-source-heading")}</span>
         </h2>
 
         <div class="card-grid">
@@ -42,7 +43,7 @@ const t = useTranslations(lang);
           <span class="icon" aria-hidden="true">
             <Fragment set:html={QuoteIcon} />
           </span>
-          <span>Testimonials</span>
+          <span>{t("portfolio:testimonials-heading")}</span>
         </h2>
 
         <div class="testimonial-list">
@@ -61,7 +62,7 @@ const t = useTranslations(lang);
           <span class="icon" aria-hidden="true">
             <Fragment set:html={BookIcon} />
           </span>
-          <span>Publications</span>
+          <span>{t("portfolio:publications-heading")}</span>
         </h2>
 
         <ul class="publication-list">
@@ -76,6 +77,28 @@ const t = useTranslations(lang);
           <li class="publication">
             <p class="pub-title">Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
             <p class="pub-meta">Smith J., Sinclair L. — <em>Bioinformatics Ipsum</em>, 2022</p>
+          </li>
+        </ul>
+
+        <h2 class="section-heading" id="classes-heading">
+          <span class="icon" aria-hidden="true">
+            <Fragment set:html={GraduationCapIcon} />
+          </span>
+          <span>{t("portfolio:classes-heading")}</span>
+        </h2>
+
+        <ul class="publication-list">
+          <li class="publication">
+            <p class="pub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="pub-meta">Lorem University — 2024</p>
+          </li>
+          <li class="publication">
+            <p class="pub-title">Sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+            <p class="pub-meta">Ipsum Institute — 2023</p>
+          </li>
+          <li class="publication">
+            <p class="pub-title">Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
+            <p class="pub-meta">Dolor Academy — 2022</p>
           </li>
         </ul>
       </div>
