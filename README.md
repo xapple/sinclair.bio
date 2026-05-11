@@ -17,10 +17,15 @@ Selected templates:
 * https://github.com/rishikesh2003/my-portfolio
 * https://agentsofchaos.baulab.info
 
-Nice portofolio:
+Nice portfolio:
 
 * https://www.raycast.com
 
 ### Run
 
     $ pnpm dev
+
+## TODO
+
+* Add a small box below "Direct Messaging" that says "Short Meeting" and "Schedule a quick talk with me". The icon can be two speech bubbles, in standard simple SVG. It simply redirecty to the "Talk" page when clicked.
+* Setup the login endpoint.
