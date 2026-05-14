@@ -5,6 +5,7 @@ import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
 import QuoteIcon from '../../assets/icons/quote.svg?raw';
 import BookIcon from '../../assets/icons/book.svg?raw';
 import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
+import OrcidIcon from '../../assets/icons/orcid.svg?raw';
 
 export function getStaticPaths() {
   return Object.values(Languages).map((lang) => ({ params: { lang } }));
@@ -98,6 +99,14 @@ const t = useTranslations(lang);
             <p class="pub-meta">David F.P.A., Delafontaine J., …, Sinclair L., et al. — <em>PLOS One</em>, 2014</p>
           </li>
         </ul>
+
+        <p class="orcid-link-wrap">
+          <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
+            <span class="orcid-icon" aria-hidden="true"><Fragment set:html={OrcidIcon} /></span>
+            <span>More on ORCID</span>
+            <span class="orcid-arrow" aria-hidden="true">→</span>
+          </a>
+        </p>
 
         <h2 class="section-heading" id="classes-heading">
           <span class="icon" aria-hidden="true">
@@ -287,6 +296,45 @@ const t = useTranslations(lang);
   .pub-title a:focus-visible {
     color: var(--color-accent);
     text-decoration: underline;
+  }
+
+  .orcid-link-wrap {
+    margin: 0.5rem 0 0;
+    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
+  }
+
+  .orcid-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .orcid-icon {
+    display: inline-flex;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .orcid-icon :global(svg) {
+    display: block;
+  }
+
+  .orcid-arrow {
+    transition: transform 0.15s ease;
+  }
+
+  .orcid-link:hover,
+  .orcid-link:focus-visible {
+    color: var(--color-ink);
+  }
+
+  .orcid-link:hover .orcid-arrow,
+  .orcid-link:focus-visible .orcid-arrow {
+    transform: translateX(2px);
   }
 
   .pub-meta {
