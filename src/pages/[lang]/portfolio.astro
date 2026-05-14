@@ -82,16 +82,20 @@ const t = useTranslations(lang);
 
         <ul class="publication-list">
           <li class="publication">
-            <p class="pub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-            <p class="pub-meta">Doe J., Smith J., Sinclair L. — <em>Journal of Lorem Ipsum</em>, 2024</p>
+            <p class="pub-title"><a href="https://doi.org/10.3390/f12020176" target="_blank" rel="noopener noreferrer">Comparing Reported Forest Biomass Gains and Losses in European and Global Datasets</a></p>
+            <p class="pub-meta">Sinclair L., Rougieux P. — <em>Forests</em>, 2021</p>
           </li>
           <li class="publication">
-            <p class="pub-title">Sed do eiusmod tempor incididunt ut labore et dolore magna</p>
-            <p class="pub-meta">Sinclair L., Doe J. — <em>Nature Lorem</em>, 2023</p>
+            <p class="pub-title"><a href="https://doi.org/10.7717/peerj.2690" target="_blank" rel="noopener noreferrer">Seqenv: linking sequences to environments through text mining</a></p>
+            <p class="pub-meta">Sinclair L., Ijaz U.Z., Jensen L.J., et al. — <em>PeerJ</em>, 2016</p>
           </li>
           <li class="publication">
-            <p class="pub-title">Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
-            <p class="pub-meta">Smith J., Sinclair L. — <em>Bioinformatics Ipsum</em>, 2022</p>
+            <p class="pub-title"><a href="https://doi.org/10.1371/journal.pone.0116955" target="_blank" rel="noopener noreferrer">Microbial Community Composition and Diversity via 16S rRNA Gene Amplicons: Evaluating the Illumina Platform</a></p>
+            <p class="pub-meta">Sinclair L., Osman O.A., Bertilsson S., Eiler A. — <em>PLOS One</em>, 2015</p>
+          </li>
+          <li class="publication">
+            <p class="pub-title"><a href="https://doi.org/10.1371/journal.pone.0085879" target="_blank" rel="noopener noreferrer">HTSstation: A Web Application and Open-Access Libraries for High-Throughput Sequencing Data Analysis</a></p>
+            <p class="pub-meta">David F.P.A., Delafontaine J., …, Sinclair L., et al. — <em>PLOS One</em>, 2014</p>
           </li>
         </ul>
 
@@ -270,6 +274,19 @@ const t = useTranslations(lang);
     font-weight: 700;
     color: var(--color-ink);
     line-height: 1.45;
+  }
+
+  .pub-title a {
+    color: inherit;
+    text-decoration: none;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  .pub-title a:hover,
+  .pub-title a:focus-visible {
+    color: var(--color-accent);
+    text-decoration: underline;
   }
 
   .pub-meta {
