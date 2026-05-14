@@ -57,6 +57,8 @@ type TranslationKey = {
   "home:contact-send": string;
   "home:contact-divider": string;
   "home:dm-heading": string;
+  "home:meeting-heading": string;
+  "home:meeting-body": string;
   "login:page-title": string;
   "login:heading": string;
   "login:intro": string;
@@ -130,6 +132,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-send": "Send",
     "home:contact-divider": "OR",
     "home:dm-heading": "Direct Messaging",
+    "home:meeting-heading": "Short Meeting",
+    "home:meeting-body": "Schedule a quick talk",
     "login:page-title": "Sinclair.Bio | Client Login",
     "login:heading": "Already a client with us?",
     "login:intro": "Log in here to access your private space.",
@@ -199,6 +203,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-send": "Envoyer",
     "home:contact-divider": "OU",
     "home:dm-heading": "Messagerie directe",
+    "home:meeting-heading": "Rendez-vous rapide",
+    "home:meeting-body": "Planifier un échange rapide",
     "login:page-title": "Sinclair.Bio | Espace client",
     "login:heading": "Déjà client chez nous ?",
     "login:intro": "Connectez-vous ici pour accéder à votre espace privé.",
