@@ -21,6 +21,16 @@ Nice portfolio:
 
 * https://www.raycast.com
 
+Icon libraries:
+
+* https://phosphoricons.com/
+* https://iconoir.com
+* https://heroicons.com
+* https://tabler.io/icons
+* https://lucide.dev/icons
+* https://icons.getbootstrap.com/
+
+
 ### Run
 
     $ pnpm dev
