@@ -81,6 +81,7 @@ type TranslationKey = {
   "portfolio:testimonials-heading": string;
   "portfolio:publications-heading": string;
   "portfolio:classes-heading": string;
+  "portfolio:course-figma-title": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -156,6 +157,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:testimonials-heading": "Testimonials",
     "portfolio:publications-heading": "Selected Publications",
     "portfolio:classes-heading": "Selected Coursework",
+    "portfolio:course-figma-title": "UX and UI Design with Figma",
   },
   fr: {
     "nav:home": "Contact",
@@ -227,6 +229,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:testimonials-heading": "Témoignages",
     "portfolio:publications-heading": "Sélection de publications",
     "portfolio:classes-heading": "Sélection de cours suivis",
+    "portfolio:course-figma-title": "UX et UI Design avec Figma",
   },
 };
 
