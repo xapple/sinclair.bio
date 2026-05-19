@@ -4,10 +4,6 @@ export enum Languages {
   fr = "fr",
 }
 
-export const supportedLanguages = Object.keys(Languages).filter((k) =>
-  isNaN(k as any)
-);
-
 const defaultLang = Languages.en;
 
 // --- Translation keys (flat, colon-separated, fully typed) ---
@@ -263,13 +259,14 @@ export function useTranslations(
   };
 }
 
+const LANGUAGE_VALUES = new Set<string>(Object.values(Languages));
+
 /**
  * Extract language from the URL pathname.
  * Expects URLs like /en/..., /fr/...
  * Falls back to Languages.en if unrecognized.
  */
 export function getLangFromUrl(url: URL): Languages {
-  const [, lang] = url.pathname.split("/");
-  if (lang in translations) return Languages[lang as keyof typeof Languages];
-  return defaultLang;
+  const [, segment] = url.pathname.split("/");
+  return LANGUAGE_VALUES.has(segment) ? (segment as Languages) : defaultLang;
 }
