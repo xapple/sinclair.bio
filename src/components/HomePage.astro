@@ -126,6 +126,8 @@ const t = useTranslations(lang);
         type="text"
         name="name"
         placeholder={t('home:contact-name')}
+        aria-label={t('home:contact-name')}
+        autocomplete="name"
         required
         class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
       />
@@ -133,12 +135,15 @@ const t = useTranslations(lang);
         type="email"
         name="email"
         placeholder={t('home:contact-email')}
+        aria-label={t('home:contact-email')}
+        autocomplete="email"
         required
         class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
       />
       <textarea
         name="message"
         placeholder={t('home:contact-message')}
+        aria-label={t('home:contact-message')}
         rows={5}
         required
         class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none"
