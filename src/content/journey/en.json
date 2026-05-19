@@ -131,7 +131,6 @@
       "name": "Project Management Professional (PMP)",
       "href": "https://www.credly.com/earner/earned/badge/64dc6641-a122-4c11-b38a-8dfe41d1ce8a",
       "issuer": "Project Management Institute (PMI)",
-      "field": "Project Management",
       "period": "2026",
       "summary": "Globally recognized certification covering predictive, agile, and hybrid approaches to leading projects, teams, and business outcomes.",
       "details": [
@@ -143,9 +142,8 @@
       "name": "Academic teacher training",
       "href": "https://www.uu.se/en/staff/employment/continuing-professional-development/courses-for-employees/academic-teacher-training-course",
       "issuer": "Uppsala University",
-      "field": "Higher Education Pedagogy",
       "period": "2016",
-      "summary": "Formal training in higher education teaching, course design, and learning assessment, qualifying for graduate-level instruction.",
+      "summary": "Formal training in higher education pedagogy, course design, and learning assessment, qualifying for graduate-level instruction.",
       "details": [
         "Course design, teaching methods, and student assessment",
         "Reflective teaching practice and peer review"
