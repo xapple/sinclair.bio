@@ -70,9 +70,6 @@ type TranslationKey = {
   "login:forgot": string;
   "login:notice": string;
   "login:submit": string;
-  "login:divider": string;
-  "login:google": string;
-  "login:github": string;
   "login:client-only": string;
   "talk:page-title": string;
   "talk:heading": string;
@@ -154,9 +151,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:forgot": "Forgot your password?",
     "login:notice": "This portal is not yet active.",
     "login:submit": "Log in",
-    "login:divider": "or continue with",
-    "login:google": "Google",
-    "login:github": "GitHub",
     "talk:page-title": "Sinclair.Bio | Talk",
     "talk:heading": "Let's talk",
     "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
@@ -234,9 +228,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:forgot": "Mot de passe oublié ?",
     "login:notice": "Ce portail n'est pas encore actif.",
     "login:submit": "Se connecter",
-    "login:divider": "ou continuer avec",
-    "login:google": "Google",
-    "login:github": "GitHub",
     "talk:page-title": "Sinclair.Bio | Échange",
     "talk:heading": "Discutons",
     "talk:intro": "Choisissez un créneau qui vous convient. Un échange rapide pour voir comment je peux vous aider — sans engagement, sans préparation nécessaire.",
