@@ -46,7 +46,7 @@ const t = useTranslations(lang);
     <div class="rounded-xl bg-surface border border-border overflow-hidden">
       <div class="bg-border/50 px-5 py-3">
         <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-          <span class="icon-sm" set:html={mapPin} />
+          <span class="icon-sm" aria-hidden="true" set:html={mapPin} />
           {t('home:card-location-heading')}
         </h3>
       </div>
@@ -61,7 +61,7 @@ const t = useTranslations(lang);
     <div class="rounded-xl bg-surface border border-border overflow-hidden">
       <div class="bg-border/50 px-5 py-3">
         <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-          <span class="icon-sm" set:html={msgSquare} />
+          <span class="icon-sm" aria-hidden="true" set:html={msgSquare} />
           {t('home:card-languages-heading')}
         </h3>
       </div>
@@ -76,21 +76,21 @@ const t = useTranslations(lang);
     <div class="rounded-xl bg-surface border border-border overflow-hidden">
       <div class="bg-border/50 px-5 py-3">
         <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-          <span class="icon-sm" set:html={extLink} />
+          <span class="icon-sm" aria-hidden="true" set:html={extLink} />
           {t('home:card-links-heading')}
         </h3>
       </div>
       <div class="px-5 py-4 space-y-2">
         <a href="https://github.com/xapple" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <span class="icon-sm" set:html={githubIcon} />
+          <span class="icon-sm" aria-hidden="true" set:html={githubIcon} />
           github/xapple
         </a>
         <a href="https://gitlab.com/sinclair" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <span class="icon-sm" set:html={gitlabIcon} />
+          <span class="icon-sm" aria-hidden="true" set:html={gitlabIcon} />
           gitlab/sinclair
         </a>
         <a href="https://linkedin.com/in/sinclair-bio" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <span class="icon-sm" set:html={linkedinIcon} />
+          <span class="icon-sm" aria-hidden="true" set:html={linkedinIcon} />
           in/sinclair-bio
         </a>
       </div>
@@ -173,35 +173,35 @@ const t = useTranslations(lang);
       <div class="rounded-xl bg-surface border border-border overflow-hidden">
         <div class="bg-border/50 px-5 py-3">
           <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-            <span class="icon-sm" set:html={lockIcon} />
+            <span class="icon-sm" aria-hidden="true" set:html={lockIcon} />
             <span>{t('home:dm-heading')}</span>
           </h3>
         </div>
         <ul class="space-y-3 text-sm px-5 py-4">
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" set:html={telegramIcon} />
+              <span class="icon-xs" aria-hidden="true" set:html={telegramIcon} />
               Telegram:
             </span>
             <a href="https://t.me/sinclair99" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" set:html={signalIcon} />
+              <span class="icon-xs" aria-hidden="true" set:html={signalIcon} />
               Signal:
             </span>
             <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" set:html={threemaIcon} />
+              <span class="icon-xs" aria-hidden="true" set:html={threemaIcon} />
               Threema:
             </span>
             <a href="https://threema.id/p3wmfn9c" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" set:html={matrixIcon} />
+              <span class="icon-xs" aria-hidden="true" set:html={matrixIcon} />
               Matrix:
             </span>
             <a href="https://matrix.to/#/@sinclair.bio:matrix.org" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
@@ -216,7 +216,7 @@ const t = useTranslations(lang);
       >
         <div class="bg-border/50 px-5 py-3">
           <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-            <span class="icon-sm" set:html={messagesSquareIcon} />
+            <span class="icon-sm" aria-hidden="true" set:html={messagesSquareIcon} />
             <span>{t('home:meeting-heading')}</span>
           </h3>
         </div>
