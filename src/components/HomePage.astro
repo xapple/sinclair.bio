@@ -241,6 +241,7 @@ const t = useTranslations(lang);
 
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const status = document.getElementById('contact-status') as HTMLSpanElement;
+    const { sending, sent, error, errorGeneric } = form.dataset;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -249,7 +250,7 @@ const t = useTranslations(lang);
       formData.append('access_key', 'cb34a33c-14b3-4b35-b978-25080a102993');
 
       const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
+      submitBtn.textContent = sending!;
       submitBtn.disabled = true;
 
       try {
@@ -261,15 +262,15 @@ const t = useTranslations(lang);
         const data = await response.json();
 
         if (response.ok) {
-          status.textContent = '✓ Message sent!';
+          status.textContent = sent!;
           status.className = 'text-sm text-green-600 dark:text-green-400';
           form.reset();
         } else {
-          status.textContent = 'Error: ' + data.message;
+          status.textContent = error!.replace('%s', data.message);
           status.className = 'text-sm text-red-500';
         }
-      } catch (error) {
-        status.textContent = 'Something went wrong. Please try again.';
+      } catch (err) {
+        status.textContent = errorGeneric!;
         status.className = 'text-sm text-red-500';
       } finally {
         submitBtn.textContent = originalText;

@@ -51,6 +51,10 @@ type TranslationKey = {
   "home:contact-email": string;
   "home:contact-message": string;
   "home:contact-send": string;
+  "home:contact-sending": string;
+  "home:contact-sent": string;
+  "home:contact-error": string;
+  "home:contact-error-generic": string;
   "home:contact-divider": string;
   "home:dm-heading": string;
   "home:meeting-heading": string;
@@ -131,6 +135,10 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-email": "Your email",
     "home:contact-message": "Your message",
     "home:contact-send": "Send",
+    "home:contact-sending": "Sending...",
+    "home:contact-sent": "✓ Message sent!",
+    "home:contact-error": "Error: %s",
+    "home:contact-error-generic": "Something went wrong. Please try again.",
     "home:contact-divider": "OR",
     "home:dm-heading": "Direct Messaging",
     "home:meeting-heading": "Short Meeting",
@@ -207,6 +215,10 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:contact-email": "Votre email",
     "home:contact-message": "Votre message",
     "home:contact-send": "Envoyer",
+    "home:contact-sending": "Envoi en cours...",
+    "home:contact-sent": "✓ Message envoyé !",
+    "home:contact-error": "Erreur : %s",
+    "home:contact-error-generic": "Une erreur est survenue. Veuillez réessayer.",
     "home:contact-divider": "OU",
     "home:dm-heading": "Messagerie directe",
     "home:meeting-heading": "De vive voix",
