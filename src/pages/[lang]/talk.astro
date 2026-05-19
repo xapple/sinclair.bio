@@ -109,20 +109,25 @@ const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
 
   // Re-mount Cal embed when the user toggles the site theme — the iframe
   // bakes the theme into its URL, so a soft `ui` update doesn't re-theme it.
-  let lastTheme: string | null = null;
   function watchThemeChanges() {
+    const state = ((window as any).__calInlineEmbedState ??= {
+      lastTheme: null,
+      observer: null,
+    });
+    if (state.observer) return;
+
     const html = document.documentElement;
-    lastTheme = getCalTheme();
+    state.lastTheme = getCalTheme();
     const observer = new MutationObserver(() => {
       const theme = getCalTheme();
-      if (theme === lastTheme) return;
-      lastTheme = theme;
+      if (theme === state.lastTheme) return;
+      state.lastTheme = theme;
       initCalEmbed();
     });
     observer.observe(html, { attributes: true, attributeFilter: ['data-theme'] });
+    state.observer = observer;
   }
 
-  initCalEmbed();
   watchThemeChanges();
   document.addEventListener('astro:page-load', initCalEmbed);
 </script>
