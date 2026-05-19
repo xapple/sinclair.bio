@@ -77,6 +77,7 @@ type TranslationKey = {
   "talk:page-title": string;
   "talk:heading": string;
   "talk:intro": string;
+  "portfolio:page-title": string;
   "portfolio:open-source-heading": string;
   "portfolio:testimonials-heading": string;
   "portfolio:publications-heading": string;
@@ -153,6 +154,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "talk:heading": "Let's talk",
     "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
     "login:client-only": "Accounts are issued to new clients. Registration is not available.",
+    "portfolio:page-title": "Sinclair.Bio | Portfolio",
     "portfolio:open-source-heading": "Selected Open Source Projects",
     "portfolio:testimonials-heading": "Testimonials",
     "portfolio:publications-heading": "Selected Publications",
@@ -225,6 +227,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "talk:heading": "Discutons",
     "talk:intro": "Choisissez un créneau qui vous convient. Un échange rapide pour voir comment je peux vous aider — sans engagement, sans préparation nécessaire.",
     "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
+    "portfolio:page-title": "Sinclair.Bio | Portfolio",
     "portfolio:open-source-heading": "Sélection de projets open source",
     "portfolio:testimonials-heading": "Témoignages",
     "portfolio:publications-heading": "Sélection de publications",
