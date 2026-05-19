@@ -18,12 +18,20 @@ const journeyEntries = await getCollection('journey');
 const entry = journeyEntries.find((e) => e.id === lang || e.id === `${lang}.json`);
 if (!entry) throw new Error(`No journey content found for lang: ${lang}`);
 const { experiences, education, certifications = [] } = entry.data;
+
+// Per-section animation base (in stagger units of 90ms).
+// Each section gets: heading at base, then item i at base + (i + 1).
+// Next section starts after previous section's last item, i.e. prev base + prev item count + 1.
+const experiencesBase = 0;
+const educationBase = experiencesBase + experiences.length + 1;
+const certificationsBase = educationBase + education.length + 1;
 ---
 
 <Layout lang={lang} title={t('journey:page-title')} description={t('journey:intro')}>
   <section class="journey-page">
     <div class="page-shell">
       <div class="section-stack">
+        <div class="journey-section" style={`--section-base:${experiencesBase};`}>
         <h2 class="section-heading" id="experience-heading">
           <span class="icon" aria-hidden="true">
             <Fragment set:html={BriefcaseIcon} />
@@ -63,7 +71,9 @@ const { experiences, education, certifications = [] } = entry.data;
             </li>
           ))}
         </ol>
+        </div>
 
+        <div class="journey-section" style={`--section-base:${educationBase};`}>
         <h2 class="section-heading" id="education-heading">
           <span class="icon" aria-hidden="true">
             <Fragment set:html={GraduationCapIcon} />
@@ -73,7 +83,7 @@ const { experiences, education, certifications = [] } = entry.data;
 
         <ol class="entry-list is-education" aria-labelledby="education-heading">
           {education.map((item, index) => (
-            <li class="entry-item" style={`--item-index:${index + experiences.length};`}>
+            <li class="entry-item" style={`--item-index:${index};`}>
               <span class="entry-dot" aria-hidden="true"></span>
               <article class="entry-panel">
                 <div class="entry-left">
@@ -102,9 +112,10 @@ const { experiences, education, certifications = [] } = entry.data;
             </li>
           ))}
         </ol>
+        </div>
 
         {certifications.length > 0 && (
-          <>
+          <div class="journey-section" style={`--section-base:${certificationsBase};`}>
             <h2 class="section-heading" id="certifications-heading">
               <span class="icon" aria-hidden="true">
                 <Fragment set:html={CertificateIcon} />
@@ -116,7 +127,7 @@ const { experiences, education, certifications = [] } = entry.data;
               {certifications.map((item, index) => (
                 <li
                   class="entry-item"
-                  style={`--item-index:${index + experiences.length + education.length};`}
+                  style={`--item-index:${index};`}
                 >
                   <span class="entry-dot" aria-hidden="true"></span>
                   <article class="entry-panel">
@@ -154,7 +165,7 @@ const { experiences, education, certifications = [] } = entry.data;
                 </li>
               ))}
             </ol>
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -190,6 +201,7 @@ const { experiences, education, certifications = [] } = entry.data;
     opacity: 0;
     transform: translateY(14px);
     animation: reveal 560ms ease-out forwards;
+    animation-delay: calc(var(--section-base, 0) * 90ms);
   }
 
   .section-heading .icon {
@@ -201,11 +213,12 @@ const { experiences, education, certifications = [] } = entry.data;
 
   .section-stack {
     display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(3rem, 6vw, 4.5rem);
   }
 
-  .section-stack > .section-heading + .entry-list + .section-heading {
-    margin-top: clamp(3rem, 6vw, 4.5rem);
+  .journey-section {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
   .entry-list {
@@ -224,7 +237,7 @@ const { experiences, education, certifications = [] } = entry.data;
     opacity: 0;
     transform: translateY(14px);
     animation: reveal 560ms ease-out forwards;
-    animation-delay: calc(var(--item-index) * 90ms);
+    animation-delay: calc((var(--section-base, 0) + var(--item-index) + 1) * 90ms);
   }
 
   .entry-item:last-child {
