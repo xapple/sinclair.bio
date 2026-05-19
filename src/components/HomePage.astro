@@ -53,7 +53,7 @@ const t = useTranslations(lang);
         </h3>
       </div>
       <div class="px-5 py-4 space-y-0.5">
-        <a href="https://www.openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
+        <a href="https://www.openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
         <p class="text-sm text-ink">{t('home:location-city')}</p>
         <p class="text-sm text-ink flex items-center gap-1">{t('home:location-country')} <span>🇨🇭</span></p>
       </div>
@@ -83,15 +83,15 @@ const t = useTranslations(lang);
         </h3>
       </div>
       <div class="px-5 py-4 space-y-2">
-        <a href="https://github.com/xapple" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+        <a href="https://github.com/xapple" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
           <span class="icon-sm" aria-hidden="true" set:html={githubIcon} />
           github/xapple
         </a>
-        <a href="https://gitlab.com/sinclair" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+        <a href="https://gitlab.com/sinclair" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
           <span class="icon-sm" aria-hidden="true" set:html={gitlabIcon} />
           gitlab/sinclair
         </a>
-        <a href="https://linkedin.com/in/sinclair-bio" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+        <a href="https://linkedin.com/in/sinclair-bio" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
           <span class="icon-sm" aria-hidden="true" set:html={linkedinIcon} />
           in/sinclair-bio
         </a>
@@ -123,7 +123,14 @@ const t = useTranslations(lang);
   <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
 
     <!-- Form -->
-    <form id="form" class="flex-1 flex flex-col gap-3 w-full">
+    <form
+      id="form"
+      class="flex-1 flex flex-col gap-3 w-full"
+      data-sending={t('home:contact-sending')}
+      data-sent={t('home:contact-sent')}
+      data-error={t('home:contact-error')}
+      data-error-generic={t('home:contact-error-generic')}
+    >
       <input
         type="text"
         name="name"
@@ -185,28 +192,28 @@ const t = useTranslations(lang);
               <span class="icon-xs" aria-hidden="true" set:html={telegramIcon} />
               Telegram:
             </span>
-            <a href="https://t.me/sinclair99" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
+            <a href="https://t.me/sinclair99" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
               <span class="icon-xs" aria-hidden="true" set:html={signalIcon} />
               Signal:
             </span>
-            <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
+            <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
               <span class="icon-xs" aria-hidden="true" set:html={threemaIcon} />
               Threema:
             </span>
-            <a href="https://threema.id/p3wmfn9c" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
+            <a href="https://threema.id/p3wmfn9c" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
               <span class="icon-xs" aria-hidden="true" set:html={matrixIcon} />
               Matrix:
             </span>
-            <a href="https://matrix.to/#/@sinclair.bio:matrix.org" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
+            <a href="https://matrix.to/#/@sinclair.bio:matrix.org" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
           </li>
         </ul>
       </div>
