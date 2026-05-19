@@ -170,7 +170,12 @@ const websiteSchema = {
       });
     </script>
   </head>
-  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-back font-sans text-ink transition-colors">
+  <!--
+    Body transition is scoped to the two properties that actually change on
+    theme toggle (background-color, color). The root view-transition group is
+    disabled in global.css, so this fires on theme swap, not SPA navigation.
+  -->
+  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-back font-sans text-ink transition-[background-color,color] duration-150">
     <GridDecoration />
     <Topbar lang={lang} />
     <main class="relative flex-1">
