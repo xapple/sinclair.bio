@@ -3,6 +3,7 @@ import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
 import { Languages, useTranslations } from '../i18n/translations';
+import { THEME_BACK } from '../scripts/theme-colors';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -117,7 +118,7 @@ const websiteSchema = {
 
     <ClientRouter />
     <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { display: block !important; }</style></noscript>
-    <script is:inline>
+    <script is:inline define:vars={{ THEME_BACK }}>
       // DOMContentLoaded: reveal content after scripts are ready
       document.addEventListener("DOMContentLoaded", function() {
         document.documentElement.dataset.domLoaded = "true";
@@ -136,10 +137,10 @@ const websiteSchema = {
         document.documentElement.dataset.theme = color;
 
         // Update meta theme-color for mobile browser chrome.
-        // These literals MUST match --color-back in global.css and theme-switcher.ts —
-        // CSS variables are not yet available when this blocking script runs.
+        // THEME_BACK is injected from src/scripts/theme-colors.ts via define:vars
+        // — CSS variables are not yet available when this blocking script runs.
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', color === 'dark' ? '#140c07' : '#fffff8');
+        if (meta) meta.setAttribute('content', THEME_BACK[color]);
 
         // Update color-scheme meta
         var csMeta = document.querySelector('meta[name="color-scheme"]');

@@ -2,7 +2,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ---- Design tokens ---- */
+/* ---- Design tokens ----
+   NOTE: --color-back values (#fffff8 / #140c07) are duplicated in
+   src/scripts/theme-colors.ts because the blocking inline script in
+   Layout.astro needs them before CSS loads (to set <meta theme-color>).
+   Keep both in sync. */
 @theme {
   --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
