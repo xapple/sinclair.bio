@@ -409,12 +409,13 @@ const { experiences, education, certifications = [] } = entry.data;
     }
 
     .page-shell {
-      --entry-indent: 0.95rem;
-      --entry-inner-pad: 0.8rem;
+      --entry-indent: 0;
+      --entry-inner-pad: 0;
     }
 
-    .entry-list {
-      --timeline-axis: 0.28rem;
+    .entry-dot,
+    .entry-item::before {
+      display: none;
     }
   }
 </style>

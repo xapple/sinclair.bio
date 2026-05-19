@@ -119,8 +119,6 @@ const { testimonials, publications } = entry.data;
   }
 
   .page-shell {
-    --section-indent: clamp(1.1rem, 2vw, 1.45rem);
-    --section-inner-pad: 1rem;
     margin: 0 auto;
     width: min(1100px, 100%);
   }
@@ -132,7 +130,6 @@ const { testimonials, publications } = entry.data;
 
   .section-heading {
     margin: 0;
-    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -159,7 +156,6 @@ const { testimonials, publications } = entry.data;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
-    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
   }
 
   .card {
@@ -216,7 +212,6 @@ const { testimonials, publications } = entry.data;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
   }
 
   .testimonial {
@@ -244,7 +239,7 @@ const { testimonials, publications } = entry.data;
   .publication-list {
     list-style: none;
     margin: 0;
-    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
+    padding: 0;
     display: grid;
     gap: 1.25rem;
   }
@@ -277,7 +272,6 @@ const { testimonials, publications } = entry.data;
 
   .orcid-link-wrap {
     margin: 0.5rem 0 0;
-    padding-left: calc(var(--section-indent) + var(--section-inner-pad));
   }
 
   .orcid-link {
@@ -329,11 +323,6 @@ const { testimonials, publications } = entry.data;
   @media (max-width: 700px) {
     .portfolio-page {
       padding-inline: 1rem;
-    }
-
-    .page-shell {
-      --section-indent: 0.95rem;
-      --section-inner-pad: 0.8rem;
     }
   }
 </style>
