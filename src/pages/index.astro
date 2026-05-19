@@ -2,7 +2,7 @@
 const locales = ['en', 'fr'] as const;
 const defaultLocale = 'en';
 const defaultTarget = `/${defaultLocale}/`;
-const canonicalUrl = new URL(defaultTarget, Astro.site ?? 'https://www.sinclair.bio').toString();
+const canonicalUrl = new URL(defaultTarget, Astro.site ?? 'https://sinclair.bio').toString();
 ---
 <!doctype html>
 <html lang="en">

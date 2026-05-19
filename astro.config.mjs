@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.sinclair.bio',
+  site: 'https://sinclair.bio',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'fr'],
@@ -16,7 +16,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Root `/` is a noindex redirect to /en/, so keep it out of the sitemap.
-      filter: (page) => page !== 'https://www.sinclair.bio/',
+      filter: (page) => page !== 'https://sinclair.bio/',
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en', fr: 'fr' },

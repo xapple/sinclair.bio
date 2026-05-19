@@ -1,6 +1,6 @@
 # `www.sinclair` version 0.0.1
 
-This is the website at `www.sinclair.bio`.
+This is the website at `sinclair.bio`.
 It is made with the following build technology: [Astro](https://docs.astro.build).
 
 ### Interesting templates:
@@ -37,5 +37,4 @@ Icon libraries:
 
 ## TODO
 
-* Add a small box below "Direct Messaging" that says "Short Meeting" and "Schedule a quick talk with me". The icon can be two speech bubbles, in standard simple SVG. It simply redirecty to the "Talk" page when clicked.
 * Setup the login endpoint.
