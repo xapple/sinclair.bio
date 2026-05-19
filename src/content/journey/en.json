@@ -128,7 +128,20 @@
   ],
   "certifications": [
     {
-      "name": "Academic Teacher Training",
+      "name": "Project Management Professional (PMP)",
+      "href": "https://www.credly.com/earner/earned/badge/64dc6641-a122-4c11-b38a-8dfe41d1ce8a",
+      "issuer": "Project Management Institute (PMI)",
+      "field": "Project Management",
+      "period": "2026",
+      "summary": "Globally recognized certification covering predictive, agile, and hybrid approaches to leading projects, teams, and business outcomes.",
+      "details": [
+        "People, process, and business environment domains across the project lifecycle",
+        "Predictive, agile, and hybrid delivery methods aligned with the PMBOK Guide"
+      ]
+    },
+    {
+      "name": "Academic teacher training",
+      "href": "https://www.uu.se/en/staff/employment/continuing-professional-development/courses-for-employees/academic-teacher-training-course",
       "issuer": "Uppsala University",
       "field": "Higher Education Pedagogy",
       "period": "2016",
@@ -136,17 +149,6 @@
       "details": [
         "Course design, teaching methods, and student assessment",
         "Reflective teaching practice and peer review"
-      ]
-    },
-    {
-      "name": "Deep Learning Specialization",
-      "issuer": "DeepLearning.AI (Coursera)",
-      "field": "Machine Learning",
-      "period": "2018",
-      "summary": "Five-course specialization by Andrew Ng covering the foundations of modern deep learning, from neural network basics to sequence models.",
-      "details": [
-        "Neural networks, hyperparameter tuning, regularization, and optimization",
-        "Structuring ML projects, convolutional networks, and sequence models"
       ]
     }
   ]

@@ -29,6 +29,7 @@ const journey = defineCollection({
       .array(
         z.object({
           name: z.string(),
+          href: z.string().url().optional(),
           issuer: z.string(),
           field: z.string().optional(),
           period: z.string(),

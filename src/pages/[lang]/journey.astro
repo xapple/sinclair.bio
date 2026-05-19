@@ -126,7 +126,15 @@ const { experiences, education, certifications = [] } = entry.data;
                       </div>
 
                       <div class="entry-heading">
-                        <h3>{item.name}</h3>
+                        <h3>
+                          {item.href ? (
+                            <a href={item.href} target="_blank" rel="noopener noreferrer">
+                              {item.name}
+                            </a>
+                          ) : (
+                            item.name
+                          )}
+                        </h3>
                         <p class="primary-meta">{item.issuer}</p>
                         {item.field && <p class="field-meta">{item.field}</p>}
                       </div>
@@ -307,6 +315,18 @@ const { experiences, education, certifications = [] } = entry.data;
     line-height: 1.2;
     letter-spacing: -0.02em;
     font-weight: 800;
+  }
+
+  .entry-heading h3 a {
+    color: inherit;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  .entry-heading h3 a:hover,
+  .entry-heading h3 a:focus-visible {
+    color: var(--color-accent);
   }
 
   .primary-meta {

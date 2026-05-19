@@ -128,7 +128,20 @@
   ],
   "certifications": [
     {
+      "name": "Project Management Professional (PMP)",
+      "href": "https://www.credly.com/earner/earned/badge/64dc6641-a122-4c11-b38a-8dfe41d1ce8a",
+      "issuer": "Project Management Institute (PMI)",
+      "field": "Gestion de projet",
+      "period": "2026",
+      "summary": "Certification reconnue mondialement couvrant les approches prédictives, agiles et hybrides pour mener des projets, des équipes et des résultats opérationnels.",
+      "details": [
+        "Domaines humain, processus et environnement métier sur l'ensemble du cycle de vie du projet",
+        "Méthodes de livraison prédictives, agiles et hybrides alignées sur le PMBOK Guide"
+      ]
+    },
+    {
       "name": "Formation pédagogique universitaire",
+      "href": "https://www.uu.se/en/staff/employment/continuing-professional-development/courses-for-employees/academic-teacher-training-course",
       "issuer": "Uppsala University",
       "field": "Pédagogie de l'enseignement supérieur",
       "period": "2016",
@@ -136,17 +149,6 @@
       "details": [
         "Conception de cours, méthodes d'enseignement et évaluation des étudiants",
         "Pratique réflexive de l'enseignement et revue par les pairs"
-      ]
-    },
-    {
-      "name": "Deep Learning Specialization",
-      "issuer": "DeepLearning.AI (Coursera)",
-      "field": "Machine Learning",
-      "period": "2018",
-      "summary": "Spécialisation en cinq cours par Andrew Ng couvrant les fondements du deep learning moderne, des réseaux de neurones aux modèles séquentiels.",
-      "details": [
-        "Réseaux de neurones, tuning des hyperparamètres, régularisation et optimisation",
-        "Structuration de projets ML, réseaux convolutifs et modèles séquentiels"
       ]
     }
   ]
