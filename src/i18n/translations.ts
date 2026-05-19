@@ -12,7 +12,7 @@ const defaultLang = Languages.en;
 
 // --- Translation keys (flat, colon-separated, fully typed) ---
 type TranslationKey = {
-  "nav:home": string;
+  "nav:contact": string;
   "nav:journey": string;
   "nav:portfolio": string;
   "nav:talk": string;
@@ -94,7 +94,7 @@ export type TranslationKeyType = keyof TranslationKey;
 
 export const translations: { [language in Languages]: TranslationKey } = {
   en: {
-    "nav:home": "Contact",
+    "nav:contact": "Contact",
     "nav:journey": "Journey",
     "nav:portfolio": "Portfolio",
     "nav:talk": "Talk",
@@ -172,7 +172,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "meta:login-description": "Client login portal for Sinclair.Bio.",
   },
   fr: {
-    "nav:home": "Contact",
+    "nav:contact": "Contact",
     "nav:journey": "Parcours",
     "nav:portfolio": "Portfolio",
     "nav:talk": "Discuter",
@@ -201,7 +201,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:location-country": "Suisse",
     "home:card-languages-heading": "Langues",
     "home:language-english": "Anglais: maternelle",
-    "home:language-french": "Francais: maternelle",
+    "home:language-french": "Français: maternelle",
     "home:language-others": "Autres: allemand (~B2)",
     "home:card-links-heading": "Liens",
     "home:about-heading": "À propos",
@@ -253,7 +253,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
 
 /**
  * Curried translation function.
- * Usage: const t = useTranslations(lang); t("nav:home");
+ * Usage: const t = useTranslations(lang); t("nav:contact");
  * Supports %s placeholder: t("%s project", "MyProject")
  */
 export function useTranslations(
