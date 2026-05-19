@@ -21,8 +21,13 @@ const inactiveClasses = 'rounded-md px-3 py-2 text-base font-medium text-bar-fg/
 
 function isActive(href: string): boolean {
   // Strip hash for comparison — hash links all belong to the same page
-  const hrefPath = href.split('#')[0];
-  return currentPath === hrefPath || currentPath === hrefPath + '/';
+  const hrefPath = href.split('#')[0].replace(/\/$/, '');
+  const normalizedCurrentPath = currentPath.replace(/\/$/, '');
+
+  return (
+    normalizedCurrentPath === hrefPath ||
+    (hrefPath !== `/${lang}` && normalizedCurrentPath.startsWith(`${hrefPath}/`))
+  );
 }
 ---
 
