@@ -8,22 +8,26 @@
     {
       "quote": "Le pipeline de métagénomique microbienne 16S rRNA développé par Lucas a été essentiel pour nos projets sur le microbiome intestinal.",
       "author": "Richard Svanbäck",
-      "role": "Professeur associé — Uppsala University"
+      "role": "Professeur associé — Uppsala University",
+      "translated": true
     },
     {
       "quote": "Lucas m’a aidé en 2021, par l’intermédiaire de sa société Sinclair Bio, à réimplémenter entièrement le logiciel de bioinformatique CREST que j’avais initialement développé pendant mon doctorat. Ce fut un vrai plaisir de travailler avec Lucas. En plus d’écrire un code Python bien structuré et à l’état de l’art, l’aide et les conseils qu’il a apportés pour planifier le travail et résoudre différents problèmes ont toujours été très amicaux, pertinents, compétents, clairs et rapides. Je recommande chaleureusement Lucas et Sinclair Bio pour des missions de développement logiciel ou d’analyse de données liées à la bioinformatique, ou à d’autres domaines !",
       "author": "Anders Lanzén",
-      "role": "Chercheur senior chez AZTI et Ikerbasque Research Fellow"
+      "role": "Chercheur senior chez AZTI et Ikerbasque Research Fellow",
+      "translated": true
     },
     {
       "quote": "Lucas est un enseignant Python passionné et motivé, capable de transmettre aux étudiants non seulement ses connaissances, mais aussi son expérience. Ses cours étaient clairs, informatifs et bien organisés, permettant aux étudiants de progresser étape par étape. Les retours des étudiants ont été très positifs. J’espère qu’il reviendra chaque année enseigner ce cours.",
       "author": "Jenna Lüthi",
-      "role": "Responsable du développement web — SAE Institute Genève"
+      "role": "Responsable du développement web — SAE Institute Genève",
+      "translated": true
     },
     {
       "quote": "Lucas a su piloter notre projet de pipeline d’analyse bioinformatique et le mener à terme de manière efficace et dans les délais. Travailler avec lui a été un plaisir et je le recommande vivement.",
       "author": "Guansheng Du, Ph.D.",
-      "role": "Directeur R&D Microfluidics Platform — Biomillenia"
+      "role": "Directeur R&D Microfluidics Platform — Biomillenia",
+      "translated": true
     }
   ],
   "publications": [
@@ -54,6 +58,26 @@
       "authors": "David F.P.A., Delafontaine J., …, Sinclair L., et al.",
       "journal": "PLOS One",
       "year": "2014"
+    }
+  ],
+  "classes": [
+    {
+      "title": "UX et UI Design avec Figma",
+      "href": "https://www.cadschool.ch/formation/figma/",
+      "institution": "CADSCHOOL, Genève",
+      "year": "2026"
+    },
+    {
+      "title": "Introduction à la biologie du cancer",
+      "href": "https://www.coursera.org/account/accomplishments/verify/W4QR2ZN6DW3X",
+      "institution": "Johns Hopkins University",
+      "year": "2023"
+    },
+    {
+      "title": "Spécialisation en Deep Learning",
+      "href": "https://www.coursera.org/account/accomplishments/specialization/G5X6NMDGJGB4",
+      "institution": "DeepLearning.AI, enseigné par : Andrew Ng",
+      "year": "2019"
     }
   ]
 }

@@ -49,6 +49,7 @@ const portfolio = defineCollection({
         quote: z.string(),
         author: z.string(),
         role: z.string(),
+        translated: z.boolean().optional(),
       })
     ),
     publications: z.array(
@@ -57,6 +58,14 @@ const portfolio = defineCollection({
         href: z.string().url(),
         authors: z.string(),
         journal: z.string(),
+        year: z.string(),
+      })
+    ),
+    classes: z.array(
+      z.object({
+        title: z.string(),
+        href: z.string().url(),
+        institution: z.string(),
         year: z.string(),
       })
     ),

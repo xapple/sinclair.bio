@@ -75,7 +75,6 @@ type TranslationKey = {
   "portfolio:testimonials-heading": string;
   "portfolio:publications-heading": string;
   "portfolio:classes-heading": string;
-  "portfolio:course-figma-title": string;
   "portfolio:orcid-link": string;
   "portfolio:testimonial-translation-note": string;
   "meta:site-description": string;
@@ -156,9 +155,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:testimonials-heading": "Testimonials",
     "portfolio:publications-heading": "Selected Publications",
     "portfolio:classes-heading": "Selected Coursework",
-    "portfolio:course-figma-title": "UX and UI Design with Figma",
     "portfolio:orcid-link": "More on ORCID",
-    "portfolio:testimonial-translation-note": "",
+    "portfolio:testimonial-translation-note": "(translated from French)",
     "meta:site-description": "Lucas Sinclair — Senior Data Scientist & PhD in Bioinformatics. 15+ years turning life-sciences research into data products: pipelines, web apps, and decision-grade analytics.",
     "meta:home-description": "Personal site of Lucas Sinclair, Senior Data Scientist and PhD in Bioinformatics based in Geneva. Independent consulting for life sciences and beyond.",
     "meta:portfolio-description": "Selected open-source projects, peer-reviewed publications, client testimonials and coursework by Lucas Sinclair.",
@@ -233,7 +231,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:testimonials-heading": "Témoignages",
     "portfolio:publications-heading": "Sélection de publications",
     "portfolio:classes-heading": "Sélection de cours suivis",
-    "portfolio:course-figma-title": "UX et UI Design avec Figma",
     "portfolio:orcid-link": "Plus sur ORCID",
     "portfolio:testimonial-translation-note": "(traduit de l'anglais)",
     "meta:site-description": "Lucas Sinclair — Data Scientist Senior, PhD en bioinformatique. Plus de 15 ans à transformer la recherche en sciences de la vie en produits data : pipelines, applications web et analyses décisionnelles.",

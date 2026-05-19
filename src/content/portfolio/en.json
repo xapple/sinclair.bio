@@ -55,5 +55,25 @@
       "journal": "PLOS One",
       "year": "2014"
     }
+  ],
+  "classes": [
+    {
+      "title": "UX and UI Design with Figma",
+      "href": "https://www.cadschool.ch/formation/figma/",
+      "institution": "CADSCHOOL, Geneva",
+      "year": "2026"
+    },
+    {
+      "title": "Introduction to the Biology of Cancer",
+      "href": "https://www.coursera.org/account/accomplishments/verify/W4QR2ZN6DW3X",
+      "institution": "Johns Hopkins University",
+      "year": "2023"
+    },
+    {
+      "title": "Deep Learning Specialization",
+      "href": "https://www.coursera.org/account/accomplishments/specialization/G5X6NMDGJGB4",
+      "institution": "DeepLearning.AI, taught by: Andrew Ng",
+      "year": "2019"
+    }
   ]
 }

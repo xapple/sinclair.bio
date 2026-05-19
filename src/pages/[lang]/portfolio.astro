@@ -17,7 +17,7 @@ const t = useTranslations(lang);
 const portfolioEntries = await getCollection('portfolio');
 const entry = portfolioEntries.find((e) => e.id === lang);
 if (!entry) throw new Error(`No portfolio content found for lang: ${lang}`);
-const { testimonials, publications } = entry.data;
+const { testimonials, publications, classes } = entry.data;
 ---
 
 <Layout lang={lang} title={t('portfolio:page-title')} description={t('meta:portfolio-description')}>
@@ -55,7 +55,7 @@ const { testimonials, publications } = entry.data;
         <div class="testimonial-list">
           {testimonials.map((testimonial) => (
             <figure class="testimonial">
-              <blockquote>"{testimonial.quote}"{t("portfolio:testimonial-translation-note") && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
+              <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
               <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
             </figure>
           ))}
@@ -93,18 +93,12 @@ const { testimonials, publications } = entry.data;
         </h2>
 
         <ul class="publication-list">
-          <li class="publication">
-            <p class="pub-title"><a href="https://www.cadschool.ch/formation/figma/" target="_blank" rel="noopener noreferrer">{t("portfolio:course-figma-title")}</a></p>
-            <p class="pub-meta">CADSCHOOL, Geneva — 2026</p>
-          </li>
-          <li class="publication">
-            <p class="pub-title"><a href="https://www.coursera.org/account/accomplishments/verify/W4QR2ZN6DW3X" target="_blank" rel="noopener noreferrer">Introduction to the Biology of Cancer</a></p>
-            <p class="pub-meta">Johns Hopkins University — 2023</p>
-          </li>
-          <li class="publication">
-            <p class="pub-title"><a href="https://www.coursera.org/account/accomplishments/specialization/G5X6NMDGJGB4" target="_blank" rel="noopener noreferrer">Deep Learning Specialization</a></p>
-            <p class="pub-meta">DeepLearning.AI, taught by: Andrew Ng — 2019</p>
-          </li>
+          {classes.map((klass) => (
+            <li class="publication">
+              <p class="pub-title"><a href={klass.href} target="_blank" rel="noopener noreferrer">{klass.title}</a></p>
+              <p class="pub-meta">{klass.institution} — {klass.year}</p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
