@@ -40,4 +40,26 @@ const journey = defineCollection({
   }),
 });
 
-export const collections = { journey };
+const portfolio = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/portfolio' }),
+  schema: z.object({
+    testimonials: z.array(
+      z.object({
+        quote: z.string(),
+        author: z.string(),
+        role: z.string(),
+      })
+    ),
+    publications: z.array(
+      z.object({
+        title: z.string(),
+        href: z.string().url(),
+        authors: z.string(),
+        journal: z.string(),
+        year: z.string(),
+      })
+    ),
+  }),
+});
+
+export const collections = { journey, portfolio };

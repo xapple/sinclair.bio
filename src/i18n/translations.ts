@@ -83,6 +83,8 @@ type TranslationKey = {
   "portfolio:publications-heading": string;
   "portfolio:classes-heading": string;
   "portfolio:course-figma-title": string;
+  "portfolio:orcid-link": string;
+  "portfolio:testimonial-translation-note": string;
   "meta:site-description": string;
   "meta:home-description": string;
   "meta:portfolio-description": string;
@@ -165,6 +167,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:publications-heading": "Selected Publications",
     "portfolio:classes-heading": "Selected Coursework",
     "portfolio:course-figma-title": "UX and UI Design with Figma",
+    "portfolio:orcid-link": "More on ORCID",
+    "portfolio:testimonial-translation-note": "",
     "meta:site-description": "Lucas Sinclair — Senior Data Scientist & PhD in Bioinformatics. 15+ years turning life-sciences research into data products: pipelines, web apps, and decision-grade analytics.",
     "meta:home-description": "Personal site of Lucas Sinclair, Senior Data Scientist and PhD in Bioinformatics based in Geneva. Independent consulting for life sciences and beyond.",
     "meta:portfolio-description": "Selected open-source projects, peer-reviewed publications, client testimonials and coursework by Lucas Sinclair.",
@@ -243,6 +247,8 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:publications-heading": "Sélection de publications",
     "portfolio:classes-heading": "Sélection de cours suivis",
     "portfolio:course-figma-title": "UX et UI Design avec Figma",
+    "portfolio:orcid-link": "Plus sur ORCID",
+    "portfolio:testimonial-translation-note": "(traduit de l'anglais)",
     "meta:site-description": "Lucas Sinclair — Data Scientist Senior, PhD en bioinformatique. Plus de 15 ans à transformer la recherche en sciences de la vie en produits data : pipelines, applications web et analyses décisionnelles.",
     "meta:home-description": "Site personnel de Lucas Sinclair, Data Scientist Senior et docteur en bioinformatique basé à Genève. Conseil indépendant pour les sciences de la vie et d'autres domaines.",
     "meta:portfolio-description": "Sélection de projets open source, publications scientifiques, témoignages clients et formations de Lucas Sinclair.",

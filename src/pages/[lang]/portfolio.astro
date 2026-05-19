@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
+import { getCollection } from 'astro:content';
 import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
 import QuoteIcon from '../../assets/icons/quote.svg?raw';
 import BookIcon from '../../assets/icons/book.svg?raw';
@@ -13,6 +14,10 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
+const portfolioEntries = await getCollection('portfolio');
+const entry = portfolioEntries.find((e) => e.id === lang);
+if (!entry) throw new Error(`No portfolio content found for lang: ${lang}`);
+const { testimonials, publications } = entry.data;
 ---
 
 <Layout lang={lang} title={t('portfolio:page-title')} description={t('meta:portfolio-description')}>
@@ -48,30 +53,12 @@ const t = useTranslations(lang);
         </h2>
 
         <div class="testimonial-list">
-          <figure class="testimonial">
-            <blockquote>"I can wholeheartedly recommend Lucas for scientific website development and online data handling. For our project on tracking the microbiomes of industrial anaerobic digesters, Lucas provided immensely helpful advise on how to best construct an online repository for our data, and also developed a highly professional and stylistic front page. We have also benefited from his experience in choosing the right title for the site. The service was professional and on schedule, and Lucas was great to work with."</blockquote>
-            <figcaption>— Orkun Soyer, <span>Professor — University of Warwick</span></figcaption>
-          </figure>
-
-          <figure class="testimonial">
-            <blockquote>"The metagenomics microbial 16S rRNA pipeline developed by Lucas has been crucial for our gut microbiome projects."</blockquote>
-            <figcaption>— Richard Svanbäck, <span>Associate Professor — Uppsala University</span></figcaption>
-          </figure>
-
-          <figure class="testimonial">
-            <blockquote>"Lucas helped me in 2021, through his company Sinclair Bio, with a total reimplementation of the bioinformatics software CREST that I originally developed during my PhD. It was a pure pleasure to work with Lucas and in addition to writing well structured and state of the art python code, the help and advice he provided, planning the work and resolving different issues, was always very friendly, insightful, skillfull, clear and in prompt. I can warmly recommend Lucas and Sinclair Bio for software development or data analysis tasks related to bioinformatics or to other ends!"</blockquote>
-            <figcaption>— Anders Lanzén, <span>Sr. Investigator at AZTI and Ikerbasque Research Fellow</span></figcaption>
-          </figure>
-
-          <figure class="testimonial">
-            <blockquote>"Lucas was a passionate and motivated Python teacher who was able to pass on not only his knowledge but also his experience to students. His lessons were clear, informative and well organised, allowing students to progress step by step. Feedback from students was very positive. I hope he will return every year to teach this course again."</blockquote>
-            <figcaption>— Jenna Lüthi, <span>Head of Web Development — SAE Institute Genève</span></figcaption>
-          </figure>
-
-          <figure class="testimonial">
-            <blockquote>"Lucas was able to spearhead our bioinformatics analysis pipeline project and bring it to completion in an efficient and timely manner. Working with him was a pleasure and I strongly recommend him."</blockquote>
-            <figcaption>— Guansheng Du, Ph.D., <span>Director R&D Microfluidics Platform — Biomillenia</span></figcaption>
-          </figure>
+          {testimonials.map((testimonial) => (
+            <figure class="testimonial">
+              <blockquote>"{testimonial.quote}"{t("portfolio:testimonial-translation-note") && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
+              <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
+            </figure>
+          ))}
         </div>
 
         <h2 class="section-heading" id="publications-heading">
@@ -82,28 +69,18 @@ const t = useTranslations(lang);
         </h2>
 
         <ul class="publication-list">
-          <li class="publication">
-            <p class="pub-title"><a href="https://doi.org/10.3390/f12020176" target="_blank" rel="noopener noreferrer">Comparing Reported Forest Biomass Gains and Losses in European and Global Datasets</a></p>
-            <p class="pub-meta">Sinclair L., Rougieux P. — <em>Forests</em>, 2021</p>
-          </li>
-          <li class="publication">
-            <p class="pub-title"><a href="https://doi.org/10.7717/peerj.2690" target="_blank" rel="noopener noreferrer">Seqenv: linking sequences to environments through text mining</a></p>
-            <p class="pub-meta">Sinclair L., Ijaz U.Z., Jensen L.J., et al. — <em>PeerJ</em>, 2016</p>
-          </li>
-          <li class="publication">
-            <p class="pub-title"><a href="https://doi.org/10.1371/journal.pone.0116955" target="_blank" rel="noopener noreferrer">Microbial Community Composition and Diversity via 16S rRNA Gene Amplicons: Evaluating the Illumina Platform</a></p>
-            <p class="pub-meta">Sinclair L., Osman O.A., Bertilsson S., Eiler A. — <em>PLOS One</em>, 2015</p>
-          </li>
-          <li class="publication">
-            <p class="pub-title"><a href="https://doi.org/10.1371/journal.pone.0085879" target="_blank" rel="noopener noreferrer">HTSstation: A Web Application and Open-Access Libraries for High-Throughput Sequencing Data Analysis</a></p>
-            <p class="pub-meta">David F.P.A., Delafontaine J., …, Sinclair L., et al. — <em>PLOS One</em>, 2014</p>
-          </li>
+          {publications.map((publication) => (
+            <li class="publication">
+              <p class="pub-title"><a href={publication.href} target="_blank" rel="noopener noreferrer">{publication.title}</a></p>
+              <p class="pub-meta">{publication.authors} — <em>{publication.journal}</em>, {publication.year}</p>
+            </li>
+          ))}
         </ul>
 
         <p class="orcid-link-wrap">
           <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
             <span class="orcid-icon" aria-hidden="true"><Fragment set:html={OrcidIcon} /></span>
-            <span>More on ORCID</span>
+            <span>{t("portfolio:orcid-link")}</span>
             <span class="orcid-arrow" aria-hidden="true">→</span>
           </a>
         </p>
