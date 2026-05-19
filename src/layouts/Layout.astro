@@ -18,9 +18,9 @@ const metaDescription = description ?? t('meta:site-description');
 
 // Build absolute URLs for canonical / og:url / hreflang.
 // Astro.site is set in astro.config.mjs.
-const siteUrl = Astro.site ?? new URL('https://www.sinclair.bio');
+const siteUrl = Astro.site ?? new URL('https://sinclair.bio');
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
-const ogImageUrl = new URL('/profile.jpg', siteUrl).toString();
+const ogImageUrl = new URL('/og_card.png', siteUrl).toString();
 
 // Alternate-language URLs for hreflang. Swap the first path segment.
 const allLangs = Object.values(Languages);
@@ -97,7 +97,9 @@ const websiteSchema = {
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:alt" content="Lucas Sinclair" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Lucas Sinclair — Senior Data Scientist, PhD in Bioinformatics" />
     <meta property="og:locale" content={ogLocale} />
     {ogAlternateLocales.map((l) => (
       <meta property="og:locale:alternate" content={l} />
