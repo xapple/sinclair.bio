@@ -15,7 +15,7 @@ const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
 ---
 
-<Layout lang={lang} title={t('portfolio:page-title')}>
+<Layout lang={lang} title={t('portfolio:page-title')} description={t('meta:portfolio-description')}>
   <section class="portfolio-page">
     <div class="page-shell">
       <div class="section-stack">

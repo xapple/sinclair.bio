@@ -2,7 +2,7 @@
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
-import { Languages } from '../i18n/translations';
+import { Languages, useTranslations } from '../i18n/translations';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -13,19 +13,104 @@ interface Props {
 }
 
 const { title = 'Sinclair.Bio', description, lang = Languages.en } = Astro.props;
+const t = useTranslations(lang);
+const metaDescription = description ?? t('meta:site-description');
+
+// Build absolute URLs for canonical / og:url / hreflang.
+// Astro.site is set in astro.config.mjs.
+const siteUrl = Astro.site ?? new URL('https://www.sinclair.bio');
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL('/profile.jpg', siteUrl).toString();
+
+// Alternate-language URLs for hreflang. Swap the first path segment.
+const allLangs = Object.values(Languages);
+const alternateLinks = allLangs.map((l) => ({
+  hreflang: l,
+  href: new URL(
+    Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), `/${l}$1`),
+    siteUrl,
+  ).toString(),
+}));
+const xDefaultHref = new URL(
+  Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), `/en$1`),
+  siteUrl,
+).toString();
+
+const ogLocaleMap: Record<Languages, string> = {
+  [Languages.en]: 'en_US',
+  [Languages.fr]: 'fr_FR',
+};
+const ogLocale = ogLocaleMap[lang];
+const ogAlternateLocales = allLangs.filter((l) => l !== lang).map((l) => ogLocaleMap[l]);
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Lucas Sinclair',
+  url: siteUrl.toString(),
+  image: ogImageUrl,
+  jobTitle: 'Senior Data Scientist',
+  description: t('meta:site-description'),
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Geneva',
+    addressCountry: 'CH',
+  },
+  sameAs: [
+    'https://orcid.org/0000-0003-4134-3571',
+    'https://github.com/xapple',
+    'https://linkedin.com/in/sinclair-bio',
+  ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Sinclair.Bio',
+  url: siteUrl.toString(),
+  inLanguage: lang,
+};
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-<meta name="generator" content={Astro.generator} />
-    {description && <meta name="description" content={description} />}
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content="Lucas Sinclair" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#fffff8" />
     <title>{title}</title>
+
+    <link rel="canonical" href={canonicalUrl} />
+    {alternateLinks.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sinclair.Bio" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content="Lucas Sinclair" />
+    <meta property="og:locale" content={ogLocale} />
+    {ogAlternateLocales.map((l) => (
+      <meta property="og:locale:alternate" content={l} />
+    ))}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
     <ClientRouter />
     <script is:inline>
       // DOMContentLoaded: reveal content after scripts are ready

@@ -13,6 +13,6 @@ const { lang } = Astro.params;
 const t = useTranslations(lang as Languages);
 ---
 
-<Layout lang={lang as Languages} title={t('home:page-title')}>
+<Layout lang={lang as Languages} title={t('home:page-title')} description={t('meta:home-description')}>
   <HomePage lang={lang as Languages} />
 </Layout>

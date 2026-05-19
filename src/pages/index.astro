@@ -1,10 +1,25 @@
 ---
-const locales = ['en', 'fr'];
+const locales = ['en', 'fr'] as const;
 const defaultLocale = 'en';
+const defaultTarget = `/${defaultLocale}/`;
+const canonicalUrl = new URL(defaultTarget, Astro.site ?? 'https://www.sinclair.bio').toString();
 ---
-<script define:vars={{ locales, defaultLocale }}>
-  const preferred = navigator.languages
-    .map(l => l.split('-')[0])
-    .find(l => locales.includes(l));
-  window.location.replace(`/${preferred ?? defaultLocale}/`);
-</script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sinclair.Bio</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${defaultTarget}`} />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body>
+    <p>Redirecting to <a href={defaultTarget}>Sinclair.Bio</a>…</p>
+    <script define:vars={{ locales, defaultLocale }}>
+      const preferred = navigator.languages
+        .map(l => l.split('-')[0])
+        .find(l => locales.includes(l));
+      window.location.replace(`/${preferred ?? defaultLocale}/`);
+    </script>
+  </body>
+</html>

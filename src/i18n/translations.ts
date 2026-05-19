@@ -83,6 +83,11 @@ type TranslationKey = {
   "portfolio:publications-heading": string;
   "portfolio:classes-heading": string;
   "portfolio:course-figma-title": string;
+  "meta:site-description": string;
+  "meta:home-description": string;
+  "meta:portfolio-description": string;
+  "meta:talk-description": string;
+  "meta:login-description": string;
 };
 
 export type TranslationKeyType = keyof TranslationKey;
@@ -160,6 +165,11 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:publications-heading": "Selected Publications",
     "portfolio:classes-heading": "Selected Coursework",
     "portfolio:course-figma-title": "UX and UI Design with Figma",
+    "meta:site-description": "Lucas Sinclair — Senior Data Scientist & PhD in Bioinformatics. 15+ years turning life-sciences research into data products: pipelines, web apps, and decision-grade analytics.",
+    "meta:home-description": "Personal site of Lucas Sinclair, Senior Data Scientist and PhD in Bioinformatics based in Geneva. Independent consulting for life sciences and beyond.",
+    "meta:portfolio-description": "Selected open-source projects, peer-reviewed publications, client testimonials and coursework by Lucas Sinclair.",
+    "meta:talk-description": "Book a short call with Lucas Sinclair to discuss your data-science, bioinformatics, or software project — no commitment.",
+    "meta:login-description": "Client login portal for Sinclair.Bio.",
   },
   fr: {
     "nav:home": "Contact",
@@ -233,6 +243,11 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "portfolio:publications-heading": "Sélection de publications",
     "portfolio:classes-heading": "Sélection de cours suivis",
     "portfolio:course-figma-title": "UX et UI Design avec Figma",
+    "meta:site-description": "Lucas Sinclair — Data Scientist Senior, PhD en bioinformatique. Plus de 15 ans à transformer la recherche en sciences de la vie en produits data : pipelines, applications web et analyses décisionnelles.",
+    "meta:home-description": "Site personnel de Lucas Sinclair, Data Scientist Senior et docteur en bioinformatique basé à Genève. Conseil indépendant pour les sciences de la vie et d'autres domaines.",
+    "meta:portfolio-description": "Sélection de projets open source, publications scientifiques, témoignages clients et formations de Lucas Sinclair.",
+    "meta:talk-description": "Réservez un échange rapide avec Lucas Sinclair pour discuter de votre projet en data science, bioinformatique ou développement logiciel — sans engagement.",
+    "meta:login-description": "Portail de connexion client pour Sinclair.Bio.",
   },
 };
 
