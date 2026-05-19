@@ -1,9 +1,9 @@
 {
   "testimonials": [
     {
-      "quote": "Je recommande Lucas sans réserve pour le développement de sites web scientifiques et la gestion de données en ligne. Pour notre projet de suivi des microbiomes de digesteurs anaérobies industriels, Lucas nous a donné des conseils extrêmement utiles sur la meilleure façon de construire un dépôt en ligne pour nos données, et a également développé une page d’accueil très professionnelle et soignée. Nous avons aussi bénéficié de son expérience pour choisir le bon titre du site. Le service était professionnel et livré dans les délais, et travailler avec Lucas a été un vrai plaisir.",
-      "author": "Orkun Soyer",
-      "role": "Professeur — University of Warwick"
+      "quote": "J’ai travaillé avec Lucas sur un sujet mêlant données cliniques, microbiologie et data science. Ce que j’ai particulièrement apprécié, c’est sa capacité à comprendre rapidement un contexte complexe et à en tirer un résultat clair et utile. Lucas est sérieux, autonome, et on échange facilement avec lui.",
+      "author": "Jeremy Meyer",
+      "role": "Médecin adjoint agrégé des HUG"
     },
     {
       "quote": "Le pipeline de métagénomique microbienne 16S rRNA développé par Lucas a été essentiel pour nos projets sur le microbiome intestinal.",
