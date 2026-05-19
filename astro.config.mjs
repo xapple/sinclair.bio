@@ -15,11 +15,16 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // Root `/` is a noindex redirect to /en/, so keep it out of the sitemap.
-      filter: (page) => page !== 'https://sinclair.bio/',
+      // Root `/` is a noindex redirect to /en/, and /[lang]/login is noindex.
+      filter: (page) =>
+        page !== 'https://sinclair.bio/' && !/\/login\/?$/.test(page),
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en', fr: 'fr' },
+      },
+      serialize(item) {
+        item.lastmod = new Date().toISOString();
+        return item;
       },
     }),
   ],
