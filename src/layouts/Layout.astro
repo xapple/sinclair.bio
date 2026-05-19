@@ -114,6 +114,7 @@ const websiteSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
     <ClientRouter />
+    <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { display: block !important; }</style></noscript>
     <script is:inline>
       // DOMContentLoaded: reveal content after scripts are ready
       document.addEventListener("DOMContentLoaded", function() {
