@@ -9,15 +9,19 @@ A big list of free astro template:
 
 * https://getastrothemes.com/free-astro-themes-templates/
 
-Selected templates:
+First round of selected templates:
 
 * https://github.com/danielunited/codefolio
 * https://github.com/manuelernestog/astrofy
 * https://github.com/EFEELE/NeonMint
 * https://github.com/rishikesh2003/my-portfolio
-* https://agentsofchaos.baulab.info
 
-Nice portfolio:
+Second round of templates:
+
+* https://agentsofchaos.baulab.info
+* https://astro.build/themes/details/career-portfolio-data-driven-astro-ssg/
+
+Other nice designs:
 
 * https://www.raycast.com
 
