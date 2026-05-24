@@ -106,10 +106,11 @@
 }
 
 /* ---- FOUC prevention ---- */
-/* Hide main content until DOMContentLoaded fires */
+/* Hide main content until DOMContentLoaded fires.
+   visibility:hidden (not display:none) so layout is reserved — prevents CLS. */
 html:not([data-dom-loaded]) main,
 html:not([data-dom-loaded]) footer {
-  display: none;
+  visibility: hidden;
 }
 
 /* ---- Reduced motion ---- */

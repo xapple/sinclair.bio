@@ -1,12 +1,14 @@
-const SUPPORTED = ['en', 'fr'];
-const DEFAULT_LOCALE = 'en';
+import { Languages } from '../src/i18n/translations';
+
+const SUPPORTED: readonly string[] = Object.values(Languages);
+const DEFAULT_LOCALE: string = Languages.en;
 
 /**
  * Parse an Accept-Language header into language tags sorted by descending
  * q-value (tags without an explicit q default to 1.0). Stable for equal
  * q-values — preserves the order the client sent them in.
  */
-function parseAcceptLanguage(header) {
+function parseAcceptLanguage(header: string | null): string[] {
   if (!header) return [];
   return header
     .split(',')
@@ -27,7 +29,7 @@ function parseAcceptLanguage(header) {
     .map((entry) => entry.tag);
 }
 
-export async function onRequest({ request }) {
+export async function onRequest({ request }: { request: Request }): Promise<Response> {
   const url = new URL(request.url);
   const ranked = parseAcceptLanguage(request.headers.get('accept-language'));
   const preferred =

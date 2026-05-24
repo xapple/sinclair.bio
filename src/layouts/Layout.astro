@@ -85,7 +85,8 @@ const websiteSchema = {
     {robots && <meta name="robots" content={robots} />}
     <meta name="author" content="Lucas Sinclair" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#fffff8" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffff8" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#140c07" />
     <title>{title}</title>
 
     <link rel="canonical" href={canonicalUrl} />
@@ -117,7 +118,7 @@ const websiteSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
     <ClientRouter />
-    <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { display: block !important; }</style></noscript>
+    <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
     <script is:inline define:vars={{ THEME_BACK }}>
       // DOMContentLoaded: reveal content after scripts are ready
       document.addEventListener("DOMContentLoaded", function() {
@@ -137,10 +138,14 @@ const websiteSchema = {
         document.documentElement.dataset.theme = color;
 
         // Update meta theme-color for mobile browser chrome.
+        // Both light- and dark-media metas are set to the chosen color so the
+        // explicit user choice wins regardless of OS preference.
         // THEME_BACK is injected from src/scripts/theme-colors.ts via define:vars
         // — CSS variables are not yet available when this blocking script runs.
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', THEME_BACK[color]);
+        var metas = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < metas.length; i++) {
+          metas[i].setAttribute('content', THEME_BACK[color]);
+        }
 
         // Update color-scheme meta
         var csMeta = document.querySelector('meta[name="color-scheme"]');

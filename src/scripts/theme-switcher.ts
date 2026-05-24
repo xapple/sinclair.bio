@@ -1,10 +1,6 @@
 import { THEME_BACK } from "./theme-colors";
 
-const ANIMATION_DURATION_MS = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches
-  ? 0
-  : 500;
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // cubic-bezier approximation of GSAP's sine.inOut
 const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";
@@ -15,7 +11,7 @@ const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";
  * meta[name="theme-color"], meta[name="color-scheme"], aria-label.
  */
 export function setTheme(color: "light" | "dark" | null): void {
-  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  const themeColorMetas = document.querySelectorAll('meta[name="theme-color"]');
   const colorSchemeMeta = document.querySelector<HTMLMetaElement>(
     'meta[name="color-scheme"]'
   );
@@ -38,10 +34,11 @@ export function setTheme(color: "light" | "dark" | null): void {
   // Update color-scheme meta
   if (colorSchemeMeta) colorSchemeMeta.content = color;
 
-  // Update theme-color for mobile browser chrome
-  if (themeColorMeta) {
-    themeColorMeta.setAttribute("content", THEME_BACK[color]);
-  }
+  // Update both theme-color metas (light- and dark-media variants) so the
+  // explicit choice wins regardless of OS preference.
+  themeColorMetas.forEach((meta) => {
+    meta.setAttribute("content", THEME_BACK[color]);
+  });
 }
 
 /**
@@ -63,7 +60,7 @@ export function themeSwitcherManager(): void {
         { transform: `translate(${fromX}px, ${fromY}px)` },
         { transform: "translate(0, 0)" },
       ],
-      { duration: ANIMATION_DURATION_MS, easing: EASE_SINE_IN_OUT }
+      { duration: REDUCED_MOTION.matches ? 0 : 500, easing: EASE_SINE_IN_OUT }
     );
   };
 

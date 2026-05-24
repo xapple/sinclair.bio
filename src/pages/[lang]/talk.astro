@@ -105,6 +105,19 @@ const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
         dark: { 'cal-brand': '#fb923c' },
       },
     });
+
+    // Mirror Cal's reported content height onto the wrapper so the embed grows
+    // with internal navigation (date picker → time slots → confirmation) instead
+    // of scrolling inside the iframe on small viewports.
+    Cal.ns[namespace]('on', {
+      action: '__dimensionChanged',
+      callback: (e: any) => {
+        const h = e?.detail?.data?.iframeHeight;
+        if (typeof h === 'number' && h > 0) {
+          el.style.minHeight = `${h}px`;
+        }
+      },
+    });
   }
 
   // Re-mount Cal embed when the user toggles the site theme — the iframe

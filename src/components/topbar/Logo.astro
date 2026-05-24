@@ -1,5 +1,5 @@
 ---
-import { Languages } from '../../i18n/translations';
+import { Languages, useTranslations } from '../../i18n/translations';
 import logoNameSvg from '../../assets/logo-name.svg?raw';
 
 interface Props {
@@ -7,9 +7,10 @@ interface Props {
 }
 
 const { lang = Languages.en } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<a href={`/${lang}/`} class="flex items-center text-bar-fg" aria-label="Home">
+<a href={`/${lang}/`} class="flex items-center text-bar-fg" aria-label={t('a11y:home')}>
   <span class="logo-name" style="display:block;height:2rem;width:auto" aria-hidden="true"><Fragment set:html={logoNameSvg} /></span>
 </a>
 

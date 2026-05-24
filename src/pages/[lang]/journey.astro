@@ -15,7 +15,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
 const journeyEntries = await getCollection('journey');
-const entry = journeyEntries.find((e) => e.id === lang || e.id === `${lang}.json`);
+const entry = journeyEntries.find((e) => e.id === lang);
 if (!entry) throw new Error(`No journey content found for lang: ${lang}`);
 const { experiences, education, certifications = [] } = entry.data;
 

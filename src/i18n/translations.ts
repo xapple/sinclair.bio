@@ -15,6 +15,12 @@ type TranslationKey = {
   "footer:copyright": string;
   "footer:made-with": string;
   "a11y:theme-switcher": string;
+  "a11y:home": string;
+  "a11y:login": string;
+  "a11y:toggle-menu": string;
+  "a11y:select-language": string;
+  "a11y:ai": string;
+  "a11y:love": string;
   "journey:page-title": string;
   "journey:intro": string;
   "journey:experience-eyebrow": string;
@@ -90,6 +96,12 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "footer:copyright": "© %s Lucas Sinclair - All rights reserved",
     "footer:made-with": "Made with:",
     "a11y:theme-switcher": "Theme switcher",
+    "a11y:home": "Home",
+    "a11y:login": "Login",
+    "a11y:toggle-menu": "Toggle navigation menu",
+    "a11y:select-language": "Select language",
+    "a11y:ai": "AI",
+    "a11y:love": "love",
     "journey:page-title": "Sinclair.Bio | Journey",
     "journey:intro": "A focused view of the roles, research environments, and education that shape how I build data products.",
     "journey:experience-eyebrow": "Experience",
@@ -136,10 +148,10 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:remember": "Remember me",
     "login:forgot": "Forgot your password?",
     "login:submit": "Log in",
+    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
     "talk:page-title": "Sinclair.Bio | Talk",
     "talk:heading": "Let's talk",
     "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
-    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
     "portfolio:page-title": "Sinclair.Bio | Portfolio",
     "portfolio:open-source-heading": "Selected Open Source Projects",
     "portfolio:testimonials-heading": "Testimonials",
@@ -161,6 +173,12 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "footer:copyright": "© %s Lucas Sinclair - Tous droits réservés",
     "footer:made-with": "Fait avec",
     "a11y:theme-switcher": "Changer de thème",
+    "a11y:home": "Accueil",
+    "a11y:login": "Espace client",
+    "a11y:toggle-menu": "Ouvrir le menu de navigation",
+    "a11y:select-language": "Choisir la langue",
+    "a11y:ai": "IA",
+    "a11y:love": "amour",
     "journey:page-title": "Sinclair.Bio | Parcours",
     "journey:intro": "Un aperçu resserré des rôles, des environnements de recherche et du parcours académique qui façonnent ma manière de construire des produits data.",
     "journey:experience-eyebrow": "Expérience",
@@ -207,10 +225,10 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:remember": "Se souvenir de moi",
     "login:forgot": "Mot de passe oublié ?",
     "login:submit": "Se connecter",
+    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
     "talk:page-title": "Sinclair.Bio | Échange",
     "talk:heading": "Discutons",
     "talk:intro": "Choisissez un créneau qui vous convient. Un échange rapide pour voir comment je peux vous aider — sans engagement, sans préparation nécessaire.",
-    "login:client-only": "Les comptes sont délivrés aux nouveaux clients. L'inscription n'est pas disponible.",
     "portfolio:page-title": "Sinclair.Bio | Portfolio",
     "portfolio:open-source-heading": "Sélection de projets open source",
     "portfolio:testimonials-heading": "Témoignages",

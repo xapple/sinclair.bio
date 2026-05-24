@@ -3,7 +3,7 @@ import Logo from './topbar/Logo.astro';
 import NavLinks from './topbar/NavLinks.astro';
 import ThemeToggle from './topbar/ThemeToggle.astro';
 import LanguageSwitcher from './topbar/LanguageSwitcher.astro';
-import { Languages } from '../i18n/translations';
+import { Languages, useTranslations } from '../i18n/translations';
 import squareMenuSvg from '../assets/icons/square-menu.svg?raw';
 import squareXSvg from '../assets/icons/square-x.svg?raw';
 import personCircleSvg from '../assets/icons/person-circle.svg?raw';
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const { lang = Languages.en } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <header class="sticky top-0 z-50 w-full bg-bar">
@@ -36,7 +37,7 @@ const { lang = Languages.en } = Astro.props;
       <a
         href={`/${lang}/login`}
         class="inline-flex items-center justify-center w-11 h-11 md:ml-2 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md"
-        aria-label="Login"
+        aria-label={t('a11y:login')}
       >
         <span class="w-6 h-6 md:w-8 md:h-8" aria-hidden="true"><Fragment set:html={personCircleSvg} /></span>
       </a>
@@ -47,7 +48,7 @@ const { lang = Languages.en } = Astro.props;
         type="button"
         class="inline-flex items-center justify-center w-11 h-11 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md md:hidden"
         aria-expanded="true"
-        aria-label="Toggle navigation menu"
+        aria-label={t('a11y:toggle-menu')}
       >
         <span id="hamburger-icon" class="hidden h-6 w-6" aria-hidden="true"><Fragment set:html={squareMenuSvg} /></span>
         <span id="close-icon" class="h-6 w-6" aria-hidden="true"><Fragment set:html={squareXSvg} /></span>

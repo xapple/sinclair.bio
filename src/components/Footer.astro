@@ -17,9 +17,9 @@ const t = useTranslations(lang);
     <span>{t('footer:copyright', new Date().getFullYear().toString())}</span>
     <span class="flex items-center gap-2">
       {t('footer:made-with')}
-      <span class="icon-sm" set:html={botIcon} />
-      <span>+</span>
-      <span class="icon-sm" set:html={heartIcon} />
+      <span class="icon-sm" role="img" aria-label={t('a11y:ai')} set:html={botIcon} />
+      <span aria-hidden="true">+</span>
+      <span class="icon-sm" role="img" aria-label={t('a11y:love')} set:html={heartIcon} />
     </span>
   </div>
 </footer>

@@ -1,8 +1,9 @@
 ---
-import { Languages, getLangFromUrl } from '../../i18n/translations';
+import { Languages, getLangFromUrl, useTranslations } from '../../i18n/translations';
 import globeSvg from '../../assets/icons/globe.svg?raw';
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
 
 /**
@@ -81,7 +82,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
     id="lang-dropdown-toggle"
     class="relative flex items-center justify-center w-11 h-11 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md"
     aria-expanded="false"
-    aria-label="Select language"
+    aria-label={t('a11y:select-language')}
   >
     <!-- Globe icon + badge, positioned relative to the icon -->
     <span class="relative w-6 h-6" aria-hidden="true">
