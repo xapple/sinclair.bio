@@ -1,4 +1,5 @@
 ---
+import Icon from '../Icon.astro';
 import { useTranslations, getLangFromUrl } from '../../i18n/translations';
 import themeSwitcherSvg from '../../assets/theme-switcher.svg?raw';
 import sunSvg from '../../assets/icons/sun.svg?raw';
@@ -44,9 +45,9 @@ const t = useTranslations(getLangFromUrl(Astro.url));
   aria-label={t("a11y:theme-switcher")}
 >
   <!-- Sun: shown in light mode -->
-  <span class="compact-sun w-6 h-6" aria-hidden="true"><Fragment set:html={sunSvg} /></span>
+  <Icon svg={sunSvg} size="md" class="compact-sun" />
   <!-- Moon: shown in dark mode -->
-  <span class="compact-moon w-6 h-6" aria-hidden="true"><Fragment set:html={moonSvg} /></span>
+  <Icon svg={moonSvg} size="md" class="compact-moon" />
 </button>
 
 <style is:global>
@@ -77,15 +78,9 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     color: var(--color-bar-fg);
   }
 
-  /* Compact toggle icon sizing */
-  .compact-theme-toggle .compact-sun svg,
-  .compact-theme-toggle .compact-moon svg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  /* Compact toggle: show sun in light mode, moon in dark mode */
+  /* Compact toggle: show sun in light mode, moon in dark mode.
+     Icon sizing comes from .icon-md in global.css. */
   .compact-theme-toggle .compact-moon { display: none; }
   html[data-theme="dark"] .compact-theme-toggle .compact-sun  { display: none; }
-  html[data-theme="dark"] .compact-theme-toggle .compact-moon { display: inline; }
+  html[data-theme="dark"] .compact-theme-toggle .compact-moon { display: inline-flex; }
 </style>

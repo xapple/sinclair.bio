@@ -1,54 +1,54 @@
-import { THEME_BACK } from "./theme-colors";
+// --- Theme background colors ---
+// Mirrors --color-bkgnd in src/styles/global.css. Duplicated here because the
+// blocking inline script in Layout.astro needs these values before CSS loads.
+// Keep both in sync.
+export const THEME_BKGND = {
+  light: "#fffff8",
+  dark: "#140c07",
+} as const;
 
-const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
+export type ThemeColor = keyof typeof THEME_BKGND;
 
 // cubic-bezier approximation of GSAP's sine.inOut
 const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";
 
-/**
- * Sets the global theme.
- * Updates: .dark class (Tailwind), data-theme (SVG),
- * meta[name="theme-color"], meta[name="color-scheme"], aria-label.
- */
-export function setTheme(color: "light" | "dark" | null): void {
-  const themeColorMetas = document.querySelectorAll('meta[name="theme-color"]');
-  const colorSchemeMeta = document.querySelector<HTMLMetaElement>(
-    'meta[name="color-scheme"]'
-  );
+// Resolve the active theme: stored preference > OS preference.
+export function resolveTheme(): ThemeColor {
+  const stored = localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
-  // Resolve color: explicit > localStorage > OS preference
-  if (color === null) {
-    color = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  } else {
-    localStorage.setItem("theme", color);
-  }
+// Apply a theme to a document (defaults to the current one).
+// Mirrors the inline bootstrap in Layout.astro — keep both implementations
+// in sync. Touches: .dark class (Tailwind), data-theme (SVG), color-scheme
+// meta, and all theme-color metas.
+export function applyTheme(color: ThemeColor, root: Document = document): void {
+  const html = root.documentElement;
+  html.classList.toggle("dark", color === "dark");
+  html.dataset.theme = color;
 
-  // Tailwind dark mode: toggle .dark class
-  document.documentElement.classList.toggle("dark", color === "dark");
+  const csMeta = root.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
+  if (csMeta) csMeta.content = color;
 
-  // SVG toggle styling: set data-theme
-  document.documentElement.dataset.theme = color;
-
-  // Update color-scheme meta
-  if (colorSchemeMeta) colorSchemeMeta.content = color;
-
-  // Update both theme-color metas (light- and dark-media variants) so the
-  // explicit choice wins regardless of OS preference.
-  themeColorMetas.forEach((meta) => {
-    meta.setAttribute("content", THEME_BACK[color]);
+  root.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+    meta.setAttribute("content", THEME_BKGND[color]);
   });
 }
 
-/**
- * Sets up click handlers and OS preference listeners for theme switching.
- * Uses the Web Animations API for the sliding sun/moon animation.
- */
+// Persist and apply a theme choice.
+export function setTheme(color: ThemeColor): void {
+  localStorage.setItem("theme", color);
+  applyTheme(color);
+}
+
+// Wires the desktop pill toggle's sliding sun/moon animation. Called fresh
+// on every view-transition page-load so the new DOM nodes get listeners.
 export function themeSwitcherManager(): void {
   const themeSwitchers =
     document.querySelectorAll<HTMLButtonElement>(".theme-switcher");
   const movement = 100;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   let runningAnimation: Animation | undefined;
 
@@ -60,7 +60,7 @@ export function themeSwitcherManager(): void {
         { transform: `translate(${fromX}px, ${fromY}px)` },
         { transform: "translate(0, 0)" },
       ],
-      { duration: REDUCED_MOTION.matches ? 0 : 500, easing: EASE_SINE_IN_OUT }
+      { duration: reducedMotion.matches ? 0 : 500, easing: EASE_SINE_IN_OUT }
     );
   };
 
@@ -71,19 +71,13 @@ export function themeSwitcherManager(): void {
         runningAnimation = undefined;
       }
 
-      const isDark =
-        document.documentElement.dataset.theme === "dark" ||
-        document.documentElement.classList.contains("dark");
+      const isDark = document.documentElement.dataset.theme === "dark";
 
       if (isDark) {
         runningAnimation = slideIn("#theme-switcher-sun", -movement, movement);
         setTheme("light");
       } else {
-        runningAnimation = slideIn(
-          "#theme-switcher-moon",
-          movement * 2,
-          movement
-        );
+        runningAnimation = slideIn("#theme-switcher-moon", movement * 2, movement);
         setTheme("dark");
       }
     });

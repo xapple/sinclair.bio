@@ -1,0 +1,17 @@
+---
+interface Props {
+  svg: string;                                  // raw SVG markup (use `?raw` import)
+  size?: 'xs' | 'sm' | 'md' | 'lg';             // semantic size → .icon-{size} class
+  label?: string;                               // if set, span becomes role="img" with this aria-label
+  id?: string;                                  // for JS-toggleable icons
+  class?: string;                               // extra classes (layout, color, responsive overrides)
+}
+
+const { svg, size = 'sm', label, id, class: extraClass } = Astro.props;
+
+const aria = label
+  ? { role: 'img', 'aria-label': label }
+  : { 'aria-hidden': 'true' as const };
+---
+
+<span id={id} class:list={['icon', `icon-${size}`, extraClass]} {...aria} set:html={svg} />

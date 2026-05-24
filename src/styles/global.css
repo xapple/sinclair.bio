@@ -3,15 +3,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---- Design tokens ----
-   NOTE: --color-back values (#fffff8 / #140c07) are duplicated in
-   src/scripts/theme-colors.ts because the blocking inline script in
-   Layout.astro needs them before CSS loads (to set <meta theme-color>).
-   Keep both in sync. */
+   NOTE: --color-bkgnd values (#fffff8 / #140c07) are duplicated in
+   src/scripts/theme-switcher.ts (THEME_BKGND) because the blocking inline
+   script in Layout.astro needs them before CSS loads (to set <meta
+   theme-color>). Keep both in sync. */
 @theme {
   --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* Semantic color palette (light mode defaults) */
-  --color-back:    #fffff8; /* page background */
+  --color-bkgnd:    #fffff8; /* page background */
   --color-surface: #f5f0e8; /* elevated / secondary bg */
   --color-ink:     #2c1810; /* primary text */
   --color-muted:   #7a6a5a; /* secondary text */
@@ -25,7 +25,7 @@
 
 /* Dark mode overrides */
 .dark {
-  --color-back:    #140c07;
+  --color-bkgnd:    #140c07;
   --color-surface: #1f1209;
   --color-ink:     #ede0d0;
   --color-muted:   #a08870;
@@ -38,7 +38,7 @@
 
 /* ---- Theme switcher SVG custom properties ---- */
 /* --color-text  = track fill  (dark in light mode, light in dark mode)  */
-/* --color-back  = knob fill   (already a Tailwind token above, same values) */
+/* --color-bkgnd  = knob fill   (already a Tailwind token above, same values) */
 :root {
   --color-text: #2c1810;
 }
@@ -81,7 +81,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-color: var(--color-back);
+  background-color: var(--color-bkgnd);
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-mask-image:
     linear-gradient(to right, black 0%, transparent 50%),
@@ -111,6 +111,72 @@
 html:not([data-dom-loaded]) main,
 html:not([data-dom-loaded]) footer {
   visibility: hidden;
+}
+
+/* ---- Icon utilities ----
+   Generic inline-SVG wrappers. Pair with <Icon svg={...} size="sm" />.
+   The wrapper sets the box size; the SVG child fills 100%. */
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.icon > svg {
+  width: 100%;
+  height: 100%;
+}
+.icon-xs { width: 0.875rem; height: 0.875rem; }
+.icon-sm { width: 1rem;     height: 1rem;     }
+.icon-md { width: 1.5rem;   height: 1.5rem;   }
+.icon-lg { width: 2rem;     height: 2rem;     }
+
+/* ---- Page scaffolding ----
+   Shared structure for [lang]/* pages wrapped in <LangPage>. Each page sets
+   --shell-width via the `shellWidth` prop to constrain its content column. */
+.page-frame {
+  min-height: calc(100vh - 4rem);
+  color: var(--color-ink);
+  padding: clamp(2rem, 5vw, 5rem) 1.25rem clamp(3rem, 5vw, 4.5rem);
+}
+
+.page-shell {
+  margin: 0 auto;
+  width: min(var(--shell-width, 920px), 100%);
+}
+
+.section-stack {
+  display: grid;
+  gap: var(--section-stack-gap, clamp(1.25rem, 2.5vw, 1.75rem));
+}
+
+.section-heading {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.section-heading .icon {
+  width: clamp(1.3rem, 2.2vw, 1.85rem);
+  height: clamp(1.3rem, 2.2vw, 1.85rem);
+  color: var(--color-accent);
+  display: inline-flex;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .page-frame {
+    padding-inline: 1rem;
+  }
 }
 
 /* ---- Reduced motion ---- */

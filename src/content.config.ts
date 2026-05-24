@@ -73,4 +73,10 @@ const portfolio = defineCollection({
   }),
 });
 
-export const collections = { journey, portfolio };
+const home = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/home' }),
+  // Body is the rendered prose; no required frontmatter.
+  schema: z.object({}).optional(),
+});
+
+export const collections = { journey, portfolio, home };

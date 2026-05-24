@@ -1,0 +1,79 @@
+---
+import type { Languages } from '../../i18n/translations';
+
+export interface LangLink {
+  lang: Languages;
+  href: string | null; // null = current language (not clickable)
+  label: string;
+}
+
+interface Props {
+  langLinks: LangLink[];
+  activeIndex: number;
+}
+
+const { langLinks, activeIndex } = Astro.props;
+---
+
+<div
+  class="language-switcher-desktop relative hidden overflow-hidden rounded-md border border-white/20 md:grid"
+  style={`--lang-count:${langLinks.length};`}
+>
+  <span
+    transition:name="language-switcher-active"
+    aria-hidden="true"
+    class="language-switcher-active pointer-events-none absolute inset-y-0 left-0 z-0 rounded-[5px] bg-bar-fg"
+    style={`--lang-index:${activeIndex};`}
+  ></span>
+
+  {langLinks.map((link) => {
+    const isActive = link.href === null;
+    const itemClasses = [
+      'relative z-10 flex items-center justify-center px-2.5 py-1.5 text-sm font-medium leading-none whitespace-nowrap',
+      isActive
+        ? 'text-bar'
+        : 'text-bar-fg/60 transition-colors hover:text-bar-fg',
+    ];
+
+    return isActive ? (
+      <span
+        transition:name="language-switcher-active-label"
+        class:list={itemClasses}
+        aria-current="true"
+      >
+        {link.label}
+      </span>
+    ) : (
+      <a
+        href={link.href}
+        rel="alternate"
+        hreflang={link.lang}
+        class:list={itemClasses}
+      >
+        {link.label}
+      </a>
+    );
+  })}
+</div>
+
+<style is:global>
+  .language-switcher-desktop {
+    grid-template-columns: repeat(var(--lang-count), minmax(0, 1fr));
+  }
+
+  .language-switcher-active {
+    width: calc(100% / var(--lang-count));
+    transform: translateX(calc(var(--lang-index) * 100%));
+  }
+
+  ::view-transition-group(language-switcher-active) {
+    animation-duration: 360ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(language-switcher-active) {
+      animation-duration: 0.01ms;
+    }
+  }
+</style>

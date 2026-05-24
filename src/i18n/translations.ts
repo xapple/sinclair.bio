@@ -39,11 +39,6 @@ type TranslationKey = {
   "home:language-others": string;
   "home:card-links-heading": string;
   "home:about-heading": string;
-  "home:about-p1": string;
-  "home:about-p2": string;
-  "home:about-p3": string;
-  "home:about-p4": string;
-  "home:about-p5": string;
   "home:contact-heading": string;
   "home:contact-name": string;
   "home:contact-email": string;
@@ -120,11 +115,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:language-others": "Others: German (~B2)",
     "home:card-links-heading": "Links",
     "home:about-heading": "About",
-    "home:about-p1": "I've spent the last 15 years leading exciting data-driven projects in life sciences and several other fields, turning complex research into actionable business insights and driving cross-functional collaboration between scientists, clinicians, and senior management.",
-    "home:about-p2": "To achieve this, I build innovative digital products. Whether it's a command line tool to automate an analysis pipeline, or a graphical mobile application, I master the full production chain from the initial interface design, all the way through prototyping, development and deployment to cloud servers.",
-    "home:about-p3": "I am fluent in most common technologies, and as an EPFL engineer with a PhD, I reason beyond specific brands or flavors of tools: what matters is grasping the theoretical concepts behind computation and fundamental data structures to combine these into efficient and useful products that deliver value.",
-    "home:about-p4": "I lead projects end-to-end — scoping requirements with key stakeholders, assembling and mentoring the right team, in order to deliver results that inform strategic decision-makers at the organizational level.",
-    "home:about-p5": "I excel at acquiring expertise in novel domains very rapidly and am always keen to tackle interesting new challenges.",
     "home:contact-heading": "Get in Touch",
     "home:contact-name": "Your name",
     "home:contact-email": "Your email",
@@ -197,11 +187,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "home:language-others": "Autres: allemand (~B2)",
     "home:card-links-heading": "Liens",
     "home:about-heading": "À propos",
-    "home:about-p1": "J'ai passé les 15 dernières années à piloter des projets axés sur les data dans les sciences de la vie ainsi que dans plusieurs autres domaines, transformant des travaux de recherche complexes en informations exploitables pour l’entreprise, tout en favorisant la collaboration transverse entre scientifiques, cliniciens et membres de la direction.",
-    "home:about-p2": "Dans cet objectif, je conçois des produits numériques innovants. Qu’il s’agisse d’un outil en ligne de commande pour automatiser un pipeline d’analyse ou d’une application mobile dotée d’une interface graphique, je maîtrise l’ensemble de la chaîne de production, de la conception initiale de l’interface au prototypage, puis au développement et au déploiement sur des serveurs cloud.",
-    "home:about-p3": "Je maîtrise la plupart des technologies courantes mais, en tant qu’ingénieur EPFL titulaire d’un doctorat, j’aborde les outils au-delà de leurs spécificités. Pour moi, l’essentiel est de comprendre les concepts théoriques computationnels et les structures de données fondamentales, afin de les combiner en solutions adaptées, efficaces et créatrices de valeur.",
-    "home:about-p4": "Je mène des projets de bout en bout — en commençant par la définition des besoins avec les parties prenantes, puis en constituant et accompagnant la bonne équipe, et finalement en livrant des résultats qui éclairent les décideurs stratégiques à l'échelle organisationnelle.",
-    "home:about-p5": "J’excelle dans l’acquisition rapide d’expertise dans de nouveaux domaines et je suis toujours enthousiaste à l’idée de relever des défis stimulants.",
     "home:contact-heading": "Me contacter",
     "home:contact-name": "Votre nom",
     "home:contact-email": "Votre email",

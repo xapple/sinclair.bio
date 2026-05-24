@@ -1,6 +1,10 @@
 ---
 import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 import { useTranslations, Languages } from '../i18n/translations';
+import { getLangEntry } from '../i18n/page';
+import Icon from './Icon.astro';
+import InfoCard from './InfoCard.astro';
 
 import profile from '../assets/profile.jpg';
 import mapPin       from '../assets/icons/map-pin.svg?raw';
@@ -22,6 +26,9 @@ interface Props {
 
 const { lang = Languages.en } = Astro.props;
 const t = useTranslations(lang);
+
+const homeEntry = await getLangEntry('home', lang);
+const { Content: AboutProse } = await render(homeEntry);
 ---
 
 <!-- Hero -->
@@ -47,59 +54,38 @@ const t = useTranslations(lang);
 <section class="home-reveal mx-auto max-w-3xl px-6 pb-12" style="--delay:80ms">
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-12">
 
-    <!-- Location -->
-    <div class="rounded-xl bg-surface border border-border overflow-hidden">
-      <div class="bg-border/50 px-5 py-3">
-        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-          <span class="icon-sm" aria-hidden="true" set:html={mapPin} />
-          {t('home:card-location-heading')}
-        </h3>
-      </div>
-      <div class="px-5 py-4 space-y-0.5">
+    <InfoCard icon={mapPin} heading={t('home:card-location-heading')}>
+      <div class="space-y-0.5">
         <a href="https://openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
         <p class="text-sm text-ink">{t('home:location-city')}</p>
         <p class="text-sm text-ink flex items-center gap-1">{t('home:location-country')} <span>🇨🇭</span></p>
       </div>
-    </div>
+    </InfoCard>
 
-    <!-- Languages -->
-    <div class="rounded-xl bg-surface border border-border overflow-hidden">
-      <div class="bg-border/50 px-5 py-3">
-        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-          <span class="icon-sm" aria-hidden="true" set:html={msgSquare} />
-          {t('home:card-languages-heading')}
-        </h3>
-      </div>
-      <div class="px-5 py-4 space-y-0.5">
+    <InfoCard icon={msgSquare} heading={t('home:card-languages-heading')}>
+      <div class="space-y-0.5">
         <p class="text-sm text-ink">{t('home:language-english')}</p>
         <p class="text-sm text-ink">{t('home:language-french')}</p>
         <p class="text-sm text-ink">{t('home:language-others')}</p>
       </div>
-    </div>
+    </InfoCard>
 
-    <!-- Links -->
-    <div class="rounded-xl bg-surface border border-border overflow-hidden">
-      <div class="bg-border/50 px-5 py-3">
-        <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-          <span class="icon-sm" aria-hidden="true" set:html={extLink} />
-          {t('home:card-links-heading')}
-        </h3>
-      </div>
-      <div class="px-5 py-4 space-y-2">
+    <InfoCard icon={extLink} heading={t('home:card-links-heading')}>
+      <div class="space-y-2">
         <a href="https://github.com/xapple" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <span class="icon-sm" aria-hidden="true" set:html={githubIcon} />
+          <Icon svg={githubIcon} size="sm" />
           github/xapple
         </a>
         <a href="https://gitlab.com/sinclair" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <span class="icon-sm" aria-hidden="true" set:html={gitlabIcon} />
+          <Icon svg={gitlabIcon} size="sm" />
           gitlab/sinclair
         </a>
         <a href="https://linkedin.com/in/sinclair-bio" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <span class="icon-sm" aria-hidden="true" set:html={linkedinIcon} />
+          <Icon svg={linkedinIcon} size="sm" />
           in/sinclair-bio
         </a>
       </div>
-    </div>
+    </InfoCard>
 
   </div>
 </section>
@@ -110,11 +96,7 @@ const t = useTranslations(lang);
     {t('home:about-heading')}
   </h2>
   <div class="space-y-4 text-base leading-relaxed text-ink">
-    <p>{t('home:about-p1')}</p>
-    <p>{t('home:about-p2')}</p>
-    <p>{t('home:about-p3')}</p>
-    <p>{t('home:about-p4')}</p>
-    <p>{t('home:about-p5')}</p>
+    <AboutProse />
   </div>
 </section>
 
@@ -144,7 +126,7 @@ const t = useTranslations(lang);
         aria-label={t('home:contact-name')}
         autocomplete="name"
         required
-        class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
       />
       <input
         type="email"
@@ -153,7 +135,7 @@ const t = useTranslations(lang);
         aria-label={t('home:contact-email')}
         autocomplete="email"
         required
-        class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
       />
       <textarea
         name="message"
@@ -161,12 +143,12 @@ const t = useTranslations(lang);
         aria-label={t('home:contact-message')}
         rows={5}
         required
-        class="w-full rounded-lg border border-border bg-back px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none"
+        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none"
       ></textarea>
       <div class="flex items-center gap-3">
         <button
           type="submit"
-          class="rounded-lg bg-ink px-6 py-2.5 text-sm font-semibold text-back hover:bg-accent transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          class="rounded-lg bg-ink px-6 py-2.5 text-sm font-semibold text-bkgnd hover:bg-accent transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {t('home:contact-send')}
         </button>
@@ -184,61 +166,42 @@ const t = useTranslations(lang);
     <!-- Right column: DM + Meeting -->
     <div class="w-full md:w-56 flex flex-col gap-4">
 
-      <!-- Private note -->
-      <div class="rounded-xl bg-surface border border-border overflow-hidden">
-        <div class="bg-border/50 px-5 py-3">
-          <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-            <span class="icon-sm" aria-hidden="true" set:html={lockIcon} />
-            <span>{t('home:dm-heading')}</span>
-          </h3>
-        </div>
-        <ul class="space-y-3 text-sm px-5 py-4">
+      <InfoCard icon={lockIcon} heading={t('home:dm-heading')}>
+        <ul class="space-y-3 text-sm">
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" aria-hidden="true" set:html={telegramIcon} />
+              <Icon svg={telegramIcon} size="xs" />
               Telegram:
             </span>
             <a href="https://t.me/sinclair99" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" aria-hidden="true" set:html={signalIcon} />
+              <Icon svg={signalIcon} size="xs" />
               Signal:
             </span>
             <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" aria-hidden="true" set:html={threemaIcon} />
+              <Icon svg={threemaIcon} size="xs" />
               Threema:
             </span>
             <a href="https://threema.id/p3wmfn9c" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <span class="icon-xs" aria-hidden="true" set:html={matrixIcon} />
+              <Icon svg={matrixIcon} size="xs" />
               Matrix:
             </span>
             <a href="https://matrix.to/#/@sinclair.bio:matrix.org" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
           </li>
         </ul>
-      </div>
+      </InfoCard>
 
-      <!-- Short Meeting -->
-      <a
-        href={`/${lang}/talk`}
-        class="block rounded-xl bg-surface border border-border overflow-hidden hover:border-accent transition-colors group"
-      >
-        <div class="bg-border/50 px-5 py-3">
-          <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-            <span class="icon-sm" aria-hidden="true" set:html={messagesSquareIcon} />
-            <span>{t('home:meeting-heading')}</span>
-          </h3>
-        </div>
-        <div class="px-5 py-4">
-          <p class="text-sm text-ink group-hover:text-accent transition-colors underline underline-offset-2">{t('home:meeting-body')}</p>
-        </div>
-      </a>
+      <InfoCard icon={messagesSquareIcon} heading={t('home:meeting-heading')} href={`/${lang}/talk`}>
+        <p class="text-sm text-ink group-hover:text-accent transition-colors underline underline-offset-2">{t('home:meeting-body')}</p>
+      </InfoCard>
 
     </div>
 
@@ -293,25 +256,6 @@ const t = useTranslations(lang);
 </script>
 
 <style>
-  /* Icon wrappers — control size; SVG inherits currentColor from parent */
-  .icon-sm {
-    display: inline-flex;
-    width:  1rem;
-    height: 1rem;
-    flex-shrink: 0;
-  }
-  .icon-xs {
-    display: inline-flex;
-    width:  0.875rem;
-    height: 0.875rem;
-    flex-shrink: 0;
-  }
-  .icon-sm > svg,
-  .icon-xs > svg {
-    width: 100%;
-    height: 100%;
-  }
-
   .home-reveal {
     opacity: 0;
     transform: translateY(12px);

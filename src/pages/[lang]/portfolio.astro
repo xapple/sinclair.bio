@@ -1,147 +1,108 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import LangPage from '../../layouts/LangPage.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
-import { getCollection } from 'astro:content';
+import { langStaticPaths, getLangEntry } from '../../i18n/page';
 import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
 import QuoteIcon from '../../assets/icons/quote.svg?raw';
 import BookIcon from '../../assets/icons/book.svg?raw';
 import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
 import OrcidIcon from '../../assets/icons/orcid.svg?raw';
 
-export function getStaticPaths() {
-  return Object.values(Languages).map((lang) => ({ params: { lang } }));
-}
+export const getStaticPaths = langStaticPaths;
 
 const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
-const portfolioEntries = await getCollection('portfolio');
-const entry = portfolioEntries.find((e) => e.id === lang);
-if (!entry) throw new Error(`No portfolio content found for lang: ${lang}`);
+const entry = await getLangEntry('portfolio', lang);
 const { testimonials, publications, classes } = entry.data;
 ---
 
-<Layout lang={lang} title={t('portfolio:page-title')} description={t('meta:portfolio-description')}>
-  <section class="portfolio-page">
-    <div class="page-shell">
-      <div class="section-stack">
-        <h2 class="section-heading" id="open-source-heading">
-          <span class="icon" aria-hidden="true">
-            <Fragment set:html={PackageOpenIcon} />
-          </span>
-          <span>{t("portfolio:open-source-heading")}</span>
-        </h2>
+<LangPage
+  lang={lang}
+  title={t('portfolio:page-title')}
+  description={t('meta:portfolio-description')}
+  shellWidth="1100px"
+>
+  <div class="section-stack">
+    <h2 class="section-heading" id="open-source-heading">
+      <span class="icon" aria-hidden="true">
+        <Fragment set:html={PackageOpenIcon} />
+      </span>
+      <span>{t("portfolio:open-source-heading")}</span>
+    </h2>
 
-        <div class="card-grid">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div class="card">
-              <div class="card-thumb"></div>
-              <div class="card-body">
-                <h3>Project {i}</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-                <span class="tag">Lorem</span>
-                <span class="tag">Ipsum</span>
-              </div>
-            </div>
-          ))}
+    <div class="card-grid">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div class="card">
+          <div class="card-thumb"></div>
+          <div class="card-body">
+            <h3>Project {i}</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            <span class="tag">Lorem</span>
+            <span class="tag">Ipsum</span>
+          </div>
         </div>
-
-        <h2 class="section-heading" id="testimonials-heading">
-          <span class="icon" aria-hidden="true">
-            <Fragment set:html={QuoteIcon} />
-          </span>
-          <span>{t("portfolio:testimonials-heading")}</span>
-        </h2>
-
-        <div class="testimonial-list">
-          {testimonials.map((testimonial) => (
-            <figure class="testimonial">
-              <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
-              <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
-            </figure>
-          ))}
-        </div>
-
-        <h2 class="section-heading" id="publications-heading">
-          <span class="icon" aria-hidden="true">
-            <Fragment set:html={BookIcon} />
-          </span>
-          <span>{t("portfolio:publications-heading")}</span>
-        </h2>
-
-        <ul class="publication-list">
-          {publications.map((publication) => (
-            <li class="publication">
-              <p class="pub-title"><a href={publication.href} target="_blank" rel="noopener noreferrer">{publication.title}</a></p>
-              <p class="pub-meta">{publication.authors} — <em>{publication.journal}</em>, {publication.year}</p>
-            </li>
-          ))}
-        </ul>
-
-        <p class="orcid-link-wrap">
-          <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
-            <span class="orcid-icon" aria-hidden="true"><Fragment set:html={OrcidIcon} /></span>
-            <span>{t("portfolio:orcid-link")}</span>
-            <span class="orcid-arrow" aria-hidden="true">→</span>
-          </a>
-        </p>
-
-        <h2 class="section-heading" id="classes-heading">
-          <span class="icon" aria-hidden="true">
-            <Fragment set:html={GraduationCapIcon} />
-          </span>
-          <span>{t("portfolio:classes-heading")}</span>
-        </h2>
-
-        <ul class="publication-list">
-          {classes.map((klass) => (
-            <li class="publication">
-              <p class="pub-title"><a href={klass.href} target="_blank" rel="noopener noreferrer">{klass.title}</a></p>
-              <p class="pub-meta">{klass.institution} — {klass.year}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      ))}
     </div>
-  </section>
-</Layout>
+
+    <h2 class="section-heading" id="testimonials-heading">
+      <span class="icon" aria-hidden="true">
+        <Fragment set:html={QuoteIcon} />
+      </span>
+      <span>{t("portfolio:testimonials-heading")}</span>
+    </h2>
+
+    <div class="testimonial-list">
+      {testimonials.map((testimonial) => (
+        <figure class="testimonial">
+          <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
+          <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <h2 class="section-heading" id="publications-heading">
+      <span class="icon" aria-hidden="true">
+        <Fragment set:html={BookIcon} />
+      </span>
+      <span>{t("portfolio:publications-heading")}</span>
+    </h2>
+
+    <ul class="publication-list">
+      {publications.map((publication) => (
+        <li class="publication">
+          <p class="pub-title"><a href={publication.href} target="_blank" rel="noopener noreferrer">{publication.title}</a></p>
+          <p class="pub-meta">{publication.authors} — <em>{publication.journal}</em>, {publication.year}</p>
+        </li>
+      ))}
+    </ul>
+
+    <p class="orcid-link-wrap">
+      <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
+        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={OrcidIcon} /></span>
+        <span>{t("portfolio:orcid-link")}</span>
+        <span class="orcid-arrow" aria-hidden="true">→</span>
+      </a>
+    </p>
+
+    <h2 class="section-heading" id="classes-heading">
+      <span class="icon" aria-hidden="true">
+        <Fragment set:html={GraduationCapIcon} />
+      </span>
+      <span>{t("portfolio:classes-heading")}</span>
+    </h2>
+
+    <ul class="publication-list">
+      {classes.map((klass) => (
+        <li class="publication">
+          <p class="pub-title"><a href={klass.href} target="_blank" rel="noopener noreferrer">{klass.title}</a></p>
+          <p class="pub-meta">{klass.institution} — {klass.year}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</LangPage>
 
 <style>
-  .portfolio-page {
-    min-height: calc(100vh - 4rem);
-    color: var(--color-ink);
-    padding: clamp(2rem, 5vw, 5rem) 1.25rem clamp(3rem, 5vw, 4.5rem);
-  }
-
-  .page-shell {
-    margin: 0 auto;
-    width: min(1100px, 100%);
-  }
-
-  .section-stack {
-    display: grid;
-    gap: clamp(1.25rem, 2.5vw, 1.75rem);
-  }
-
-  .section-heading {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.6rem;
-    font-size: clamp(1.45rem, 2.6vw, 2.05rem);
-    line-height: 1;
-    letter-spacing: -0.03em;
-    font-weight: 800;
-    color: var(--color-ink);
-  }
-
-  .section-heading .icon {
-    width: clamp(1.3rem, 2.2vw, 1.85rem);
-    height: clamp(1.3rem, 2.2vw, 1.85rem);
-    color: var(--color-accent);
-    display: inline-flex;
-  }
-
   .section-stack > .section-heading ~ .section-heading {
     margin-top: clamp(2.5rem, 5vw, 4rem);
   }
@@ -307,16 +268,5 @@ const { testimonials, publications, classes } = entry.data;
     font-size: 0.87rem;
     color: var(--color-muted);
     line-height: 1.5;
-  }
-
-  @keyframes reveal {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (max-width: 700px) {
-    .portfolio-page {
-      padding-inline: 1rem;
-    }
   }
 </style>

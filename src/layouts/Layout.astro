@@ -3,7 +3,8 @@ import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
 import { Languages, useTranslations } from '../i18n/translations';
-import { THEME_BACK } from '../scripts/theme-colors';
+import { getAlternatePath } from '../i18n/page';
+import { THEME_BKGND } from '../scripts/theme-switcher';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -28,13 +29,10 @@ const ogImageUrl = new URL('/og_card.png', siteUrl).toString();
 const allLangs = Object.values(Languages);
 const alternateLinks = allLangs.map((l) => ({
   hreflang: l,
-  href: new URL(
-    Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), `/${l}$1`),
-    siteUrl,
-  ).toString(),
+  href: new URL(getAlternatePath(lang, l, Astro.url.pathname), siteUrl).toString(),
 }));
 const xDefaultHref = new URL(
-  Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), `/en$1`),
+  getAlternatePath(lang, Languages.en, Astro.url.pathname),
   siteUrl,
 ).toString();
 
@@ -85,8 +83,8 @@ const websiteSchema = {
     {robots && <meta name="robots" content={robots} />}
     <meta name="author" content="Lucas Sinclair" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffff8" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#140c07" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content={THEME_BKGND.light} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={THEME_BKGND.dark} />
     <title>{title}</title>
 
     <link rel="canonical" href={canonicalUrl} />
@@ -119,60 +117,68 @@ const websiteSchema = {
 
     <ClientRouter />
     <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
-    <script is:inline define:vars={{ THEME_BACK }}>
-      // DOMContentLoaded: reveal content after scripts are ready
-      document.addEventListener("DOMContentLoaded", function() {
-        document.documentElement.dataset.domLoaded = "true";
-      });
-
-      function applyTheme() {
+    <script is:inline define:vars={{ THEME_BKGND }}>
+      // Blocking bootstrap. Mirrors resolveTheme/applyTheme in
+      // src/scripts/theme-switcher.ts — keep both implementations in sync.
+      // Runs before bundles load (FOUC guard) and again on view-transition
+      // swaps so the incoming document arrives fully themed.
+      function resolveTheme() {
         var stored = localStorage.getItem('theme');
-        var color = stored === 'dark' || stored === 'light'
-          ? stored
-          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-
-        // .dark class for Tailwind dark: utilities
-        document.documentElement.classList.toggle('dark', color === 'dark');
-
-        // data-theme for custom SVG toggle styling
-        document.documentElement.dataset.theme = color;
-
-        // Update meta theme-color for mobile browser chrome.
-        // Both light- and dark-media metas are set to the chosen color so the
-        // explicit user choice wins regardless of OS preference.
-        // THEME_BACK is injected from src/scripts/theme-colors.ts via define:vars
-        // — CSS variables are not yet available when this blocking script runs.
-        var metas = document.querySelectorAll('meta[name="theme-color"]');
-        for (var i = 0; i < metas.length; i++) {
-          metas[i].setAttribute('content', THEME_BACK[color]);
-        }
-
-        // Update color-scheme meta
-        var csMeta = document.querySelector('meta[name="color-scheme"]');
-        if (csMeta) csMeta.content = color;
+        if (stored === 'light' || stored === 'dark') return stored;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
 
-      // Blocking call on hard navigation (prevents FOUC)
-      applyTheme();
-
-      // Apply theme to the INCOMING document before the swap. Setting it
-      // post-swap leaves a frame where <html> has no data-theme, which makes
-      // CSS-transitioned styles (e.g. the theme-switcher knob) animate from
-      // default to correct on every navigation.
-      document.addEventListener("astro:before-swap", function(e) {
-        var stored = localStorage.getItem('theme');
-        var color = stored === 'dark' || stored === 'light'
-          ? stored
-          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        var html = e.newDocument.documentElement;
+      function applyTheme(color, root) {
+        root = root || document;
+        var html = root.documentElement;
         html.classList.toggle('dark', color === 'dark');
         html.dataset.theme = color;
-        html.dataset.domLoaded = "true";
+
+        var csMeta = root.querySelector('meta[name="color-scheme"]');
+        if (csMeta) csMeta.content = color;
+
+        var metas = root.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < metas.length; i++) {
+          metas[i].setAttribute('content', THEME_BKGND[color]);
+        }
+      }
+
+      // Initial hard navigation
+      applyTheme(resolveTheme());
+
+      // FOUC guard: reveal main/footer once DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        document.documentElement.dataset.domLoaded = 'true';
       });
 
-      document.addEventListener("astro:after-swap", function() {
-        applyTheme();
-        document.documentElement.dataset.domLoaded = "true";
+      // SPA navigation: theme the incoming document (including meta tags) so
+      // it arrives fully styled. Doing this before-swap avoids a frame of
+      // wrong theme that would let CSS-transitioned styles (e.g. the
+      // theme-switcher knob) animate from default to correct on every nav.
+      document.addEventListener('astro:before-swap', function(e) {
+        applyTheme(resolveTheme(), e.newDocument);
+        e.newDocument.documentElement.dataset.domLoaded = 'true';
+      });
+    </script>
+    <script>
+      // Preserve scroll across language navigation. ClientRouter resets scroll
+      // to 0 on every swap; without this, switching language while scrolled
+      // would jump the user to the top of the new translation.
+      // Lifted from LanguageSwitcher — applies to any <a hreflang="..."> link.
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((link) => {
+          link.addEventListener('click', () => {
+            sessionStorage.setItem('lang-switch-scroll', String(window.scrollY));
+          });
+        });
+      });
+
+      document.addEventListener('astro:after-swap', () => {
+        const saved = sessionStorage.getItem('lang-switch-scroll');
+        if (saved !== null) {
+          sessionStorage.removeItem('lang-switch-scroll');
+          window.scrollTo({ top: parseInt(saved, 10), left: 0, behavior: 'instant' });
+        }
       });
     </script>
   </head>
@@ -181,7 +187,7 @@ const websiteSchema = {
     theme toggle (background-color, color). The root view-transition group is
     disabled in global.css, so this fires on theme swap, not SPA navigation.
   -->
-  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-back font-sans text-ink transition-[background-color,color] duration-150">
+  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-bkgnd font-sans text-ink transition-[background-color,color] duration-150">
     <GridDecoration />
     <Topbar lang={lang} />
     <main class="relative flex-1">

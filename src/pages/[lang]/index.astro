@@ -2,17 +2,14 @@
 import HomePage from '../../components/HomePage.astro';
 import Layout from '../../layouts/Layout.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
+import { langStaticPaths } from '../../i18n/page';
 
-export function getStaticPaths() {
-  return Object.values(Languages).map((lang) => ({
-    params: { lang },
-  }));
-}
+export const getStaticPaths = langStaticPaths;
 
-const { lang } = Astro.params;
-const t = useTranslations(lang as Languages);
+const lang = Astro.params.lang as Languages;
+const t = useTranslations(lang);
 ---
 
-<Layout lang={lang as Languages} title={t('home:page-title')} description={t('meta:home-description')}>
-  <HomePage lang={lang as Languages} />
+<Layout lang={lang} title={t('home:page-title')} description={t('meta:home-description')}>
+  <HomePage lang={lang} />
 </Layout>

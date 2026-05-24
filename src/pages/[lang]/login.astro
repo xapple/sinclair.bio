@@ -1,10 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
+import { langStaticPaths } from '../../i18n/page';
 
-export function getStaticPaths() {
-  return Object.values(Languages).map((lang) => ({ params: { lang } }));
-}
+export const getStaticPaths = langStaticPaths;
 
 const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
@@ -121,7 +120,7 @@ const forgotPasswordUrl = "https://client.sinclair.bio/forgot-password";
     padding: 0.6rem 0.85rem;
     border: 1px solid var(--color-border);
     border-radius: 0.5rem;
-    background: var(--color-back);
+    background: var(--color-bkgnd);
     color: var(--color-ink);
     font-size: 0.95rem;
     font-family: inherit;
@@ -200,10 +199,5 @@ const forgotPasswordUrl = "https://client.sinclair.bio/forgot-password";
     font-size: 0.9rem;
     color: var(--color-muted);
     line-height: 1.5;
-  }
-
-  @keyframes reveal {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 </style>

@@ -1,10 +1,9 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import LangPage from '../../layouts/LangPage.astro';
 import { Languages, useTranslations } from '../../i18n/translations';
+import { langStaticPaths } from '../../i18n/page';
 
-export function getStaticPaths() {
-  return Object.values(Languages).map((lang) => ({ params: { lang } }));
-}
+export const getStaticPaths = langStaticPaths;
 
 const lang = Astro.params.lang as Languages;
 const t = useTranslations(lang);
@@ -16,25 +15,28 @@ const CAL_ORIGIN = 'https://app.cal.eu';
 const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
 ---
 
-<Layout lang={lang} title={t('talk:page-title')} description={t('meta:talk-description')}>
-  <section class="talk-page">
-    <div class="talk-shell">
-      <header class="talk-header">
-        <h1>{t('talk:heading')}</h1>
-        <p class="subtitle">{t('talk:intro')}</p>
-      </header>
+<LangPage
+  lang={lang}
+  title={t('talk:page-title')}
+  description={t('meta:talk-description')}
+  shellWidth="960px"
+>
+  <div class="talk-reveal">
+    <header class="talk-header">
+      <h1>{t('talk:heading')}</h1>
+      <p class="subtitle">{t('talk:intro')}</p>
+    </header>
 
-      <div
-        id="cal-inline"
-        class="cal-inline"
-        data-cal-link={CAL_LINK}
-        data-cal-namespace={CAL_NAMESPACE}
-        data-cal-origin={CAL_ORIGIN}
-        data-cal-embed-src={CAL_EMBED_SRC}
-      ></div>
-    </div>
-  </section>
-</Layout>
+    <div
+      id="cal-inline"
+      class="cal-inline"
+      data-cal-link={CAL_LINK}
+      data-cal-namespace={CAL_NAMESPACE}
+      data-cal-origin={CAL_ORIGIN}
+      data-cal-embed-src={CAL_EMBED_SRC}
+    ></div>
+  </div>
+</LangPage>
 
 <script>
   // Cal.com inline embed — re-initialised on every Astro view-transition load.
@@ -101,8 +103,8 @@ const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
       layout: 'month_view',
       theme,
       cssVarsPerTheme: {
-        light: { 'cal-brand': '#c2410c' },
-        dark: { 'cal-brand': '#fb923c' },
+        light: { 'cal-brand': '#6b2c2c' },
+        dark: { 'cal-brand': '#b85252' },
       },
     });
 
@@ -146,15 +148,7 @@ const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
 </script>
 
 <style>
-  .talk-page {
-    min-height: calc(100vh - 4rem);
-    color: var(--color-ink);
-    padding: clamp(2rem, 5vw, 5rem) 1.25rem clamp(3rem, 5vw, 4.5rem);
-  }
-
-  .talk-shell {
-    margin: 0 auto;
-    width: min(960px, 100%);
+  .talk-reveal {
     animation: reveal 400ms ease-out both;
   }
 
@@ -185,10 +179,5 @@ const CAL_EMBED_SRC = 'https://app.cal.eu/embed/embed.js';
     overflow: hidden;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-  }
-
-  @keyframes reveal {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 </style>
