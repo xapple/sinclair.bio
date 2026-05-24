@@ -16,18 +16,10 @@ type TranslationKey = {
   "footer:made-with": string;
   "a11y:theme-switcher": string;
   "journey:page-title": string;
-  "journey:heading-start": string;
-  "journey:heading-accent": string;
   "journey:intro": string;
   "journey:experience-eyebrow": string;
-  "journey:experience-title": string;
-  "journey:experience-intro": string;
   "journey:education-eyebrow": string;
-  "journey:education-title": string;
-  "journey:education-intro": string;
   "journey:certifications-eyebrow": string;
-  "journey:certifications-title": string;
-  "journey:certifications-intro": string;
   "home:page-title": string;
   "home:greeting": string;
   "home:name": string;
@@ -68,7 +60,6 @@ type TranslationKey = {
   "login:password-placeholder": string;
   "login:remember": string;
   "login:forgot": string;
-  "login:notice": string;
   "login:submit": string;
   "login:client-only": string;
   "talk:page-title": string;
@@ -100,18 +91,10 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "footer:made-with": "Made with:",
     "a11y:theme-switcher": "Theme switcher",
     "journey:page-title": "Sinclair.Bio | Journey",
-    "journey:heading-start": "Professional",
-    "journey:heading-accent": "Journey",
     "journey:intro": "A focused view of the roles, research environments, and education that shape how I build data products.",
     "journey:experience-eyebrow": "Experience",
-    "journey:experience-title": "Experience",
-    "journey:experience-intro": "From research labs and EU institutions to biotech and independent consulting.",
     "journey:education-eyebrow": "Education",
-    "journey:education-title": "Education",
-    "journey:education-intro": "Training in life sciences, bioinformatics, and computation.",
     "journey:certifications-eyebrow": "Certifications",
-    "journey:certifications-title": "Certifications",
-    "journey:certifications-intro": "Specialized programs in pedagogy and machine learning.",
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Hello 👋",
     "home:name": "I'm Lucas Sinclair",
@@ -152,7 +135,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:password-placeholder": "••••••••••••",
     "login:remember": "Remember me",
     "login:forgot": "Forgot your password?",
-    "login:notice": "This portal is not yet active.",
     "login:submit": "Log in",
     "talk:page-title": "Sinclair.Bio | Talk",
     "talk:heading": "Let's talk",
@@ -180,18 +162,10 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "footer:made-with": "Fait avec",
     "a11y:theme-switcher": "Changer de thème",
     "journey:page-title": "Sinclair.Bio | Parcours",
-    "journey:heading-start": "Parcours",
-    "journey:heading-accent": "professionnel",
     "journey:intro": "Un aperçu resserré des rôles, des environnements de recherche et du parcours académique qui façonnent ma manière de construire des produits data.",
     "journey:experience-eyebrow": "Expérience",
-    "journey:experience-title": "Expérience",
-    "journey:experience-intro": "Entre laboratoires de recherche, institutions européennes, biotech et conseil indépendant.",
     "journey:education-eyebrow": "Education",
-    "journey:education-title": "Education",
-    "journey:education-intro": "Une formation en sciences du vivant, bioinformatique et informatique.",
     "journey:certifications-eyebrow": "Certifications",
-    "journey:certifications-title": "Certifications",
-    "journey:certifications-intro": "Programmes spécialisés en pédagogie et apprentissage automatique.",
     "home:page-title": "Sinclair.Bio",
     "home:greeting": "Bonjour 👋",
     "home:name": "Je suis Lucas Sinclair",
@@ -232,7 +206,6 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "login:password-placeholder": "••••••••••••",
     "login:remember": "Se souvenir de moi",
     "login:forgot": "Mot de passe oublié ?",
-    "login:notice": "Ce portail n'est pas encore actif.",
     "login:submit": "Se connecter",
     "talk:page-title": "Sinclair.Bio | Échange",
     "talk:heading": "Discutons",

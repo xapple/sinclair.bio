@@ -31,7 +31,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <button
   title={t("a11y:theme-switcher")}
   class="theme-switcher relative hidden md:flex items-center self-center p-0 border-none bg-transparent cursor-pointer"
-  aria-label="Theme switcher"
+  aria-label="Toggle theme"
 >
   <Fragment set:html={themeSwitcherSvg} />
 </button>

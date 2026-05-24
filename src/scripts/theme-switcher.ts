@@ -16,8 +16,6 @@ export function setTheme(color: "light" | "dark" | null): void {
   const colorSchemeMeta = document.querySelector<HTMLMetaElement>(
     'meta[name="color-scheme"]'
   );
-  const themeSwitchers =
-    document.querySelectorAll<HTMLButtonElement>(".theme-switcher");
 
   // Resolve color: explicit > localStorage > OS preference
   if (color === null) {
@@ -41,14 +39,6 @@ export function setTheme(color: "light" | "dark" | null): void {
   if (themeColorMeta) {
     themeColorMeta.setAttribute("content", THEME_BACK[color]);
   }
-
-  // Update aria-label for accessibility
-  themeSwitchers.forEach((btn) => {
-    btn.setAttribute(
-      "aria-label",
-      color === "dark" ? "Dark mode active" : "Light mode active"
-    );
-  });
 }
 
 /**
