@@ -56,7 +56,7 @@ const t = useTranslations(lang);
         </h3>
       </div>
       <div class="px-5 py-4 space-y-0.5">
-        <a href="https://www.openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
+        <a href="https://openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
         <p class="text-sm text-ink">{t('home:location-city')}</p>
         <p class="text-sm text-ink flex items-center gap-1">{t('home:location-country')} <span>🇨🇭</span></p>
       </div>
@@ -129,11 +129,14 @@ const t = useTranslations(lang);
     <form
       id="form"
       class="flex-1 flex flex-col gap-3 w-full"
+      action="https://api.web3forms.com/submit"
+      method="POST"
       data-sending={t('home:contact-sending')}
       data-sent={t('home:contact-sent')}
       data-error={t('home:contact-error')}
       data-error-generic={t('home:contact-error-generic')}
     >
+      <input type="hidden" name="access_key" value="cb34a33c-14b3-4b35-b978-25080a102993" />
       <input
         type="text"
         name="name"
@@ -257,7 +260,6 @@ const t = useTranslations(lang);
       e.preventDefault();
 
       const formData = new FormData(form);
-      formData.append('access_key', 'cb34a33c-14b3-4b35-b978-25080a102993');
 
       const originalText = submitBtn.textContent;
       submitBtn.textContent = sending!;

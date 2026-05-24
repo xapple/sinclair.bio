@@ -48,7 +48,7 @@ Icon libraries:
    - Build output: `dist`
    - Root directory: (leave blank)
    - Environment variable: `NODE_VERSION=22`
-3. **First deploy** runs automatically. CF auto-detects `functions/` at the repo root — no extra config needed. The function at `functions/index.js` intercepts `/` and 302s to `/en/` or `/fr/` based on the `Accept-Language` header.
+3. **First deploy** runs automatically. CF auto-detects `functions/` at the repo root — no extra config needed. The function at `functions/index.ts` intercepts `/` and 302s to `/en/` or `/fr/` based on the `Accept-Language` header.
 4. **Custom domain** — Pages project → Custom domains → add `sinclair.bio`. CF will configure DNS automatically if `sinclair.bio` is already on Cloudflare DNS; otherwise it provides the CNAME target.
 
 #### Verifying the locale redirect (after deploy)
