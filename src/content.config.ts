@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const journey = defineCollection({
@@ -29,7 +30,7 @@ const journey = defineCollection({
       .array(
         z.object({
           name: z.string(),
-          href: z.string().url().optional(),
+          href: z.url().optional(),
           issuer: z.string(),
           field: z.string().optional(),
           period: z.string(),
@@ -55,7 +56,7 @@ const portfolio = defineCollection({
     publications: z.array(
       z.object({
         title: z.string(),
-        href: z.string().url(),
+        href: z.url(),
         authors: z.string(),
         journal: z.string(),
         year: z.string(),
@@ -64,7 +65,7 @@ const portfolio = defineCollection({
     classes: z.array(
       z.object({
         title: z.string(),
-        href: z.string().url(),
+        href: z.url(),
         institution: z.string(),
         year: z.string(),
       })
