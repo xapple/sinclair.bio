@@ -1,10 +1,13 @@
-import gsap from "gsap";
 import { THEME_BACK } from "./theme-colors";
 
-const ANIMATION_DURATION = window.matchMedia("(prefers-reduced-motion: reduce)")
-  .matches
+const ANIMATION_DURATION_MS = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches
   ? 0
-  : 0.5;
+  : 500;
+
+// cubic-bezier approximation of GSAP's sine.inOut
+const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";
 
 /**
  * Sets the global theme.
@@ -43,21 +46,31 @@ export function setTheme(color: "light" | "dark" | null): void {
 
 /**
  * Sets up click handlers and OS preference listeners for theme switching.
- * Uses GSAP for the sliding sun/moon animation.
+ * Uses the Web Animations API for the sliding sun/moon animation.
  */
 export function themeSwitcherManager(): void {
   const themeSwitchers =
     document.querySelectorAll<HTMLButtonElement>(".theme-switcher");
   const movement = 100;
-  const ease: gsap.EaseString = "sine.inOut";
 
-  let runningAnimation: gsap.core.Tween | undefined;
+  let runningAnimation: Animation | undefined;
+
+  const slideIn = (selector: string, fromX: number, fromY: number) => {
+    const el = document.querySelector<SVGElement>(selector);
+    if (!el) return undefined;
+    return el.animate(
+      [
+        { transform: `translate(${fromX}px, ${fromY}px)` },
+        { transform: "translate(0, 0)" },
+      ],
+      { duration: ANIMATION_DURATION_MS, easing: EASE_SINE_IN_OUT }
+    );
+  };
 
   themeSwitchers.forEach((btn) => {
     btn.addEventListener("click", () => {
-      // Complete any running animation immediately
       if (runningAnimation) {
-        runningAnimation.progress(1);
+        runningAnimation.finish();
         runningAnimation = undefined;
       }
 
@@ -66,22 +79,14 @@ export function themeSwitcherManager(): void {
         document.documentElement.classList.contains("dark");
 
       if (isDark) {
-        // Switching to light: animate the sun icon in
-        runningAnimation = gsap.from("#theme-switcher-sun", {
-          x: -movement,
-          y: movement,
-          duration: ANIMATION_DURATION,
-          ease,
-        });
+        runningAnimation = slideIn("#theme-switcher-sun", -movement, movement);
         setTheme("light");
       } else {
-        // Switching to dark: animate the moon icon in
-        runningAnimation = gsap.from("#theme-switcher-moon", {
-          x: movement * 2,
-          y: movement,
-          duration: ANIMATION_DURATION,
-          ease,
-        });
+        runningAnimation = slideIn(
+          "#theme-switcher-moon",
+          movement * 2,
+          movement
+        );
         setTheme("dark");
       }
     });
