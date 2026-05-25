@@ -48,7 +48,7 @@ const { Content: AboutProse } = await render(homeEntry);
 
 <!-- Info cards -->
 <section class="home-reveal mx-auto max-w-3xl px-6 pb-12" style="--delay:80ms">
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-12">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-12 max-w-sm sm:max-w-none mx-auto">
 
     <InfoCard icon={mapPin} heading={t('home:card-location-heading')}>
       <div class="space-y-0.5">
@@ -160,7 +160,7 @@ const { Content: AboutProse } = await render(homeEntry);
     </div>
 
     <!-- Right column: DM + Meeting -->
-    <div class="w-full md:w-56 flex flex-col gap-4">
+    <div class="w-full max-w-sm md:max-w-none mx-auto md:mx-0 md:w-56 flex flex-col gap-4">
 
       <InfoCard icon={lockIcon} heading={t('home:dm-heading')}>
         <ul class="space-y-3 text-sm">
