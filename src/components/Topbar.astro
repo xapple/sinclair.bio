@@ -68,22 +68,27 @@ const t = useTranslations(lang);
   const menu = document.getElementById('mobile-menu');
   const icon = document.getElementById('mobile-menu-icon');
 
-  // Publish the menu's natural height as --menu-h so CSS can animate to it.
-  // Re-measure on resize: nav-link wrapping or font-size changes can shift it.
-  const measure = () => {
-    if (!menu) return;
-    // Briefly drop the max-height constraint so scrollHeight reads true content.
+  // Measure the menu's natural height. Briefly drop maxHeight so scrollHeight
+  // reads the unconstrained content even mid-animation.
+  const naturalHeight = () => {
+    if (!menu) return 0;
     const prev = menu.style.maxHeight;
     menu.style.maxHeight = 'none';
-    menu.style.setProperty('--menu-h', menu.scrollHeight + 'px');
+    const h = menu.scrollHeight;
     menu.style.maxHeight = prev;
+    return h;
   };
-  measure();
-  window.addEventListener('resize', measure);
+
+  // Initial open state: pin maxHeight to the measured natural height so the
+  // first close has a concrete value to animate from.
+  if (menu) menu.style.maxHeight = naturalHeight() + 'px';
 
   toggle?.addEventListener('click', () => {
-    const isClosed = menu?.toggleAttribute('data-closed') ?? false;
+    if (!menu) return;
+    const isClosed = menu.toggleAttribute('data-closed');
     const isOpen = !isClosed;
+    // Re-measure each open in case viewport/font changed.
+    menu.style.maxHeight = isClosed ? '0px' : naturalHeight() + 'px';
     if (icon) icon.innerHTML = isOpen ? squareXSvg : squareMenuSvg;
     toggle.setAttribute('aria-expanded', String(isOpen));
   });

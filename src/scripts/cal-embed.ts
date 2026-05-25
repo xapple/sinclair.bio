@@ -44,11 +44,6 @@ declare global {
   }
 }
 
-// Event payload Cal dispatches for the __dimensionChanged action.
-interface CalDimensionChangedEvent {
-  detail: { data: { iframeHeight?: number } };
-}
-
 // --- Defaults ------------------------------------------------------------
 
 const DEFAULT_BRAND_COLORS = {
@@ -146,19 +141,6 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
     cssVarsPerTheme: {
       light: { 'cal-brand': brand.light },
       dark: { 'cal-brand': brand.dark },
-    },
-  });
-
-  // Mirror Cal's reported content height onto the wrapper so the embed grows
-  // with internal navigation (date picker → time slots → confirmation) instead
-  // of scrolling inside the iframe on small viewports.
-  Cal.ns[options.namespace]('on', {
-    action: '__dimensionChanged',
-    callback: (e: CalDimensionChangedEvent) => {
-      const h = e?.detail?.data?.iframeHeight;
-      if (typeof h === 'number' && h > 0) {
-        el.style.minHeight = `${h}px`;
-      }
     },
   });
 }

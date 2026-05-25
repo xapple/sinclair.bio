@@ -12,7 +12,7 @@ const { t } = usePage(Astro.params);
   description={t('meta:talk-description')}
   shellWidth="960px"
 >
-  <div class="talk-reveal">
+  <div class="talk-reveal talk-page">
     <header class="talk-header">
       <h1>{t('talk:heading')}</h1>
       <p class="subtitle">{t('talk:intro')}</p>
@@ -36,18 +36,51 @@ const { t } = usePage(Astro.params);
   watchThemeAndRemount(options);
 </script>
 
+<!-- Lock the outer page to the viewport on the Talk page so the Cal embed
+     owns the only scroll context. Otherwise Cal's slot view (sticky date
+     header + scrollable slot list) and the outer page both scroll, which
+     fights touch/wheel events on small viewports. -->
+<style is:global>
+  html:has(.talk-page),
+  html:has(.talk-page) body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+  html:has(.talk-page) .page-frame {
+    min-height: 0;
+    height: calc(100dvh - 4rem); /* topbar is h-16 */
+    padding-block: clamp(0.75rem, 2.5vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+  }
+  html:has(.talk-page) .page-shell {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
 <style>
   .talk-reveal {
     animation: reveal 400ms ease-out both;
   }
 
+  .talk-page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
   .talk-header {
-    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+    margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+    flex: 0 0 auto;
   }
 
   h1 {
-    margin: 0 0 0.75rem;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.4rem, 2.6vw, 2.2rem);
     font-weight: 800;
     letter-spacing: -0.03em;
     color: var(--color-ink);
@@ -57,16 +90,26 @@ const { t } = usePage(Astro.params);
     margin: 0;
     max-width: 60ch;
     color: var(--color-muted);
-    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-    line-height: 1.6;
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    line-height: 1.5;
   }
 
   .cal-inline {
+    flex: 1;
+    min-height: 0;
     width: 100%;
-    min-height: 640px;
     border-radius: 0.75rem;
     overflow: hidden;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
+  }
+
+  /* Make Cal's injected iframe fill the wrapper exactly so its internal
+     scroll lives inside this box, not the outer page. */
+  .cal-inline :global(iframe) {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+    display: block;
   }
 </style>
