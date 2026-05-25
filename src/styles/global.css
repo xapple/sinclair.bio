@@ -129,6 +129,20 @@ html:not([data-dom-loaded]) footer {
 .icon-md { width: 1.5rem;   height: 1.5rem;   }
 .icon-lg { width: 2rem;     height: 2rem;     }
 
+/* ---- Mobile menu open/close animation ----
+   max-height is driven by --menu-h (set by JS from scrollHeight) so the
+   animation tracks the real content height — no dead zone, no hard-coded
+   guess. opacity fades the border line so no 1px sliver remains when closed. */
+.mobile-menu {
+  overflow: hidden;
+  max-height: var(--menu-h, 0px);
+  transition: max-height 200ms ease, opacity 150ms ease;
+}
+.mobile-menu[data-closed] {
+  max-height: 0;
+  opacity: 0;
+}
+
 /* ---- Page scaffolding ----
    Shared structure for [lang]/* pages wrapped in <LangPage>. Each page sets
    --shell-width via the `shellWidth` prop to constrain its content column. */
