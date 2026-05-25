@@ -39,7 +39,9 @@ const t = useTranslations(lang);
         <Icon svg={personCircleSvg} size="md" class="md:w-8 md:h-8" />
       </a>
 
-      <!-- Hamburger (mobile only) -->
+      <!-- Hamburger (mobile only). One icon, SVG swapped on click — avoids
+           any window where both icons could paint. Menu starts open, so the
+           close (X) glyph is the initial render. -->
       <button
         id="mobile-menu-toggle"
         type="button"
@@ -47,8 +49,7 @@ const t = useTranslations(lang);
         aria-expanded="true"
         aria-label={t('a11y:toggle-menu')}
       >
-        <Icon id="hamburger-icon" svg={squareMenuSvg} size="md" class="hidden" />
-        <Icon id="close-icon" svg={squareXSvg} size="md" />
+        <Icon id="mobile-menu-icon" svg={squareXSvg} size="md" />
       </button>
     </div>
   </nav>
@@ -61,16 +62,14 @@ const t = useTranslations(lang);
   </div>
 </header>
 
-<script>
+<script define:vars={{ squareMenuSvg, squareXSvg }}>
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
-  const hamburgerIcon = document.getElementById('hamburger-icon');
-  const closeIcon = document.getElementById('close-icon');
+  const icon = document.getElementById('mobile-menu-icon');
 
   toggle?.addEventListener('click', () => {
     const isOpen = menu?.classList.toggle('hidden') === false;
-    hamburgerIcon?.classList.toggle('hidden', isOpen);
-    closeIcon?.classList.toggle('hidden', !isOpen);
+    if (icon) icon.innerHTML = isOpen ? squareXSvg : squareMenuSvg;
     toggle.setAttribute('aria-expanded', String(isOpen));
   });
 </script>

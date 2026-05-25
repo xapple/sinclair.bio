@@ -115,22 +115,19 @@ html:not([data-dom-loaded]) footer {
 
 /* ---- Icon utilities ----
    Generic inline-SVG wrappers. Pair with <Icon svg={...} size="sm" />.
-   The wrapper sets the box size; the SVG child fills 100%.
-   Wrapped in @layer components so Tailwind utilities like `hidden` win. */
-@layer components {
-  .icon {
-    display: inline-flex;
-    flex-shrink: 0;
-  }
-  .icon > svg {
-    width: 100%;
-    height: 100%;
-  }
-  .icon-xs { width: 0.875rem; height: 0.875rem; }
-  .icon-sm { width: 1rem;     height: 1rem;     }
-  .icon-md { width: 1.5rem;   height: 1.5rem;   }
-  .icon-lg { width: 2rem;     height: 2rem;     }
+   The wrapper sets the box size; the SVG child fills 100%. */
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
 }
+.icon > svg {
+  width: 100%;
+  height: 100%;
+}
+.icon-xs { width: 0.875rem; height: 0.875rem; }
+.icon-sm { width: 1rem;     height: 1rem;     }
+.icon-md { width: 1.5rem;   height: 1.5rem;   }
+.icon-lg { width: 2rem;     height: 2rem;     }
 
 /* ---- Page scaffolding ----
    Shared structure for [lang]/* pages wrapped in <LangPage>. Each page sets
