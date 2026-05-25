@@ -9,7 +9,7 @@ import CertificateIcon from '../../assets/icons/certificate.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
-const { lang, t } = usePage(Astro);
+const { lang, t } = usePage(Astro.params);
 const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
 ---

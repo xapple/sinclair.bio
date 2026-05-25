@@ -1,4 +1,3 @@
-import type { AstroGlobal } from 'astro';
 import { Languages, useTranslations, type TranslationKeyType } from './translations';
 import {
   getCollection,
@@ -11,14 +10,15 @@ export function langStaticPaths() {
   return Object.values(Languages).map((lang) => ({ params: { lang } }));
 }
 
-// Extract the language and translator from the current Astro page context.
-// Replaces the per-page boilerplate of `Astro.params.lang as Languages`
-// followed by `useTranslations(lang)`.
-export function usePage(astro: AstroGlobal): {
+// Extract the language and translator from the current Astro page params.
+// Replaces the per-page boilerplate of pulling `lang` from `Astro.params`
+// followed by `useTranslations(lang)`. Call sites pass `Astro.params`, which
+// inherits the `{ lang: Languages }` type from `langStaticPaths`.
+export function usePage(params: { lang: Languages }): {
   lang: Languages;
   t: (key: TranslationKeyType, replace?: string) => string;
 } {
-  const lang = astro.params.lang as Languages;
+  const { lang } = params;
   return { lang, t: useTranslations(lang) };
 }
 

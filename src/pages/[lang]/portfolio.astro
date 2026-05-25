@@ -10,7 +10,7 @@ import OrcidIcon from '../../assets/icons/orcid.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
-const { lang, t } = usePage(Astro);
+const { lang, t } = usePage(Astro.params);
 const entry = await getLangEntry('portfolio', lang);
 const { testimonials, publications, classes } = entry.data;
 ---

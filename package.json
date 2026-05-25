@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && find dist -name .DS_Store -delete",
+    "check": "astro check",
+    "build": "astro check && astro build && find dist -name .DS_Store -delete",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -13,6 +14,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.2.2",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1",
     "typescript": "^6.0.3"
   }

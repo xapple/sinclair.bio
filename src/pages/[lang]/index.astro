@@ -5,7 +5,7 @@ import { langStaticPaths, usePage } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
 
-const { t } = usePage(Astro);
+const { t } = usePage(Astro.params);
 ---
 
 <Layout title={t('home:page-title')} description={t('meta:home-description')}>
