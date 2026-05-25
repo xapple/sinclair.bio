@@ -192,11 +192,16 @@ html:not([data-dom-loaded]) footer {
 }
 
 /* ---- View transition policy ----
-   The default `root` group fades the entire page on every SPA swap, which
-   produces a jarring fade-out / fade-in (and partial-render artifacts when
-   scrolled, since old/new snapshots show different content). We disable it
-   here so navigation looks instant. Named groups still animate on their own
-   timing — see ::view-transition-group(language-switcher-active) below. */
+   Opt in to native cross-document view transitions (Chrome/Edge/Safari;
+   Firefox just navigates instantly — graceful degradation). The default
+   `root` group would fade the entire page, which produces a jarring
+   cross-fade and partial-render artifacts when scrolled; we disable it so
+   navigation looks instant. Named groups still animate on their own timing
+   — see ::view-transition-group(language-switcher-active) below. */
+@view-transition {
+  navigation: auto;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

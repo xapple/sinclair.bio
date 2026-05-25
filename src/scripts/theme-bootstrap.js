@@ -36,19 +36,9 @@ function applyTheme(color, root) {
 // Expose for the bundled module — bundles load after this inline script.
 window.__sinclairTheme = { applyTheme: applyTheme };
 
-// Initial hard navigation
 applyTheme(resolveTheme());
 
 // FOUC guard: reveal main/footer once DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
   document.documentElement.dataset.domLoaded = 'true';
-});
-
-// SPA navigation: theme the incoming document (including meta tags) so it
-// arrives fully styled. Doing this before-swap avoids a frame of wrong theme
-// that would let CSS-transitioned styles (e.g. the theme-switcher knob)
-// animate from default to correct on every nav.
-document.addEventListener('astro:before-swap', function (e) {
-  applyTheme(resolveTheme(), e.newDocument);
-  e.newDocument.documentElement.dataset.domLoaded = 'true';
 });

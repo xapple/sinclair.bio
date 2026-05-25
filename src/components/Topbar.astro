@@ -62,17 +62,15 @@ const t = useTranslations(lang);
 </header>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const toggle = document.getElementById('mobile-menu-toggle');
-    const menu = document.getElementById('mobile-menu');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
 
-    toggle?.addEventListener('click', () => {
-      const isOpen = menu?.classList.toggle('hidden') === false;
-      hamburgerIcon?.classList.toggle('hidden', isOpen);
-      closeIcon?.classList.toggle('hidden', !isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    hamburgerIcon?.classList.toggle('hidden', isOpen);
+    closeIcon?.classList.toggle('hidden', !isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
   });
 </script>

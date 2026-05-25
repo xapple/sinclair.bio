@@ -205,12 +205,8 @@ const { Content: AboutProse } = await render(homeEntry);
 </section>
 
 <script>
-  // Re-bind on every navigation — ClientRouter swaps the DOM, so listeners
-  // attached to a previous instance of the form are lost on SPA nav.
-  document.addEventListener('astro:page-load', () => {
-    const form = document.getElementById('form') as HTMLFormElement | null;
-    if (!form) return;
-
+  const form = document.getElementById('form') as HTMLFormElement | null;
+  if (form) {
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const status = document.getElementById('contact-status') as HTMLSpanElement;
     const { sending, sent, error, errorGeneric } = form.dataset;
@@ -248,7 +244,7 @@ const { Content: AboutProse } = await render(homeEntry);
         submitBtn.disabled = false;
       }
     });
-  });
+  }
 </script>
 
 <style>

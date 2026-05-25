@@ -60,8 +60,6 @@ const DEFAULT_SELECTOR = '#cal-inline';
 
 // --- Module state --------------------------------------------------------
 
-// The module loads once and persists in memory through SPA navigations, so
-// module-level state is sufficient (cleaner than stashing on `window`).
 let themeObserver: MutationObserver | null = null;
 let lastTheme: 'dark' | 'light' | null = null;
 
@@ -116,7 +114,7 @@ function installCalLoader(win: Window, scriptSrc: string, initMethod: string): v
 // --- Public API ----------------------------------------------------------
 
 // Mounts (or re-mounts) the Cal.com inline embed in the given element.
-// Idempotent — safe to call on every astro:page-load.
+// Idempotent — safe to call again on theme toggle to swap the embed's theme.
 export function mountCalEmbed(options: CalEmbedOptions): void {
   const selector = options.elementSelector ?? DEFAULT_SELECTOR;
   const el = document.querySelector<HTMLElement>(selector);
@@ -132,7 +130,7 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
 
   Cal('init', options.namespace, { origin: options.origin });
 
-  // Clear any previous render (SPA re-mount).
+  // Clear any previous render (theme-change re-mount).
   el.innerHTML = '';
 
   Cal.ns[options.namespace]('inline', {

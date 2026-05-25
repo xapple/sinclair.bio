@@ -11,20 +11,16 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <script>
   import { themeSwitcherManager, setTheme } from "../../scripts/theme-switcher";
 
-  // One-time: OS preference changes (extracted from themeSwitcherManager to avoid accumulation)
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
     setTheme(e.matches ? "dark" : "light");
   });
 
-  // Re-run on every navigation (fresh DOM elements need fresh listeners)
-  document.addEventListener("astro:page-load", () => {
-    themeSwitcherManager();
+  themeSwitcherManager();
 
-    const btn = document.getElementById('compact-theme-toggle');
-    btn?.addEventListener('click', () => {
-      const isDark = document.documentElement.dataset.theme === 'dark';
-      setTheme(isDark ? 'light' : 'dark');
-    });
+  const btn = document.getElementById('compact-theme-toggle');
+  btn?.addEventListener('click', () => {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    setTheme(isDark ? 'light' : 'dark');
   });
 </script>
 

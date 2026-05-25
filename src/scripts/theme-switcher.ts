@@ -30,8 +30,7 @@ export function setTheme(color: ThemeColor): void {
   window.__sinclairTheme.applyTheme(color);
 }
 
-// Wires the desktop pill toggle's sliding sun/moon animation. Called fresh
-// on every view-transition page-load so the new DOM nodes get listeners.
+// Wires the desktop pill toggle's sliding sun/moon animation.
 export function themeSwitcherManager(): void {
   const themeSwitchers =
     document.querySelectorAll<HTMLButtonElement>(".theme-switcher");

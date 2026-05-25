@@ -32,8 +32,8 @@ const { t } = usePage(Astro.params);
     embedSrc: 'https://app.cal.eu/embed/embed.js',
   };
 
+  mountCalEmbed(options);
   watchThemeAndRemount(options);
-  document.addEventListener('astro:page-load', () => mountCalEmbed(options));
 </script>
 
 <style>

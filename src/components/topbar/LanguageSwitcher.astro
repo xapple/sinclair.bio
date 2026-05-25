@@ -134,25 +134,20 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
 </style>
 
 <script>
-  // Close dropdown on outside click (one-time global listener).
+  const toggle = document.getElementById('lang-dropdown-toggle');
+  const dropdown = document.getElementById('lang-dropdown');
+
+  toggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close dropdown on outside click.
   document.addEventListener('click', () => {
-    const dropdown = document.getElementById('lang-dropdown');
-    const toggle = document.getElementById('lang-dropdown-toggle');
     if (!dropdown?.classList.contains('hidden')) {
       dropdown?.classList.add('hidden');
       toggle?.setAttribute('aria-expanded', 'false');
     }
-  });
-
-  // Re-bind toggle on every navigation — ClientRouter swaps the DOM.
-  document.addEventListener('astro:page-load', () => {
-    const toggle = document.getElementById('lang-dropdown-toggle');
-    const dropdown = document.getElementById('lang-dropdown');
-
-    toggle?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = dropdown?.classList.toggle('hidden') === false;
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
   });
 </script>
