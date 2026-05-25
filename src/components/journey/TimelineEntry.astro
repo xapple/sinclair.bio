@@ -1,13 +1,11 @@
 ---
-// Visual primitive for journey timeline rows. Domain-specific wrappers
-// (ExperienceEntry, EducationEntry, CertificationEntry) translate their
-// shape onto this; pages should not import TimelineEntry directly.
+// Visual primitive for journey timeline rows.
 //
-// `kind` controls two coupled visual choices:
-//   'experience'  — wider body column, uppercase letterspaced tertiary line
-//   'education'   — more even columns, plain muted tertiary line
+// `layout` controls two coupled visual choices:
+//   'wide'    — wider body column, uppercase letterspaced tertiary line
+//   'narrow'  — more even columns, plain muted tertiary line
 interface Props {
-  kind: 'experience' | 'education';
+  layout: 'wide' | 'narrow';
   // Primary heading (role / school / cert name). Renders as a link if titleHref is set.
   title: string;
   titleHref?: string;
@@ -23,10 +21,10 @@ interface Props {
   index: number;
 }
 
-const { kind, title, titleHref, primary, tertiary, period, location, summary, bullets, index } = Astro.props;
+const { layout, title, titleHref, primary, tertiary, period, location, summary, bullets, index } = Astro.props;
 
-const variantClass = kind === 'experience' ? 'entry-item--wide' : 'entry-item--narrow';
-const tertiaryClass = kind === 'experience' ? 'secondary-meta' : 'field-meta';
+const variantClass = layout === 'wide' ? 'entry-item--wide' : 'entry-item--narrow';
+const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
 ---
 
 <li class={`entry-item ${variantClass}`} style={`--item-index:${index};`}>

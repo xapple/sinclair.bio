@@ -11,7 +11,7 @@ export const getStaticPaths = langStaticPaths;
 const { t } = Astro.locals;
 ---
 
-<Layout title={t('home:page-title')} description={t('meta:home-description')}>
+<Layout title={t('home:page-title')} description={t('meta:home-description')} shellWidth="48rem">
   <HeroSection />
   <InfoCardsSection />
   <AboutSection />

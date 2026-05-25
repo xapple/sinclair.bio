@@ -25,9 +25,16 @@ declare global {
   }
 }
 
-// Persist and apply a theme choice.
+// Persist and apply a theme choice. Persistence is best-effort: if storage is
+// blocked (sandboxed iframe, storage partitioning, privacy mode), still apply
+// the theme so the toggle works for the current page view. Matches the
+// fall-through behavior in theme-bootstrap.js.
 export function setTheme(color: ThemeColor): void {
-  localStorage.setItem("theme", color);
+  try {
+    localStorage.setItem("theme", color);
+  } catch {
+    // Storage access blocked — apply theme without persistence.
+  }
   window.__sinclairTheme.applyTheme(color);
 }
 

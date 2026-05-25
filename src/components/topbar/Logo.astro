@@ -5,6 +5,6 @@ const { lang, t } = Astro.locals;
 ---
 
 <a href={`/${lang}/`} class="flex items-center text-bar-fg" aria-label={t('a11y:home')}>
-  <span class="logo-name" style="display:block;height:2rem;width:auto" aria-hidden="true"><Fragment set:html={logoNameSvg} /></span>
+  <span class="logo-name" aria-hidden="true"><Fragment set:html={logoNameSvg} /></span>
 </a>
 

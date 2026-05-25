@@ -12,8 +12,8 @@ import messagesSquareIcon  from '../../assets/icons/messages-square.svg?raw';
 const { lang, t } = Astro.locals;
 ---
 
-<section class="page-reveal mx-auto max-w-3xl px-6 py-12" style="--reveal-delay:340ms">
-  <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
+<section class="page-reveal py-12" style="--reveal-delay:340ms">
+  <h2 class="section-eyebrow mb-8">
     {t('home:contact-heading')}
   </h2>
   <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
@@ -37,7 +37,7 @@ const { lang, t } = Astro.locals;
         aria-label={t('home:contact-name')}
         autocomplete="name"
         required
-        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+        class="field-input"
       />
       <input
         type="email"
@@ -46,7 +46,7 @@ const { lang, t } = Astro.locals;
         aria-label={t('home:contact-email')}
         autocomplete="email"
         required
-        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+        class="field-input"
       />
       <textarea
         name="message"
@@ -54,7 +54,7 @@ const { lang, t } = Astro.locals;
         aria-label={t('home:contact-message')}
         rows={5}
         required
-        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none"
+        class="field-input resize-none"
       ></textarea>
       <div class="flex items-center gap-3">
         <button
@@ -84,28 +84,28 @@ const { lang, t } = Astro.locals;
               <Icon svg={telegramIcon} size="xs" />
               Telegram:
             </span>
-            <a href="https://t.me/sinclair99" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
+            <a href="https://t.me/sinclair99" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@sinclair99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
               <Icon svg={signalIcon} size="xs" />
               Signal:
             </span>
-            <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
+            <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@sinclair.99</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
               <Icon svg={threemaIcon} size="xs" />
               Threema:
             </span>
-            <a href="https://threema.id/p3wmfn9c" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
+            <a href="https://threema.id/p3wmfn9c" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@p3wmfn9c</a>
           </li>
           <li class="flex items-center justify-between gap-2">
             <span class="flex items-center gap-1.5 text-muted shrink-0">
               <Icon svg={matrixIcon} size="xs" />
               Matrix:
             </span>
-            <a href="https://matrix.to/#/@sinclair.bio:matrix.org" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
+            <a href="https://matrix.to/#/@sinclair.bio:matrix.org" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@sinclair.bio</a>
           </li>
         </ul>
       </InfoCard>

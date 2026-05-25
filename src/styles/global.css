@@ -148,6 +148,11 @@ html:not([data-dom-loaded]) footer {
   opacity: 0;
 }
 
+/* Hamburger toggle: both glyphs render, CSS picks based on menu state. */
+.mobile-menu-toggle .mobile-menu-icon-closed { display: none; }
+.mobile-menu-toggle[data-menu-closed] .mobile-menu-icon-open  { display: none; }
+.mobile-menu-toggle[data-menu-closed] .mobile-menu-icon-closed { display: inline-flex; }
+
 /* ---- Page scaffolding ----
    Shared structure for pages rendered via <Layout frame="standard|centered">.
    Each page can set --shell-width via the `shellWidth` prop. */
@@ -203,6 +208,53 @@ html:not([data-dom-loaded]) footer {
 @keyframes reveal {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Shared component classes ----
+   Recurring Tailwind chains lifted into named classes to keep markup readable.
+   These are plain CSS — no @apply — so they work everywhere without a
+   @reference directive and stay independent of Tailwind class internals. */
+
+/* Inline link with a subtle underline. Used across info cards, contact card,
+   testimonials, etc. */
+.link-underline {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 150ms ease;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  color: var(--color-accent);
+}
+
+/* Small uppercase accent heading used by home-page section eyebrows. */
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+/* Bordered form input used across the home contact form. */
+.field-input {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--color-ink);
+  background: var(--color-bkgnd);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  transition: border-color 150ms ease;
+}
+.field-input::placeholder {
+  color: var(--color-muted);
+}
+.field-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
 }
 
 /* Fade-up entrance utility. Used by home sections (staggered via --reveal-delay)

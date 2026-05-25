@@ -110,7 +110,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
   </div>
 </div>
 
-<style is:global>
+<style>
   .language-switcher-desktop {
     grid-template-columns: repeat(var(--lang-count), minmax(0, 1fr));
   }
@@ -119,7 +119,11 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
     width: calc(100% / var(--lang-count));
     transform: translateX(calc(var(--lang-index) * 100%));
   }
+</style>
 
+<style is:global>
+  /* ::view-transition-* selectors must be global — they target pseudo-elements
+     attached to the document root, not the component subtree. */
   ::view-transition-group(language-switcher-active) {
     animation-duration: 360ms;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -133,20 +137,6 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
 </style>
 
 <script>
-  const toggle = document.getElementById('lang-dropdown-toggle');
-  const dropdown = document.getElementById('lang-dropdown');
-
-  toggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = dropdown?.classList.toggle('hidden') === false;
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  // Close dropdown on outside click.
-  document.addEventListener('click', () => {
-    if (!dropdown?.classList.contains('hidden')) {
-      dropdown?.classList.add('hidden');
-      toggle?.setAttribute('aria-expanded', 'false');
-    }
-  });
+  import { initLangDropdown } from '../../scripts/lang-dropdown';
+  initLangDropdown();
 </script>

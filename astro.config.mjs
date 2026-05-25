@@ -13,6 +13,12 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+  // In production, the Cloudflare Pages Function at functions/index.ts handles
+  // `/` with an Accept-Language-aware 302. This static redirect is only served
+  // as a fallback (local `astro preview`, or if Functions are disabled).
+  redirects: {
+    '/': '/en/',
+  },
   integrations: [
     sitemap({
       // Root `/` is a noindex redirect to /en/, and all auth pages

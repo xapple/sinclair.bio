@@ -14,10 +14,9 @@ interface Props {
   description?: string;
   robots?: string;
   // Page shape:
-  //   'full'     — no wrapper, slot fills <main> (used by HomePage which manages its own sections)
-  //   'standard' — wraps slot in .page-frame + .page-shell (content pages: journey, portfolio, talk)
+  //   'standard' — wraps slot in .page-frame + .page-shell (content pages)
   //   'centered' — flex-centered card column (auth pages: login, forgot-password)
-  frame?: 'full' | 'standard' | 'centered';
+  frame?: 'standard' | 'centered';
   // CSS length used as max width for .page-shell.
   // Defaults: 920px for 'standard', 420px for 'centered' (set in global.css).
   shellWidth?: string;
@@ -27,7 +26,7 @@ const {
   title = 'Sinclair.Bio',
   description,
   robots,
-  frame = 'full',
+  frame = 'standard',
   shellWidth,
 } = Astro.props;
 const shellStyle = shellWidth ? `--shell-width:${shellWidth};` : undefined;
@@ -117,15 +116,11 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     <GridDecoration />
     <Topbar />
     <main class="relative flex-1">
-      {frame === 'full' ? (
-        <slot />
-      ) : (
-        <section class={frameClass}>
-          <div class="page-shell" style={shellStyle}>
-            <slot />
-          </div>
-        </section>
-      )}
+      <section class={frameClass}>
+        <div class="page-shell" style={shellStyle}>
+          <slot />
+        </div>
+      </section>
     </main>
     <Footer />
   </body>

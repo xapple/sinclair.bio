@@ -25,7 +25,7 @@ const { experiences, education, certifications = [] } = entry.data;
       <ol class="entry-list" aria-labelledby="experience-heading">
         {experiences.map((item, index) => (
           <TimelineEntry
-            kind="experience"
+            layout="wide"
             title={item.role}
             primary={item.company}
             tertiary={item.employmentType}
@@ -48,7 +48,7 @@ const { experiences, education, certifications = [] } = entry.data;
       <ol class="entry-list" aria-labelledby="education-heading">
         {education.map((item, index) => (
           <TimelineEntry
-            kind="education"
+            layout="narrow"
             title={item.school}
             primary={item.degree}
             tertiary={item.field}
@@ -71,7 +71,7 @@ const { experiences, education, certifications = [] } = entry.data;
         <ol class="entry-list" aria-labelledby="certifications-heading">
           {certifications.map((item, index) => (
             <TimelineEntry
-              kind="education"
+              layout="narrow"
               title={item.name}
               titleHref={item.href}
               primary={item.issuer}

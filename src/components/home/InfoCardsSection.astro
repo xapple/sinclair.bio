@@ -12,12 +12,12 @@ import linkedinIcon from '../../assets/icons/linkedin.svg?raw';
 const { t } = Astro.locals;
 ---
 
-<section class="page-reveal mx-auto max-w-3xl px-6 pb-12" style="--reveal-delay:80ms">
+<section class="page-reveal pb-12" style="--reveal-delay:80ms">
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-12 max-w-56 sm:max-w-none mx-auto">
 
     <InfoCard icon={mapPin} heading={t('home:card-location-heading')}>
       <div class="space-y-0.5">
-        <a href="https://openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
+        <a href="https://openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="link-underline text-sm">Rue Rothschild 35</a>
         <p class="text-sm text-ink">{t('home:location-city')}</p>
         <p class="text-sm text-ink flex items-center gap-1">{t('home:location-country')} <span>🇨🇭</span></p>
       </div>

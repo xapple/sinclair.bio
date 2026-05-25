@@ -4,6 +4,7 @@ import NavLinks from './topbar/NavLinks.astro';
 import ThemeToggle from './topbar/ThemeToggle.astro';
 import LanguageSwitcher from './topbar/LanguageSwitcher.astro';
 import Icon from './Icon.astro';
+import squareMenuSvg from '../assets/icons/square-menu.svg?raw';
 import squareXSvg from '../assets/icons/square-x.svg?raw';
 import personCircleSvg from '../assets/icons/person-circle.svg?raw';
 
@@ -36,17 +37,18 @@ const { lang, t } = Astro.locals;
         <Icon svg={personCircleSvg} size="md" class="md:w-8 md:h-8" />
       </a>
 
-      <!-- Hamburger (mobile only). One icon, SVG swapped on click — avoids
-           any window where both icons could paint. Menu starts open, so the
-           close (X) glyph is the initial render. -->
+      <!-- Hamburger (mobile only). Both glyphs render; CSS picks one based on
+           the menu's data-closed state. Menu starts open, so the close (X)
+           glyph is the visible one initially. -->
       <button
         id="mobile-menu-toggle"
         type="button"
-        class="inline-flex items-center justify-center w-11 h-11 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md md:hidden"
+        class="mobile-menu-toggle inline-flex items-center justify-center w-11 h-11 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md md:hidden"
         aria-expanded="true"
         aria-label={t('a11y:toggle-menu')}
       >
-        <Icon id="mobile-menu-icon" svg={squareXSvg} size="md" />
+        <Icon svg={squareXSvg} size="md" class="mobile-menu-icon-open" />
+        <Icon svg={squareMenuSvg} size="md" class="mobile-menu-icon-closed" />
       </button>
     </div>
   </nav>

@@ -8,8 +8,8 @@ const homeEntry = await getLangEntry('home', lang);
 const { Content: AboutProse } = await render(homeEntry);
 ---
 
-<section class="page-reveal mx-auto max-w-3xl px-6 py-12" style="--reveal-delay:200ms">
-  <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
+<section class="page-reveal py-12" style="--reveal-delay:200ms">
+  <h2 class="section-eyebrow mb-6">
     {t('home:about-heading')}
   </h2>
   <div class="space-y-4 text-base leading-relaxed text-ink">
