@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 
 interface Props {
-  icon: string;     // raw SVG markup (use `?raw` import)
+  icon: string;     // icon name (basename in src/assets/icons/)
   heading: string;
   href?: string;    // if set, the whole card is a hover-accent link
 }
@@ -17,7 +17,7 @@ const Wrapper = href ? 'a' : 'div';
 <Wrapper class={`${baseClass}${linkClass}`} href={href}>
   <div class="bg-border/50 px-5 py-3">
     <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
-      <Icon svg={icon} size="sm" />
+      <Icon name={icon} size="sm" />
       <span>{heading}</span>
     </h3>
   </div>

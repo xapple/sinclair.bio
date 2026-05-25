@@ -3,9 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import TimelineEntry from '../../components/journey/TimelineEntry.astro';
 import Icon from '../../components/Icon.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
-import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
-import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
-import CertificateIcon from '../../assets/icons/certificate.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
@@ -18,7 +15,7 @@ const { experiences, education, certifications = [] } = entry.data;
   <div class="section-stack">
     <div class="journey-section">
       <h2 class="section-heading" id="experience-heading">
-        <Icon svg={BriefcaseIcon} />
+        <Icon name="briefcase" />
         <span>{t('journey:experience-eyebrow')}</span>
       </h2>
 
@@ -41,7 +38,7 @@ const { experiences, education, certifications = [] } = entry.data;
 
     <div class="journey-section">
       <h2 class="section-heading" id="education-heading">
-        <Icon svg={GraduationCapIcon} />
+        <Icon name="graduation-cap" />
         <span>{t('journey:education-eyebrow')}</span>
       </h2>
 
@@ -64,7 +61,7 @@ const { experiences, education, certifications = [] } = entry.data;
     {certifications.length > 0 && (
       <div class="journey-section">
         <h2 class="section-heading" id="certifications-heading">
-          <Icon svg={CertificateIcon} />
+          <Icon name="certificate" />
           <span>{t('journey:certifications-eyebrow')}</span>
         </h2>
 

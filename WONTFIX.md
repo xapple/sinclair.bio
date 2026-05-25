@@ -31,6 +31,11 @@ over the saved manual choice.
 sitemap gave all pages the audit build timestamp, even when content was
 unchanged, making `lastmod` unreliable to crawlers.
 
+
+## The “Contact” navigation item navigates to Home
+
+The “Contact” navigation item does not navigate to the contact section. In NavLinks.astro (line 5), it links to /${lang}/, and ContactSection.astro (line 15) has no target id. From Journey, Portfolio, or Talk, visitors selecting “Contact” land at the hero instead of the form. Add an anchor such as id="contact" and link to /${lang}/#contact.
+
 ## The current Cal iframe contents are cleared on remount
 
 The Cal embed wrapper depends on an internal upstream event and remounts the booking flow on theme changes.

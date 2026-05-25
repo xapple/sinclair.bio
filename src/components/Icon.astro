@@ -1,13 +1,16 @@
 ---
+import { getIcon } from '../assets/icons';
+
 interface Props {
-  svg: string;                                  // raw SVG markup (use `?raw` import)
+  name: string;                                 // basename of a file in src/assets/icons/
   size?: 'xs' | 'sm' | 'md' | 'lg';             // semantic size → .icon-{size} class
   label?: string;                               // if set, span becomes role="img" with this aria-label
   id?: string;                                  // for JS-toggleable icons
   class?: string;                               // extra classes (layout, color, responsive overrides)
 }
 
-const { svg, size = 'sm', label, id, class: extraClass } = Astro.props;
+const { name, size = 'sm', label, id, class: extraClass } = Astro.props;
+const svg = getIcon(name);
 
 const aria = label
   ? { role: 'img' as const, 'aria-label': label }

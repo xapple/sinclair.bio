@@ -1,13 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
+import { icons } from '../../assets/icons';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
-import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
-import QuoteIcon from '../../assets/icons/quote.svg?raw';
-import BookIcon from '../../assets/icons/book.svg?raw';
-import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
-import OrcidIcon from '../../assets/icons/orcid.svg?raw';
-import GithubIcon from '../../assets/icons/github.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
@@ -24,7 +19,7 @@ const { testimonials, publications, classes } = entry.data;
 >
   <div class="section-stack">
     <h2 class="section-heading" id="open-source-heading">
-      <Icon svg={PackageOpenIcon} />
+      <Icon name="package-open" />
       <span>{t("portfolio:open-source-heading")}</span>
     </h2>
 
@@ -44,14 +39,14 @@ const { testimonials, publications, classes } = entry.data;
 
     <p class="orcid-link-wrap">
       <a class="orcid-link" href="https://github.com/xapple" target="_blank" rel="noopener noreferrer">
-        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={GithubIcon} /></span>
+        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.github} /></span>
         <span>{t("portfolio:github-link")}</span>
         <span class="orcid-arrow" aria-hidden="true">→</span>
       </a>
     </p>
 
     <h2 class="section-heading" id="testimonials-heading">
-      <Icon svg={QuoteIcon} />
+      <Icon name="quote" />
       <span>{t("portfolio:testimonials-heading")}</span>
     </h2>
 
@@ -65,7 +60,7 @@ const { testimonials, publications, classes } = entry.data;
     </div>
 
     <h2 class="section-heading" id="publications-heading">
-      <Icon svg={BookIcon} />
+      <Icon name="book" />
       <span>{t("portfolio:publications-heading")}</span>
     </h2>
 
@@ -80,14 +75,14 @@ const { testimonials, publications, classes } = entry.data;
 
     <p class="orcid-link-wrap">
       <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
-        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={OrcidIcon} /></span>
+        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.orcid} /></span>
         <span>{t("portfolio:orcid-link")}</span>
         <span class="orcid-arrow" aria-hidden="true">→</span>
       </a>
     </p>
 
     <h2 class="section-heading" id="classes-heading">
-      <Icon svg={GraduationCapIcon} />
+      <Icon name="graduation-cap" />
       <span>{t("portfolio:classes-heading")}</span>
     </h2>
 

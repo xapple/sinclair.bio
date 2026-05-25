@@ -2,7 +2,6 @@
 import Icon from '../Icon.astro';
 import { Languages } from '../../i18n/translations';
 import { getAlternatePath } from '../../i18n/page';
-import globeSvg from '../../assets/icons/globe.svg?raw';
 
 interface LangLink {
   lang: Languages;
@@ -73,7 +72,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
     aria-label={t('a11y:select-language')}
   >
     <span class="relative" aria-hidden="true">
-      <Icon svg={globeSvg} size="md" />
+      <Icon name="globe" size="md" />
       <span class="lang-badge absolute -bottom-0.5 -right-1 text-[7px] font-bold leading-none bg-bar-fg text-bar rounded px-[3px] py-[2px]">
         {currentLang.toUpperCase()}
       </span>

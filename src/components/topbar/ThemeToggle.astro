@@ -1,8 +1,6 @@
 ---
 import Icon from '../Icon.astro';
 import themeSwitcherSvg from '../../assets/theme-switcher.svg?raw';
-import sunSvg from '../../assets/icons/sun.svg?raw';
-import moonSvg from '../../assets/icons/moon-stars.svg?raw';
 
 const { t } = Astro.locals;
 ---
@@ -33,9 +31,9 @@ const { t } = Astro.locals;
   aria-label={t("a11y:theme-switcher")}
 >
   <!-- Sun: shown in light mode -->
-  <Icon svg={sunSvg} size="md" class="compact-sun" />
+  <Icon name="sun" size="md" class="compact-sun" />
   <!-- Moon: shown in dark mode -->
-  <Icon svg={moonSvg} size="md" class="compact-moon" />
+  <Icon name="moon-stars" size="md" class="compact-moon" />
 </button>
 
 <style is:global>

@@ -1,9 +1,6 @@
 ---
 import Icon from './Icon.astro';
 
-import botIcon from '../assets/icons/bot.svg?raw';
-import heartIcon from '../assets/icons/heart.svg?raw';
-
 const { t } = Astro.locals;
 ---
 
@@ -12,9 +9,9 @@ const { t } = Astro.locals;
     <span>{t('footer:copyright', new Date().getFullYear().toString())}</span>
     <span class="flex items-center gap-2">
       {t('footer:made-with')}
-      <Icon svg={botIcon} size="sm" label={t('a11y:ai')} />
+      <Icon name="bot" size="sm" label={t('a11y:ai')} />
       <span aria-hidden="true">+</span>
-      <Icon svg={heartIcon} size="sm" label={t('a11y:love')} />
+      <Icon name="heart" size="sm" label={t('a11y:love')} />
     </span>
   </div>
 </footer>
