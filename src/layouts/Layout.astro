@@ -2,7 +2,7 @@
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
-import { Languages, useTranslations, getLangFromUrl } from '../i18n/translations';
+import { Languages } from '../i18n/translations';
 import { getAlternatePath } from '../i18n/page';
 import { THEME_BKGND } from '../scripts/theme-switcher';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
@@ -32,8 +32,7 @@ const {
 } = Astro.props;
 const shellStyle = shellWidth ? `--shell-width:${shellWidth};` : undefined;
 const frameClass = frame === 'centered' ? 'page-frame page-frame--centered' : 'page-frame';
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { lang, t } = Astro.locals;
 const metaDescription = description ?? t('meta:site-description');
 
 // Build absolute URLs for canonical / og:url / hreflang.

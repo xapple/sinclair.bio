@@ -4,11 +4,10 @@ import NavLinks from './topbar/NavLinks.astro';
 import ThemeToggle from './topbar/ThemeToggle.astro';
 import LanguageSwitcher from './topbar/LanguageSwitcher.astro';
 import Icon from './Icon.astro';
-import { usePageFromUrl } from '../i18n/page';
 import squareXSvg from '../assets/icons/square-x.svg?raw';
 import personCircleSvg from '../assets/icons/person-circle.svg?raw';
 
-const { lang, t } = usePageFromUrl(Astro.url);
+const { lang, t } = Astro.locals;
 ---
 
 <header class="sticky top-0 z-50 w-full bg-bar border-b border-white/25">

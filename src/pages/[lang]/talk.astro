@@ -1,10 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { langStaticPaths, usePage } from '../../i18n/page';
+import { langStaticPaths } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
 
-const { t } = usePage(Astro.params);
+const { t } = Astro.locals;
 ---
 
 <Layout
@@ -13,7 +13,7 @@ const { t } = usePage(Astro.params);
   frame="standard"
   shellWidth="960px"
 >
-  <div class="talk-reveal">
+  <div class="page-reveal" style="--reveal-duration:400ms">
     <header class="talk-header">
       <h1>{t('talk:heading')}</h1>
       <p class="subtitle">{t('talk:intro')}</p>
@@ -38,10 +38,6 @@ const { t } = usePage(Astro.params);
 </script>
 
 <style>
-  .talk-reveal {
-    animation: reveal 400ms ease-out both;
-  }
-
   .talk-header {
     margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
   }

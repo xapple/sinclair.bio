@@ -1,10 +1,10 @@
 ---
 import AuthLayout from '../../layouts/AuthLayout.astro';
-import { langStaticPaths, usePage } from '../../i18n/page';
+import { langStaticPaths } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
 
-const { lang, t } = usePage(Astro.params);
+const { lang, t } = Astro.locals;
 ---
 
 <AuthLayout

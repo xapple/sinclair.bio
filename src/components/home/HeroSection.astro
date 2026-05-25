@@ -1,12 +1,11 @@
 ---
 import { Image } from 'astro:assets';
-import { usePageFromUrl } from '../../i18n/page';
 import profile from '../../assets/profile.jpg';
 
-const { t } = usePageFromUrl(Astro.url);
+const { t } = Astro.locals;
 ---
 
-<section class="home-reveal mx-auto max-w-3xl px-6 pt-16 pb-10" style="--delay:0ms">
+<section class="page-reveal mx-auto max-w-3xl px-6 pt-16 pb-10" style="--reveal-delay:0ms">
   <div class="flex flex-col sm:flex-row items-center sm:items-center gap-6 text-center sm:text-left">
     <Image
       src={profile}

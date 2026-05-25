@@ -14,5 +14,9 @@ export function initMobileMenu(): void {
     const isOpen = !isClosed;
     if (icon) icon.innerHTML = isOpen ? squareXSvg : squareMenuSvg;
     toggle.setAttribute('aria-expanded', String(isOpen));
+    // Remove closed menu from the keyboard / a11y tree — CSS only hides it
+    // visually, so without `inert` the Journey/Portfolio/Talk anchors remain
+    // tab-focusable while collapsed.
+    menu.toggleAttribute('inert', isClosed);
   });
 }

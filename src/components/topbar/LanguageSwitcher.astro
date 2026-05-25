@@ -1,7 +1,7 @@
 ---
 import Icon from '../Icon.astro';
 import { Languages } from '../../i18n/translations';
-import { getAlternatePath, usePageFromUrl } from '../../i18n/page';
+import { getAlternatePath } from '../../i18n/page';
 import globeSvg from '../../assets/icons/globe.svg?raw';
 
 interface LangLink {
@@ -10,7 +10,7 @@ interface LangLink {
   label: string;
 }
 
-const { lang: currentLang, t } = usePageFromUrl(Astro.url);
+const { lang: currentLang, t } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
 const langLinks: LangLink[] = Object.values(Languages).map((l) => ({

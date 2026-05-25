@@ -1,5 +1,4 @@
 ---
-import { usePageFromUrl } from '../../i18n/page';
 import Icon from '../Icon.astro';
 import InfoCard from '../InfoCard.astro';
 
@@ -10,10 +9,10 @@ import threemaIcon         from '../../assets/icons/threema.svg?raw';
 import matrixIcon          from '../../assets/icons/matrix.svg?raw';
 import messagesSquareIcon  from '../../assets/icons/messages-square.svg?raw';
 
-const { lang, t } = usePageFromUrl(Astro.url);
+const { lang, t } = Astro.locals;
 ---
 
-<section class="home-reveal mx-auto max-w-3xl px-6 py-12" style="--delay:340ms">
+<section class="page-reveal mx-auto max-w-3xl px-6 py-12" style="--reveal-delay:340ms">
   <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
     {t('home:contact-heading')}
   </h2>

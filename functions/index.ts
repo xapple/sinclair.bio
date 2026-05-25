@@ -36,10 +36,15 @@ export async function onRequest({ request }: { request: Request }): Promise<Resp
     ranked.map((tag) => tag.split('-')[0]).find((l) => SUPPORTED.includes(l)) ??
     DEFAULT_LOCALE;
 
+  // Preserve query string (utm_*, referral params, etc.) across the redirect.
+  // Hash fragments aren't sent in the Location header by browsers anyway.
+  const target = new URL(`/${preferred}/`, url);
+  target.search = url.search;
+
   return new Response(null, {
     status: 302,
     headers: {
-      Location: new URL(`/${preferred}/`, url).toString(),
+      Location: target.toString(),
       // Cache key must vary on Accept-Language — otherwise the edge can serve
       // an EN redirect to an FR visitor (or vice versa).
       Vary: 'Accept-Language',

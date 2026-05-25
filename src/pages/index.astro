@@ -11,6 +11,13 @@ const canonicalUrl = new URL(defaultTarget, Astro.site ?? 'https://sinclair.bio'
     <meta charset="UTF-8" />
     <title>Sinclair.Bio</title>
     <meta name="robots" content="noindex" />
+    {/* JS redirect runs first and carries the query string + hash forward
+        (utm_*, referrals, etc.). The meta refresh + visible link are the
+        no-JS fallbacks; they drop the query string but at least get the
+        visitor to the right place. */}
+    <script is:inline>
+      location.replace('/en/' + location.search + location.hash);
+    </script>
     <meta http-equiv="refresh" content={`0; url=${defaultTarget}`} />
     <link rel="canonical" href={canonicalUrl} />
   </head>

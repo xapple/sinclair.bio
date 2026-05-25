@@ -30,7 +30,12 @@
   --color-ink:     #ede0d0;
   --color-muted:   #a08870;
   --color-border:  #352218;
-  --color-accent:  #b85252;
+  /* Lightened from #b85252 so small accent text (e.g. ContactSection's
+     `text-xs ... text-accent` heading) clears WCAG AA 4.5:1 against both
+     --color-bkgnd (#140c07, ratio ~5.0) and --color-surface (#1f1209,
+     ratio ~4.8). The auth submit button compensates by switching its
+     label color to var(--color-bkgnd) instead of pure white. */
+  --color-accent:  #cc6464;
 
   --color-bar:    #3a1414;
   --color-bar-fg: #ede0d0;
@@ -200,11 +205,13 @@ html:not([data-dom-loaded]) footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Home-page section entrance — each section sets its own --delay inline. */
-.home-reveal {
+/* Fade-up entrance utility. Used by home sections (staggered via --reveal-delay)
+   and the Talk page (single element). Both --reveal-delay and --reveal-duration
+   are CSS variables so individual call sites can tune timing inline. */
+.page-reveal {
   opacity: 0;
   transform: translateY(12px);
-  animation: reveal 560ms ease-out var(--delay, 0ms) forwards;
+  animation: reveal var(--reveal-duration, 560ms) ease-out var(--reveal-delay, 0ms) forwards;
 }
 
 @media (max-width: 700px) {

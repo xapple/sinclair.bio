@@ -128,7 +128,10 @@ const { title, description, heading, intro, action, submitLabel } = Astro.props;
     border-radius: 0.5rem;
     border: none;
     background: var(--color-accent);
-    color: #fff;
+    /* Use the page background token (near-white in light, near-black in
+       dark) so the label stays >= 4.5:1 against accent in both modes —
+       pure #fff would drop below AA on the lightened dark accent. */
+    color: var(--color-bkgnd);
     font-size: 0.95rem;
     font-weight: 600;
     font-family: inherit;

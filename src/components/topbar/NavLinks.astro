@@ -1,7 +1,5 @@
 ---
-import { usePageFromUrl } from '../../i18n/page';
-
-const { lang, t } = usePageFromUrl(Astro.url);
+const { lang, t } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
 const links = [

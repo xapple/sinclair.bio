@@ -1,11 +1,10 @@
 ---
 import Icon from './Icon.astro';
-import { usePageFromUrl } from '../i18n/page';
 
 import botIcon from '../assets/icons/bot.svg?raw';
 import heartIcon from '../assets/icons/heart.svg?raw';
 
-const { t } = usePageFromUrl(Astro.url);
+const { t } = Astro.locals;
 ---
 
 <footer class="bg-bar">

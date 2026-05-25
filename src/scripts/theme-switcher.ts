@@ -12,6 +12,7 @@ export type ThemeColor = keyof typeof THEME_BKGND;
 
 // cubic-bezier approximation of GSAP's sine.inOut
 const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";
+const SLIDE_MOVEMENT = 100;
 
 // `applyTheme` is installed on `window.__sinclairTheme` by the blocking inline
 // bootstrap (src/scripts/theme-bootstrap.js) before any bundle loads, so it is
@@ -30,43 +31,42 @@ export function setTheme(color: ThemeColor): void {
   window.__sinclairTheme.applyTheme(color);
 }
 
-// Wires the desktop pill toggle's sliding sun/moon animation.
-export function themeSwitcherManager(): void {
-  const themeSwitchers =
-    document.querySelectorAll<HTMLButtonElement>(".theme-switcher");
-  const movement = 100;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let runningAnimation: Animation | undefined;
 
-  let runningAnimation: Animation | undefined;
+// Animates the sun/moon SVG sliding in (desktop pill only). The compact mobile
+// toggle has no SVG to animate, so it skips this step.
+function animateSlideIn(target: 'sun' | 'moon'): void {
+  if (runningAnimation) {
+    runningAnimation.finish();
+    runningAnimation = undefined;
+  }
+  const el = document.querySelector<SVGElement>(`#theme-switcher-${target}`);
+  if (!el) return;
+  const fromX = target === 'sun' ? -SLIDE_MOVEMENT : SLIDE_MOVEMENT * 2;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  runningAnimation = el.animate(
+    [
+      { transform: `translate(${fromX}px, ${SLIDE_MOVEMENT}px)` },
+      { transform: "translate(0, 0)" },
+    ],
+    { duration: reducedMotion ? 0 : 500, easing: EASE_SINE_IN_OUT },
+  );
+}
 
-  const slideIn = (selector: string, fromX: number, fromY: number) => {
-    const el = document.querySelector<SVGElement>(selector);
-    if (!el) return undefined;
-    return el.animate(
-      [
-        { transform: `translate(${fromX}px, ${fromY}px)` },
-        { transform: "translate(0, 0)" },
-      ],
-      { duration: reducedMotion.matches ? 0 : 500, easing: EASE_SINE_IN_OUT }
-    );
-  };
+function toggleTheme({ animate }: { animate: boolean }): void {
+  const isDark = document.documentElement.dataset.theme === "dark";
+  const next: ThemeColor = isDark ? "light" : "dark";
+  if (animate) animateSlideIn(isDark ? 'sun' : 'moon');
+  setTheme(next);
+}
 
-  themeSwitchers.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      if (runningAnimation) {
-        runningAnimation.finish();
-        runningAnimation = undefined;
-      }
-
-      const isDark = document.documentElement.dataset.theme === "dark";
-
-      if (isDark) {
-        runningAnimation = slideIn("#theme-switcher-sun", -movement, movement);
-        setTheme("light");
-      } else {
-        runningAnimation = slideIn("#theme-switcher-moon", movement * 2, movement);
-        setTheme("dark");
-      }
-    });
+// Wires every theme-toggle button: the desktop pill (animated) and the
+// compact mobile icon (no animation, no SVG to slide).
+export function initThemeToggles(): void {
+  document.querySelectorAll<HTMLButtonElement>(".theme-switcher").forEach((btn) => {
+    btn.addEventListener("click", () => toggleTheme({ animate: true }));
+  });
+  document.querySelectorAll<HTMLButtonElement>(".compact-theme-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => toggleTheme({ animate: false }));
   });
 }

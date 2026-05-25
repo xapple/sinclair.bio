@@ -12,10 +12,26 @@
 // Plain JS on purpose: types or imports here would break when inlined into
 // the <script> tag.
 
+// FOUC guard: reveal main/footer once DOM is ready. Register FIRST so that
+// any thrown error later in this bootstrap (e.g. localStorage access blocked
+// by a storage-partitioning policy or sandboxed iframe) can't leave the body
+// permanently hidden.
+document.addEventListener('DOMContentLoaded', function () {
+  document.documentElement.dataset.domLoaded = 'true';
+});
+
 function resolveTheme() {
-  var stored = localStorage.getItem('theme');
-  if (stored === 'light' || stored === 'dark') return stored;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  try {
+    var stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') return stored;
+  } catch (e) {
+    // Storage access blocked — fall through to system preference.
+  }
+  try {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } catch (e) {
+    return 'light';
+  }
 }
 
 function applyTheme(color, root) {
@@ -36,9 +52,9 @@ function applyTheme(color, root) {
 // Expose for the bundled module — bundles load after this inline script.
 window.__sinclairTheme = { applyTheme: applyTheme };
 
-applyTheme(resolveTheme());
-
-// FOUC guard: reveal main/footer once DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-  document.documentElement.dataset.domLoaded = 'true';
-});
+try {
+  applyTheme(resolveTheme());
+} catch (e) {
+  // DOM write failed — the reveal handler above still runs, so the page is
+  // visible; users just get whatever theme the SSR HTML shipped with.
+}

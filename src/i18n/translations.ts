@@ -4,8 +4,6 @@ export enum Languages {
   fr = "fr",
 }
 
-const defaultLang = Languages.en;
-
 // --- English translations (source of truth for the key set) ---
 const en = {
   "nav:contact": "Contact",
@@ -189,16 +187,4 @@ export function useTranslations(
     if (replace !== undefined) translated = translated.replace("%s", replace);
     return translated;
   };
-}
-
-const LANGUAGE_VALUES = new Set<string>(Object.values(Languages));
-
-/**
- * Extract language from the URL pathname.
- * Expects URLs like /en/..., /fr/...
- * Falls back to Languages.en if unrecognized.
- */
-export function getLangFromUrl(url: URL): Languages {
-  const [, segment] = url.pathname.split("/");
-  return LANGUAGE_VALUES.has(segment) ? (segment as Languages) : defaultLang;
 }

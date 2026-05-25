@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
-import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
+import { langStaticPaths, getLangEntry } from '../../i18n/page';
 import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
 import QuoteIcon from '../../assets/icons/quote.svg?raw';
 import BookIcon from '../../assets/icons/book.svg?raw';
@@ -11,7 +11,7 @@ import GithubIcon from '../../assets/icons/github.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
-const { lang, t } = usePage(Astro.params);
+const { lang, t } = Astro.locals;
 const entry = await getLangEntry('portfolio', lang);
 const { testimonials, publications, classes } = entry.data;
 ---

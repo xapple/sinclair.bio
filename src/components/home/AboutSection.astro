@@ -1,14 +1,14 @@
 ---
 import { render } from 'astro:content';
-import { getLangEntry, usePageFromUrl } from '../../i18n/page';
+import { getLangEntry } from '../../i18n/page';
 
-const { lang, t } = usePageFromUrl(Astro.url);
+const { lang, t } = Astro.locals;
 
 const homeEntry = await getLangEntry('home', lang);
 const { Content: AboutProse } = await render(homeEntry);
 ---
 
-<section class="home-reveal mx-auto max-w-3xl px-6 py-12" style="--delay:200ms">
+<section class="page-reveal mx-auto max-w-3xl px-6 py-12" style="--reveal-delay:200ms">
   <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
     {t('home:about-heading')}
   </h2>

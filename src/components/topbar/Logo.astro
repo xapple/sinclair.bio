@@ -1,8 +1,7 @@
 ---
-import { usePageFromUrl } from '../../i18n/page';
 import logoNameSvg from '../../assets/logo-name.svg?raw';
 
-const { lang, t } = usePageFromUrl(Astro.url);
+const { lang, t } = Astro.locals;
 ---
 
 <a href={`/${lang}/`} class="flex items-center text-bar-fg" aria-label={t('a11y:home')}>

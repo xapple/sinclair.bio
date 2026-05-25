@@ -1,27 +1,20 @@
 ---
 import Icon from '../Icon.astro';
-import { usePageFromUrl } from '../../i18n/page';
 import themeSwitcherSvg from '../../assets/theme-switcher.svg?raw';
 import sunSvg from '../../assets/icons/sun.svg?raw';
 import moonSvg from '../../assets/icons/moon-stars.svg?raw';
 
-const { t } = usePageFromUrl(Astro.url);
+const { t } = Astro.locals;
 ---
 
 <script>
-  import { themeSwitcherManager, setTheme } from "../../scripts/theme-switcher";
+  import { initThemeToggles, setTheme } from "../../scripts/theme-switcher";
 
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
     setTheme(e.matches ? "dark" : "light");
   });
 
-  themeSwitcherManager();
-
-  const btn = document.getElementById('compact-theme-toggle');
-  btn?.addEventListener('click', () => {
-    const isDark = document.documentElement.dataset.theme === 'dark';
-    setTheme(isDark ? 'light' : 'dark');
-  });
+  initThemeToggles();
 </script>
 
 <!-- Full pill toggle — desktop only -->
@@ -35,7 +28,6 @@ const { t } = usePageFromUrl(Astro.url);
 
 <!-- Compact icon toggle — mobile only -->
 <button
-  id="compact-theme-toggle"
   title={t("a11y:theme-switcher")}
   class="compact-theme-toggle md:hidden flex items-center justify-center w-11 h-11 p-0 border-none bg-transparent cursor-pointer hover:bg-white/10 transition-colors rounded-md text-bar-fg"
   aria-label={t("a11y:theme-switcher")}

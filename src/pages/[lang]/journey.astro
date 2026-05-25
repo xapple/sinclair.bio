@@ -1,17 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ExperienceEntry from '../../components/journey/ExperienceEntry.astro';
-import EducationEntry from '../../components/journey/EducationEntry.astro';
-import CertificationEntry from '../../components/journey/CertificationEntry.astro';
+import TimelineEntry from '../../components/journey/TimelineEntry.astro';
 import Icon from '../../components/Icon.astro';
-import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
+import { langStaticPaths, getLangEntry } from '../../i18n/page';
 import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
 import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
 import CertificateIcon from '../../assets/icons/certificate.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
-const { lang, t } = usePage(Astro.params);
+const { lang, t } = Astro.locals;
 const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
 ---
@@ -26,7 +24,17 @@ const { experiences, education, certifications = [] } = entry.data;
 
       <ol class="entry-list" aria-labelledby="experience-heading">
         {experiences.map((item, index) => (
-          <ExperienceEntry {...item} index={index} />
+          <TimelineEntry
+            kind="experience"
+            title={item.role}
+            primary={item.company}
+            tertiary={item.employmentType}
+            period={item.period}
+            location={item.location}
+            summary={item.summary}
+            bullets={item.highlights}
+            index={index}
+          />
         ))}
       </ol>
     </div>
@@ -39,7 +47,16 @@ const { experiences, education, certifications = [] } = entry.data;
 
       <ol class="entry-list" aria-labelledby="education-heading">
         {education.map((item, index) => (
-          <EducationEntry {...item} index={index} />
+          <TimelineEntry
+            kind="education"
+            title={item.school}
+            primary={item.degree}
+            tertiary={item.field}
+            period={item.period}
+            summary={item.summary}
+            bullets={item.details}
+            index={index}
+          />
         ))}
       </ol>
     </div>
@@ -53,7 +70,17 @@ const { experiences, education, certifications = [] } = entry.data;
 
         <ol class="entry-list" aria-labelledby="certifications-heading">
           {certifications.map((item, index) => (
-            <CertificationEntry {...item} index={index} />
+            <TimelineEntry
+              kind="education"
+              title={item.name}
+              titleHref={item.href}
+              primary={item.issuer}
+              tertiary={item.field}
+              period={item.period}
+              summary={item.summary}
+              bullets={item.details}
+              index={index}
+            />
           ))}
         </ol>
       </div>
