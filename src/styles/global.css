@@ -130,21 +130,22 @@ html:not([data-dom-loaded]) footer {
 .icon-lg { width: 2rem;     height: 2rem;     }
 
 /* ---- Mobile menu open/close animation ----
-   The JS in Topbar.astro drives max-height inline from scrollHeight so the
-   transition animates to the real content height with no dead zone. CSS owns
-   only the transition curve and the opacity fade (which hides the border line
-   so no 1px sliver remains when closed). */
+   The menu always renders 4 fixed nav links of identical size, so its height
+   is constant (40px button + 16px py-2 padding = 56px). Hard-coding avoids
+   the auto-height transition headache entirely. */
 .mobile-menu {
   overflow: hidden;
+  max-height: 3.5rem;  /* 56px */
   transition: max-height 200ms ease, opacity 150ms ease;
 }
 .mobile-menu[data-closed] {
+  max-height: 0;
   opacity: 0;
 }
 
 /* ---- Page scaffolding ----
-   Shared structure for [lang]/* pages wrapped in <LangPage>. Each page sets
-   --shell-width via the `shellWidth` prop to constrain its content column. */
+   Shared structure for pages rendered via <Layout frame="standard|centered">.
+   Each page can set --shell-width via the `shellWidth` prop. */
 .page-frame {
   min-height: calc(100vh - 4rem);
   color: var(--color-ink);
@@ -154,6 +155,19 @@ html:not([data-dom-loaded]) footer {
 .page-shell {
   margin: 0 auto;
   width: min(var(--shell-width, 920px), 100%);
+}
+
+/* Centered variant: flex-centers a narrow card column (auth pages). */
+.page-frame--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  animation: reveal 400ms ease-out both;
+}
+
+.page-frame--centered > .page-shell {
+  width: min(var(--shell-width, 420px), 100%);
 }
 
 .section-stack {

@@ -1,5 +1,5 @@
 ---
-import LangPage from '../../layouts/LangPage.astro';
+import Layout from '../../layouts/Layout.astro';
 import JourneyEntry from '../../components/JourneyEntry.astro';
 import Icon from '../../components/Icon.astro';
 import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
@@ -14,7 +14,7 @@ const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
 ---
 
-<LangPage title={t('journey:page-title')} description={t('journey:intro')}>
+<Layout title={t('journey:page-title')} description={t('journey:intro')} frame="standard">
   <div class="section-stack">
     <div class="journey-section">
       <h2 class="section-heading" id="experience-heading">
@@ -87,7 +87,7 @@ const { experiences, education, certifications = [] } = entry.data;
       </div>
     )}
   </div>
-</LangPage>
+</Layout>
 
 <style>
   .section-stack {

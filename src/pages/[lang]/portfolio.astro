@@ -1,5 +1,5 @@
 ---
-import LangPage from '../../layouts/LangPage.astro';
+import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
 import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
 import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
@@ -16,9 +16,10 @@ const entry = await getLangEntry('portfolio', lang);
 const { testimonials, publications, classes } = entry.data;
 ---
 
-<LangPage
+<Layout
   title={t('portfolio:page-title')}
   description={t('meta:portfolio-description')}
+  frame="standard"
   shellWidth="1100px"
 >
   <div class="section-stack">
@@ -29,7 +30,7 @@ const { testimonials, publications, classes } = entry.data;
 
     <div class="card-grid">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div class="card">
+        <div class="card" style={`animation-delay: ${(i - 1) * 80}ms`}>
           <div class="card-thumb"></div>
           <div class="card-body">
             <h3>Project {i}</h3>
@@ -99,7 +100,7 @@ const { testimonials, publications, classes } = entry.data;
       ))}
     </ul>
   </div>
-</LangPage>
+</Layout>
 
 <style>
   .section-stack > .section-heading ~ .section-heading {
@@ -119,13 +120,6 @@ const { testimonials, publications, classes } = entry.data;
     background: var(--color-surface);
     animation: reveal 500ms ease-out both;
   }
-
-  .card:nth-child(1) { animation-delay: 0ms; }
-  .card:nth-child(2) { animation-delay: 80ms; }
-  .card:nth-child(3) { animation-delay: 160ms; }
-  .card:nth-child(4) { animation-delay: 240ms; }
-  .card:nth-child(5) { animation-delay: 320ms; }
-  .card:nth-child(6) { animation-delay: 400ms; }
 
   .card-thumb {
     height: 140px;

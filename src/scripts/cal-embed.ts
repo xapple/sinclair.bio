@@ -44,6 +44,11 @@ declare global {
   }
 }
 
+// Event payload Cal dispatches for the __dimensionChanged action.
+interface CalDimensionChangedEvent {
+  detail: { data: { iframeHeight?: number } };
+}
+
 // --- Defaults ------------------------------------------------------------
 
 const DEFAULT_BRAND_COLORS = {
@@ -128,9 +133,16 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
   // Clear any previous render (theme-change re-mount).
   el.innerHTML = '';
 
+  // `useSlotsViewOnSmallScreen` is intentionally OFF. When enabled, Cal
+  // renders a dedicated slots view on small viewports with a sticky date
+  // header above an internally-scrollable slot list — which creates a
+  // second scroll context inside the iframe and fights the outer page's
+  // scroll. With it off, Cal sizes the iframe to its full content (which
+  // __dimensionChanged then mirrors onto the wrapper below), so the outer
+  // page owns the only scroll context.
   Cal.ns[options.namespace]('inline', {
     elementOrSelector: selector,
-    config: { layout: 'month_view', theme, useSlotsViewOnSmallScreen: true },
+    config: { layout: 'month_view', theme },
     calLink: options.calLink,
   });
 
@@ -141,6 +153,19 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
     cssVarsPerTheme: {
       light: { 'cal-brand': brand.light },
       dark: { 'cal-brand': brand.dark },
+    },
+  });
+
+  // Mirror Cal's reported content height onto the wrapper so the embed grows
+  // with internal navigation (date picker → time slots → confirmation) instead
+  // of scrolling inside the iframe on small viewports.
+  Cal.ns[options.namespace]('on', {
+    action: '__dimensionChanged',
+    callback: (e: CalDimensionChangedEvent) => {
+      const h = e?.detail?.data?.iframeHeight;
+      if (typeof h === 'number' && h > 0) {
+        el.style.minHeight = `${h}px`;
+      }
     },
   });
 }

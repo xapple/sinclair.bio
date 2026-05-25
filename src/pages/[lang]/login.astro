@@ -1,201 +1,50 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import AuthLayout from '../../layouts/AuthLayout.astro';
 import { langStaticPaths, usePage } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
 
 const { lang, t } = usePage(Astro.params);
-const loginAction = "https://client.sinclair.bio/login";
-const forgotPasswordUrl = `/${lang}/forgot-password`;
 ---
 
-<Layout title={t("login:page-title")} description={t("meta:login-description")} robots="noindex">
-  <section class="login-page">
-    <div class="login-shell">
-      <header class="login-header">
-        <h1>{t("login:heading")}</h1>
-        <p>{t("login:intro")}</p>
-      </header>
+<AuthLayout
+  title={t('login:page-title')}
+  description={t('meta:login-description')}
+  heading={t('login:heading')}
+  intro={t('login:intro')}
+  action="https://client.sinclair.bio/login"
+  submitLabel={t('login:submit')}
+>
+  <div class="field">
+    <label for="email">{t('login:email-label')}</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      autocomplete="username"
+      placeholder={t('login:email-placeholder')}
+      required
+    />
+  </div>
+  <div class="field">
+    <label for="password">{t('login:password-label')}</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder={t('login:password-placeholder')}
+      required
+    />
+  </div>
 
-      <form class="login-form" action={loginAction} method="post">
-        <div class="field">
-          <label for="email">{t("login:email-label")}</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="username"
-            placeholder={t("login:email-placeholder")}
-            required
-          />
-        </div>
-        <div class="field">
-          <label for="password">{t("login:password-label")}</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autocomplete="current-password"
-            placeholder={t("login:password-placeholder")}
-            required
-          />
-        </div>
+  <div class="form-options">
+    <label class="checkbox-label">
+      <input type="checkbox" name="remember" value="true" />
+      {t('login:remember')}
+    </label>
+    <a href={`/${lang}/forgot-password`} class="forgot-link">{t('login:forgot')}</a>
+  </div>
 
-        <div class="form-options">
-          <label class="checkbox-label">
-            <input type="checkbox" name="remember" value="true" />
-            {t("login:remember")}
-          </label>
-          <a href={forgotPasswordUrl} class="forgot-link">{t("login:forgot")}</a>
-        </div>
-
-        <button type="submit" class="submit-button">{t("login:submit")}</button>
-      </form>
-
-      <p class="signup-link">{t("login:client-only")}</p>
-    </div>
-  </section>
-</Layout>
-
-<style>
-  .login-page {
-    min-height: calc(100vh - 4rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1.25rem;
-    animation: reveal 400ms ease-out both;
-  }
-
-  .login-shell {
-    width: min(420px, 100%);
-  }
-
-  .login-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  h1 {
-    margin: 0 0 0.5rem;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--color-ink);
-  }
-
-  .login-header p {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.95rem;
-  }
-
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.75rem;
-    background: var(--color-surface);
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-muted);
-    letter-spacing: 0.02em;
-  }
-
-  input[type="email"],
-  input[type="password"] {
-    padding: 0.6rem 0.85rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    background: var(--color-bkgnd);
-    color: var(--color-ink);
-    font-size: 0.95rem;
-    font-family: inherit;
-    transition: border-color 150ms ease, box-shadow 150ms ease;
-  }
-
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
-  }
-
-  .form-options {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.85rem;
-  }
-
-  .checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--color-ink);
-    cursor: pointer;
-  }
-
-  .checkbox-label input {
-    accent-color: var(--color-accent);
-    cursor: pointer;
-  }
-
-  .forgot-link {
-    color: var(--color-accent);
-    text-decoration: none;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .forgot-link:hover {
-    text-decoration: underline;
-  }
-
-  .submit-button {
-    appearance: none;
-    width: 100%;
-    padding: 0.7rem;
-    border-radius: 0.5rem;
-    border: none;
-    background: var(--color-accent);
-    color: #fff;
-    font-size: 0.95rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 150ms ease, transform 150ms ease;
-  }
-
-  .submit-button:hover {
-    background: color-mix(in srgb, var(--color-accent) 88%, black);
-  }
-
-  .submit-button:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
-    outline-offset: 2px;
-  }
-
-  .submit-button:active {
-    transform: translateY(1px);
-  }
-
-  .signup-link {
-    margin: 1.25rem 0 0;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--color-muted);
-    line-height: 1.5;
-  }
-</style>
+  <Fragment slot="footer">{t('login:client-only')}</Fragment>
+</AuthLayout>

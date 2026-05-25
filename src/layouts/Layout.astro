@@ -13,9 +13,25 @@ interface Props {
   title?: string;
   description?: string;
   robots?: string;
+  // Page shape:
+  //   'full'     — no wrapper, slot fills <main> (used by HomePage which manages its own sections)
+  //   'standard' — wraps slot in .page-frame + .page-shell (content pages: journey, portfolio, talk)
+  //   'centered' — flex-centered card column (auth pages: login, forgot-password)
+  frame?: 'full' | 'standard' | 'centered';
+  // CSS length used as max width for .page-shell.
+  // Defaults: 920px for 'standard', 420px for 'centered' (set in global.css).
+  shellWidth?: string;
 }
 
-const { title = 'Sinclair.Bio', description, robots } = Astro.props;
+const {
+  title = 'Sinclair.Bio',
+  description,
+  robots,
+  frame = 'full',
+  shellWidth,
+} = Astro.props;
+const shellStyle = shellWidth ? `--shell-width:${shellWidth};` : undefined;
+const frameClass = frame === 'centered' ? 'page-frame page-frame--centered' : 'page-frame';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const metaDescription = description ?? t('meta:site-description');
@@ -102,7 +118,15 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     <GridDecoration />
     <Topbar />
     <main class="relative flex-1">
-      <slot />
+      {frame === 'full' ? (
+        <slot />
+      ) : (
+        <section class={frameClass}>
+          <div class="page-shell" style={shellStyle}>
+            <slot />
+          </div>
+        </section>
+      )}
     </main>
     <Footer />
   </body>
