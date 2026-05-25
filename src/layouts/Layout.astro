@@ -6,6 +6,7 @@ import { Languages, useTranslations, getLangFromUrl } from '../i18n/translations
 import { getAlternatePath } from '../i18n/page';
 import { THEME_BKGND } from '../scripts/theme-switcher';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
+import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -44,33 +45,9 @@ const ogLocaleMap: Record<Languages, string> = {
 const ogLocale = ogLocaleMap[lang];
 const ogAlternateLocales = allLangs.filter((l) => l !== lang).map((l) => ogLocaleMap[l]);
 
-const personSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Lucas Sinclair',
-  url: siteUrl.toString(),
-  image: ogImageUrl,
-  jobTitle: 'Senior Data Scientist',
-  description: t('meta:site-description'),
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Geneva',
-    addressCountry: 'CH',
-  },
-  sameAs: [
-    'https://orcid.org/0000-0003-4134-3571',
-    'https://github.com/xapple',
-    'https://linkedin.com/in/sinclair-bio',
-  ],
-};
-
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Sinclair.Bio',
-  url: siteUrl.toString(),
-  inLanguage: lang,
-};
+const schemaArgs = { siteUrl, ogImageUrl, lang, t };
+const personSchema = buildPersonSchema(schemaArgs);
+const websiteSchema = buildWebsiteSchema(schemaArgs);
 ---
 
 <!doctype html>
@@ -125,8 +102,8 @@ const websiteSchema = {
     <script>
       // Preserve scroll across language navigation. ClientRouter resets scroll
       // to 0 on every swap; without this, switching language while scrolled
-      // would jump the user to the top of the new translation.
-      // Lifted from LanguageSwitcher — applies to any <a hreflang="..."> link.
+      // would jump the user to the top of the new translation. Binds to any
+      // <a hreflang="..."> link, regardless of where the switcher renders.
       document.addEventListener('astro:page-load', () => {
         document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((link) => {
           link.addEventListener('click', () => {

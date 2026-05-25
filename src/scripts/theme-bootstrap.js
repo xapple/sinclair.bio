@@ -3,11 +3,11 @@
 // runs before bundles load — FOUC guard.
 //
 // `THEME_BKGND` is provided at inline time by Astro's `define:vars`, sourced
-// from src/scripts/theme-switcher.ts (single source of truth for the values).
+// from src/scripts/theme-switcher.ts.
 //
-// This file mirrors resolveTheme/applyTheme in theme-switcher.ts. The bundled
-// module re-implements them with TS types because this file ships as raw text
-// (no imports/exports, plain JS) — keep the two logic paths in sync.
+// This file is the single source of truth for the apply-theme operation: it
+// exposes `applyTheme` on `window.__sinclairTheme` so the bundled TS module
+// (theme-switcher.ts) can call it instead of re-implementing the DOM writes.
 //
 // Plain JS on purpose: types or imports here would break when inlined into
 // the <script> tag.
@@ -32,6 +32,9 @@ function applyTheme(color, root) {
     metas[i].setAttribute('content', THEME_BKGND[color]);
   }
 }
+
+// Expose for the bundled module — bundles load after this inline script.
+window.__sinclairTheme = { applyTheme: applyTheme };
 
 // Initial hard navigation
 applyTheme(resolveTheme());

@@ -1,11 +1,18 @@
 ---
-import { Languages, getLangFromUrl } from '../../i18n/translations';
+import Icon from '../Icon.astro';
+import { Languages, useTranslations, getLangFromUrl } from '../../i18n/translations';
 import { getAlternatePath } from '../../i18n/page';
-import LanguageSwitcherDesktop, { type LangLink } from './LanguageSwitcherDesktop.astro';
-import LanguageSwitcherMobile from './LanguageSwitcherMobile.astro';
+import globeSvg from '../../assets/icons/globe.svg?raw';
+
+interface LangLink {
+  lang: Languages;
+  href: string | null; // null = current language (not clickable)
+  label: string;
+}
 
 const currentLang = getLangFromUrl(Astro.url);
 const currentPath = Astro.url.pathname;
+const t = useTranslations(currentLang);
 
 const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
   lang: l,
@@ -16,5 +23,136 @@ const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
 const activeIndex = langLinks.findIndex((link) => link.href === null);
 ---
 
-<LanguageSwitcherDesktop langLinks={langLinks} activeIndex={activeIndex} />
-<LanguageSwitcherMobile currentLang={currentLang} langLinks={langLinks} />
+<!-- Desktop: inline pill toggle with animated active indicator. -->
+<div
+  class="language-switcher-desktop relative hidden overflow-hidden rounded-md border border-white/20 md:grid"
+  style={`--lang-count:${langLinks.length};`}
+>
+  <span
+    transition:name="language-switcher-active"
+    aria-hidden="true"
+    class="language-switcher-active pointer-events-none absolute inset-y-0 left-0 z-0 rounded-[5px] bg-bar-fg"
+    style={`--lang-index:${activeIndex};`}
+  ></span>
+
+  {langLinks.map((link) => {
+    const isActive = link.href === null;
+    const itemClasses = [
+      'relative z-10 flex items-center justify-center px-2.5 py-1.5 text-sm font-medium leading-none whitespace-nowrap',
+      isActive
+        ? 'text-bar'
+        : 'text-bar-fg/60 transition-colors hover:text-bar-fg',
+    ];
+
+    return isActive ? (
+      <span
+        transition:name="language-switcher-active-label"
+        class:list={itemClasses}
+        aria-current="true"
+      >
+        {link.label}
+      </span>
+    ) : (
+      <a
+        href={link.href}
+        rel="alternate"
+        hreflang={link.lang}
+        class:list={itemClasses}
+      >
+        {link.label}
+      </a>
+    );
+  })}
+</div>
+
+<!-- Mobile: globe icon + dropdown menu. -->
+<div class="relative md:hidden">
+  <button
+    id="lang-dropdown-toggle"
+    class="relative flex items-center justify-center w-11 h-11 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md"
+    aria-expanded="false"
+    aria-label={t('a11y:select-language')}
+  >
+    <span class="relative" aria-hidden="true">
+      <Icon svg={globeSvg} size="md" />
+      <span class="lang-badge absolute -bottom-0.5 -right-1 text-[7px] font-bold leading-none bg-bar-fg text-bar rounded px-[3px] py-[2px]">
+        {currentLang.toUpperCase()}
+      </span>
+    </span>
+  </button>
+
+  <div
+    id="lang-dropdown"
+    class="hidden absolute right-0 top-full mt-1 min-w-[4rem] rounded-md bg-bar border border-white/20 overflow-hidden shadow-lg"
+    role="menu"
+  >
+    {langLinks.map((link) => {
+      const isActive = link.href === null;
+      return isActive ? (
+        <span
+          class="block px-4 py-2 text-sm font-medium text-bar-fg bg-white/10"
+          role="menuitem"
+          aria-current="true"
+        >
+          {link.label}
+        </span>
+      ) : (
+        <a
+          href={link.href}
+          rel="alternate"
+          hreflang={link.lang}
+          class="block px-4 py-2 text-sm font-medium text-bar-fg/60 hover:bg-white/10 hover:text-bar-fg transition-colors"
+          role="menuitem"
+        >
+          {link.label}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<style is:global>
+  .language-switcher-desktop {
+    grid-template-columns: repeat(var(--lang-count), minmax(0, 1fr));
+  }
+
+  .language-switcher-active {
+    width: calc(100% / var(--lang-count));
+    transform: translateX(calc(var(--lang-index) * 100%));
+  }
+
+  ::view-transition-group(language-switcher-active) {
+    animation-duration: 360ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(language-switcher-active) {
+      animation-duration: 0.01ms;
+    }
+  }
+</style>
+
+<script>
+  // Close dropdown on outside click (one-time global listener).
+  document.addEventListener('click', () => {
+    const dropdown = document.getElementById('lang-dropdown');
+    const toggle = document.getElementById('lang-dropdown-toggle');
+    if (!dropdown?.classList.contains('hidden')) {
+      dropdown?.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Re-bind toggle on every navigation — ClientRouter swaps the DOM.
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('lang-dropdown-toggle');
+    const dropdown = document.getElementById('lang-dropdown');
+
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown?.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+</script>

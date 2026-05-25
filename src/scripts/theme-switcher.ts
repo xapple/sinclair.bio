@@ -13,36 +13,21 @@ export type ThemeColor = keyof typeof THEME_BKGND;
 // cubic-bezier approximation of GSAP's sine.inOut
 const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";
 
-// Resolve the active theme: stored preference > OS preference.
-export function resolveTheme(): ThemeColor {
-  const stored = localStorage.getItem("theme");
-  if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-// Apply a theme to a document (defaults to the current one).
-// Mirrors src/scripts/theme-bootstrap.js, which is the plain-JS version
-// inlined into <head> by Layout.astro for the FOUC-blocking bootstrap. The
-// bundled module re-implements the same logic with TS types — keep both in
-// sync. Touches: .dark class (Tailwind), data-theme (SVG), color-scheme meta,
-// and all theme-color metas.
-export function applyTheme(color: ThemeColor, root: Document = document): void {
-  const html = root.documentElement;
-  html.classList.toggle("dark", color === "dark");
-  html.dataset.theme = color;
-
-  const csMeta = root.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
-  if (csMeta) csMeta.content = color;
-
-  root.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
-    meta.setAttribute("content", THEME_BKGND[color]);
-  });
+// `applyTheme` is installed on `window.__sinclairTheme` by the blocking inline
+// bootstrap (src/scripts/theme-bootstrap.js) before any bundle loads, so it is
+// always defined by the time this module runs.
+declare global {
+  interface Window {
+    __sinclairTheme: {
+      applyTheme: (color: ThemeColor, root?: Document) => void;
+    };
+  }
 }
 
 // Persist and apply a theme choice.
 export function setTheme(color: ThemeColor): void {
   localStorage.setItem("theme", color);
-  applyTheme(color);
+  window.__sinclairTheme.applyTheme(color);
 }
 
 // Wires the desktop pill toggle's sliding sun/moon animation. Called fresh
