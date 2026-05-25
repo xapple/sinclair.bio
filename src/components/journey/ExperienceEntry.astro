@@ -1,0 +1,28 @@
+---
+import TimelineEntry from './TimelineEntry.astro';
+
+interface Props {
+  role: string;
+  company: string;
+  employmentType?: string;
+  period: string;
+  location?: string;
+  summary: string;
+  highlights?: string[];
+  index: number;
+}
+
+const { role, company, employmentType, period, location, summary, highlights, index } = Astro.props;
+---
+
+<TimelineEntry
+  kind="experience"
+  title={role}
+  primary={company}
+  tertiary={employmentType}
+  period={period}
+  location={location}
+  summary={summary}
+  bullets={highlights}
+  index={index}
+/>

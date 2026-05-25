@@ -1,0 +1,20 @@
+---
+import { render } from 'astro:content';
+import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import { getLangEntry } from '../../i18n/page';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const homeEntry = await getLangEntry('home', lang);
+const { Content: AboutProse } = await render(homeEntry);
+---
+
+<section class="home-reveal mx-auto max-w-3xl px-6 py-12" style="--delay:200ms">
+  <h2 class="mb-6 text-xs font-semibold uppercase tracking-widest text-accent">
+    {t('home:about-heading')}
+  </h2>
+  <div class="space-y-4 text-base leading-relaxed text-ink">
+    <AboutProse />
+  </div>
+</section>

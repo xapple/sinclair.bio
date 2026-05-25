@@ -1,0 +1,54 @@
+---
+import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import Icon from '../Icon.astro';
+import InfoCard from '../InfoCard.astro';
+
+import mapPin       from '../../assets/icons/map-pin.svg?raw';
+import msgSquare    from '../../assets/icons/message-square.svg?raw';
+import extLink      from '../../assets/icons/external-link.svg?raw';
+import githubIcon   from '../../assets/icons/github.svg?raw';
+import gitlabIcon   from '../../assets/icons/gitlab.svg?raw';
+import linkedinIcon from '../../assets/icons/linkedin.svg?raw';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="home-reveal mx-auto max-w-3xl px-6 pb-12" style="--delay:80ms">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-12 max-w-56 sm:max-w-none mx-auto">
+
+    <InfoCard icon={mapPin} heading={t('home:card-location-heading')}>
+      <div class="space-y-0.5">
+        <a href="https://openstreetmap.org/node/2115451216#map=16/46.21269/6.14982" target="_blank" rel="noopener noreferrer" class="text-sm text-ink hover:text-accent transition-colors underline underline-offset-2">Rue Rothschild 35</a>
+        <p class="text-sm text-ink">{t('home:location-city')}</p>
+        <p class="text-sm text-ink flex items-center gap-1">{t('home:location-country')} <span>🇨🇭</span></p>
+      </div>
+    </InfoCard>
+
+    <InfoCard icon={msgSquare} heading={t('home:card-languages-heading')}>
+      <div class="space-y-0.5">
+        <p class="text-sm text-ink">{t('home:language-english')}</p>
+        <p class="text-sm text-ink">{t('home:language-french')}</p>
+        <p class="text-sm text-ink">{t('home:language-others')}</p>
+      </div>
+    </InfoCard>
+
+    <InfoCard icon={extLink} heading={t('home:card-links-heading')}>
+      <div class="space-y-2">
+        <a href="https://github.com/xapple" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+          <Icon svg={githubIcon} size="sm" />
+          github/xapple
+        </a>
+        <a href="https://gitlab.com/sinclair" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+          <Icon svg={gitlabIcon} size="sm" />
+          gitlab/sinclair
+        </a>
+        <a href="https://linkedin.com/in/sinclair-bio" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+          <Icon svg={linkedinIcon} size="sm" />
+          in/sinclair-bio
+        </a>
+      </div>
+    </InfoCard>
+
+  </div>
+</section>

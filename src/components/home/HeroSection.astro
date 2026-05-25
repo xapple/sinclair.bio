@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import profile from '../../assets/profile.jpg';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="home-reveal mx-auto max-w-3xl px-6 pt-16 pb-10" style="--delay:0ms">
+  <div class="flex flex-col sm:flex-row items-center sm:items-center gap-6 text-center sm:text-left">
+    <Image
+      src={profile}
+      format="webp"
+      widths={[128, 256]}
+      sizes="128px"
+      alt="Lucas Sinclair"
+      class="block h-32 w-auto rounded-xl shrink-0 border border-ink"
+    />
+    <div>
+      <p class="text-2xl leading-snug">{t('home:greeting')}</p>
+      <h1 class="text-4xl font-black text-ink leading-tight">{t('home:name')}</h1>
+      <p class="mt-1.5 text-base text-muted">{t('home:tagline')}</p>
+    </div>
+  </div>
+</section>

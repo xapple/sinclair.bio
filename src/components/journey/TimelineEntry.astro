@@ -1,41 +1,35 @@
 ---
+// Visual primitive for journey timeline rows. Domain-specific wrappers
+// (ExperienceEntry, EducationEntry, CertificationEntry) translate their
+// shape onto this; pages should not import TimelineEntry directly.
+//
+// `kind` controls two coupled visual choices:
+//   'experience'  — wider body column, uppercase letterspaced tertiary line
+//   'education'   — more even columns, plain muted tertiary line
 interface Props {
+  kind: 'experience' | 'education';
+  // Primary heading (role / school / cert name). Renders as a link if titleHref is set.
   title: string;
   titleHref?: string;
-  // Primary accent-coloured subtitle line (company / degree / issuer).
-  subtitle: string;
-  // Optional tertiary line under the subtitle.
+  // Accent-coloured line under the title (company / degree / issuer).
+  primary: string;
+  // Optional third line (employmentType / field of study).
   tertiary?: string;
-  // 'eyebrow' = small uppercase letterspaced (experience's employmentType).
-  // 'field'   = plain muted line (education/certs field).
-  tertiaryStyle?: 'eyebrow' | 'field';
   period: string;
   location?: string;
   summary: string;
   bullets?: string[];
-  // Panel column ratio. 'wide' = experiences (slightly wider body),
-  // 'narrow' = education/certifications (more even split).
-  variant?: 'wide' | 'narrow';
   // Zero-based position within its section — drives the stagger animation.
   index: number;
 }
 
-const {
-  title,
-  titleHref,
-  subtitle,
-  tertiary,
-  tertiaryStyle = 'field',
-  period,
-  location,
-  summary,
-  bullets,
-  variant = 'wide',
-  index,
-} = Astro.props;
+const { kind, title, titleHref, primary, tertiary, period, location, summary, bullets, index } = Astro.props;
+
+const variantClass = kind === 'experience' ? 'entry-item--wide' : 'entry-item--narrow';
+const tertiaryClass = kind === 'experience' ? 'secondary-meta' : 'field-meta';
 ---
 
-<li class={`entry-item entry-item--${variant}`} style={`--item-index:${index};`}>
+<li class={`entry-item ${variantClass}`} style={`--item-index:${index};`}>
   <span class="entry-dot" aria-hidden="true"></span>
   <article class="entry-panel">
     <div class="entry-left">
@@ -52,10 +46,8 @@ const {
             title
           )}
         </h3>
-        <p class="primary-meta">{subtitle}</p>
-        {tertiary && (
-          <p class={tertiaryStyle === 'eyebrow' ? 'secondary-meta' : 'field-meta'}>{tertiary}</p>
-        )}
+        <p class="primary-meta">{primary}</p>
+        {tertiary && <p class={tertiaryClass}>{tertiary}</p>}
       </div>
     </div>
 

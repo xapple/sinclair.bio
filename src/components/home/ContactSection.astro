@@ -1,0 +1,127 @@
+---
+import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import Icon from '../Icon.astro';
+import InfoCard from '../InfoCard.astro';
+
+import lockIcon            from '../../assets/icons/lock.svg?raw';
+import telegramIcon        from '../../assets/icons/telegram.svg?raw';
+import signalIcon          from '../../assets/icons/signal.svg?raw';
+import threemaIcon         from '../../assets/icons/threema.svg?raw';
+import matrixIcon          from '../../assets/icons/matrix.svg?raw';
+import messagesSquareIcon  from '../../assets/icons/messages-square.svg?raw';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="home-reveal mx-auto max-w-3xl px-6 py-12" style="--delay:340ms">
+  <h2 class="mb-8 text-xs font-semibold uppercase tracking-widest text-accent">
+    {t('home:contact-heading')}
+  </h2>
+  <div class="flex flex-col md:flex-row items-start gap-6 md:gap-8">
+
+    <!-- Form -->
+    <form
+      id="contact-form"
+      class="flex-1 flex flex-col gap-3 w-full"
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      data-sending={t('home:contact-sending')}
+      data-sent={t('home:contact-sent')}
+      data-error={t('home:contact-error')}
+      data-error-generic={t('home:contact-error-generic')}
+    >
+      <input type="hidden" name="access_key" value="cb34a33c-14b3-4b35-b978-25080a102993" />
+      <input
+        type="text"
+        name="name"
+        placeholder={t('home:contact-name')}
+        aria-label={t('home:contact-name')}
+        autocomplete="name"
+        required
+        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder={t('home:contact-email')}
+        aria-label={t('home:contact-email')}
+        autocomplete="email"
+        required
+        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
+      />
+      <textarea
+        name="message"
+        placeholder={t('home:contact-message')}
+        aria-label={t('home:contact-message')}
+        rows={5}
+        required
+        class="w-full rounded-lg border border-border bg-bkgnd px-4 py-2.5 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none"
+      ></textarea>
+      <div class="flex items-center gap-3">
+        <button
+          type="submit"
+          class="rounded-lg bg-ink px-6 py-2.5 text-sm font-semibold text-bkgnd hover:bg-accent transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {t('home:contact-send')}
+        </button>
+        <span data-contact-status class="text-sm"></span>
+      </div>
+    </form>
+
+    <!-- OR divider -->
+    <div class="flex md:flex-col items-center self-center gap-2 md:gap-3 text-muted/40">
+      <div class="flex-1 h-px md:h-12 w-full md:w-px bg-border"></div>
+      <span class="text-xl font-bold">{t('home:contact-divider')}</span>
+      <div class="flex-1 h-px md:h-12 w-full md:w-px bg-border"></div>
+    </div>
+
+    <!-- Right column: DM + Meeting -->
+    <div class="w-full max-w-56 md:max-w-none mx-auto md:mx-0 md:w-56 flex flex-col gap-4">
+
+      <InfoCard icon={lockIcon} heading={t('home:dm-heading')}>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-center justify-between gap-2">
+            <span class="flex items-center gap-1.5 text-muted shrink-0">
+              <Icon svg={telegramIcon} size="xs" />
+              Telegram:
+            </span>
+            <a href="https://t.me/sinclair99" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair99</a>
+          </li>
+          <li class="flex items-center justify-between gap-2">
+            <span class="flex items-center gap-1.5 text-muted shrink-0">
+              <Icon svg={signalIcon} size="xs" />
+              Signal:
+            </span>
+            <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.99</a>
+          </li>
+          <li class="flex items-center justify-between gap-2">
+            <span class="flex items-center gap-1.5 text-muted shrink-0">
+              <Icon svg={threemaIcon} size="xs" />
+              Threema:
+            </span>
+            <a href="https://threema.id/p3wmfn9c" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@p3wmfn9c</a>
+          </li>
+          <li class="flex items-center justify-between gap-2">
+            <span class="flex items-center gap-1.5 text-muted shrink-0">
+              <Icon svg={matrixIcon} size="xs" />
+              Matrix:
+            </span>
+            <a href="https://matrix.to/#/@sinclair.bio:matrix.org" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors truncate underline underline-offset-2">@sinclair.bio</a>
+          </li>
+        </ul>
+      </InfoCard>
+
+      <InfoCard icon={messagesSquareIcon} heading={t('home:meeting-heading')} href={`/${lang}/talk`}>
+        <p class="text-sm text-ink group-hover:text-accent transition-colors underline underline-offset-2">{t('home:meeting-body')}</p>
+      </InfoCard>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { initContactForm } from '../../scripts/contact-form';
+  initContactForm();
+</script>

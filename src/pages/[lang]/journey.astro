@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import JourneyEntry from '../../components/JourneyEntry.astro';
+import ExperienceEntry from '../../components/journey/ExperienceEntry.astro';
+import EducationEntry from '../../components/journey/EducationEntry.astro';
+import CertificationEntry from '../../components/journey/CertificationEntry.astro';
 import Icon from '../../components/Icon.astro';
 import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
 import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
@@ -24,18 +26,7 @@ const { experiences, education, certifications = [] } = entry.data;
 
       <ol class="entry-list" aria-labelledby="experience-heading">
         {experiences.map((item, index) => (
-          <JourneyEntry
-            index={index}
-            variant="wide"
-            title={item.role}
-            subtitle={item.company}
-            tertiary={item.employmentType}
-            tertiaryStyle="eyebrow"
-            period={item.period}
-            location={item.location}
-            summary={item.summary}
-            bullets={item.highlights}
-          />
+          <ExperienceEntry {...item} index={index} />
         ))}
       </ol>
     </div>
@@ -48,16 +39,7 @@ const { experiences, education, certifications = [] } = entry.data;
 
       <ol class="entry-list" aria-labelledby="education-heading">
         {education.map((item, index) => (
-          <JourneyEntry
-            index={index}
-            variant="narrow"
-            title={item.school}
-            subtitle={item.degree}
-            tertiary={item.field}
-            period={item.period}
-            summary={item.summary}
-            bullets={item.details}
-          />
+          <EducationEntry {...item} index={index} />
         ))}
       </ol>
     </div>
@@ -71,17 +53,7 @@ const { experiences, education, certifications = [] } = entry.data;
 
         <ol class="entry-list" aria-labelledby="certifications-heading">
           {certifications.map((item, index) => (
-            <JourneyEntry
-              index={index}
-              variant="narrow"
-              title={item.name}
-              titleHref={item.href}
-              subtitle={item.issuer}
-              tertiary={item.field}
-              period={item.period}
-              summary={item.summary}
-              bullets={item.details}
-            />
+            <CertificationEntry {...item} index={index} />
           ))}
         </ol>
       </div>
