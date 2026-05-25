@@ -2,20 +2,21 @@
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
-import { Languages, useTranslations } from '../i18n/translations';
+import { Languages, useTranslations, getLangFromUrl } from '../i18n/translations';
 import { getAlternatePath } from '../i18n/page';
 import { THEME_BKGND } from '../scripts/theme-switcher';
+import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
-  lang?: Languages;
   robots?: string;
 }
 
-const { title = 'Sinclair.Bio', description, lang = Languages.en, robots } = Astro.props;
+const { title = 'Sinclair.Bio', description, robots } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const metaDescription = description ?? t('meta:site-description');
 
@@ -117,49 +118,10 @@ const websiteSchema = {
 
     <ClientRouter />
     <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
-    <script is:inline define:vars={{ THEME_BKGND }}>
-      // Blocking bootstrap. Mirrors resolveTheme/applyTheme in
-      // src/scripts/theme-switcher.ts — keep both implementations in sync.
-      // Runs before bundles load (FOUC guard) and again on view-transition
-      // swaps so the incoming document arrives fully themed.
-      function resolveTheme() {
-        var stored = localStorage.getItem('theme');
-        if (stored === 'light' || stored === 'dark') return stored;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-
-      function applyTheme(color, root) {
-        root = root || document;
-        var html = root.documentElement;
-        html.classList.toggle('dark', color === 'dark');
-        html.dataset.theme = color;
-
-        var csMeta = root.querySelector('meta[name="color-scheme"]');
-        if (csMeta) csMeta.content = color;
-
-        var metas = root.querySelectorAll('meta[name="theme-color"]');
-        for (var i = 0; i < metas.length; i++) {
-          metas[i].setAttribute('content', THEME_BKGND[color]);
-        }
-      }
-
-      // Initial hard navigation
-      applyTheme(resolveTheme());
-
-      // FOUC guard: reveal main/footer once DOM is ready
-      document.addEventListener('DOMContentLoaded', function() {
-        document.documentElement.dataset.domLoaded = 'true';
-      });
-
-      // SPA navigation: theme the incoming document (including meta tags) so
-      // it arrives fully styled. Doing this before-swap avoids a frame of
-      // wrong theme that would let CSS-transitioned styles (e.g. the
-      // theme-switcher knob) animate from default to correct on every nav.
-      document.addEventListener('astro:before-swap', function(e) {
-        applyTheme(resolveTheme(), e.newDocument);
-        e.newDocument.documentElement.dataset.domLoaded = 'true';
-      });
-    </script>
+    <!-- Blocking theme bootstrap. Source: src/scripts/theme-bootstrap.js,
+         imported as raw text and inlined here so it runs before bundles load.
+         THEME_BKGND comes from theme-switcher.ts via define:vars. -->
+    <script is:inline define:vars={{ THEME_BKGND }} set:html={themeBootstrap} />
     <script>
       // Preserve scroll across language navigation. ClientRouter resets scroll
       // to 0 on every swap; without this, switching language while scrolled
@@ -189,10 +151,10 @@ const websiteSchema = {
   -->
   <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-bkgnd font-sans text-ink transition-[background-color,color] duration-150">
     <GridDecoration />
-    <Topbar lang={lang} />
+    <Topbar />
     <main class="relative flex-1">
       <slot />
     </main>
-    <Footer lang={lang} />
+    <Footer />
   </body>
 </html>

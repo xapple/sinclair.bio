@@ -6,155 +6,84 @@ export enum Languages {
 
 const defaultLang = Languages.en;
 
-// --- Translation keys (flat, colon-separated, fully typed) ---
-type TranslationKey = {
-  "nav:contact": string;
-  "nav:journey": string;
-  "nav:portfolio": string;
-  "nav:talk": string;
-  "footer:copyright": string;
-  "footer:made-with": string;
-  "a11y:theme-switcher": string;
-  "a11y:home": string;
-  "a11y:login": string;
-  "a11y:toggle-menu": string;
-  "a11y:select-language": string;
-  "a11y:ai": string;
-  "a11y:love": string;
-  "journey:page-title": string;
-  "journey:intro": string;
-  "journey:experience-eyebrow": string;
-  "journey:education-eyebrow": string;
-  "journey:certifications-eyebrow": string;
-  "home:page-title": string;
-  "home:greeting": string;
-  "home:name": string;
-  "home:tagline": string;
-  "home:card-location-heading": string;
-  "home:location-city": string;
-  "home:location-country": string;
-  "home:card-languages-heading": string;
-  "home:language-english": string;
-  "home:language-french": string;
-  "home:language-others": string;
-  "home:card-links-heading": string;
-  "home:about-heading": string;
-  "home:contact-heading": string;
-  "home:contact-name": string;
-  "home:contact-email": string;
-  "home:contact-message": string;
-  "home:contact-send": string;
-  "home:contact-sending": string;
-  "home:contact-sent": string;
-  "home:contact-error": string;
-  "home:contact-error-generic": string;
-  "home:contact-divider": string;
-  "home:dm-heading": string;
-  "home:meeting-heading": string;
-  "home:meeting-body": string;
-  "login:page-title": string;
-  "login:heading": string;
-  "login:intro": string;
-  "login:email-label": string;
-  "login:email-placeholder": string;
-  "login:password-label": string;
-  "login:password-placeholder": string;
-  "login:remember": string;
-  "login:forgot": string;
-  "login:submit": string;
-  "login:client-only": string;
-  "talk:page-title": string;
-  "talk:heading": string;
-  "talk:intro": string;
-  "portfolio:page-title": string;
-  "portfolio:open-source-heading": string;
-  "portfolio:testimonials-heading": string;
-  "portfolio:publications-heading": string;
-  "portfolio:classes-heading": string;
-  "portfolio:orcid-link": string;
-  "portfolio:testimonial-translation-note": string;
-  "meta:site-description": string;
-  "meta:home-description": string;
-  "meta:portfolio-description": string;
-  "meta:talk-description": string;
-  "meta:login-description": string;
-};
+// --- English translations (source of truth for the key set) ---
+const en = {
+  "nav:contact": "Contact",
+  "nav:journey": "Journey",
+  "nav:portfolio": "Portfolio",
+  "nav:talk": "Talk",
+  "footer:copyright": "© %s Lucas Sinclair - All rights reserved",
+  "footer:made-with": "Made with:",
+  "a11y:theme-switcher": "Theme switcher",
+  "a11y:home": "Home",
+  "a11y:login": "Login",
+  "a11y:toggle-menu": "Toggle navigation menu",
+  "a11y:select-language": "Select language",
+  "a11y:ai": "AI",
+  "a11y:love": "love",
+  "journey:page-title": "Sinclair.Bio | Journey",
+  "journey:intro": "A focused view of the roles, research environments, and education that shape how I build data products.",
+  "journey:experience-eyebrow": "Experience",
+  "journey:education-eyebrow": "Education",
+  "journey:certifications-eyebrow": "Certifications",
+  "home:page-title": "Sinclair.Bio",
+  "home:greeting": "Hello 👋",
+  "home:name": "I'm Lucas Sinclair",
+  "home:tagline": "Senior Data Scientist · PhD in Bioinformatics",
+  "home:card-location-heading": "Location",
+  "home:location-city": "1202, Geneva",
+  "home:location-country": "Switzerland",
+  "home:card-languages-heading": "Languages",
+  "home:language-english": "English: native",
+  "home:language-french": "French: native",
+  "home:language-others": "Others: German (~B2)",
+  "home:card-links-heading": "Links",
+  "home:about-heading": "About",
+  "home:contact-heading": "Get in Touch",
+  "home:contact-name": "Your name",
+  "home:contact-email": "Your email",
+  "home:contact-message": "Your message",
+  "home:contact-send": "Send",
+  "home:contact-sending": "Sending...",
+  "home:contact-sent": "✓ Message sent!",
+  "home:contact-error": "Error: %s",
+  "home:contact-error-generic": "Something went wrong. Please try again.",
+  "home:contact-divider": "OR",
+  "home:dm-heading": "Direct Messaging",
+  "home:meeting-heading": "Short Meeting",
+  "home:meeting-body": "Schedule a quick talk",
+  "login:page-title": "Sinclair.Bio | Client Login",
+  "login:heading": "Already a client with us?",
+  "login:intro": "Log in here to access your private space.",
+  "login:email-label": "Email",
+  "login:email-placeholder": "name@company.com",
+  "login:password-label": "Password",
+  "login:password-placeholder": "",
+  "login:remember": "Remember me",
+  "login:forgot": "Forgot your password?",
+  "login:submit": "Log in",
+  "login:client-only": "Accounts are issued to new clients. Registration is not available.",
+  "talk:page-title": "Sinclair.Bio | Talk",
+  "talk:heading": "Let's talk",
+  "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
+  "portfolio:page-title": "Sinclair.Bio | Portfolio",
+  "portfolio:open-source-heading": "Selected Open Source Projects",
+  "portfolio:testimonials-heading": "Testimonials",
+  "portfolio:publications-heading": "Selected Publications",
+  "portfolio:classes-heading": "Selected Coursework",
+  "portfolio:orcid-link": "More on ORCID",
+  "portfolio:testimonial-translation-note": "(translated from French)",
+  "meta:site-description": "Lucas Sinclair — Senior Data Scientist & PhD in Bioinformatics. 15+ years turning life-sciences research into data products: pipelines, web apps, and decision-grade analytics.",
+  "meta:home-description": "Personal site of Lucas Sinclair, Senior Data Scientist and PhD in Bioinformatics based in Geneva. Independent consulting for life sciences and beyond.",
+  "meta:portfolio-description": "Selected open-source projects, peer-reviewed publications, client testimonials and coursework by Lucas Sinclair.",
+  "meta:talk-description": "Book a short call with Lucas Sinclair to discuss your data-science, bioinformatics, or software project — no commitment.",
+  "meta:login-description": "Client login portal for Sinclair.Bio.",
+} as const;
 
-export type TranslationKeyType = keyof TranslationKey;
+export type TranslationKeyType = keyof typeof en;
 
-export const translations: { [language in Languages]: TranslationKey } = {
-  en: {
-    "nav:contact": "Contact",
-    "nav:journey": "Journey",
-    "nav:portfolio": "Portfolio",
-    "nav:talk": "Talk",
-    "footer:copyright": "© %s Lucas Sinclair - All rights reserved",
-    "footer:made-with": "Made with:",
-    "a11y:theme-switcher": "Theme switcher",
-    "a11y:home": "Home",
-    "a11y:login": "Login",
-    "a11y:toggle-menu": "Toggle navigation menu",
-    "a11y:select-language": "Select language",
-    "a11y:ai": "AI",
-    "a11y:love": "love",
-    "journey:page-title": "Sinclair.Bio | Journey",
-    "journey:intro": "A focused view of the roles, research environments, and education that shape how I build data products.",
-    "journey:experience-eyebrow": "Experience",
-    "journey:education-eyebrow": "Education",
-    "journey:certifications-eyebrow": "Certifications",
-    "home:page-title": "Sinclair.Bio",
-    "home:greeting": "Hello 👋",
-    "home:name": "I'm Lucas Sinclair",
-    "home:tagline": "Senior Data Scientist · PhD in Bioinformatics",
-    "home:card-location-heading": "Location",
-    "home:location-city": "1202, Geneva",
-    "home:location-country": "Switzerland",
-    "home:card-languages-heading": "Languages",
-    "home:language-english": "English: native",
-    "home:language-french": "French: native",
-    "home:language-others": "Others: German (~B2)",
-    "home:card-links-heading": "Links",
-    "home:about-heading": "About",
-    "home:contact-heading": "Get in Touch",
-    "home:contact-name": "Your name",
-    "home:contact-email": "Your email",
-    "home:contact-message": "Your message",
-    "home:contact-send": "Send",
-    "home:contact-sending": "Sending...",
-    "home:contact-sent": "✓ Message sent!",
-    "home:contact-error": "Error: %s",
-    "home:contact-error-generic": "Something went wrong. Please try again.",
-    "home:contact-divider": "OR",
-    "home:dm-heading": "Direct Messaging",
-    "home:meeting-heading": "Short Meeting",
-    "home:meeting-body": "Schedule a quick talk",
-    "login:page-title": "Sinclair.Bio | Client Login",
-    "login:heading": "Already a client with us?",
-    "login:intro": "Log in here to access your private space.",
-    "login:email-label": "Email",
-    "login:email-placeholder": "name@company.com",
-    "login:password-label": "Password",
-    "login:password-placeholder": "",
-    "login:remember": "Remember me",
-    "login:forgot": "Forgot your password?",
-    "login:submit": "Log in",
-    "login:client-only": "Accounts are issued to new clients. Registration is not available.",
-    "talk:page-title": "Sinclair.Bio | Talk",
-    "talk:heading": "Let's talk",
-    "talk:intro": "Pick a slot that works for you. We'll have a quick chat to see how I can help — no commitment, no prep needed.",
-    "portfolio:page-title": "Sinclair.Bio | Portfolio",
-    "portfolio:open-source-heading": "Selected Open Source Projects",
-    "portfolio:testimonials-heading": "Testimonials",
-    "portfolio:publications-heading": "Selected Publications",
-    "portfolio:classes-heading": "Selected Coursework",
-    "portfolio:orcid-link": "More on ORCID",
-    "portfolio:testimonial-translation-note": "(translated from French)",
-    "meta:site-description": "Lucas Sinclair — Senior Data Scientist & PhD in Bioinformatics. 15+ years turning life-sciences research into data products: pipelines, web apps, and decision-grade analytics.",
-    "meta:home-description": "Personal site of Lucas Sinclair, Senior Data Scientist and PhD in Bioinformatics based in Geneva. Independent consulting for life sciences and beyond.",
-    "meta:portfolio-description": "Selected open-source projects, peer-reviewed publications, client testimonials and coursework by Lucas Sinclair.",
-    "meta:talk-description": "Book a short call with Lucas Sinclair to discuss your data-science, bioinformatics, or software project — no commitment.",
-    "meta:login-description": "Client login portal for Sinclair.Bio.",
-  },
+export const translations = {
+  en,
   fr: {
     "nav:contact": "Contact",
     "nav:journey": "Parcours",
@@ -227,7 +156,7 @@ export const translations: { [language in Languages]: TranslationKey } = {
     "meta:talk-description": "Réservez un échange rapide avec Lucas Sinclair pour discuter de votre projet en data science, bioinformatique ou développement logiciel — sans engagement.",
     "meta:login-description": "Portail de connexion client pour Sinclair.Bio.",
   },
-};
+} as const satisfies Record<Languages, Record<TranslationKeyType, string>>;
 
 /**
  * Curried translation function.
@@ -238,7 +167,7 @@ export function useTranslations(
   language: Languages
 ): (key: TranslationKeyType, replace?: string) => string {
   return function t(key: TranslationKeyType, replace?: string): string {
-    let translated = translations[language][key];
+    let translated: string = translations[language][key];
     if (replace !== undefined) translated = translated.replace("%s", replace);
     return translated;
   };

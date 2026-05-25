@@ -1,34 +1,24 @@
 ---
 import LangPage from '../../layouts/LangPage.astro';
 import JourneyEntry from '../../components/JourneyEntry.astro';
-import { Languages, useTranslations } from '../../i18n/translations';
-import { langStaticPaths, getLangEntry } from '../../i18n/page';
+import Icon from '../../components/Icon.astro';
+import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
 import BriefcaseIcon from '../../assets/icons/briefcase.svg?raw';
 import GraduationCapIcon from '../../assets/icons/graduation-cap.svg?raw';
 import CertificateIcon from '../../assets/icons/certificate.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
-const lang = Astro.params.lang as Languages;
-const t = useTranslations(lang);
+const { lang, t } = usePage(Astro);
 const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
-
-// Per-section animation base (in stagger units of 90ms).
-// Each section gets: heading at base, then item i at base + (i + 1).
-// Next section starts after previous section's last item, i.e. prev base + prev item count + 1.
-const experiencesBase = 0;
-const educationBase = experiencesBase + experiences.length + 1;
-const certificationsBase = educationBase + education.length + 1;
 ---
 
-<LangPage lang={lang} title={t('journey:page-title')} description={t('journey:intro')}>
+<LangPage title={t('journey:page-title')} description={t('journey:intro')}>
   <div class="section-stack">
-    <div class="journey-section" style={`--section-base:${experiencesBase};`}>
+    <div class="journey-section">
       <h2 class="section-heading" id="experience-heading">
-        <span class="icon" aria-hidden="true">
-          <Fragment set:html={BriefcaseIcon} />
-        </span>
+        <Icon svg={BriefcaseIcon} />
         <span>{t('journey:experience-eyebrow')}</span>
       </h2>
 
@@ -50,11 +40,9 @@ const certificationsBase = educationBase + education.length + 1;
       </ol>
     </div>
 
-    <div class="journey-section" style={`--section-base:${educationBase};`}>
+    <div class="journey-section">
       <h2 class="section-heading" id="education-heading">
-        <span class="icon" aria-hidden="true">
-          <Fragment set:html={GraduationCapIcon} />
-        </span>
+        <Icon svg={GraduationCapIcon} />
         <span>{t('journey:education-eyebrow')}</span>
       </h2>
 
@@ -75,11 +63,9 @@ const certificationsBase = educationBase + education.length + 1;
     </div>
 
     {certifications.length > 0 && (
-      <div class="journey-section" style={`--section-base:${certificationsBase};`}>
+      <div class="journey-section">
         <h2 class="section-heading" id="certifications-heading">
-          <span class="icon" aria-hidden="true">
-            <Fragment set:html={CertificateIcon} />
-          </span>
+          <Icon svg={CertificateIcon} />
           <span>{t('journey:certifications-eyebrow')}</span>
         </h2>
 
@@ -112,18 +98,22 @@ const certificationsBase = educationBase + education.length + 1;
     --section-stack-gap: clamp(3rem, 6vw, 4.5rem);
   }
 
-  /* Animated entrance for section headings (additive to the global base). */
+  /* Per-section stagger offset — cascades into .entry-item via CSS custom-property inheritance. */
+  .journey-section {
+    --section-offset: 0ms;
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .journey-section:nth-child(2) { --section-offset: 300ms; }
+  .journey-section:nth-child(3) { --section-offset: 600ms; }
+
+  /* Animated entrance for section headings. */
   .section-heading {
     padding-left: calc(var(--entry-indent) + var(--entry-inner-pad));
     opacity: 0;
     transform: translateY(14px);
     animation: reveal 560ms ease-out forwards;
-    animation-delay: calc(var(--section-base, 0) * 90ms);
-  }
-
-  .journey-section {
-    display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    animation-delay: var(--section-offset, 0ms);
   }
 
   .entry-list {

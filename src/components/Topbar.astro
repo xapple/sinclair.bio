@@ -4,16 +4,12 @@ import NavLinks from './topbar/NavLinks.astro';
 import ThemeToggle from './topbar/ThemeToggle.astro';
 import LanguageSwitcher from './topbar/LanguageSwitcher.astro';
 import Icon from './Icon.astro';
-import { Languages, useTranslations } from '../i18n/translations';
+import { useTranslations, getLangFromUrl } from '../i18n/translations';
 import squareMenuSvg from '../assets/icons/square-menu.svg?raw';
 import squareXSvg from '../assets/icons/square-x.svg?raw';
 import personCircleSvg from '../assets/icons/person-circle.svg?raw';
 
-interface Props {
-  lang?: Languages;
-}
-
-const { lang = Languages.en } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
@@ -21,17 +17,17 @@ const t = useTranslations(lang);
   <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
     <!-- Left: Logo -->
     <div class="flex shrink-0 items-center">
-      <Logo lang={lang} />
+      <Logo />
     </div>
 
     <!-- Center: Nav links (hidden on mobile) -->
     <div class="hidden md:flex md:items-center md:gap-1">
-      <NavLinks lang={lang} />
+      <NavLinks />
     </div>
 
     <!-- Right: Widgets + Hamburger -->
     <div class="flex items-center gap-3 md:gap-6">
-      <div class="flex items-center"><LanguageSwitcher lang={lang} /></div>
+      <div class="flex items-center"><LanguageSwitcher /></div>
       <div class="flex items-center"><ThemeToggle /></div>
 
       <!-- Login button -->
@@ -60,7 +56,7 @@ const t = useTranslations(lang);
   <!-- Mobile menu (open by default, dismissible via hamburger) -->
   <div id="mobile-menu" class="border-t border-white/10 md:hidden">
     <div class="flex justify-center gap-1 px-2 py-2">
-      <NavLinks lang={lang} />
+      <NavLinks />
     </div>
   </div>
 </header>

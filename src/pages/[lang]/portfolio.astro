@@ -1,7 +1,7 @@
 ---
 import LangPage from '../../layouts/LangPage.astro';
-import { Languages, useTranslations } from '../../i18n/translations';
-import { langStaticPaths, getLangEntry } from '../../i18n/page';
+import Icon from '../../components/Icon.astro';
+import { langStaticPaths, getLangEntry, usePage } from '../../i18n/page';
 import PackageOpenIcon from '../../assets/icons/package-open.svg?raw';
 import QuoteIcon from '../../assets/icons/quote.svg?raw';
 import BookIcon from '../../assets/icons/book.svg?raw';
@@ -10,23 +10,19 @@ import OrcidIcon from '../../assets/icons/orcid.svg?raw';
 
 export const getStaticPaths = langStaticPaths;
 
-const lang = Astro.params.lang as Languages;
-const t = useTranslations(lang);
+const { lang, t } = usePage(Astro);
 const entry = await getLangEntry('portfolio', lang);
 const { testimonials, publications, classes } = entry.data;
 ---
 
 <LangPage
-  lang={lang}
   title={t('portfolio:page-title')}
   description={t('meta:portfolio-description')}
   shellWidth="1100px"
 >
   <div class="section-stack">
     <h2 class="section-heading" id="open-source-heading">
-      <span class="icon" aria-hidden="true">
-        <Fragment set:html={PackageOpenIcon} />
-      </span>
+      <Icon svg={PackageOpenIcon} />
       <span>{t("portfolio:open-source-heading")}</span>
     </h2>
 
@@ -45,9 +41,7 @@ const { testimonials, publications, classes } = entry.data;
     </div>
 
     <h2 class="section-heading" id="testimonials-heading">
-      <span class="icon" aria-hidden="true">
-        <Fragment set:html={QuoteIcon} />
-      </span>
+      <Icon svg={QuoteIcon} />
       <span>{t("portfolio:testimonials-heading")}</span>
     </h2>
 
@@ -61,9 +55,7 @@ const { testimonials, publications, classes } = entry.data;
     </div>
 
     <h2 class="section-heading" id="publications-heading">
-      <span class="icon" aria-hidden="true">
-        <Fragment set:html={BookIcon} />
-      </span>
+      <Icon svg={BookIcon} />
       <span>{t("portfolio:publications-heading")}</span>
     </h2>
 
@@ -85,9 +77,7 @@ const { testimonials, publications, classes } = entry.data;
     </p>
 
     <h2 class="section-heading" id="classes-heading">
-      <span class="icon" aria-hidden="true">
-        <Fragment set:html={GraduationCapIcon} />
-      </span>
+      <Icon svg={GraduationCapIcon} />
       <span>{t("portfolio:classes-heading")}</span>
     </h2>
 

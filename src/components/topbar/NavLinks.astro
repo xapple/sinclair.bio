@@ -1,11 +1,7 @@
 ---
-import { useTranslations, Languages } from '../../i18n/translations';
+import { useTranslations, getLangFromUrl } from '../../i18n/translations';
 
-interface Props {
-  lang?: Languages;
-}
-
-const { lang = Languages.en } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
 

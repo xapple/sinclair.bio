@@ -1,15 +1,11 @@
 ---
 import Icon from './Icon.astro';
-import { useTranslations, Languages } from '../i18n/translations';
+import { useTranslations, getLangFromUrl } from '../i18n/translations';
 
 import botIcon from '../assets/icons/bot.svg?raw';
 import heartIcon from '../assets/icons/heart.svg?raw';
 
-interface Props {
-  lang?: Languages;
-}
-
-const { lang = Languages.en } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 

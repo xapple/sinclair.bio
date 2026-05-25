@@ -1,7 +1,8 @@
 // --- Theme background colors ---
 // Mirrors --color-bkgnd in src/styles/global.css. Duplicated here because the
-// blocking inline script in Layout.astro needs these values before CSS loads.
-// Keep both in sync.
+// blocking inline script in Layout.astro (sourced from theme-bootstrap.js)
+// needs these values before CSS loads to set <meta theme-color>. The value is
+// passed into the inline script via Astro's `define:vars`. Keep both in sync.
 export const THEME_BKGND = {
   light: "#fffff8",
   dark: "#140c07",
@@ -20,9 +21,11 @@ export function resolveTheme(): ThemeColor {
 }
 
 // Apply a theme to a document (defaults to the current one).
-// Mirrors the inline bootstrap in Layout.astro — keep both implementations
-// in sync. Touches: .dark class (Tailwind), data-theme (SVG), color-scheme
-// meta, and all theme-color metas.
+// Mirrors src/scripts/theme-bootstrap.js, which is the plain-JS version
+// inlined into <head> by Layout.astro for the FOUC-blocking bootstrap. The
+// bundled module re-implements the same logic with TS types — keep both in
+// sync. Touches: .dark class (Tailwind), data-theme (SVG), color-scheme meta,
+// and all theme-color metas.
 export function applyTheme(color: ThemeColor, root: Document = document): void {
   const html = root.documentElement;
   html.classList.toggle("dark", color === "dark");

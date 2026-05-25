@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
-import { useTranslations, Languages } from '../i18n/translations';
+import { useTranslations, getLangFromUrl } from '../i18n/translations';
 import { getLangEntry } from '../i18n/page';
 import Icon from './Icon.astro';
 import InfoCard from './InfoCard.astro';
@@ -20,11 +20,7 @@ import threemaIcon  from '../assets/icons/threema.svg?raw';
 import matrixIcon   from '../assets/icons/matrix.svg?raw';
 import messagesSquareIcon from '../assets/icons/messages-square.svg?raw';
 
-interface Props {
-  lang?: Languages;
-}
-
-const { lang = Languages.en } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const homeEntry = await getLangEntry('home', lang);

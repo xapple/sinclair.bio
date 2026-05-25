@@ -1,9 +1,7 @@
 ---
 import Layout from './Layout.astro';
-import type { Languages } from '../i18n/translations';
 
 interface Props {
-  lang: Languages;
   title: string;
   description?: string;
   robots?: string;
@@ -11,11 +9,11 @@ interface Props {
   shellWidth?: string;
 }
 
-const { lang, title, description, robots, shellWidth } = Astro.props;
+const { title, description, robots, shellWidth } = Astro.props;
 const shellStyle = shellWidth ? `--shell-width:${shellWidth};` : undefined;
 ---
 
-<Layout lang={lang} title={title} description={description} robots={robots}>
+<Layout title={title} description={description} robots={robots}>
   <section class="page-frame">
     <div class="page-shell" style={shellStyle}>
       <slot />

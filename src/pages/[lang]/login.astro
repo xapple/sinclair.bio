@@ -1,17 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { Languages, useTranslations } from '../../i18n/translations';
-import { langStaticPaths } from '../../i18n/page';
+import { langStaticPaths, usePage } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
 
-const lang = Astro.params.lang as Languages;
-const t = useTranslations(lang);
+const { t } = usePage(Astro);
 const loginAction = "https://client.sinclair.bio/login";
 const forgotPasswordUrl = "https://client.sinclair.bio/forgot-password";
 ---
 
-<Layout lang={lang} title={t("login:page-title")} description={t("meta:login-description")} robots="noindex">
+<Layout title={t("login:page-title")} description={t("meta:login-description")} robots="noindex">
   <section class="login-page">
     <div class="login-shell">
       <header class="login-header">

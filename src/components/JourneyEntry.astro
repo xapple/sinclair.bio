@@ -78,7 +78,7 @@ const {
     opacity: 0;
     transform: translateY(14px);
     animation: reveal 560ms ease-out forwards;
-    animation-delay: calc((var(--section-base, 0) + var(--item-index) + 1) * 90ms);
+    animation-delay: calc(var(--section-offset, 0ms) + (var(--item-index) + 1) * 90ms);
   }
 
   .entry-item:last-child {

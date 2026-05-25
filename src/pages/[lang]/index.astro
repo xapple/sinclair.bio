@@ -1,15 +1,13 @@
 ---
 import HomePage from '../../components/HomePage.astro';
 import Layout from '../../layouts/Layout.astro';
-import { Languages, useTranslations } from '../../i18n/translations';
-import { langStaticPaths } from '../../i18n/page';
+import { langStaticPaths, usePage } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
 
-const lang = Astro.params.lang as Languages;
-const t = useTranslations(lang);
+const { t } = usePage(Astro);
 ---
 
-<Layout lang={lang} title={t('home:page-title')} description={t('meta:home-description')}>
-  <HomePage lang={lang} />
+<Layout title={t('home:page-title')} description={t('meta:home-description')}>
+  <HomePage />
 </Layout>
