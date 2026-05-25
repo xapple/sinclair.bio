@@ -1,8 +1,7 @@
 ---
-import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import { usePageFromUrl } from '../../i18n/page';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { lang, t } = usePageFromUrl(Astro.url);
 const currentPath = Astro.url.pathname;
 
 const links = [

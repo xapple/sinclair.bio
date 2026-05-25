@@ -1,10 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import { usePageFromUrl } from '../../i18n/page';
 import profile from '../../assets/profile.jpg';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { t } = usePageFromUrl(Astro.url);
 ---
 
 <section class="home-reveal mx-auto max-w-3xl px-6 pt-16 pb-10" style="--delay:0ms">

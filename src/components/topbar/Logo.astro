@@ -1,9 +1,8 @@
 ---
-import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import { usePageFromUrl } from '../../i18n/page';
 import logoNameSvg from '../../assets/logo-name.svg?raw';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { lang, t } = usePageFromUrl(Astro.url);
 ---
 
 <a href={`/${lang}/`} class="flex items-center text-bar-fg" aria-label={t('a11y:home')}>

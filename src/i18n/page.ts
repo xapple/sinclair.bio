@@ -1,9 +1,14 @@
-import { Languages, useTranslations, type TranslationKeyType } from './translations';
+import { Languages, useTranslations, getLangFromUrl, type TranslationKeyType } from './translations';
 import {
   getCollection,
   type CollectionEntry,
   type CollectionKey,
 } from 'astro:content';
+
+type PageContext = {
+  lang: Languages;
+  t: (key: TranslationKeyType, replace?: string) => string;
+};
 
 // Standard getStaticPaths body for every [lang]/* route.
 export function langStaticPaths() {
@@ -14,11 +19,15 @@ export function langStaticPaths() {
 // Replaces the per-page boilerplate of pulling `lang` from `Astro.params`
 // followed by `useTranslations(lang)`. Call sites pass `Astro.params`, which
 // inherits the `{ lang: Languages }` type from `langStaticPaths`.
-export function usePage(params: { lang: Languages }): {
-  lang: Languages;
-  t: (key: TranslationKeyType, replace?: string) => string;
-} {
+export function usePage(params: { lang: Languages }): PageContext {
   const { lang } = params;
+  return { lang, t: useTranslations(lang) };
+}
+
+// Same as `usePage`, but for subcomponents that don't have access to
+// `Astro.params`. Call sites pass `Astro.url`.
+export function usePageFromUrl(url: URL): PageContext {
+  const lang = getLangFromUrl(url);
   return { lang, t: useTranslations(lang) };
 }
 

@@ -1,6 +1,9 @@
 ---
-import HomePage from '../../components/HomePage.astro';
 import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/home/HeroSection.astro';
+import InfoCardsSection from '../../components/home/InfoCardsSection.astro';
+import AboutSection from '../../components/home/AboutSection.astro';
+import ContactSection from '../../components/home/ContactSection.astro';
 import { langStaticPaths, usePage } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -9,5 +12,8 @@ const { t } = usePage(Astro.params);
 ---
 
 <Layout title={t('home:page-title')} description={t('meta:home-description')}>
-  <HomePage />
+  <HeroSection />
+  <InfoCardsSection />
+  <AboutSection />
+  <ContactSection />
 </Layout>

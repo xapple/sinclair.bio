@@ -1,5 +1,5 @@
 ---
-import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import { usePageFromUrl } from '../../i18n/page';
 import Icon from '../Icon.astro';
 import InfoCard from '../InfoCard.astro';
 
@@ -10,8 +10,7 @@ import githubIcon   from '../../assets/icons/github.svg?raw';
 import gitlabIcon   from '../../assets/icons/gitlab.svg?raw';
 import linkedinIcon from '../../assets/icons/linkedin.svg?raw';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { t } = usePageFromUrl(Astro.url);
 ---
 
 <section class="home-reveal mx-auto max-w-3xl px-6 pb-12" style="--delay:80ms">

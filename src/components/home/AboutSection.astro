@@ -1,10 +1,8 @@
 ---
 import { render } from 'astro:content';
-import { useTranslations, getLangFromUrl } from '../../i18n/translations';
-import { getLangEntry } from '../../i18n/page';
+import { getLangEntry, usePageFromUrl } from '../../i18n/page';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { lang, t } = usePageFromUrl(Astro.url);
 
 const homeEntry = await getLangEntry('home', lang);
 const { Content: AboutProse } = await render(homeEntry);

@@ -1,11 +1,11 @@
 ---
 import Icon from '../Icon.astro';
-import { useTranslations, getLangFromUrl } from '../../i18n/translations';
+import { usePageFromUrl } from '../../i18n/page';
 import themeSwitcherSvg from '../../assets/theme-switcher.svg?raw';
 import sunSvg from '../../assets/icons/sun.svg?raw';
 import moonSvg from '../../assets/icons/moon-stars.svg?raw';
 
-const t = useTranslations(getLangFromUrl(Astro.url));
+const { t } = usePageFromUrl(Astro.url);
 ---
 
 <script>

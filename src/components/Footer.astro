@@ -1,12 +1,11 @@
 ---
 import Icon from './Icon.astro';
-import { useTranslations, getLangFromUrl } from '../i18n/translations';
+import { usePageFromUrl } from '../i18n/page';
 
 import botIcon from '../assets/icons/bot.svg?raw';
 import heartIcon from '../assets/icons/heart.svg?raw';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const { t } = usePageFromUrl(Astro.url);
 ---
 
 <footer class="bg-bar">
