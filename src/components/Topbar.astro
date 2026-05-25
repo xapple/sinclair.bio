@@ -54,8 +54,9 @@ const t = useTranslations(lang);
     </div>
   </nav>
 
-  <!-- Mobile menu (open by default, dismissible via hamburger) -->
-  <div id="mobile-menu" class="border-t border-white/10 md:hidden">
+  <!-- Mobile menu (open by default, dismissible via hamburger).
+       Open/close animation lives in global.css under #mobile-menu. -->
+  <div id="mobile-menu" class="mobile-menu border-t border-white/10 md:hidden">
     <div class="flex justify-center gap-1 px-2 py-2">
       <NavLinks />
     </div>
@@ -67,8 +68,22 @@ const t = useTranslations(lang);
   const menu = document.getElementById('mobile-menu');
   const icon = document.getElementById('mobile-menu-icon');
 
+  // Publish the menu's natural height as --menu-h so CSS can animate to it.
+  // Re-measure on resize: nav-link wrapping or font-size changes can shift it.
+  const measure = () => {
+    if (!menu) return;
+    // Briefly drop the max-height constraint so scrollHeight reads true content.
+    const prev = menu.style.maxHeight;
+    menu.style.maxHeight = 'none';
+    menu.style.setProperty('--menu-h', menu.scrollHeight + 'px');
+    menu.style.maxHeight = prev;
+  };
+  measure();
+  window.addEventListener('resize', measure);
+
   toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
+    const isClosed = menu?.toggleAttribute('data-closed') ?? false;
+    const isOpen = !isClosed;
     if (icon) icon.innerHTML = isOpen ? squareXSvg : squareMenuSvg;
     toggle.setAttribute('aria-expanded', String(isOpen));
   });
