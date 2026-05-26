@@ -49,5 +49,9 @@ const { lang, t } = Astro.locals;
     <a href={`/${lang}/forgot`} class="forgot-link">{t('login:forgot')}</a>
   </div>
 
-  <Fragment slot="footer">{t('login:client-only')}</Fragment>
+  <Fragment slot="footer">
+    <span style="white-space: nowrap">{t('login:client-only-1')}</span>
+    {' '}
+    <span style="white-space: nowrap">{t('login:client-only-2')}</span>
+  </Fragment>
 </AuthLayout>
