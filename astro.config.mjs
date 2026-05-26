@@ -22,11 +22,11 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Root `/` is a noindex redirect to /en/, and all auth pages
-      // (/[lang]/login, /[lang]/forgot-password) are marked noindex via
+      // (/[lang]/login, /[lang]/forgot) are marked noindex via
       // AuthLayout — keep them out of the sitemap so the two signals agree.
       filter: (page) =>
         page !== 'https://sinclair.bio/' &&
-        !/\/(login|forgot-password)\/?$/.test(page),
+        !/\/(login|forgot)\/?$/.test(page),
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en', fr: 'fr' },

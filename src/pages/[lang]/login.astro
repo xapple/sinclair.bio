@@ -43,7 +43,7 @@ const { lang, t } = Astro.locals;
       <input type="checkbox" name="remember" value="true" />
       {t('login:remember')}
     </label>
-    <a href={`/${lang}/forgot-password`} class="forgot-link">{t('login:forgot')}</a>
+    <a href={`/${lang}/forgot`} class="forgot-link">{t('login:forgot')}</a>
   </div>
 
   <Fragment slot="footer">{t('login:client-only')}</Fragment>
