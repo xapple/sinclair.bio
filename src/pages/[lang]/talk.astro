@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Reveal from '../../components/Reveal.astro';
 import { langStaticPaths } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -13,14 +14,14 @@ const { t } = Astro.locals;
   frame="standard"
   shellWidth="960px"
 >
-  <div class="page-reveal" style="--reveal-duration:400ms">
+  <Reveal duration={400}>
     <header class="talk-header">
       <h1>{t('talk:heading')}</h1>
       <p class="subtitle">{t('talk:intro')}</p>
     </header>
 
     <div id="cal-inline" class="cal-inline"></div>
-  </div>
+  </Reveal>
 </Layout>
 
 <script>

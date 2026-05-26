@@ -107,6 +107,10 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
     <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
+    <!-- Single source of truth for the page background hex values.
+         Pushed into CSS as --theme-bkgnd-{light,dark}, which global.css's
+         @theme + .dark blocks reference for --color-bkgnd. -->
+    <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; }`} />
     <!-- Blocking theme bootstrap. Source: src/scripts/theme-bootstrap.js,
          imported as raw text and inlined here so it runs before bundles load.
          THEME_BKGND comes from theme-switcher.ts via define:vars. -->

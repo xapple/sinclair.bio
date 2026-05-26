@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Reveal from '../../components/Reveal.astro';
 import HeroSection from '../../components/home/HeroSection.astro';
 import InfoCardsSection from '../../components/home/InfoCardsSection.astro';
 import AboutSection from '../../components/home/AboutSection.astro';
@@ -12,8 +13,8 @@ const { t } = Astro.locals;
 ---
 
 <Layout title={t('home:page-title')} description={t('meta:home-description')} shellWidth="48rem">
-  <HeroSection />
-  <InfoCardsSection />
-  <AboutSection />
-  <ContactSection />
+  <Reveal delay={0}><HeroSection /></Reveal>
+  <Reveal delay={80}><InfoCardsSection /></Reveal>
+  <Reveal delay={200}><AboutSection /></Reveal>
+  <Reveal delay={340}><ContactSection /></Reveal>
 </Layout>

@@ -1,8 +1,10 @@
 // --- Theme background colors ---
-// Mirrors --color-bkgnd in src/styles/global.css. Duplicated here because the
-// blocking inline script in Layout.astro (sourced from theme-bootstrap.js)
-// needs these values before CSS loads to set <meta theme-color>. The value is
-// passed into the inline script via Astro's `define:vars`. Keep both in sync.
+// Single source of truth for the page background hex values. Layout.astro
+// injects these into CSS as --theme-bkgnd-light / --theme-bkgnd-dark (via
+// define:vars), which global.css's @theme + .dark blocks reference for
+// --color-bkgnd. The same constant is also passed to the blocking inline
+// bootstrap (theme-bootstrap.js) so it can set <meta theme-color> before CSS
+// loads, and to Layout.astro itself for the static <meta theme-color> tags.
 export const THEME_BKGND = {
   light: "#fffff8",
   dark: "#140c07",

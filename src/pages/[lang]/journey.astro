@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import TimelineEntry from '../../components/journey/TimelineEntry.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
+import Reveal from '../../components/Reveal.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -13,8 +14,10 @@ const { experiences, education, certifications = [] } = entry.data;
 
 <Layout title={t('journey:page-title')} description={t('journey:intro')} frame="standard">
   <div class="section-stack">
-    <div class="journey-section">
-      <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" />
+    <div class="journey-section" style="--section-offset:0ms">
+      <Reveal delay={0}>
+        <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" />
+      </Reveal>
 
       <ol class="entry-list" aria-labelledby="experience-heading">
         {experiences.map((item, index) => (
@@ -33,8 +36,10 @@ const { experiences, education, certifications = [] } = entry.data;
       </ol>
     </div>
 
-    <div class="journey-section">
-      <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" />
+    <div class="journey-section" style="--section-offset:300ms">
+      <Reveal delay={300}>
+        <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" />
+      </Reveal>
 
       <ol class="entry-list" aria-labelledby="education-heading">
         {education.map((item, index) => (
@@ -53,8 +58,10 @@ const { experiences, education, certifications = [] } = entry.data;
     </div>
 
     {certifications.length > 0 && (
-      <div class="journey-section">
-        <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" />
+      <div class="journey-section" style="--section-offset:600ms">
+        <Reveal delay={600}>
+          <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" />
+        </Reveal>
 
         <ol class="entry-list" aria-labelledby="certifications-heading">
           {certifications.map((item, index) => (
@@ -85,22 +92,17 @@ const { experiences, education, certifications = [] } = entry.data;
     --section-stack-gap: clamp(3rem, 6vw, 4.5rem);
   }
 
-  /* Per-section stagger offset — cascades into .entry-item via CSS custom-property inheritance. */
+  /* --section-offset is set inline per .journey-section above; it cascades into
+     .entry-item (inside TimelineEntry) to stagger its reveal. */
   .journey-section {
-    --section-offset: 0ms;
     display: grid;
     gap: clamp(1rem, 2vw, 1.5rem);
   }
-  .journey-section:nth-child(2) { --section-offset: 300ms; }
-  .journey-section:nth-child(3) { --section-offset: 600ms; }
 
-  /* Animated entrance for section headings. */
-  .section-heading {
+  /* Align section heading with the indented entry content.
+     :global because <SectionHeading> renders the <h2> inside its own component scope. */
+  .journey-section :global(.section-heading) {
     padding-left: calc(var(--entry-indent) + var(--entry-inner-pad));
-    opacity: 0;
-    transform: translateY(14px);
-    animation: reveal 560ms ease-out forwards;
-    animation-delay: var(--section-offset, 0ms);
   }
 
   .entry-list {

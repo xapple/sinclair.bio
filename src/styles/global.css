@@ -3,15 +3,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---- Design tokens ----
-   NOTE: --color-bkgnd values (#fffff8 / #140c07) are duplicated in
-   src/scripts/theme-switcher.ts (THEME_BKGND) because the blocking inline
-   script in Layout.astro (sourced from src/scripts/theme-bootstrap.js) needs
-   them before CSS loads to set <meta theme-color>. Keep both in sync. */
+   --color-bkgnd is single-sourced from THEME_BKGND in
+   src/scripts/theme-switcher.ts. Layout.astro injects those hex values as
+   --theme-bkgnd-light / --theme-bkgnd-dark on :root via define:vars, and the
+   declarations below pull them in. */
 @theme {
   --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* Semantic color palette (light mode defaults) */
-  --color-bkgnd:    #fffff8; /* page background */
+  --color-bkgnd:   var(--theme-bkgnd-light); /* page background */
   --color-surface: #f5f0e8; /* elevated / secondary bg */
   --color-ink:     #2c1810; /* primary text */
   --color-muted:   #7a6a5a; /* secondary text */
@@ -25,7 +25,7 @@
 
 /* Dark mode overrides */
 .dark {
-  --color-bkgnd:    #140c07;
+  --color-bkgnd:   var(--theme-bkgnd-dark);
   --color-surface: #1f1209;
   --color-ink:     #ede0d0;
   --color-muted:   #a08870;
