@@ -35,3 +35,6 @@ pnpm-debug.log*
 
 # LLM files
 /.claude
+
+# Internal documentation
+/docs
