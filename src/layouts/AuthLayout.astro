@@ -8,9 +8,24 @@ interface Props {
   intro: string;
   action: string;
   submitLabel: string;
+  sendingLabel?: string;
+  successOk?: string;
+  errorInvalidCredentials?: string;
+  errorGeneric: string;
 }
 
-const { title, description, heading, intro, action, submitLabel } = Astro.props;
+const {
+  title,
+  description,
+  heading,
+  intro,
+  action,
+  submitLabel,
+  sendingLabel,
+  successOk,
+  errorInvalidCredentials,
+  errorGeneric,
+} = Astro.props;
 ---
 
 <Layout title={title} description={description} robots="noindex" frame="centered">
@@ -19,15 +34,29 @@ const { title, description, heading, intro, action, submitLabel } = Astro.props;
     <p>{intro}</p>
   </header>
 
-  <form class="auth-form" action={action} method="post">
+  <form
+    class="auth-form"
+    action={action}
+    method="post"
+    data-sending={sendingLabel}
+    data-success-ok={successOk}
+    data-error-invalid-credentials={errorInvalidCredentials}
+    data-error-generic={errorGeneric}
+  >
     <slot />
     <button type="submit" class="auth-submit">{submitLabel}</button>
+    <span data-auth-status class="auth-status" role="status" aria-live="polite"></span>
   </form>
 
   <p class="auth-footer">
     <slot name="footer" />
   </p>
 </Layout>
+
+<script>
+  import { initAuthForm } from '../scripts/auth-form';
+  initAuthForm();
+</script>
 
 <style>
   .auth-header {
@@ -150,6 +179,20 @@ const { title, description, heading, intro, action, submitLabel } = Astro.props;
 
   .auth-submit:active {
     transform: translateY(1px);
+  }
+
+  .auth-status {
+    min-height: 1.25rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .auth-status--success {
+    color: var(--color-accent);
+  }
+
+  .auth-status--error {
+    color: #d33;
   }
 
   .auth-footer {

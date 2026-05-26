@@ -12,8 +12,11 @@ const { lang, t } = Astro.locals;
   description={t('meta:login-description')}
   heading={t('login:heading')}
   intro={t('login:intro')}
-  action="https://client.sinclair.bio/login"
+  action="https://clients.sinclair.bio/login"
   submitLabel={t('login:submit')}
+  sendingLabel={t('login:submitting')}
+  errorInvalidCredentials={t('login:error-invalid-credentials')}
+  errorGeneric={t('login:error-generic')}
 >
   <div class="field">
     <label for="email">{t('login:email-label')}</label>

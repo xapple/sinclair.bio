@@ -12,8 +12,11 @@ const { lang, t } = Astro.locals;
   description={t('meta:forgot-description')}
   heading={t('forgot:heading')}
   intro={t('forgot:intro')}
-  action="https://client.sinclair.bio/forgot-password"
+  action="https://clients.sinclair.bio/forgot"
   submitLabel={t('forgot:submit')}
+  sendingLabel={t('forgot:submitting')}
+  successOk={t('forgot:status-ok')}
+  errorGeneric={t('forgot:error-generic')}
 >
   <div class="field">
     <label for="email">{t('forgot:email-label')}</label>
