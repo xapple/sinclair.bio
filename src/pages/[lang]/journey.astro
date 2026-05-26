@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TimelineEntry from '../../components/journey/TimelineEntry.astro';
-import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -14,10 +14,7 @@ const { experiences, education, certifications = [] } = entry.data;
 <Layout title={t('journey:page-title')} description={t('journey:intro')} frame="standard">
   <div class="section-stack">
     <div class="journey-section">
-      <h2 class="section-heading" id="experience-heading">
-        <Icon name="briefcase" />
-        <span>{t('journey:experience-eyebrow')}</span>
-      </h2>
+      <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" />
 
       <ol class="entry-list" aria-labelledby="experience-heading">
         {experiences.map((item, index) => (
@@ -37,10 +34,7 @@ const { experiences, education, certifications = [] } = entry.data;
     </div>
 
     <div class="journey-section">
-      <h2 class="section-heading" id="education-heading">
-        <Icon name="graduation-cap" />
-        <span>{t('journey:education-eyebrow')}</span>
-      </h2>
+      <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" />
 
       <ol class="entry-list" aria-labelledby="education-heading">
         {education.map((item, index) => (
@@ -60,10 +54,7 @@ const { experiences, education, certifications = [] } = entry.data;
 
     {certifications.length > 0 && (
       <div class="journey-section">
-        <h2 class="section-heading" id="certifications-heading">
-          <Icon name="certificate" />
-          <span>{t('journey:certifications-eyebrow')}</span>
-        </h2>
+        <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" />
 
         <ol class="entry-list" aria-labelledby="certifications-heading">
           {certifications.map((item, index) => (

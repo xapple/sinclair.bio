@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  icon: string;
+  text: string;
+  id?: string;
+}
+
+const { icon, text, id } = Astro.props;
+---
+
+<h2 class="section-heading" id={id}>
+  <Icon name={icon} />
+  <span>{text}</span>
+</h2>

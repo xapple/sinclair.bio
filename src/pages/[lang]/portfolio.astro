@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
 import { icons } from '../../assets/icons';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 
@@ -18,10 +18,7 @@ const { testimonials, publications, classes } = entry.data;
   shellWidth="1100px"
 >
   <div class="section-stack">
-    <h2 class="section-heading" id="open-source-heading">
-      <Icon name="package-open" />
-      <span>{t("portfolio:open-source-heading")}</span>
-    </h2>
+    <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" />
 
     <div class="card-grid">
       {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -45,10 +42,7 @@ const { testimonials, publications, classes } = entry.data;
       </a>
     </p>
 
-    <h2 class="section-heading" id="testimonials-heading">
-      <Icon name="quote" />
-      <span>{t("portfolio:testimonials-heading")}</span>
-    </h2>
+    <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" />
 
     <div class="testimonial-list">
       {testimonials.map((testimonial) => (
@@ -59,10 +53,7 @@ const { testimonials, publications, classes } = entry.data;
       ))}
     </div>
 
-    <h2 class="section-heading" id="publications-heading">
-      <Icon name="book" />
-      <span>{t("portfolio:publications-heading")}</span>
-    </h2>
+    <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
 
     <ul class="publication-list">
       {publications.map((publication) => (
@@ -81,10 +72,7 @@ const { testimonials, publications, classes } = entry.data;
       </a>
     </p>
 
-    <h2 class="section-heading" id="classes-heading">
-      <Icon name="graduation-cap" />
-      <span>{t("portfolio:classes-heading")}</span>
-    </h2>
+    <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
 
     <ul class="publication-list">
       {classes.map((klass) => (
