@@ -16,7 +16,7 @@
   --color-ink:     #2c1810; /* primary text */
   --color-muted:   #7a6a5a; /* secondary text */
   --color-border:  #c8bfa8; /* borders / dividers */
-  --color-accent:  #6b2c2c; /* brand burgundy */
+  --color-accent:  var(--theme-accent-light); /* brand burgundy */
 
   /* Topbar — always dark regardless of mode */
   --color-bar:    #4a1e1e;
@@ -34,8 +34,9 @@
      `text-xs ... text-accent` heading) clears WCAG AA 4.5:1 against both
      --color-bkgnd (#140c07, ratio ~5.0) and --color-surface (#1f1209,
      ratio ~4.8). The auth submit button compensates by switching its
-     label color to var(--color-bkgnd) instead of pure white. */
-  --color-accent:  #cc6464;
+     label color to var(--color-bkgnd) instead of pure white.
+     Source hex lives in THEME_ACCENT in src/scripts/theme-switcher.ts. */
+  --color-accent:  var(--theme-accent-dark);
 
   --color-bar:    #3a1414;
   --color-bar-fg: #ede0d0;
@@ -235,6 +236,23 @@ html:not([data-dom-loaded]) footer {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-accent);
+}
+
+/* Square icon button on the dark topbar. Used by the login link, mobile
+   hamburger, mobile theme toggle, and mobile language picker. */
+.bar-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-bar-fg);
+  cursor: pointer;
+  border-radius: 0.375rem;
+  transition: background-color 150ms ease;
+}
+.bar-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Bordered form input used across the home contact form. */

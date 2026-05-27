@@ -10,6 +10,15 @@ export const THEME_BKGND = {
   dark: "#140c07",
 } as const;
 
+// Brand burgundy — single source for --color-accent (both modes) and for
+// third-party embeds that need literal hex (e.g. Cal.com's cssVarsPerTheme).
+// Layout.astro pipes these into CSS as --theme-accent-{light,dark} via
+// define:vars; global.css references them in @theme + .dark.
+export const THEME_ACCENT = {
+  light: "#6b2c2c",
+  dark: "#cc6464",
+} as const;
+
 export type ThemeColor = keyof typeof THEME_BKGND;
 
 // cubic-bezier approximation of GSAP's sine.inOut

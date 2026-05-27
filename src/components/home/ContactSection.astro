@@ -3,6 +3,13 @@ import Icon from '../Icon.astro';
 import InfoCard from '../InfoCard.astro';
 
 const { lang, t } = Astro.locals;
+
+const dmChannels = [
+  { icon: 'telegram', label: 'Telegram', handle: '@sinclair99',   href: 'https://t.me/sinclair99' },
+  { icon: 'signal',   label: 'Signal',   handle: '@sinclair.99',  href: 'https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_' },
+  { icon: 'threema',  label: 'Threema',  handle: '@p3wmfn9c',     href: 'https://threema.id/p3wmfn9c' },
+  { icon: 'matrix',   label: 'Matrix',   handle: '@sinclair.bio', href: 'https://matrix.to/#/@sinclair.bio:matrix.org' },
+];
 ---
 
 <section class="py-12">
@@ -72,34 +79,15 @@ const { lang, t } = Astro.locals;
 
       <InfoCard icon="lock" heading={t('home:dm-heading')}>
         <ul class="space-y-3 text-sm">
-          <li class="flex items-center justify-between gap-2">
-            <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <Icon name="telegram" size="xs" />
-              Telegram:
-            </span>
-            <a href="https://t.me/sinclair99" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@sinclair99</a>
-          </li>
-          <li class="flex items-center justify-between gap-2">
-            <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <Icon name="signal" size="xs" />
-              Signal:
-            </span>
-            <a href="https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@sinclair.99</a>
-          </li>
-          <li class="flex items-center justify-between gap-2">
-            <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <Icon name="threema" size="xs" />
-              Threema:
-            </span>
-            <a href="https://threema.id/p3wmfn9c" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@p3wmfn9c</a>
-          </li>
-          <li class="flex items-center justify-between gap-2">
-            <span class="flex items-center gap-1.5 text-muted shrink-0">
-              <Icon name="matrix" size="xs" />
-              Matrix:
-            </span>
-            <a href="https://matrix.to/#/@sinclair.bio:matrix.org" target="_blank" rel="noopener noreferrer" class="link-underline truncate">@sinclair.bio</a>
-          </li>
+          {dmChannels.map(({ icon, label, handle, href }) => (
+            <li class="flex items-center justify-between gap-2">
+              <span class="flex items-center gap-1.5 text-muted shrink-0">
+                <Icon name={icon} size="xs" />
+                {label}:
+              </span>
+              <a href={href} target="_blank" rel="noopener noreferrer" class="link-underline truncate">{handle}</a>
+            </li>
+          ))}
         </ul>
       </InfoCard>
 

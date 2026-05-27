@@ -1,63 +1,39 @@
-// Wires the login / forgot-password forms: async submit to the action URL,
-// button state, localized status message, and (on a successful login) a
-// redirect to the URL the backend returns. Localized strings come from
-// data-* attributes on the form so this script stays language-agnostic.
+// Wires the login / forgot-password forms. The async submit / button-state /
+// status-element lifecycle lives in scripts/async-form.ts; this module just
+// supplies the response-shape mapping (redirect, 401, 429, etc.).
+import { initAsyncForm } from './async-form';
+
 export function initAuthForm(selector = '.auth-form'): void {
   const form = document.querySelector<HTMLFormElement>(selector);
   if (!form) return;
 
-  const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-  const status = document.querySelector<HTMLSpanElement>('[data-auth-status]');
-  if (!submitBtn || !status) return;
-
   const {
-    sending,
     successOk,
     errorInvalidCredentials,
     errorRateLimited,
     errorGeneric,
   } = form.dataset;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  initAsyncForm({
+    selector,
+    statusSelector: '[data-auth-status]',
+    statusBaseClass: 'auth-status',
+    mapResponse(response, data) {
+      const body = data as { redirect?: unknown; status?: unknown; error?: unknown };
 
-    const originalText = submitBtn.textContent;
-    if (sending) submitBtn.textContent = sending;
-    submitBtn.disabled = true;
-    status.textContent = '';
-    status.className = 'auth-status';
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-      });
-      const data = await response.json().catch(() => ({}));
-
-      if (response.ok && typeof data.redirect === 'string') {
-        window.location.replace(data.redirect);
-        return;
+      if (response.ok && typeof body.redirect === 'string') {
+        return { text: '', kind: 'success', redirect: body.redirect };
       }
-      if (response.ok && data.status === 'ok') {
-        status.textContent = successOk ?? '';
-        status.classList.add('auth-status--success');
-        form.reset();
-      } else if (response.status === 401 && data.error === 'invalid_credentials') {
-        status.textContent = errorInvalidCredentials ?? '';
-        status.classList.add('auth-status--error');
-      } else if (response.status === 429) {
-        status.textContent = errorRateLimited ?? '';
-        status.classList.add('auth-status--error');
-      } else {
-        status.textContent = errorGeneric ?? '';
-        status.classList.add('auth-status--error');
+      if (response.ok && body.status === 'ok') {
+        return { text: successOk ?? '', kind: 'success', resetForm: true };
       }
-    } catch {
-      status.textContent = errorGeneric ?? '';
-      status.classList.add('auth-status--error');
-    } finally {
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    }
+      if (response.status === 401 && body.error === 'invalid_credentials') {
+        return { text: errorInvalidCredentials ?? '', kind: 'error' };
+      }
+      if (response.status === 429) {
+        return { text: errorRateLimited ?? '', kind: 'error' };
+      }
+      return { text: errorGeneric ?? '', kind: 'error' };
+    },
   });
 }

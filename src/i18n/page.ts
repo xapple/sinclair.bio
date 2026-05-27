@@ -1,4 +1,4 @@
-import { Languages } from './translations';
+import { LANGUAGE_LIST, type Language } from './translations';
 import {
   getCollection,
   type CollectionEntry,
@@ -7,7 +7,7 @@ import {
 
 // Standard getStaticPaths body for every [lang]/* route.
 export function langStaticPaths() {
-  return Object.values(Languages).map((lang) => ({ params: { lang } }));
+  return LANGUAGE_LIST.map((lang) => ({ params: { lang } }));
 }
 
 // Fetch a content-collection entry keyed by language.
@@ -15,7 +15,7 @@ export function langStaticPaths() {
 // so the language code is the entry id.
 export async function getLangEntry<C extends CollectionKey>(
   collection: C,
-  lang: Languages,
+  lang: Language,
 ): Promise<CollectionEntry<C>> {
   const entries = await getCollection(collection);
   const entry = entries.find((e) => e.id === lang);
@@ -27,8 +27,8 @@ export async function getLangEntry<C extends CollectionKey>(
 // Used for hreflang link tags and in-app language switching. With
 // prefixDefaultLocale: true, every page lives under /{lang}/...
 export function getAlternatePath(
-  currentLang: Languages,
-  targetLang: Languages,
+  currentLang: Language,
+  targetLang: Language,
   pathname: string,
 ): string {
   return pathname.replace(new RegExp(`^/${currentLang}(/|$)`), `/${targetLang}$1`);

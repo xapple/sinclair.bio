@@ -1,14 +1,13 @@
 // JSON-LD schemas for Layout.astro <head>. Pure data builders — no DOM.
 
-import type { Languages } from "../i18n/translations";
-import type { useTranslations } from "../i18n/translations";
+import type { Language, useTranslations } from "../i18n/translations";
 
 type TFn = ReturnType<typeof useTranslations>;
 
 interface SchemaArgs {
   siteUrl: URL;
   ogImageUrl: string;
-  lang: Languages;
+  lang: Language;
   t: TFn;
 }
 

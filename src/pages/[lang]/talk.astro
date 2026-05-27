@@ -25,13 +25,15 @@ const { t } = Astro.locals;
 </Layout>
 
 <script>
-  import { mountCalEmbed, watchThemeAndRemount } from '../../scripts/cal-embed';
+  import { mountCalEmbed, watchThemeAndRemount, type CalEmbedOptions } from '../../scripts/cal-embed';
+  import { THEME_ACCENT } from '../../scripts/theme-switcher';
 
-  const options = {
+  const options: CalEmbedOptions = {
     calLink: 'sinclair.bio',
     namespace: '30min',
     origin: 'https://app.cal.eu',
     embedSrc: 'https://app.cal.eu/embed/embed.js',
+    brandColors: THEME_ACCENT,
   };
 
   mountCalEmbed(options);

@@ -2,7 +2,7 @@
 
 declare namespace App {
   interface Locals {
-    lang: import('./i18n/translations').Languages;
+    lang: import('./i18n/translations').Language;
     t: ReturnType<typeof import('./i18n/translations').useTranslations>;
   }
 }

@@ -1,7 +1,7 @@
-import { Languages } from '../src/i18n/translations';
+import { LANGUAGE_LIST, DEFAULT_LANGUAGE } from '../src/i18n/translations';
 
-const SUPPORTED: readonly string[] = Object.values(Languages);
-const DEFAULT_LOCALE: string = Languages.en;
+const SUPPORTED: readonly string[] = LANGUAGE_LIST;
+const DEFAULT_LOCALE: string = DEFAULT_LANGUAGE;
 
 /**
  * Parse an Accept-Language header into language tags sorted by descending

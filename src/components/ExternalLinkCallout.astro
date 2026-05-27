@@ -1,0 +1,65 @@
+---
+// Small "More on X →" callout under a portfolio section. Icon, text, and
+// destination URL come from props; styling lives in this file so the two
+// portfolio sections (GitHub, ORCID) render identically.
+import { getIcon } from '../assets/icons';
+
+interface Props {
+  icon: string;   // basename in src/assets/icons/
+  text: string;
+  href: string;
+}
+
+const { icon, text, href } = Astro.props;
+const svg = getIcon(icon);
+---
+
+<p class="external-link-wrap">
+  <a class="external-link" href={href} target="_blank" rel="noopener noreferrer">
+    <span class="external-link-icon" aria-hidden="true" set:html={svg} />
+    <span>{text}</span>
+    <span class="external-link-arrow" aria-hidden="true">→</span>
+  </a>
+</p>
+
+<style>
+  .external-link-wrap {
+    margin: 0.5rem 0 0;
+  }
+
+  .external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .external-link-icon {
+    display: inline-flex;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .external-link-icon :global(svg) {
+    display: block;
+    width: 1em;
+    height: 1em;
+  }
+
+  .external-link-arrow {
+    transition: transform 0.15s ease;
+  }
+
+  .external-link:hover,
+  .external-link:focus-visible {
+    color: var(--color-ink);
+  }
+
+  .external-link:hover .external-link-arrow,
+  .external-link:focus-visible .external-link-arrow {
+    transform: translateX(2px);
+  }
+</style>

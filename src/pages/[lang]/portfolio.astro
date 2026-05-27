@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
-import { icons } from '../../assets/icons';
+import ExternalLinkCallout from '../../components/ExternalLinkCallout.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -35,13 +35,7 @@ const { testimonials, publications, classes } = entry.data;
         ))}
       </div>
 
-      <p class="orcid-link-wrap">
-        <a class="orcid-link" href="https://github.com/xapple" target="_blank" rel="noopener noreferrer">
-          <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.github} /></span>
-          <span>{t("portfolio:github-link")}</span>
-          <span class="orcid-arrow" aria-hidden="true">→</span>
-        </a>
-      </p>
+      <ExternalLinkCallout icon="github" text={t("portfolio:github-link")} href="https://github.com/xapple" />
     </section>
 
     <section class="portfolio-section">
@@ -69,13 +63,7 @@ const { testimonials, publications, classes } = entry.data;
         ))}
       </ul>
 
-      <p class="orcid-link-wrap">
-        <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
-          <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.orcid} /></span>
-          <span>{t("portfolio:orcid-link")}</span>
-          <span class="orcid-arrow" aria-hidden="true">→</span>
-        </a>
-      </p>
+      <ExternalLinkCallout icon="orcid" text={t("portfolio:orcid-link")} href="https://orcid.org/0000-0003-4134-3571" />
     </section>
 
     <section class="portfolio-section">
@@ -212,46 +200,6 @@ const { testimonials, publications, classes } = entry.data;
   .pub-title a:focus-visible {
     color: var(--color-accent);
     text-decoration: underline;
-  }
-
-  .orcid-link-wrap {
-    margin: 0.5rem 0 0;
-  }
-
-  .orcid-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--color-muted);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  .orcid-icon {
-    display: inline-flex;
-    font-size: 1rem;
-    line-height: 1;
-  }
-
-  .orcid-icon :global(svg) {
-    display: block;
-    width: 1em;
-    height: 1em;
-  }
-
-  .orcid-arrow {
-    transition: transform 0.15s ease;
-  }
-
-  .orcid-link:hover,
-  .orcid-link:focus-visible {
-    color: var(--color-ink);
-  }
-
-  .orcid-link:hover .orcid-arrow,
-  .orcid-link:focus-visible .orcid-arrow {
-    transform: translateX(2px);
   }
 
   .pub-meta {

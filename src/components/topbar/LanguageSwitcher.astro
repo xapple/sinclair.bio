@@ -1,30 +1,25 @@
 ---
 import Icon from '../Icon.astro';
-import { Languages } from '../../i18n/translations';
+import { LANGUAGES, LANGUAGE_LIST, type Language } from '../../i18n/translations';
 import { getAlternatePath } from '../../i18n/page';
 
 interface LangLink {
-  lang: Languages;
+  lang: Language;
   href: string | null; // null = current language (not clickable)
   label: string;
   fullLabel: string;
   flag: string;
 }
 
-const langMeta: Record<Languages, { fullLabel: string; flag: string }> = {
-  [Languages.en]: { fullLabel: 'English', flag: '🇬🇧' },
-  [Languages.fr]: { fullLabel: 'Français', flag: '🇫🇷' },
-};
-
 const { lang: currentLang, t } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
-const langLinks: LangLink[] = Object.values(Languages).map((l) => ({
+const langLinks: LangLink[] = LANGUAGE_LIST.map((l) => ({
   lang: l,
   href: l === currentLang ? null : getAlternatePath(currentLang, l, currentPath),
   label: l.toUpperCase(),
-  fullLabel: langMeta[l].fullLabel,
-  flag: langMeta[l].flag,
+  fullLabel: LANGUAGES[l].fullLabel,
+  flag: LANGUAGES[l].flag,
 }));
 
 const activeIndex = langLinks.findIndex((link) => link.href === null);
@@ -76,7 +71,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
 <div class="relative md:hidden">
   <button
     id="lang-dropdown-toggle"
-    class="relative flex items-center justify-center w-11 h-11 text-bar-fg cursor-pointer hover:bg-white/10 transition-colors rounded-md"
+    class="bar-icon-btn relative"
     aria-expanded="false"
     aria-label={t('a11y:select-language')}
   >

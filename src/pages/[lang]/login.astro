@@ -7,18 +7,7 @@ export const getStaticPaths = langStaticPaths;
 const { lang, t } = Astro.locals;
 ---
 
-<AuthLayout
-  title={t('login:page-title')}
-  description={t('meta:login-description')}
-  heading={t('login:heading')}
-  intro={t('login:intro')}
-  action="https://clients.sinclair.bio/login"
-  submitLabel={t('login:submit')}
-  sendingLabel={t('login:submitting')}
-  errorInvalidCredentials={t('login:error-invalid-credentials')}
-  errorRateLimited={t('login:error-rate-limited')}
-  errorGeneric={t('login:error-generic')}
->
+<AuthLayout kind="login" action="https://clients.sinclair.bio/login">
   <div class="field">
     <label for="email">{t('login:email-label')}</label>
     <input

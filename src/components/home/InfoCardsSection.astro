@@ -3,6 +3,12 @@ import Icon from '../Icon.astro';
 import InfoCard from '../InfoCard.astro';
 
 const { t } = Astro.locals;
+
+const socialLinks = [
+  { icon: 'github',   label: 'github/xapple',    href: 'https://github.com/xapple' },
+  { icon: 'gitlab',   label: 'gitlab/sinclair',  href: 'https://gitlab.com/sinclair' },
+  { icon: 'linkedin', label: 'in/sinclair-bio',  href: 'https://linkedin.com/in/sinclair-bio' },
+];
 ---
 
 <section class="pb-12">
@@ -26,18 +32,12 @@ const { t } = Astro.locals;
 
     <InfoCard icon="external-link" heading={t('home:card-links-heading')}>
       <div class="space-y-2">
-        <a href="https://github.com/xapple" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <Icon name="github" size="sm" />
-          github/xapple
-        </a>
-        <a href="https://gitlab.com/sinclair" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <Icon name="gitlab" size="sm" />
-          gitlab/sinclair
-        </a>
-        <a href="https://linkedin.com/in/sinclair-bio" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
-          <Icon name="linkedin" size="sm" />
-          in/sinclair-bio
-        </a>
+        {socialLinks.map(({ icon, label, href }) => (
+          <a href={href} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm text-ink hover:text-accent transition-colors">
+            <Icon name={icon} size="sm" />
+            {label}
+          </a>
+        ))}
       </div>
     </InfoCard>
 

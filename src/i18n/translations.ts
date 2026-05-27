@@ -1,8 +1,23 @@
-// --- Languages enum for type safety ---
-export enum Languages {
-  en = "en",
-  fr = "fr",
-}
+// --- Per-language metadata ---
+// Single source of truth for everything language-specific that isn't a
+// translation string: full name, flag emoji, Open Graph locale. Consumed by
+// LanguageSwitcher, Layout (hreflang + og:locale), and the schema builders.
+//
+// Adding a language is a one-line edit here plus a translations block below;
+// routes generate automatically via langStaticPaths.
+export const LANGUAGES = {
+  en: { code: 'en', fullLabel: 'English',  flag: '🇬🇧', ogLocale: 'en_US' },
+  fr: { code: 'fr', fullLabel: 'Français', flag: '🇫🇷', ogLocale: 'fr_FR' },
+} as const;
+
+export type Language = keyof typeof LANGUAGES;
+
+// Typed list for iteration (`Object.keys` would widen to `string[]`).
+export const LANGUAGE_LIST: readonly Language[] = Object.keys(LANGUAGES) as Language[];
+
+// Matches astro.config.mjs `i18n.defaultLocale`. Used for the x-default
+// hreflang link and the root /  redirect target.
+export const DEFAULT_LANGUAGE: Language = 'en';
 
 // --- English translations (source of truth for the key set) ---
 const en = {
@@ -190,7 +205,7 @@ export const translations = {
     "meta:talk-description": "Réservez un échange rapide avec Lucas Sinclair pour discuter de votre projet en data science, bioinformatique ou développement logiciel — sans engagement.",
     "meta:login-description": "Portail de connexion client pour Sinclair.Bio.",
   },
-} as const satisfies Record<Languages, Record<TranslationKeyType, string>>;
+} as const satisfies Record<Language, Record<TranslationKeyType, string>>;
 
 /**
  * Curried translation function.
@@ -198,7 +213,7 @@ export const translations = {
  * Supports %s placeholder: t("%s project", "MyProject")
  */
 export function useTranslations(
-  language: Languages
+  language: Language
 ): (key: TranslationKeyType, replace?: string) => string {
   return function t(key: TranslationKeyType, replace?: string): string {
     let translated: string = translations[language][key];

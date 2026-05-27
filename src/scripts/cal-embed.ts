@@ -12,11 +12,12 @@ export interface CalEmbedOptions {
   namespace: string;
   origin: string;
   embedSrc: string;
+  // Per-theme brand color hex values for Cal's cssVarsPerTheme. Cal needs
+  // literal hex (CSS vars don't reach inside the iframe), so the page
+  // resolves --theme-accent-{light,dark} at call time and passes them in.
+  brandColors: { light: string; dark: string };
   // Element selector to mount into (defaults to '#cal-inline').
   elementSelector?: string;
-  // Optional per-theme brand color overrides (defaults to the existing
-  // burgundy palette).
-  brandColors?: { light: string; dark: string };
 }
 
 // --- Cal global typing ---------------------------------------------------
@@ -50,11 +51,6 @@ interface CalDimensionChangedEvent {
 }
 
 // --- Defaults ------------------------------------------------------------
-
-const DEFAULT_BRAND_COLORS = {
-  light: '#6b2c2c',
-  dark: '#b85252',
-} as const;
 
 const DEFAULT_SELECTOR = '#cal-inline';
 
@@ -126,7 +122,7 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
   if (!Cal) return;
 
   const theme = getCalTheme();
-  const brand = options.brandColors ?? DEFAULT_BRAND_COLORS;
+  const brand = options.brandColors;
 
   Cal('init', options.namespace, { origin: options.origin });
 

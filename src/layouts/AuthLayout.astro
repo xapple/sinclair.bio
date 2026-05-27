@@ -1,53 +1,41 @@
 ---
+// Shared chrome for the /login and /forgot pages. Pages supply a `kind` and
+// the form's POST URL; this layout resolves every translated string itself
+// (heading, intro, submit/sending labels, error messages, page title/meta).
 import Layout from './Layout.astro';
 
 interface Props {
-  title: string;
-  description?: string;
-  heading: string;
-  intro: string;
+  kind: 'login' | 'forgot';
   action: string;
-  submitLabel: string;
-  sendingLabel?: string;
-  successOk?: string;
-  errorInvalidCredentials?: string;
-  errorRateLimited: string;
-  errorGeneric: string;
 }
 
-const {
-  title,
-  description,
-  heading,
-  intro,
-  action,
-  submitLabel,
-  sendingLabel,
-  successOk,
-  errorInvalidCredentials,
-  errorRateLimited,
-  errorGeneric,
-} = Astro.props;
+const { kind, action } = Astro.props;
+const { t } = Astro.locals;
 ---
 
-<Layout title={title} description={description} robots="noindex" frame="centered">
+<Layout
+  title={t(`${kind}:page-title`)}
+  description={t(`meta:${kind}-description`)}
+  robots="noindex"
+  frame="centered"
+>
   <header class="auth-header">
-    <h1>{heading}</h1>
-    <p>{intro}</p>
+    <h1>{t(`${kind}:heading`)}</h1>
+    <p>{t(`${kind}:intro`)}</p>
   </header>
 
   <form
     class="auth-form"
     action={action}
     method="post"
-    data-sending={sendingLabel}
-    data-success-ok={successOk}
-    data-error-invalid-credentials={errorInvalidCredentials}
-    data-error-rate-limited={errorRateLimited}
-    data-error-generic={errorGeneric}
+    data-sending={t(`${kind}:submitting`)}
+    data-success-ok={kind === 'forgot' ? t('forgot:status-ok') : undefined}
+    data-error-invalid-credentials={kind === 'login' ? t('login:error-invalid-credentials') : undefined}
+    data-error-rate-limited={t(`${kind}:error-rate-limited`)}
+    data-error-generic={t(`${kind}:error-generic`)}
   >
     <slot />
-    <button type="submit" class="auth-submit">{submitLabel}</button>
+    <button type="submit" class="auth-submit">{t(`${kind}:submit`)}</button>
   </form>
 
   <span data-auth-status class="auth-status" role="status" aria-live="polite"></span>

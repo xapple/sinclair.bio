@@ -1,44 +1,30 @@
-// Wires the home-page contact form: async submit to the action URL, button
-// state, and status message. Localized strings come from data-* attributes on
-// the form (so this script stays language-agnostic).
+// Wires the home-page contact form. The async submit / button-state / status
+// lifecycle lives in scripts/async-form.ts; this module just supplies the
+// response-shape mapping and the Tailwind status classes.
+import { initAsyncForm } from './async-form';
+
+const STATUS_CLASS: Record<'success' | 'error', string> = {
+  success: 'text-sm text-green-600 dark:text-green-400',
+  error: 'text-sm text-red-500',
+};
+
 export function initContactForm(selector = '#contact-form'): void {
   const form = document.querySelector<HTMLFormElement>(selector);
   if (!form) return;
 
-  const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-  const status = form.querySelector<HTMLSpanElement>('[data-contact-status]');
-  if (!submitBtn || !status) return;
+  const { sent, error, errorGeneric } = form.dataset;
 
-  const { sending, sent, error, errorGeneric } = form.dataset;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = sending ?? '';
-    submitBtn.disabled = true;
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-      });
-      const data = await response.json();
-
+  initAsyncForm({
+    selector,
+    statusSelector: '[data-contact-status]',
+    classFor: (kind) => STATUS_CLASS[kind],
+    mapResponse(response, data) {
       if (response.ok) {
-        status.textContent = sent ?? '';
-        status.className = 'text-sm text-green-600 dark:text-green-400';
-        form.reset();
-      } else {
-        status.textContent = (error ?? '').replace('%s', data.message);
-        status.className = 'text-sm text-red-500';
+        return { text: sent ?? '', kind: 'success', resetForm: true };
       }
-    } catch {
-      status.textContent = errorGeneric ?? '';
-      status.className = 'text-sm text-red-500';
-    } finally {
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    }
+      const body = data as { message?: unknown };
+      const msg = typeof body.message === 'string' ? body.message : '';
+      return { text: (error ?? '').replace('%s', msg) || (errorGeneric ?? ''), kind: 'error' };
+    },
   });
 }

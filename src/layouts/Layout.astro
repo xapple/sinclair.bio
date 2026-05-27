@@ -2,9 +2,9 @@
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
-import { Languages } from '../i18n/translations';
+import { LANGUAGES, LANGUAGE_LIST, DEFAULT_LANGUAGE } from '../i18n/translations';
 import { getAlternatePath } from '../i18n/page';
-import { THEME_BKGND } from '../scripts/theme-switcher';
+import { THEME_BKGND, THEME_ACCENT } from '../scripts/theme-switcher';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
 import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
 import '../styles/global.css';
@@ -41,22 +41,19 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = new URL('/og_card.png', siteUrl).toString();
 
 // Alternate-language URLs for hreflang. Swap the first path segment.
-const allLangs = Object.values(Languages);
-const alternateLinks = allLangs.map((l) => ({
+const alternateLinks = LANGUAGE_LIST.map((l) => ({
   hreflang: l,
   href: new URL(getAlternatePath(lang, l, Astro.url.pathname), siteUrl).toString(),
 }));
 const xDefaultHref = new URL(
-  getAlternatePath(lang, Languages.en, Astro.url.pathname),
+  getAlternatePath(lang, DEFAULT_LANGUAGE, Astro.url.pathname),
   siteUrl,
 ).toString();
 
-const ogLocaleMap: Record<Languages, string> = {
-  [Languages.en]: 'en_US',
-  [Languages.fr]: 'fr_FR',
-};
-const ogLocale = ogLocaleMap[lang];
-const ogAlternateLocales = allLangs.filter((l) => l !== lang).map((l) => ogLocaleMap[l]);
+const ogLocale = LANGUAGES[lang].ogLocale;
+const ogAlternateLocales = LANGUAGE_LIST
+  .filter((l) => l !== lang)
+  .map((l) => LANGUAGES[l].ogLocale);
 
 const schemaArgs = { siteUrl, ogImageUrl, lang, t };
 const personSchema = buildPersonSchema(schemaArgs);
@@ -107,10 +104,10 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
     <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
-    <!-- Single source of truth for the page background hex values.
-         Pushed into CSS as --theme-bkgnd-{light,dark}, which global.css's
-         @theme + .dark blocks reference for --color-bkgnd. -->
-    <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; }`} />
+    <!-- Single source of truth for theme hex values. Pushed into CSS as
+         --theme-bkgnd-{light,dark} and --theme-accent-{light,dark}, which
+         global.css's @theme + .dark blocks reference. -->
+    <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; --theme-accent-light: ${THEME_ACCENT.light}; --theme-accent-dark: ${THEME_ACCENT.dark}; }`} />
     <!-- Blocking theme bootstrap. Source: src/scripts/theme-bootstrap.js,
          imported as raw text and inlined here so it runs before bundles load.
          THEME_BKGND comes from theme-switcher.ts via define:vars. -->
