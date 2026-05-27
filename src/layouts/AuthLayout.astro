@@ -201,6 +201,14 @@ const { t } = Astro.locals;
     word-break: break-word;
   }
 
+  .auth-status :global(small)::before {
+    content: '(';
+  }
+
+  .auth-status :global(small)::after {
+    content: ')';
+  }
+
   .auth-footer {
     margin: 1.25rem 0 0;
     text-align: center;
