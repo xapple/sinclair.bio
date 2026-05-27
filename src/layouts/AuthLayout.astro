@@ -48,8 +48,9 @@ const {
   >
     <slot />
     <button type="submit" class="auth-submit">{submitLabel}</button>
-    <span data-auth-status class="auth-status" role="status" aria-live="polite"></span>
   </form>
+
+  <span data-auth-status class="auth-status" role="status" aria-live="polite"></span>
 
   <p class="auth-footer">
     <slot name="footer" />
@@ -185,9 +186,15 @@ const {
   }
 
   .auth-status {
+    display: block;
     min-height: 1.25rem;
+    margin-top: 1rem;
     font-size: 0.9rem;
     text-align: center;
+  }
+
+  .auth-status:empty {
+    display: none;
   }
 
   .auth-status--success {

@@ -7,7 +7,7 @@ export function initAuthForm(selector = '.auth-form'): void {
   if (!form) return;
 
   const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-  const status = form.querySelector<HTMLSpanElement>('[data-auth-status]');
+  const status = document.querySelector<HTMLSpanElement>('[data-auth-status]');
   if (!submitBtn || !status) return;
 
   const {
