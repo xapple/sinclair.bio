@@ -14,6 +14,7 @@ export function initAuthForm(selector = '.auth-form'): void {
     sending,
     successOk,
     errorInvalidCredentials,
+    errorRateLimited,
     errorGeneric,
   } = form.dataset;
 
@@ -43,6 +44,9 @@ export function initAuthForm(selector = '.auth-form'): void {
         form.reset();
       } else if (response.status === 401 && data.error === 'invalid_credentials') {
         status.textContent = errorInvalidCredentials ?? '';
+        status.classList.add('auth-status--error');
+      } else if (response.status === 429) {
+        status.textContent = errorRateLimited ?? '';
         status.classList.add('auth-status--error');
       } else {
         status.textContent = errorGeneric ?? '';

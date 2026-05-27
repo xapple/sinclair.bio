@@ -11,6 +11,7 @@ interface Props {
   sendingLabel?: string;
   successOk?: string;
   errorInvalidCredentials?: string;
+  errorRateLimited: string;
   errorGeneric: string;
 }
 
@@ -24,6 +25,7 @@ const {
   sendingLabel,
   successOk,
   errorInvalidCredentials,
+  errorRateLimited,
   errorGeneric,
 } = Astro.props;
 ---
@@ -41,6 +43,7 @@ const {
     data-sending={sendingLabel}
     data-success-ok={successOk}
     data-error-invalid-credentials={errorInvalidCredentials}
+    data-error-rate-limited={errorRateLimited}
     data-error-generic={errorGeneric}
   >
     <slot />
