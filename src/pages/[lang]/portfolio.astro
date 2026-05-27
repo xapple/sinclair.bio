@@ -18,76 +18,89 @@ const { testimonials, publications, classes } = entry.data;
   shellWidth="1100px"
 >
   <div class="section-stack">
-    <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" />
+    <section class="portfolio-section">
+      <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" />
 
-    <div class="card-grid">
-      {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div class="card" style={`animation-delay: ${(i - 1) * 80}ms`}>
-          <div class="card-thumb"></div>
-          <div class="card-body">
-            <h3>Project {i}</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-            <span class="tag">Lorem</span>
-            <span class="tag">Ipsum</span>
+      <div class="card-grid">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div class="card" style={`animation-delay: ${(i - 1) * 80}ms`}>
+            <div class="card-thumb"></div>
+            <div class="card-body">
+              <h3>Project {i}</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <span class="tag">Lorem</span>
+              <span class="tag">Ipsum</span>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
 
-    <p class="orcid-link-wrap">
-      <a class="orcid-link" href="https://github.com/xapple" target="_blank" rel="noopener noreferrer">
-        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.github} /></span>
-        <span>{t("portfolio:github-link")}</span>
-        <span class="orcid-arrow" aria-hidden="true">→</span>
-      </a>
-    </p>
+      <p class="orcid-link-wrap">
+        <a class="orcid-link" href="https://github.com/xapple" target="_blank" rel="noopener noreferrer">
+          <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.github} /></span>
+          <span>{t("portfolio:github-link")}</span>
+          <span class="orcid-arrow" aria-hidden="true">→</span>
+        </a>
+      </p>
+    </section>
 
-    <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" />
+    <section class="portfolio-section">
+      <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" />
 
-    <div class="testimonial-list">
-      {testimonials.map((testimonial) => (
-        <figure class="testimonial">
-          <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
-          <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
-        </figure>
-      ))}
-    </div>
+      <div class="testimonial-list">
+        {testimonials.map((testimonial) => (
+          <figure class="testimonial">
+            <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
+            <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
 
-    <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
+    <section class="portfolio-section">
+      <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
 
-    <ul class="publication-list">
-      {publications.map((publication) => (
-        <li class="publication">
-          <p class="pub-title"><a href={publication.href} target="_blank" rel="noopener noreferrer">{publication.title}</a></p>
-          <p class="pub-meta">{publication.authors} — <em>{publication.journal}</em>, {publication.year}</p>
-        </li>
-      ))}
-    </ul>
+      <ul class="publication-list">
+        {publications.map((publication) => (
+          <li class="publication">
+            <p class="pub-title"><a href={publication.href} target="_blank" rel="noopener noreferrer">{publication.title}</a></p>
+            <p class="pub-meta">{publication.authors} — <em>{publication.journal}</em>, {publication.year}</p>
+          </li>
+        ))}
+      </ul>
 
-    <p class="orcid-link-wrap">
-      <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
-        <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.orcid} /></span>
-        <span>{t("portfolio:orcid-link")}</span>
-        <span class="orcid-arrow" aria-hidden="true">→</span>
-      </a>
-    </p>
+      <p class="orcid-link-wrap">
+        <a class="orcid-link" href="https://orcid.org/0000-0003-4134-3571" target="_blank" rel="noopener noreferrer">
+          <span class="orcid-icon" aria-hidden="true"><Fragment set:html={icons.orcid} /></span>
+          <span>{t("portfolio:orcid-link")}</span>
+          <span class="orcid-arrow" aria-hidden="true">→</span>
+        </a>
+      </p>
+    </section>
 
-    <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
+    <section class="portfolio-section">
+      <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
 
-    <ul class="publication-list">
-      {classes.map((klass) => (
-        <li class="publication">
-          <p class="pub-title"><a href={klass.href} target="_blank" rel="noopener noreferrer">{klass.title}</a></p>
-          <p class="pub-meta">{klass.institution} — {klass.year}</p>
-        </li>
-      ))}
-    </ul>
+      <ul class="publication-list">
+        {classes.map((klass) => (
+          <li class="publication">
+            <p class="pub-title"><a href={klass.href} target="_blank" rel="noopener noreferrer">{klass.title}</a></p>
+            <p class="pub-meta">{klass.institution} — {klass.year}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
   </div>
 </Layout>
 
 <style>
-  .section-stack > .section-heading ~ .section-heading {
-    margin-top: clamp(2.5rem, 5vw, 4rem);
+  .section-stack {
+    --section-stack-gap: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .portfolio-section {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
   .card-grid {
