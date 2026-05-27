@@ -325,6 +325,19 @@ html:not([data-dom-loaded]) footer {
   animation: none;
 }
 
+/* Topbar is sticky and visually identical across pages. Promote it to its
+   own view-transition group with no animation so Chrome treats it as a
+   stable atomic unit during cross-document navigation — without this the
+   sticky header can flicker when the root group's snapshot is swapped. */
+header.site-topbar {
+  view-transition-name: site-topbar;
+}
+
+::view-transition-old(site-topbar),
+::view-transition-new(site-topbar) {
+  animation: none;
+}
+
 /* Sliding circle: moves right in light mode, stays left in dark */
 html[data-theme="light"] #theme-switcher-circle {
   transform: translate(50%, 0);

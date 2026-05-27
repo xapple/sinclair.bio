@@ -33,7 +33,9 @@ export function initAuthForm(selector = '.auth-form'): void {
       if (response.status === 429) {
         return { text: errorRateLimited ?? '', kind: 'error' };
       }
-      return { text: errorGeneric ?? '', kind: 'error' };
+      const detailParts = [`${response.status} ${response.statusText}`.trim()];
+      if (typeof body.error === 'string') detailParts.push(body.error);
+      return { text: errorGeneric ?? '', detail: detailParts.join(' — '), kind: 'error' };
     },
   });
 }

@@ -10,6 +10,9 @@
 export interface FormResult {
   // Status message to display. Leave empty to clear / hide.
   text: string;
+  // Optional technical detail rendered on a second line in a smaller, muted
+  // font (e.g. `Failed to fetch` under a friendly "something went wrong").
+  detail?: string;
   // Visual variant for the status element. The helper applies one of
   // `${statusBaseClass} ${statusBaseClass}--{success,error}` (auth pages) or
   // a caller-provided className per kind (contact form).
@@ -70,7 +73,12 @@ export function initAsyncForm(options: AsyncFormOptions): void {
         window.location.replace(result.redirect);
         return;
       }
-      status.textContent = result.text;
+      status.replaceChildren(result.text);
+      if (result.detail) {
+        const detail = document.createElement('small');
+        detail.textContent = result.detail;
+        status.appendChild(detail);
+      }
       status.className = classFor(result.kind);
       if (result.resetForm) form.reset();
     };
@@ -82,8 +90,9 @@ export function initAsyncForm(options: AsyncFormOptions): void {
       });
       const data = await response.json().catch(() => ({}));
       applyResult(options.mapResponse(response, data));
-    } catch {
-      applyResult({ text: errorGeneric, kind: 'error' });
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      applyResult({ text: errorGeneric, detail, kind: 'error' });
     } finally {
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
