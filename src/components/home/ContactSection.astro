@@ -77,6 +77,10 @@ const dmChannels = [
     <!-- Right column: DM + Meeting -->
     <div class="w-full max-w-56 md:max-w-none mx-auto md:mx-0 md:w-56 flex flex-col gap-4">
 
+      <InfoCard icon="messages-square" heading={t('home:meeting-heading')} href={`/${lang}/talk`}>
+        <p class="text-sm text-ink group-hover:text-accent transition-colors underline underline-offset-2">{t('home:meeting-body')}</p>
+      </InfoCard>
+
       <InfoCard icon="lock" heading={t('home:dm-heading')}>
         <ul class="space-y-3 text-sm">
           {dmChannels.map(({ icon, label, handle, href }) => (
@@ -89,10 +93,6 @@ const dmChannels = [
             </li>
           ))}
         </ul>
-      </InfoCard>
-
-      <InfoCard icon="messages-square" heading={t('home:meeting-heading')} href={`/${lang}/talk`}>
-        <p class="text-sm text-ink group-hover:text-accent transition-colors underline underline-offset-2">{t('home:meeting-body')}</p>
       </InfoCard>
 
     </div>

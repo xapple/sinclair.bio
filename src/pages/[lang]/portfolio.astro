@@ -23,7 +23,7 @@ const { testimonials, publications, classes } = entry.data;
 
       <div class="card-grid">
         {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div class="card" style={`animation-delay: ${(i - 1) * 80}ms`}>
+          <div class="card surface-card" style={`animation-delay: ${(i - 1) * 80}ms`}>
             <div class="card-thumb"></div>
             <div class="card-body">
               <h3>Project {i}</h3>
@@ -98,10 +98,7 @@ const { testimonials, publications, classes } = entry.data;
   }
 
   .card {
-    border: 1px solid var(--color-border);
-    border-radius: 0.75rem;
-    overflow: hidden;
-    background: var(--color-surface);
+    /* Surface, border, and radius come from the shared .surface-card class. */
     animation: reveal 500ms ease-out both;
   }
 

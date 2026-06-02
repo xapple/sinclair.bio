@@ -24,6 +24,7 @@ const { experiences, education, certifications = [] } = entry.data;
           <TimelineEntry
             layout="wide"
             title={item.role}
+            titleHref={item.href}
             primary={item.company}
             tertiary={item.employmentType}
             period={item.period}
@@ -46,6 +47,7 @@ const { experiences, education, certifications = [] } = entry.data;
           <TimelineEntry
             layout="narrow"
             title={item.school}
+            titleHref={item.href}
             primary={item.degree}
             tertiary={item.field}
             period={item.period}

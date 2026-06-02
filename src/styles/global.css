@@ -12,9 +12,12 @@
 
   /* Semantic color palette (light mode defaults) */
   --color-bkgnd:   var(--theme-bkgnd-light); /* page background */
-  --color-surface: #f5f0e8; /* elevated / secondary bg */
+  --color-surface: #f7f2ea; /* elevated / secondary bg */
   --color-ink:     #2c1810; /* primary text */
-  --color-muted:   #7a6a5a; /* secondary text */
+  --color-muted:   #736353; /* secondary text — paired with --color-surface so
+                               muted-on-card clears WCAG AA (~5.2:1); the two
+                               were nudged together (muted darker, surface
+                               lighter) to keep cards distinct from the page. */
   --color-border:  #c8bfa8; /* borders / dividers */
   --color-accent:  var(--theme-accent-light); /* brand burgundy */
 
@@ -259,6 +262,18 @@ html:not([data-dom-loaded]) footer {
   }
   .bar-icon-btn:hover {
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Canonical elevated card surface: solid surface fill + full border.
+     Shared by InfoCard, portfolio project cards, and journey timeline panels
+     so they stay one visual family. Radius is overridable via --card-radius
+     for the larger journey panels. In @layer components (like .bar-icon-btn)
+     so Tailwind utilities — e.g. InfoCard's hover:border-accent — still win. */
+  .surface-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--card-radius, 0.75rem);
+    overflow: hidden;
   }
 }
 

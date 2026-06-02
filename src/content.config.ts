@@ -9,6 +9,7 @@ const journey = defineCollection({
       z.object({
         role: z.string(),
         company: z.string(),
+        href: z.url().optional(),
         employmentType: z.string().optional(),
         period: z.string(),
         location: z.string().optional(),
@@ -20,6 +21,7 @@ const journey = defineCollection({
       z.object({
         school: z.string(),
         degree: z.string(),
+        href: z.url().optional(),
         field: z.string().optional(),
         period: z.string(),
         summary: z.string(),

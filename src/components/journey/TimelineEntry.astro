@@ -29,7 +29,7 @@ const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
 
 <li class={`entry-item ${variantClass}`} style={`--item-index:${index};`}>
   <span class="entry-dot" aria-hidden="true"></span>
-  <article class="entry-panel">
+  <article class="entry-panel surface-card">
     <div class="entry-left">
       <div class="entry-meta">
         <p class="period-badge">{period}</p>
@@ -37,14 +37,17 @@ const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
       </div>
 
       <div class="entry-heading">
-        <h3>
-          {titleHref ? (
-            <a href={titleHref} target="_blank" rel="noopener noreferrer">{title}</a>
-          ) : (
-            title
-          )}
-        </h3>
-        <p class="primary-meta">{primary}</p>
+        {titleHref ? (
+          <a class="entry-heading-link" href={titleHref} target="_blank" rel="noopener noreferrer">
+            <h3>{title}</h3>
+            <p class="primary-meta">{primary}</p>
+          </a>
+        ) : (
+          <Fragment>
+            <h3>{title}</h3>
+            <p class="primary-meta">{primary}</p>
+          </Fragment>
+        )}
         {tertiary && <p class={tertiaryClass}>{tertiary}</p>}
       </div>
     </div>
@@ -107,11 +110,10 @@ const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
   }
 
   .entry-panel {
-    border: 1px solid color-mix(in srgb, var(--color-border) 78%, transparent);
-    border-radius: 1.2rem;
+    /* Surface fill + border come from the shared .surface-card class; we keep
+       the larger panel radius via its --card-radius override. */
+    --card-radius: 1.2rem;
     padding: clamp(1rem, 2.4vw, 1.4rem);
-    background: color-mix(in srgb, var(--color-bkgnd) 84%, var(--color-surface) 16%);
-    backdrop-filter: blur(8px);
     display: grid;
     gap: clamp(1rem, 3vw, 2rem);
     align-items: start;
@@ -158,16 +160,33 @@ const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
     font-weight: 800;
   }
 
-  .entry-heading h3 a {
+  /* Combined link: title + subtitle hover and trigger together. */
+  .entry-heading-link {
+    display: block;
     color: inherit;
+    text-decoration: none;
+    border-radius: 0.4rem;
+  }
+
+  .entry-heading-link h3 {
+    text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
+    transition: color 160ms ease;
   }
 
-  .entry-heading h3 a:hover,
-  .entry-heading h3 a:focus-visible {
+  .entry-heading-link:hover h3,
+  .entry-heading-link:focus-visible h3 {
     color: var(--color-accent);
+  }
+
+  .entry-heading-link:hover .primary-meta,
+  .entry-heading-link:focus-visible .primary-meta {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
   }
 
   .primary-meta {

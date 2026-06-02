@@ -9,7 +9,7 @@ interface Props {
 
 const { icon, heading, href } = Astro.props;
 
-const baseClass = 'rounded-xl bg-surface border border-border overflow-hidden';
+const baseClass = 'surface-card';
 const linkClass = href ? ' block hover:border-accent transition-colors group' : '';
 const Wrapper = href ? 'a' : 'div';
 ---

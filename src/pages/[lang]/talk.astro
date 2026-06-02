@@ -21,6 +21,8 @@ const { t } = Astro.locals;
     </header>
 
     <div id="cal-inline" class="cal-inline"></div>
+
+    <p class="embed-notice">* {t('talk:embed-notice')}</p>
   </Reveal>
 </Layout>
 
@@ -68,5 +70,14 @@ const { t } = Astro.locals;
     overflow: hidden;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
+  }
+
+  .embed-notice {
+    margin: 0.85rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    text-align: center;
   }
 </style>
