@@ -74,8 +74,8 @@
       ]
     },
     {
-      "role": "Responsable du cours graduate Python",
-      "company": "Uppsala University",
+      "role": "Enseignant principal cours Python",
+      "company": "Université d'Uppsala",
       "href": "https://www.uu.se/en/disciplinary-domain/science-and-technology",
       "period": "2016",
       "location": "Uppsala, Suède",
@@ -87,7 +87,7 @@
     },
     {
       "role": "Assistant scientifique",
-      "company": "Bioinformatics and Biostatistics Core Facility at EPFL",
+      "company": "Plateforme de bioinformatique et biostatistique à l'EPFL",
       "href": "https://www.epfl.ch/research/facilities/ptbicc/",
       "period": "2010 - 2012",
       "location": "Lausanne, Suisse",
@@ -101,15 +101,15 @@
   ],
   "education": [
     {
-      "school": "Uppsala University",
+      "school": "Université d'Uppsala",
       "href": "https://www.uu.se/en/campus/evolutionary-biology-centre",
       "degree": "Doctorat (PhD)",
       "field": "Bioinformatique",
       "period": "2012 - 2016",
       "summary": "Construction de pipelines bioinformatiques ayant traité plus d'un milliard de reads de séquençage ADN pour caractériser des communautés microbiennes en milieux aquatiques (lacs boréaux, le Danube et lacs alcalins).",
       "details": [
-        "Co-auteur de 5 publications et publication de seqenv, un outil open-source reliant les séquences à leur environnement via recherche d'homologie NCBI et fouille de texte basée sur des ontologies",
-        "Reconstruction de génomes à partir de jeux de données métagénomiques, révélant des voies métaboliques inédites (photoferrotrophie, oxydation anaérobie du méthane) dans des systèmes d'eau douce"
+        "Auteur de 5 publications et publication de seqenv, un outil open-source reliant les séquences à leur environnement via recherche d'homologie NCBI et fouille de texte basée sur des ontologies",
+        "Reconstruction de génomes à partir de jeux de données métagénomiques, révélant des voies métaboliques inédites (photoferrotrophie, oxydation anaérobie du méthane) dans des écosystèmes d'eau douce"
       ]
     },
     {
@@ -121,7 +121,7 @@
       "summary": "Double spécialisation en bioinformatique et neurosciences computationnelles, avec un fort accent sur la biologie des systèmes et la modélisation quantitative.",
       "details": [
         "Cours incluant biologie moléculaire computationnelle, apprentissage automatique, théorie des systèmes dynamiques pour ingénieurs, graphes & réseaux, etc.",
-        "Création et animation d'un grand wiki en ligne d'échange de ressources pédagogiques entre étudiants"
+        "Création et déploiement d'un large wiki en ligne pour l'échange de ressources entre étudiants"
       ]
     },
     {
@@ -151,12 +151,11 @@
     {
       "name": "Formation pédagogique universitaire",
       "href": "https://www.uu.se/en/staff/employment/continuing-professional-development/courses-for-employees/academic-teacher-training-course",
-      "issuer": "Uppsala University",
+      "issuer": "Université d'Uppsala",
       "period": "2016",
       "summary": "Formation formelle à l'enseignement supérieur, à la conception de cours et à l'évaluation des apprentissages, qualifiant pour l'enseignement de niveau gradué.",
       "details": [
-        "Conception de cours, méthodes d'enseignement et évaluation des étudiants",
-        "Pratique réflexive de l'enseignement et revue par les pairs"
+        "25 jours complets couvrant la conception de plans de cours, les retours en classe, les compétences de présentation, la pratique réflexive de l'enseignement, etc."
       ]
     }
   ]
