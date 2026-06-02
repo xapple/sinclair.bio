@@ -14,9 +14,10 @@
     {
       "role": "Senior Data Scientist",
       "company": "GSK (formerly GlaxoSmithKline)",
+      "href": "https://be.gsk.com/en-be/innovation/",
       "period": "2022 - 2025",
       "location": "Rixensart, Belgium",
-      "summary": "Led bioinformatics and data analytics work for Vaccines R&D, spanning assay design, microbial genomics, and cross-study evidence generation.",
+      "summary": "Led bioinformatics and data analytics work for Vaccines R&D, spanning pipeline development, database design, microbial genomics, and cross-study evidence generation.",
       "highlights": [
         "Data and knowledge integration for hypothesis generation",
         "Exploratory models for pre-clinical, clinical, and epidemiological datasets",
@@ -26,29 +27,32 @@
     {
       "role": "Consultant in Data Science, Biology, Education and IT",
       "company": "Sinclair.Bio",
+      "href": "https://web.archive.org/web/20180803222829/http://sinclair.bio/",
       "period": "2017 - 2022",
       "location": "Post-geographical",
       "summary": "Delivered consulting work across Europe for research, education, and innovation teams, combining programming, design, and scientific leadership.",
       "highlights": [
-        "Clients included EPFL, University of Warwick, Biomillenia, Arcadia, HUG, BRTA, University of Bergen, Insight Technology Solutions, and Oxford IR",
+        "Clients included EPFL, University of Warwick, Biomillenia, Arcadia, HUG, BRTA, University of Bergen, Insight Technology Solutions, and Oxford IR, among others",
         "Work ranged from data science and software delivery to UX/UI design and technical education"
       ]
     },
     {
       "role": "Application Architect",
       "company": "European Commission",
+      "href": "https://joint-research-centre.ec.europa.eu/index_en",
       "period": "2019 - 2020",
       "location": "Ispra, Italy",
-      "summary": "Designed and built automated data-processing pipelines for the Joint Research Centre to model forest biomass dynamics across 26 EU member countries.",
+      "summary": "Simulated models of forest biomass dynamics across 26 member countries to predict EU policy impact on carbon sequestration.",
       "highlights": [
-        "Python tools to harvest, harmonize, and compare international forest statistics",
-        "Scenario-based biomass supply and demand projections through 2050",
-        "Open-source packages and peer-reviewed publication support"
+        "Built Python packages to automatically harvest, harmonize, and compare international forest datasets",
+        "Delivered scenario-based wood product supply and demand projections through 2050 for policy support",
+        "Published open-source packages and peer-reviewed publications"
       ]
     },
     {
       "role": "Post-Doctoral Fellow",
       "company": "University of Geneva",
+      "href": "https://genev.unige.ch",
       "period": "2017",
       "location": "Geneva, Switzerland",
       "summary": "Studied microbial communities with DNA sequencing data in the Molecular Systematics and Environmental Genomics laboratory.",
@@ -60,6 +64,7 @@
     {
       "role": "Founder and CTO",
       "company": "Envonautics AB",
+      "href": "https://web.archive.org/web/20171016202229/http://www.envonautics.com/",
       "period": "2017",
       "location": "Uppsala, Sweden",
       "summary": "CRO providing comprehensive eDNA-based solutions for environmental monitoring with full chain project management: from sampling, sequencing, analysis all the way to insight communication and scientific writing.",
@@ -69,11 +74,12 @@
       ]
     },
     {
-      "role": "Lead Teacher for Graduate Python Course",
+      "role": "Lead Teacher for Python Course",
       "company": "Uppsala University",
+      "href": "https://www.uu.se/en/disciplinary-domain/science-and-technology",
       "period": "2016",
       "location": "Uppsala, Sweden",
-      "summary": "Designed and delivered a four-week Python course for 20 PhD students within the graduate education program.",
+      "summary": "Designed and delivered a Python course titled “Practical Python Programming for Big Data and the Scientist” for 20 PhD students within the graduate education program.",
       "highlights": [
         "Secured stakeholder support and funding",
         "Hired and coordinated two teaching assistants"
@@ -82,64 +88,68 @@
     {
       "role": "Scientific Assistant",
       "company": "Bioinformatics and Biostatistics Core Facility at EPFL",
+      "href": "https://www.epfl.ch/research/facilities/ptbicc/",
       "period": "2010 - 2012",
       "location": "Lausanne, Switzerland",
       "summary": "Supported research projects and developed tools for processing and analyzing high-throughput genomic sequencing data.",
       "highlights": [
         "Bioinformatics support across multiple collaborations",
-        "Python tooling for sequencing analysis"
+        "Python tooling for sequencing analysis",
+        "Collaborated on the development of an online interactive genome browser"
       ]
     }
   ],
   "education": [
     {
       "school": "Uppsala University",
+      "href": "https://www.uu.se/en/campus/evolutionary-biology-centre",
       "degree": "Doctor of Philosophy (PhD)",
       "field": "Bioinformatics",
       "period": "2012 - 2016",
-      "summary": "Built automated analysis pipelines for high-throughput DNA sequencing data to characterize microbial communities in freshwater ecosystems.",
+      "summary": "Built bioinformatics pipelines that processed over a billion DNA sequencing reads to characterize microbial communities in aquatic ecosystems (boreal lakes, the Danube river, and soda lakes).",
       "details": [
-        "Developed novel bioinformatics methods during doctoral research",
-        "Activities: triathlon sport group"
+        "Authored 5 publications and released seqenv, an open-source tool linking sequences to environments via NCBI homology search and ontology-based text mining",
+        "Reconstructed genomes from metagenomic datasets revealing previously undetected pathways (photoferrotrophy, anaerobic methane oxidation) in freshwater systems"
       ]
     },
     {
       "school": "EPFL",
-      "degree": "Master of Science (MS)",
-      "field": "Life Sciences and Technologies",
+      "href": "https://www.epfl.ch/schools/sv/education/master-in-life-sciences-engineering/",
+      "degree": "Master of Science (MSc)",
+      "field": "School of Life Sciences",
       "period": "2008 - 2010",
-      "summary": "Dual specialization in Bioinformatics and Computational Neuroscience, with a strong computational focus across biology and machine learning.",
+      "summary": "Dual specialization in Bioinformatics and Computational Neuroscience, with a strong focus on systems biology and quantitative modeling.",
       "details": [
-        "Built and ran a student-operated wiki for teaching resource exchange",
-        "Coursework included computational molecular biology, pattern classification, and machine learning"
+        "Coursework included computational molecular biology, machine learning, dynamical systems theory for engineers, graphs & networks, etc.",
+        "Built and ran a large student-operated online wiki for teaching resource exchange"
       ]
     },
     {
       "school": "EPFL",
-      "degree": "Bachelor of Science (BS)",
-      "field": "Life Sciences and Technologies",
+      "href": "https://www.epfl.ch/schools/sv/education/bachelor-in-life-sciences-engineering/",
+      "degree": "Bachelor of Science (BSc)",
+      "field": "School of Life Sciences",
       "period": "2005 - 2008",
-      "summary": "Specialized in Biotechnology and Bioengineering with a broad quantitative foundation in science and computing.",
+      "summary": "STEM track with a broad analytical foundation and a specialization in Biotechnology and Bioengineering.",
       "details": [
-        "Member of the student coaching program association",
-        "Coursework included mathematical analysis, physics, chemistry, linear algebra, and computer science"
+        "Coursework included mathematical analysis, physics, chemistry, linear algebra, and computer science, etc.",
+        "Class delegate, member of the faculty student association and the campus coaching program"
       ]
     }
   ],
   "certifications": [
     {
-      "name": "Project Management Professional (PMP)",
-      "href": "https://www.credly.com/earner/earned/badge/64dc6641-a122-4c11-b38a-8dfe41d1ce8a",
+      "name": "Project Management Prof. (PMP)",
+      "href": "https://www.credly.com/badges/64dc6641-a122-4c11-b38a-8dfe41d1ce8a/public_url",
       "issuer": "Project Management Institute (PMI)",
       "period": "2026",
       "summary": "Globally recognized certification covering predictive, agile, and hybrid approaches to leading projects, teams, and business outcomes.",
       "details": [
-        "People, process, and business environment domains across the project lifecycle",
-        "Predictive, agile, and hybrid delivery methods aligned with the PMBOK Guide"
+        "Covers stakeholder engagement, team leadership, risk and change management across the project lifecycle"
       ]
     },
     {
-      "name": "Academic teacher training",
+      "name": "Academic Teacher Training",
       "href": "https://www.uu.se/en/staff/employment/continuing-professional-development/courses-for-employees/academic-teacher-training-course",
       "issuer": "Uppsala University",
       "period": "2016",

@@ -14,9 +14,10 @@
     {
       "role": "Senior Data Scientist",
       "company": "GSK (anciennement GlaxoSmithKline)",
+      "href": "https://be.gsk.com/en-be/innovation/",
       "period": "2022 - 2025",
       "location": "Rixensart, Belgique",
-      "summary": "Pilotage d'activités de bioinformatique et d'analytics pour la R&D vaccins, entre design d'essais, génomique microbienne et génération d'hypothèses.",
+      "summary": "Pilotage d'activités de bioinformatique et d'analytics pour la R&D vaccins, entre développement de pipelines, conception de bases de données, génomique microbienne et génération d'hypothèses.",
       "highlights": [
         "Intégration de données et de connaissances pour la génération d'hypothèses",
         "Modèles exploratoires pour des jeux de données précliniques, cliniques et épidémiologiques",
@@ -26,29 +27,32 @@
     {
       "role": "Consultant en data science, biologie, éducation et IT",
       "company": "Sinclair.Bio",
+      "href": "https://web.archive.org/web/20180803222829/http://sinclair.bio/",
       "period": "2017 - 2022",
       "location": "Post-géographique",
       "summary": "Missions de conseil à travers l'Europe pour des équipes de recherche, d'éducation et d'innovation, en combinant programmation, design et leadership scientifique.",
       "highlights": [
-        "Clients : EPFL, University of Warwick, Biomillenia, Arcadia, HUG, BRTA, University of Bergen, Insight Technology Solutions et Oxford IR",
+        "Clients : EPFL, University of Warwick, Biomillenia, Arcadia, HUG, BRTA, University of Bergen, Insight Technology Solutions et Oxford IR, entre autres",
         "Interventions allant de la data science et de la livraison logicielle au design UX/UI et à la formation technique"
       ]
     },
     {
       "role": "Application Architect",
       "company": "Commission européenne",
+      "href": "https://joint-research-centre.ec.europa.eu/index_en",
       "period": "2019 - 2020",
       "location": "Ispra, Italie",
-      "summary": "Conception et développement de pipelines automatisés pour modéliser la dynamique de biomasse forestière dans 26 pays de l'Union européenne.",
+      "summary": "Simulation de modèles de dynamique de biomasse forestière dans 26 pays membres pour prédire l'impact des politiques européennes sur la séquestration du carbone.",
       "highlights": [
-        "Outils Python pour collecter, harmoniser et comparer des statistiques forestières internationales",
-        "Projections de l'offre et de la demande en biomasse jusqu'en 2050",
-        "Packages open source et soutien à une publication scientifique"
+        "Développement de packages Python pour collecter, harmoniser et comparer automatiquement des jeux de données forestières internationaux",
+        "Projections de l'offre et de la demande en produits bois selon différents scénarios jusqu'en 2050, en soutien aux politiques publiques",
+        "Publication de packages open source et d'articles évalués par les pairs"
       ]
     },
     {
       "role": "Chercheur postdoctoral",
       "company": "Université de Genève",
+      "href": "https://genev.unige.ch",
       "period": "2017",
       "location": "Genève, Suisse",
       "summary": "Études écologiques de communautés microbiennes à partir de données de séquençage ADN au sein du laboratoire de génomique environnementale.",
@@ -60,6 +64,7 @@
     {
       "role": "Fondateur et CTO",
       "company": "Envonautics AB",
+      "href": "https://web.archive.org/web/20171016202229/http://www.envonautics.com/",
       "period": "2017",
       "location": "Uppsala, Suède",
       "summary": "CRO offrant des solutions complètes basées sur l'ADN environnemental (eDNA) pour la surveillance environnementale, avec une gestion intégrale de projet : de l'échantillonnage et du séquençage à l'analyse, jusqu'à la communication des résultats et la rédaction scientifique.",
@@ -71,9 +76,10 @@
     {
       "role": "Responsable du cours graduate Python",
       "company": "Uppsala University",
+      "href": "https://www.uu.se/en/disciplinary-domain/science-and-technology",
       "period": "2016",
       "location": "Uppsala, Suède",
-      "summary": "Conception et enseignement d'un cours intensif de quatre semaines en Python pour 20 doctorants dans le cadre du programme graduate.",
+      "summary": "Conception et enseignement d'un cours en Python intitulé « Practical Python Programming for Big Data and the Scientist » pour 20 doctorants dans le cadre du programme graduate.",
       "highlights": [
         "Convaincu les parties prenantes et obtenu le financement",
         "Recruté et coordonné deux assistants d'enseignement"
@@ -82,60 +88,64 @@
     {
       "role": "Assistant scientifique",
       "company": "Bioinformatics and Biostatistics Core Facility at EPFL",
+      "href": "https://www.epfl.ch/research/facilities/ptbicc/",
       "period": "2010 - 2012",
       "location": "Lausanne, Suisse",
       "summary": "Participation à plusieurs projets de recherche et développement d'outils pour traiter et analyser des données génomiques à haut débit.",
       "highlights": [
         "Soutien bioinformatique sur plusieurs collaborations",
-        "Outillage Python pour l'analyse de séquençage"
+        "Outillage Python pour l'analyse de séquençage",
+        "Collaboration au développement d'un navigateur de génome interactif en ligne"
       ]
     }
   ],
   "education": [
     {
       "school": "Uppsala University",
+      "href": "https://www.uu.se/en/campus/evolutionary-biology-centre",
       "degree": "Doctorat (PhD)",
       "field": "Bioinformatique",
       "period": "2012 - 2016",
-      "summary": "Construction de pipelines d'analyse automatisés pour caractériser des communautés microbiennes de milieux aquatiques à partir de données de séquençage ADN.",
+      "summary": "Construction de pipelines bioinformatiques ayant traité plus d'un milliard de reads de séquençage ADN pour caractériser des communautés microbiennes en milieux aquatiques (lacs boréaux, le Danube et lacs alcalins).",
       "details": [
-        "Développement de nouvelles méthodes de bioinformatique durant la thèse",
-        "Activités : groupe de triathlon"
+        "Co-auteur de 5 publications et publication de seqenv, un outil open-source reliant les séquences à leur environnement via recherche d'homologie NCBI et fouille de texte basée sur des ontologies",
+        "Reconstruction de génomes à partir de jeux de données métagénomiques, révélant des voies métaboliques inédites (photoferrotrophie, oxydation anaérobie du méthane) dans des systèmes d'eau douce"
       ]
     },
     {
       "school": "EPFL",
-      "degree": "Master of Science (MS)",
-      "field": "Life Sciences and Technologies",
+      "href": "https://www.epfl.ch/schools/sv/education/master-in-life-sciences-engineering/",
+      "degree": "Master of Science (MSc)",
+      "field": "Faculté des sciences de la vie (SV)",
       "period": "2008 - 2010",
-      "summary": "Double spécialisation en bioinformatique et neurosciences computationnelles, avec un fort socle en biologie computationnelle et apprentissage automatique.",
+      "summary": "Double spécialisation en bioinformatique et neurosciences computationnelles, avec un fort accent sur la biologie des systèmes et la modélisation quantitative.",
       "details": [
-        "Création et animation d'un wiki étudiant d'échange de ressources pédagogiques",
-        "Cours incluant biologie moléculaire computationnelle, pattern classification et machine learning"
+        "Cours incluant biologie moléculaire computationnelle, apprentissage automatique, théorie des systèmes dynamiques pour ingénieurs, graphes & réseaux, etc.",
+        "Création et animation d'un grand wiki en ligne d'échange de ressources pédagogiques entre étudiants"
       ]
     },
     {
       "school": "EPFL",
-      "degree": "Bachelor of Science (BS)",
-      "field": "Life Sciences and Technologies",
+      "href": "https://www.epfl.ch/schools/sv/education/bachelor-in-life-sciences-engineering/",
+      "degree": "Bachelor of Science (BSc)",
+      "field": "Faculté des sciences de la vie (SV)",
       "period": "2005 - 2008",
-      "summary": "Spécialisation en biotechnologie et bio-ingénierie, avec une base quantitative large en sciences et en informatique.",
+      "summary": "Filière STEM avec une base analytique large et une spécialisation en biotechnologie et bio-ingénierie.",
       "details": [
-        "Membre de l'association du programme de coaching étudiant",
-        "Cours incluant analyse mathématique, physique, chimie, algèbre linéaire et informatique"
+        "Cours incluant analyse mathématique, physique, chimie, algèbre linéaire, informatique, etc.",
+        "Délégué de classe, membre de l'association étudiante de la faculté et du programme de coaching du campus"
       ]
     }
   ],
   "certifications": [
     {
-      "name": "Project Management Professional (PMP)",
-      "href": "https://www.credly.com/earner/earned/badge/64dc6641-a122-4c11-b38a-8dfe41d1ce8a",
+      "name": "Project Management Prof. (PMP)",
+      "href": "https://www.credly.com/badges/64dc6641-a122-4c11-b38a-8dfe41d1ce8a/public_url",
       "issuer": "Project Management Institute (PMI)",
       "period": "2026",
       "summary": "Certification reconnue mondialement couvrant les approches prédictives, agiles et hybrides pour mener des projets, des équipes et des résultats opérationnels.",
       "details": [
-        "Domaines humain, processus et environnement métier sur l'ensemble du cycle de vie du projet",
-        "Méthodes de livraison prédictives, agiles et hybrides alignées sur le PMBOK Guide"
+        "Couvre l'engagement des parties prenantes, le leadership d'équipe, la gestion des risques et du changement sur l'ensemble du cycle de vie du projet"
       ]
     },
     {
