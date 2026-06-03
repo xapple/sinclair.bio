@@ -146,6 +146,13 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
     hideEventTypeDetails: false,
     layout: 'month_view',
     theme,
+    // Cal's iframe document defaults to `color-scheme: unset`. When our page
+    // declares `color-scheme: dark` (Layout's <meta> in dark mode), that
+    // mismatch makes the browser paint an opaque white canvas behind Cal's
+    // transparent body, hiding the dark booking UI under white. Telling Cal the
+    // page's color-scheme makes it set the same scheme inside the iframe, so the
+    // schemes match and the canvas stays transparent. See calcom/cal.com#10032.
+    colorScheme: theme,
     cssVarsPerTheme: {
       light: { 'cal-brand': brand.light },
       dark: { 'cal-brand': brand.dark },
