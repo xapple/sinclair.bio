@@ -1,4 +1,42 @@
 {
+  "projects": [
+    {
+      "name": "crest4",
+      "href": "https://github.com/xapple/crest4",
+      "description": "Assigns taxonomic names to DNA sequences from environmental sequencing — a modern rewrite of the CREST classifier.",
+      "tags": ["Bioinformatics", "Taxonomy", "Python"]
+    },
+    {
+      "name": "pacmill",
+      "href": "https://github.com/xapple/pacmill",
+      "description": "End-to-end pipeline for long-read PacBio 16S rRNA amplicon sequencing, from raw reads to publication-ready reports.",
+      "tags": ["Bioinformatics", "Pipeline", "Amplicons"]
+    },
+    {
+      "name": "seqenv",
+      "href": "https://github.com/xapple/seqenv",
+      "description": "Links DNA sequences to Environment Ontology (EnvO) terms by text-mining the scientific literature.",
+      "tags": ["Bioinformatics", "Text Mining", "Ontology"]
+    },
+    {
+      "name": "track",
+      "href": "https://github.com/xapple/track",
+      "description": "Straightforward read/write access to genomic tracks across many file formats, backed by SQLite.",
+      "tags": ["Genomics", "Data", "Python"]
+    },
+    {
+      "name": "forest_puller",
+      "href": "https://github.com/xapple/forest_puller",
+      "description": "Retrieves and harmonizes European forest-inventory data from public sources into one comparable dataset.",
+      "tags": ["Data Science", "Open Data", "Environment"]
+    },
+    {
+      "name": "www.sinclair",
+      "href": "https://github.com/xapple/sinclair.bio",
+      "description": "This very site — a fast, bilingual static site built with Astro, Tailwind CSS, and TypeScript.",
+      "tags": ["Web Dev", "Astro", "TypeScript"]
+    }
+  ],
   "testimonials": [
     {
       "quote": "I can wholeheartedly recommend Lucas for scientific website development and online data handling. For our project on tracking the microbiomes of industrial anaerobic digesters, Lucas provided immensely helpful advice on how to best construct an online repository for our data, and also developed a highly professional and stylistic front page. We have also benefited from his experience in choosing the right title for the site. The service was professional and on schedule, and Lucas was great to work with.",

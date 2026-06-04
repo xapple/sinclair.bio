@@ -47,6 +47,14 @@ const journey = defineCollection({
 const portfolio = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/portfolio' }),
   schema: z.object({
+    projects: z.array(
+      z.object({
+        name: z.string(),
+        href: z.url(),
+        description: z.string(),
+        tags: z.array(z.string()),
+      })
+    ),
     testimonials: z.array(
       z.object({
         quote: z.string(),

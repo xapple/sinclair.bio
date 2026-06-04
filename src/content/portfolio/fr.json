@@ -1,4 +1,42 @@
 {
+  "projects": [
+    {
+      "name": "crest4",
+      "href": "https://github.com/xapple/crest4",
+      "description": "Attribue des noms taxonomiques aux séquences d'ADN issues du séquençage environnemental — une réécriture moderne du classificateur CREST.",
+      "tags": ["Bioinformatique", "Taxonomie", "Python"]
+    },
+    {
+      "name": "pacmill",
+      "href": "https://github.com/xapple/pacmill",
+      "description": "Pipeline complet pour le séquençage d'amplicons 16S rRNA en lecture longue PacBio, des reads bruts aux rapports prêts à publier.",
+      "tags": ["Bioinformatique", "Pipeline", "Amplicons"]
+    },
+    {
+      "name": "seqenv",
+      "href": "https://github.com/xapple/seqenv",
+      "description": "Relie les séquences d'ADN aux termes de l'ontologie environnementale (EnvO) par fouille de texte de la littérature scientifique.",
+      "tags": ["Bioinformatique", "Fouille de texte", "Ontologie"]
+    },
+    {
+      "name": "track",
+      "href": "https://github.com/xapple/track",
+      "description": "Accès simple en lecture/écriture aux pistes génomiques dans de nombreux formats, adossé à SQLite.",
+      "tags": ["Génomique", "Données", "Python"]
+    },
+    {
+      "name": "forest_puller",
+      "href": "https://github.com/xapple/forest_puller",
+      "description": "Récupère et harmonise les données d'inventaire forestier européen issues de sources publiques en un jeu de données comparable.",
+      "tags": ["Data Science", "Données ouvertes", "Environnement"]
+    },
+    {
+      "name": "www.sinclair",
+      "href": "https://github.com/xapple/sinclair.bio",
+      "description": "Ce site même — un site statique rapide et bilingue conçu avec Astro, Tailwind CSS et TypeScript.",
+      "tags": ["Dév web", "Astro", "TypeScript"]
+    }
+  ],
   "testimonials": [
     {
       "quote": "J’ai travaillé avec Lucas sur un sujet mêlant données cliniques, microbiologie et data science. Ce que j’ai particulièrement apprécié, c’est sa capacité à comprendre rapidement un contexte complexe et à en tirer un résultat clair et utile. Lucas est sérieux, autonome, et on échange facilement avec lui.",
