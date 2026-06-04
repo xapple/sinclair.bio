@@ -27,7 +27,7 @@ const { t } = Astro.locals;
 </Layout>
 
 <script>
-  import { mountCalEmbed, watchThemeAndRemount, type CalEmbedOptions } from '../../scripts/cal-embed';
+  import { mountCalEmbed, watchThemeAndRestyle, type CalEmbedOptions } from '../../scripts/cal-embed';
   import { THEME_ACCENT } from '../../scripts/theme-switcher';
 
   const options: CalEmbedOptions = {
@@ -39,7 +39,7 @@ const { t } = Astro.locals;
   };
 
   mountCalEmbed(options);
-  watchThemeAndRemount(options);
+  watchThemeAndRestyle(options);
 </script>
 
 <style>

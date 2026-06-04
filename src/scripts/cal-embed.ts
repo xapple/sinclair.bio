@@ -3,7 +3,17 @@
 // The Cal.com docs ship a tightly-minified IIFE loader; we keep it as the
 // `installCalLoader` private helper (renamed identifiers, properly typed) so
 // it stays close to upstream. The public surface (`mountCalEmbed`,
-// `watchThemeAndRemount`) is what the page script actually calls.
+// `watchThemeAndRestyle`) is what the page script actually calls.
+//
+// Theme handling on a light/dark toggle:
+//   app.cal.eu's deployed booker reads its light/dark palette from the iframe
+//   URL's `theme=` param at load and does NOT repaint it from a live `ui`
+//   message — only `colorScheme` (the iframe canvas) applies live. So the only
+//   way to actually re-theme the booker is to reload the iframe. We do that
+//   *only while the visitor is still on the event-type list* (nothing to lose).
+//   Once they pick an event type (Cal's public `eventTypeSelected` event), a
+//   booking is in progress: we keep the live iframe and only push `colorScheme`
+//   so the canvas matches, accepting that the booker palette stays as loaded.
 
 // --- Public types --------------------------------------------------------
 
@@ -45,11 +55,6 @@ declare global {
   }
 }
 
-// Event payload Cal dispatches for the __dimensionChanged action.
-interface CalDimensionChangedEvent {
-  detail: { data: { iframeHeight?: number } };
-}
-
 // --- Defaults ------------------------------------------------------------
 
 const DEFAULT_SELECTOR = '#cal-inline';
@@ -58,11 +63,65 @@ const DEFAULT_SELECTOR = '#cal-inline';
 
 let themeObserver: MutationObserver | null = null;
 let lastTheme: 'dark' | 'light' | null = null;
+let mounted = false;
+// Set once the visitor selects an event type — from then on a booking is in
+// progress and we must never reload the iframe to restyle it.
+let engaged = false;
 
 // --- Helpers -------------------------------------------------------------
 
 function getCalTheme(): 'dark' | 'light' {
   return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+}
+
+// The `ui` instruction config for a given theme. At (re)mount this themes the
+// whole booker; on a live toggle only its `colorScheme` actually takes effect
+// (see file header), which is enough to keep the iframe canvas matching.
+function uiConfigFor(theme: 'dark' | 'light', brand: { light: string; dark: string }) {
+  return {
+    hideEventTypeDetails: false,
+    layout: 'month_view',
+    theme,
+    // Cal's iframe document defaults to `color-scheme: unset`. When our page
+    // declares `color-scheme: dark` (Layout's <meta> in dark mode), that
+    // mismatch makes the browser paint an opaque white canvas behind Cal's
+    // transparent body, hiding the dark booking UI under white. Telling Cal the
+    // page's color-scheme makes it set the same scheme inside the iframe, so the
+    // schemes match and the canvas stays transparent. See calcom/cal.com#10032.
+    colorScheme: theme,
+    // Cal needs literal hex (CSS vars don't reach inside the iframe), so the
+    // page resolves --theme-accent-{light,dark} and passes them in.
+    cssVarsPerTheme: {
+      light: { 'cal-brand': brand.light },
+      dark: { 'cal-brand': brand.dark },
+    },
+  };
+}
+
+// Renders the inline embed + UI for a given theme. Used on first mount and on
+// the untouched-state theme-change reload. Re-callable: Cal's `inline` rebuilds
+// the iframe in the (now empty) container.
+function renderInline(
+  Cal: CalInstance,
+  options: CalEmbedOptions,
+  selector: string,
+  theme: 'dark' | 'light',
+): void {
+  // `useSlotsViewOnSmallScreen` is intentionally OFF. When enabled, Cal
+  // renders a dedicated slots view on small viewports with a sticky date
+  // header above an internally-scrollable slot list — which creates a
+  // second scroll context inside the iframe and fights the outer page's
+  // scroll. With it off, Cal sizes the iframe to its full content and
+  // auto-resizes the iframe (embed-core handles this internally), so the
+  // content-sized wrapper grows with it and the outer page owns the only
+  // scroll context.
+  Cal.ns[options.namespace]('inline', {
+    elementOrSelector: selector,
+    config: { layout: 'month_view', theme },
+    calLink: options.calLink,
+  });
+
+  Cal.ns[options.namespace]('ui', uiConfigFor(theme, options.brandColors));
 }
 
 // Official Cal.com embed bootstrap. Installs `window.Cal` as a queueing
@@ -109,9 +168,10 @@ function installCalLoader(win: Window, scriptSrc: string, initMethod: string): v
 
 // --- Public API ----------------------------------------------------------
 
-// Mounts (or re-mounts) the Cal.com inline embed in the given element.
-// Idempotent — safe to call again on theme toggle to swap the embed's theme.
+// Mounts the Cal.com inline embed in the given element. Mounts at most once.
 export function mountCalEmbed(options: CalEmbedOptions): void {
+  if (mounted) return;
+
   const selector = options.elementSelector ?? DEFAULT_SELECTOR;
   const el = document.querySelector<HTMLElement>(selector);
   if (!el) return;
@@ -121,70 +181,60 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
   const Cal = window.Cal;
   if (!Cal) return;
 
-  const theme = getCalTheme();
-  const brand = options.brandColors;
-
   Cal('init', options.namespace, { origin: options.origin });
 
-  // Clear any previous render (theme-change re-mount).
-  el.innerHTML = '';
+  // Mark the booker "engaged" once the visitor moves past the event-type list,
+  // so the theme observer below stops reloading the iframe from under an active
+  // booking. Both are Cal's documented public events and neither fires for the
+  // profile/event-type list we mount with, so they only trip on real progress:
+  //   • eventTypeSelected — the visitor picked a meeting type
+  //   • bookerReady       — a meeting's date/slots view finished loading
+  // We listen to both for resilience across app.cal.eu's deployed embed. The
+  // handlers live on the namespace's action manager, so they persist across the
+  // untouched-state reloads `watchThemeAndRestyle` performs.
+  for (const action of ['eventTypeSelected', 'bookerReady'] as const) {
+    Cal.ns[options.namespace]('on', {
+      action,
+      callback: () => {
+        engaged = true;
+      },
+    });
+  }
 
-  // `useSlotsViewOnSmallScreen` is intentionally OFF. When enabled, Cal
-  // renders a dedicated slots view on small viewports with a sticky date
-  // header above an internally-scrollable slot list — which creates a
-  // second scroll context inside the iframe and fights the outer page's
-  // scroll. With it off, Cal sizes the iframe to its full content (which
-  // __dimensionChanged then mirrors onto the wrapper below), so the outer
-  // page owns the only scroll context.
-  Cal.ns[options.namespace]('inline', {
-    elementOrSelector: selector,
-    config: { layout: 'month_view', theme },
-    calLink: options.calLink,
-  });
+  renderInline(Cal, options, selector, getCalTheme());
 
-  Cal.ns[options.namespace]('ui', {
-    hideEventTypeDetails: false,
-    layout: 'month_view',
-    theme,
-    // Cal's iframe document defaults to `color-scheme: unset`. When our page
-    // declares `color-scheme: dark` (Layout's <meta> in dark mode), that
-    // mismatch makes the browser paint an opaque white canvas behind Cal's
-    // transparent body, hiding the dark booking UI under white. Telling Cal the
-    // page's color-scheme makes it set the same scheme inside the iframe, so the
-    // schemes match and the canvas stays transparent. See calcom/cal.com#10032.
-    colorScheme: theme,
-    cssVarsPerTheme: {
-      light: { 'cal-brand': brand.light },
-      dark: { 'cal-brand': brand.dark },
-    },
-  });
-
-  // Mirror Cal's reported content height onto the wrapper so the embed grows
-  // with internal navigation (date picker → time slots → confirmation) instead
-  // of scrolling inside the iframe on small viewports.
-  Cal.ns[options.namespace]('on', {
-    action: '__dimensionChanged',
-    callback: (e: CalDimensionChangedEvent) => {
-      const h = e?.detail?.data?.iframeHeight;
-      if (typeof h === 'number' && h > 0) {
-        el.style.minHeight = `${h}px`;
-      }
-    },
-  });
+  mounted = true;
 }
 
-// Starts a MutationObserver on <html data-theme> that re-mounts the embed
-// when the theme flips. Idempotent — safe to call multiple times; only the
-// first call installs the observer.
-export function watchThemeAndRemount(options: CalEmbedOptions): void {
+// Starts a MutationObserver on <html data-theme> that re-themes the embed when
+// the site theme flips. While the booker is untouched it reloads the iframe in
+// the new theme (the only way app.cal.eu repaints the booker palette); once a
+// booking is in progress it leaves the live iframe alone and only pushes the new
+// `colorScheme` so the canvas stays matched. Idempotent — only the first call
+// installs the observer.
+export function watchThemeAndRestyle(options: CalEmbedOptions): void {
   if (themeObserver) return;
 
+  const selector = options.elementSelector ?? DEFAULT_SELECTOR;
   lastTheme = getCalTheme();
   const observer = new MutationObserver(() => {
     const theme = getCalTheme();
     if (theme === lastTheme) return;
     lastTheme = theme;
-    mountCalEmbed(options);
+
+    const Cal = window.Cal;
+    if (!Cal?.ns?.[options.namespace]) return;
+
+    if (engaged) {
+      // Booking in progress — preserve it; only the canvas can change live.
+      Cal.ns[options.namespace]('ui', uiConfigFor(theme, options.brandColors));
+      return;
+    }
+
+    // Still on the event-type list — safe to reload the iframe in the new theme.
+    const el = document.querySelector<HTMLElement>(selector);
+    if (el) el.innerHTML = '';
+    renderInline(Cal, options, selector, theme);
   });
   observer.observe(document.documentElement, {
     attributes: true,
