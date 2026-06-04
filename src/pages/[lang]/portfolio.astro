@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import ExternalLinkCallout from '../../components/ExternalLinkCallout.astro';
+import HIndexCallout from '../../components/HIndexCallout.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -63,7 +64,10 @@ const { testimonials, publications, classes } = entry.data;
         ))}
       </ul>
 
-      <ExternalLinkCallout icon="orcid" text={t("portfolio:orcid-link")} href="https://orcid.org/0000-0003-4134-3571" />
+      <div class="pub-links">
+        <HIndexCallout label={t("portfolio:hindex-label")} value={10} href="https://www.scopus.com/authid/detail.uri?authorId=56675539100" />
+        <ExternalLinkCallout icon="orcid" text={t("portfolio:orcid-link")} href="https://orcid.org/0000-0003-4134-3571" />
+      </div>
     </section>
 
     <section class="portfolio-section">
@@ -163,6 +167,19 @@ const { testimonials, publications, classes } = entry.data;
 
   .testimonial figcaption span {
     opacity: 0.7;
+  }
+
+  /* Lay the h-index + ORCID callouts on one line, with a small gap
+     between them; wraps to stacked on narrow screens. */
+  .pub-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .pub-links > :global(p) {
+    margin: 0;
   }
 
   .publication-list {
