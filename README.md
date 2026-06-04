@@ -50,8 +50,8 @@ To setup the CL hosting to automatically follow the latest commit on the main br
 ### Testing
 
 To run the tests suite, you will need [uv](https://docs.astral.sh/uv), which
-fetches Python and the test dependencies for you. The tests live in the `test/`
+fetches Python and the test dependencies for you. The tests live in the `tests/`
 directory and use [pytest](https://docs.pytest.org). Run the suite from the
 root of the repository:
 
-    $ uv run --with pytest pytest test/
+    $ uv run --with pytest pytest tests/
