@@ -59,13 +59,19 @@
 }
 
 /* ---- Grid decoration ---- */
-/* Wrapper: sits behind all content (z-index:-1 inside body's isolate context) */
+/* Wrapper: sits behind all content (z-index:-1 inside <main>'s stacking context) */
 .grid-decoration {
   position: absolute;
   top: 0;
   right: 0;
   width: 66.667%;
   height: 420px;
+  /* Negative z-index keeps the grid behind the page content. Required because
+     the grid is absolutely positioned while its sibling content (.page-frame)
+     is statically positioned: without this, the positioned grid would paint on
+     top of the static content and bleed over the section heading. Sits inside
+     <main>'s z-0 stacking context, so -1 stays above <main>'s own background. */
+  z-index: -1;
   pointer-events: none;
   user-select: none;
   isolation: isolate; /* own stacking context so __fade stays inside */
