@@ -9,12 +9,13 @@ interface Props {
 
 const { icon, heading, href } = Astro.props;
 
-const baseClass = 'surface-card';
-const linkClass = href ? ' block hover:border-accent transition-colors group' : '';
 const Wrapper = href ? 'a' : 'div';
 ---
 
-<Wrapper class={`${baseClass}${linkClass}`} href={href}>
+<Wrapper
+  class:list={['surface-card', href && 'block hover:border-accent transition-colors group']}
+  href={href}
+>
   <div class="bg-border/50 px-5 py-3">
     <h3 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
       <Icon name={icon} size="sm" />

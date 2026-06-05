@@ -48,16 +48,6 @@
   --color-bar-fg: #ede0d0;
 }
 
-/* ---- Theme switcher SVG custom properties ---- */
-/* --color-text  = track fill  (dark in light mode, light in dark mode)  */
-/* --color-bkgnd  = knob fill   (already a Tailwind token above, same values) */
-:root {
-  --color-text: #2c1810;
-}
-[data-theme="dark"] {
-  --color-text: #ede0d0;
-}
-
 /* ---- Grid decoration ---- */
 /* Wrapper: sits behind all content (z-index:-1 inside <main>'s stacking context) */
 .grid-decoration {
