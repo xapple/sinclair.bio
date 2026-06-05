@@ -25,11 +25,11 @@ const { projects, testimonials, publications, classes } = entry.data;
       <div class="card-grid">
         {projects.map((project, i) => (
           <a
-            class="card surface-card"
+            class="card surface-card page-reveal"
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            style={`animation-delay: ${i * 80}ms`}
+            style={`--reveal-delay: ${i * 80}ms`}
           >
             <div class:list={["card-thumb", { "has-image": project.image }]}>
               {project.image && <img class="thumb-light" src={project.image} alt="" loading="lazy" decoding="async" />}
@@ -110,11 +110,12 @@ const { projects, testimonials, publications, classes } = entry.data;
   }
 
   .card {
-    /* Surface, border, and radius come from the shared .surface-card class. */
+    /* Surface, border, and radius come from the shared .surface-card class.
+       Entrance fade-up comes from the shared .page-reveal class, staggered via
+       the inline --reveal-delay above. */
     display: block;
     color: inherit;
     text-decoration: none;
-    animation: reveal 500ms ease-out both;
     transition:
       transform 150ms ease,
       border-color 150ms ease,

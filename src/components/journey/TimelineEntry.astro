@@ -19,15 +19,22 @@ interface Props {
   bullets?: string[];
   // Zero-based position within its section — drives the stagger animation.
   index: number;
+  // Base reveal delay (ms) for this entry's section; rows stagger after it.
+  baseDelay?: number;
 }
 
-const { layout, title, titleHref, primary, tertiary, period, location, summary, bullets, index } = Astro.props;
+const { layout, title, titleHref, primary, tertiary, period, location, summary, bullets, index, baseDelay = 0 } = Astro.props;
 
 const variantClass = layout === 'wide' ? 'entry-item--wide' : 'entry-item--narrow';
 const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
+
+// Stagger: each row reveals STAGGER_STEP ms after the previous, offset by the
+// section's baseDelay. (index + 1) so the first row trails its section heading.
+const STAGGER_STEP = 90;
+const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
 ---
 
-<li class={`entry-item ${variantClass}`} style={`--item-index:${index};`}>
+<li class={`entry-item ${variantClass} page-reveal`} style={`--reveal-delay:${revealDelay}ms;`}>
   <span class="entry-dot" aria-hidden="true"></span>
   <article class="entry-panel surface-card">
     <div class="entry-left">
@@ -68,10 +75,8 @@ const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
     position: relative;
     padding: 0 0 0 var(--entry-inner-pad);
     margin-bottom: var(--entry-gap);
-    opacity: 0;
-    transform: translateY(14px);
-    animation: reveal 560ms ease-out forwards;
-    animation-delay: calc(var(--section-offset, 0ms) + (var(--item-index) + 1) * 90ms);
+    /* Entrance fade-up comes from the shared .page-reveal class; --reveal-delay
+       is set inline per row (section baseDelay + staggered index). */
   }
 
   .entry-item:last-child {

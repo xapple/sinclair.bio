@@ -10,12 +10,16 @@ export const getStaticPaths = langStaticPaths;
 const { lang, t } = Astro.locals;
 const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
+
+// Per-section base reveal delay (ms): the heading reveals at this delay and
+// TimelineEntry staggers its rows after it. One source for both uses below.
+const SECTION_DELAY = { experience: 0, education: 300, certifications: 600 };
 ---
 
 <Layout title={t('journey:page-title')} description={t('journey:intro')} frame="standard">
   <div class="section-stack">
-    <div class="journey-section" style="--section-offset:0ms">
-      <Reveal delay={0}>
+    <div class="journey-section">
+      <Reveal delay={SECTION_DELAY.experience}>
         <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" />
       </Reveal>
 
@@ -23,6 +27,7 @@ const { experiences, education, certifications = [] } = entry.data;
         {experiences.map((item, index) => (
           <TimelineEntry
             layout="wide"
+            baseDelay={SECTION_DELAY.experience}
             title={item.role}
             titleHref={item.href}
             primary={item.company}
@@ -37,8 +42,8 @@ const { experiences, education, certifications = [] } = entry.data;
       </ol>
     </div>
 
-    <div class="journey-section" style="--section-offset:300ms">
-      <Reveal delay={300}>
+    <div class="journey-section">
+      <Reveal delay={SECTION_DELAY.education}>
         <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" />
       </Reveal>
 
@@ -46,6 +51,7 @@ const { experiences, education, certifications = [] } = entry.data;
         {education.map((item, index) => (
           <TimelineEntry
             layout="narrow"
+            baseDelay={SECTION_DELAY.education}
             title={item.school}
             titleHref={item.href}
             primary={item.degree}
@@ -60,8 +66,8 @@ const { experiences, education, certifications = [] } = entry.data;
     </div>
 
     {certifications.length > 0 && (
-      <div class="journey-section" style="--section-offset:600ms">
-        <Reveal delay={600}>
+      <div class="journey-section">
+        <Reveal delay={SECTION_DELAY.certifications}>
           <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" />
         </Reveal>
 
@@ -69,6 +75,7 @@ const { experiences, education, certifications = [] } = entry.data;
           {certifications.map((item, index) => (
             <TimelineEntry
               layout="narrow"
+              baseDelay={SECTION_DELAY.certifications}
               title={item.name}
               titleHref={item.href}
               primary={item.issuer}
@@ -94,8 +101,6 @@ const { experiences, education, certifications = [] } = entry.data;
     --section-stack-gap: clamp(3rem, 6vw, 4.5rem);
   }
 
-  /* --section-offset is set inline per .journey-section above; it cascades into
-     .entry-item (inside TimelineEntry) to stagger its reveal. */
   .journey-section {
     display: grid;
     gap: clamp(1rem, 2vw, 1.5rem);

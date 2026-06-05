@@ -30,7 +30,9 @@ const {
   shellWidth,
 } = Astro.props;
 const shellStyle = shellWidth ? `--shell-width:${shellWidth};` : undefined;
-const frameClass = frame === 'centered' ? 'page-frame page-frame--centered' : 'page-frame';
+const frameClass = frame === 'centered'
+  ? 'page-frame page-frame--centered page-reveal'
+  : 'page-frame';
 const { lang, t } = Astro.locals;
 const metaDescription = description ?? t('meta:site-description');
 

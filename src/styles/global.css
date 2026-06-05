@@ -177,7 +177,9 @@ html:not([data-dom-loaded]) footer {
   align-items: center;
   justify-content: center;
   padding: 2rem 1.25rem;
-  animation: reveal 400ms ease-out both;
+  /* Entrance comes from the shared .page-reveal class (added in Layout's
+     frameClass). Keep the slightly quicker auth fade via the duration knob. */
+  --reveal-duration: 400ms;
 }
 
 .page-frame--centered > .page-shell {
@@ -297,9 +299,12 @@ html:not([data-dom-loaded]) footer {
   border-color: var(--color-accent);
 }
 
-/* Fade-up entrance utility. Used by home sections (staggered via --reveal-delay)
-   and the Talk page (single element). Both --reveal-delay and --reveal-duration
-   are CSS variables so individual call sites can tune timing inline. */
+/* The one fade-up entrance primitive (keyframe `reveal`). Applied via the
+   <Reveal> wrapper (home sections, Talk page) or directly as a class on
+   elements that carry their own tag/attributes (journey rows, portfolio cards,
+   the centered auth frame). --reveal-delay drives per-element stagger;
+   --reveal-duration tunes speed. Both default here so most call sites only set
+   --reveal-delay. */
 .page-reveal {
   opacity: 0;
   transform: translateY(12px);
