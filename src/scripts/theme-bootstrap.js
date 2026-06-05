@@ -37,7 +37,6 @@ function resolveTheme() {
 function applyTheme(color, root) {
   root = root || document;
   var html = root.documentElement;
-  html.classList.toggle('dark', color === 'dark');
   html.dataset.theme = color;
 
   var csMeta = root.querySelector('meta[name="color-scheme"]');

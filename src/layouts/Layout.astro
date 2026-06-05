@@ -108,7 +108,7 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
     <!-- Single source of truth for theme hex values. Pushed into CSS as
          --theme-bkgnd-{light,dark} and --theme-accent-{light,dark}, which
-         global.css's @theme + .dark blocks reference. -->
+         global.css's @theme + [data-theme] blocks reference. -->
     <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; --theme-accent-light: ${THEME_ACCENT.light}; --theme-accent-dark: ${THEME_ACCENT.dark}; }`} />
     <!-- Blocking theme bootstrap. Source: src/scripts/theme-bootstrap.js,
          imported as raw text and inlined here so it runs before bundles load.

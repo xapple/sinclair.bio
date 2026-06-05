@@ -1,9 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
-import ExternalLinkCallout from '../../components/ExternalLinkCallout.astro';
-import HIndexCallout from '../../components/HIndexCallout.astro';
+import Callout from '../../components/Callout.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
+import { PROFILES } from '../../data/profile';
 
 export const getStaticPaths = langStaticPaths;
 
@@ -44,7 +44,7 @@ const { projects, testimonials, publications, classes } = entry.data;
         ))}
       </div>
 
-      <ExternalLinkCallout icon="github" text={t("portfolio:github-link")} href="https://github.com/xapple" />
+      <Callout icon="github" text={t("portfolio:github-link")} href={PROFILES.github} />
     </section>
 
     <section class="portfolio-section">
@@ -73,8 +73,8 @@ const { projects, testimonials, publications, classes } = entry.data;
       </ul>
 
       <div class="pub-links">
-        <HIndexCallout label={t("portfolio:hindex-label")} value={10} href="https://www.scopus.com/authid/detail.uri?authorId=56675539100" />
-        <ExternalLinkCallout icon="orcid" text={t("portfolio:orcid-link")} href="https://orcid.org/0000-0003-4134-3571" />
+        <Callout icon="scopus" text={t("portfolio:hindex-label")} value={10} href={PROFILES.scopus} />
+        <Callout icon="orcid" text={t("portfolio:orcid-link")} href={PROFILES.orcid} />
       </div>
     </section>
 
@@ -156,21 +156,21 @@ const { projects, testimonials, publications, classes } = entry.data;
 
   /* Theme-aware image swap. Dark variants are luminance-inverted (a real dark
      capture for the site card), so they sit on a near-black mat. The theme
-     toggle sets .dark on <html>; these rules follow it. The light variant is
+     toggle sets data-theme="dark" on <html>; these rules follow it. The light variant is
      shown by default; dark mode hides it and reveals .thumb-dark. */
   .card-thumb .thumb-dark {
     display: none;
   }
 
-  :global(html.dark) .card-thumb.has-image {
+  :global(html[data-theme="dark"]) .card-thumb.has-image {
     background: #000;
   }
 
-  :global(html.dark) .card-thumb .thumb-light {
+  :global(html[data-theme="dark"]) .card-thumb .thumb-light {
     display: none;
   }
 
-  :global(html.dark) .card-thumb .thumb-dark {
+  :global(html[data-theme="dark"]) .card-thumb .thumb-dark {
     display: block;
   }
 

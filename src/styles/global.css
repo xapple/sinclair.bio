@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ---- Design tokens ----
    --color-bkgnd is single-sourced from THEME_BKGND in
@@ -27,7 +27,7 @@
 }
 
 /* Dark mode overrides */
-.dark {
+[data-theme="dark"] {
   --color-bkgnd:   var(--theme-bkgnd-dark);
   --color-surface: #1f1209;
   --color-ink:     #ede0d0;
@@ -51,7 +51,7 @@
 :root {
   --color-text: #2c1810;
 }
-.dark {
+[data-theme="dark"] {
   --color-text: #ede0d0;
 }
 
@@ -78,7 +78,7 @@
     repeating-linear-gradient(to bottom, var(--color-border) 0px, var(--color-border) 1px, transparent 1px, transparent 32px);
 }
 
-.dark .grid-decoration__grid {
+[data-theme="dark"] .grid-decoration__grid {
   opacity: 1;
 }
 

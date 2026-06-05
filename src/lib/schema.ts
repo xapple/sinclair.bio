@@ -1,6 +1,7 @@
 // JSON-LD schemas for Layout.astro <head>. Pure data builders — no DOM.
 
 import type { Language, useTranslations } from "../i18n/translations";
+import { PROFILES } from "../data/profile";
 
 type TFn = ReturnType<typeof useTranslations>;
 
@@ -25,11 +26,7 @@ export function buildPersonSchema({ siteUrl, ogImageUrl, t }: SchemaArgs) {
       addressLocality: "Geneva",
       addressCountry: "CH",
     },
-    sameAs: [
-      "https://orcid.org/0000-0003-4134-3571",
-      "https://github.com/xapple",
-      "https://linkedin.com/in/sinclair-bio",
-    ],
+    sameAs: [PROFILES.orcid, PROFILES.github, PROFILES.linkedin],
   };
 }
 

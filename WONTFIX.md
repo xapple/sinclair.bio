@@ -22,7 +22,7 @@ The home outline skips from `<h1>` to `<h3>`. This is a design choice.
 
 The bootstrap respects a stored preference, but `ThemeToggle.astro` (line 14)
 calls `setTheme()` whenever the operating-system preference changes, writing
-over the saved manual choice. We want the OS to take precedence.
+over the saved manual choice. We want the OS to take precedence in such cases.
 
 ## The “Contact” navigation item navigates to Home
 
@@ -31,8 +31,7 @@ In NavLinks.astro (line 5), it links to /${lang}/, and ContactSection.astro
 (line 15) has no target id.
 From Journey, Portfolio, or Talk, visitors selecting “Contact” land at the 
 hero instead of the form.
-Add an anchor such as id="contact" and link to /${lang}/#contact.
-The home page is actually the contact form.
+This is expected as the home page is actually the contact form.
 
 ## Sitemap `lastmod` claims every page changed on every deployment
 

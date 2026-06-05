@@ -1,0 +1,85 @@
+---
+// Small "More on X →" callout shown under portfolio sections. With `value` set,
+// it renders an emphasized stat (e.g. "h-index 10 →") instead of plain text;
+// the shared chrome — icon, muted→ink hover, nudging arrow — is identical
+// either way. Replaces the former ExternalLinkCallout + HIndexCallout pair.
+import { getIcon } from '../assets/icons';
+
+interface Props {
+  icon: string;             // basename in src/assets/icons/
+  text: string;             // label text (e.g. "More on GitHub", "h-index")
+  href: string;
+  value?: string | number;  // if set, rendered as an emphasized stat after text
+  ariaLabel?: string;       // overrides the link's accessible name
+}
+
+const { icon, text, href, value, ariaLabel } = Astro.props;
+const svg = getIcon(icon);
+// Stat links read their two visible spans as one name ("h-index 10"); set it
+// explicitly so the value isn't run together with the label.
+const label = ariaLabel ?? (value !== undefined ? `${text} ${value}` : undefined);
+---
+
+<p class="callout">
+  <a
+    class="callout-link"
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={label}
+  >
+    <span class="callout-icon" aria-hidden="true" set:html={svg} />
+    <span>{text}</span>
+    {value !== undefined && <span class="callout-value">{value}</span>}
+    <span class="callout-arrow" aria-hidden="true">→</span>
+  </a>
+</p>
+
+<style>
+  .callout {
+    margin: 0.5rem 0 0;
+  }
+
+  .callout-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .callout-icon {
+    display: inline-flex;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .callout-icon :global(svg) {
+    display: block;
+    width: 1em;
+    height: 1em;
+  }
+
+  /* Emphasised metric value (the stat variant). */
+  .callout-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent);
+  }
+
+  .callout-arrow {
+    transition: transform 0.15s ease;
+  }
+
+  .callout-link:hover,
+  .callout-link:focus-visible {
+    color: var(--color-ink);
+  }
+
+  .callout-link:hover .callout-arrow,
+  .callout-link:focus-visible .callout-arrow {
+    transform: translateX(2px);
+  }
+</style>

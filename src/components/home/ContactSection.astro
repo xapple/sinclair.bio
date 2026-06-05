@@ -1,15 +1,9 @@
 ---
 import Icon from '../Icon.astro';
 import InfoCard from '../InfoCard.astro';
+import { DM_CHANNELS } from '../../data/profile';
 
 const { lang, t } = Astro.locals;
-
-const dmChannels = [
-  { icon: 'telegram', label: 'Telegram', handle: '@sinclair99',   href: 'https://t.me/sinclair99' },
-  { icon: 'signal',   label: 'Signal',   handle: '@sinclair.99',  href: 'https://signal.me/#eu/R-vlT2way2bjfP_7a4OIQhF-kmpZYAB3M24x-b0ue15FoM4CvZNEjKD0qfCVNF5_' },
-  { icon: 'threema',  label: 'Threema',  handle: '@p3wmfn9c',     href: 'https://threema.id/p3wmfn9c' },
-  { icon: 'matrix',   label: 'Matrix',   handle: '@sinclair.bio', href: 'https://matrix.to/#/@sinclair.bio:matrix.org' },
-];
 ---
 
 <section class="py-12">
@@ -83,7 +77,7 @@ const dmChannels = [
 
       <InfoCard icon="lock" heading={t('home:dm-heading')}>
         <ul class="space-y-3 text-sm">
-          {dmChannels.map(({ icon, label, handle, href }) => (
+          {DM_CHANNELS.map(({ icon, label, handle, href }) => (
             <li class="flex items-center justify-between gap-2">
               <span class="flex items-center gap-1.5 text-muted shrink-0">
                 <Icon name={icon} size="xs" />
