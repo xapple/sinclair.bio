@@ -40,3 +40,7 @@ sitemap gave all pages the audit build timestamp, even when content was
 unchanged, making `lastmod` unreliable to crawlers. 
 We could have a script that gives real per-page lastmod times by parsing the
 git log, but this seems like overengineering.
+
+## The test suite only has live production tests.
+
+For instance test_locale_redirect.py makes network requests against the deployed site. Yes, this is intended, we have decided not to test the local dev instance.
