@@ -51,6 +51,11 @@ const portfolio = defineCollection({
       z.object({
         name: z.string(),
         href: z.url(),
+        // Card thumbnails: root-relative paths into public/projects/ (a remote
+        // URL is also accepted). imageDark is shown when the theme toggle puts
+        // the site in dark mode; it falls back to image when absent.
+        image: z.union([z.url(), z.string().startsWith('/')]).optional(),
+        imageDark: z.union([z.url(), z.string().startsWith('/')]).optional(),
         description: z.string(),
         tags: z.array(z.string()),
       })

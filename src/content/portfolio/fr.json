@@ -3,38 +3,50 @@
     {
       "name": "crest4",
       "href": "https://github.com/xapple/crest4",
+      "image": "/projects/crest4.webp",
+      "imageDark": "/projects/crest4-dark.webp",
       "description": "Attribue des noms taxonomiques aux séquences d'ADN issues du séquençage environnemental — une réécriture moderne du classificateur CREST.",
-      "tags": ["Bioinformatique", "Taxonomie", "Python"]
+      "tags": ["Bioinformatique", "Microbiologie", "Python"]
     },
     {
       "name": "pacmill",
       "href": "https://github.com/xapple/pacmill",
+      "image": "/projects/pacmill.webp",
+      "imageDark": "/projects/pacmill-dark.webp",
       "description": "Pipeline complet pour le séquençage d'amplicons 16S rRNA en lecture longue PacBio, des reads bruts aux rapports prêts à publier.",
-      "tags": ["Bioinformatique", "Pipeline", "Amplicons"]
+      "tags": ["Bioinformatique", "Pipeline", "Python"]
     },
     {
       "name": "seqenv",
       "href": "https://github.com/xapple/seqenv",
+      "image": "/projects/seqenv.webp",
+      "imageDark": "/projects/seqenv-dark.webp",
       "description": "Relie les séquences d'ADN aux termes de l'ontologie environnementale (EnvO) par fouille de texte de la littérature scientifique.",
-      "tags": ["Bioinformatique", "Fouille de texte", "Ontologie"]
+      "tags": ["Bioinformatique", "Fouille de texte", "Python"]
     },
     {
       "name": "track",
       "href": "https://github.com/xapple/track",
+      "image": "/projects/track.webp",
+      "imageDark": "/projects/track-dark.webp",
       "description": "Accès simple en lecture/écriture aux pistes génomiques dans de nombreux formats, adossé à SQLite.",
-      "tags": ["Génomique", "Données", "Python"]
+      "tags": ["Génomique", "SQL", "Python"]
     },
     {
       "name": "forest_puller",
       "href": "https://github.com/xapple/forest_puller",
+      "image": "/projects/forest_puller.webp",
+      "imageDark": "/projects/forest_puller-dark.webp",
       "description": "Récupère et harmonise les données d'inventaire forestier européen issues de sources publiques en un jeu de données comparable.",
-      "tags": ["Data Science", "Données ouvertes", "Environnement"]
+      "tags": ["Données ouvertes", "Écologie", "Python"]
     },
     {
-      "name": "www.sinclair",
+      "name": "www.sinclair.bio",
       "href": "https://github.com/xapple/sinclair.bio",
-      "description": "Ce site même — un site statique rapide et bilingue conçu avec Astro, Tailwind CSS et TypeScript.",
-      "tags": ["Dév web", "Astro", "TypeScript"]
+      "image": "/projects/sinclair.webp",
+      "imageDark": "/projects/sinclair-dark.webp",
+      "description": "Ce site même — un site statique rapide et bilingue conçu avec Astro, Tailwind CSS et TypeScript, déployé automatiquement à chaque commit.",
+      "tags": ["Site web", "Astro", "TypeScript"]
     }
   ],
   "testimonials": [

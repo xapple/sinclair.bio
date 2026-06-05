@@ -3,38 +3,50 @@
     {
       "name": "crest4",
       "href": "https://github.com/xapple/crest4",
+      "image": "/projects/crest4.webp",
+      "imageDark": "/projects/crest4-dark.webp",
       "description": "Assigns taxonomic names to DNA sequences from environmental sequencing — a modern rewrite of the CREST classifier.",
-      "tags": ["Bioinformatics", "Taxonomy", "Python"]
+      "tags": ["Bioinformatics", "Microbiology", "Python"]
     },
     {
       "name": "pacmill",
       "href": "https://github.com/xapple/pacmill",
+      "image": "/projects/pacmill.webp",
+      "imageDark": "/projects/pacmill-dark.webp",
       "description": "End-to-end pipeline for long-read PacBio 16S rRNA amplicon sequencing, from raw reads to publication-ready reports.",
-      "tags": ["Bioinformatics", "Pipeline", "Amplicons"]
+      "tags": ["Bioinformatics", "Pipeline", "Python"]
     },
     {
       "name": "seqenv",
       "href": "https://github.com/xapple/seqenv",
+      "image": "/projects/seqenv.webp",
+      "imageDark": "/projects/seqenv-dark.webp",
       "description": "Links DNA sequences to Environment Ontology (EnvO) terms by text-mining the scientific literature.",
-      "tags": ["Bioinformatics", "Text Mining", "Ontology"]
+      "tags": ["Bioinformatics", "Text Mining", "Python"]
     },
     {
       "name": "track",
       "href": "https://github.com/xapple/track",
+      "image": "/projects/track.webp",
+      "imageDark": "/projects/track-dark.webp",
       "description": "Straightforward read/write access to genomic tracks across many file formats, backed by SQLite.",
-      "tags": ["Genomics", "Data", "Python"]
+      "tags": ["Genomics", "SQL", "Python"]
     },
     {
       "name": "forest_puller",
       "href": "https://github.com/xapple/forest_puller",
+      "image": "/projects/forest_puller.webp",
+      "imageDark": "/projects/forest_puller-dark.webp",
       "description": "Retrieves and harmonizes European forest-inventory data from public sources into one comparable dataset.",
-      "tags": ["Data Science", "Open Data", "Environment"]
+      "tags": ["Open Data", "Ecology", "Python"]
     },
     {
-      "name": "www.sinclair",
+      "name": "www.sinclair.bio",
       "href": "https://github.com/xapple/sinclair.bio",
-      "description": "This very site — a fast, bilingual static site built with Astro, Tailwind CSS, and TypeScript.",
-      "tags": ["Web Dev", "Astro", "TypeScript"]
+      "image": "/projects/sinclair.webp",
+      "imageDark": "/projects/sinclair-dark.webp",
+      "description": "This very site — a fast, bilingual static site built with Astro, Tailwind CSS, and TypeScript, auto-deployed on every commit.",
+      "tags": ["Website", "Astro", "TypeScript"]
     }
   ],
   "testimonials": [
