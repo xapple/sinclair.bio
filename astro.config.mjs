@@ -2,13 +2,17 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import { LANGUAGE_LIST, DEFAULT_LANGUAGE } from './src/i18n/translations';
+
+// Sitemap wants locales as a { code: pathPrefix } map; ours are 1:1.
+const sitemapLocales = Object.fromEntries(LANGUAGE_LIST.map((l) => [l, l]));
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://sinclair.bio',
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'fr'],
+    defaultLocale: DEFAULT_LANGUAGE,
+    locales: [...LANGUAGE_LIST],
     routing: {
       prefixDefaultLocale: true,
     },
@@ -17,7 +21,7 @@ export default defineConfig({
   // `/` with an Accept-Language-aware 302. This static redirect is only served
   // as a fallback (local `astro preview`, or if Functions are disabled).
   redirects: {
-    '/': '/en/',
+    '/': `/${DEFAULT_LANGUAGE}/`,
   },
   integrations: [
     sitemap({
@@ -28,8 +32,8 @@ export default defineConfig({
         page !== 'https://sinclair.bio/' &&
         !/\/(login|forgot)\/?$/.test(page),
       i18n: {
-        defaultLocale: 'en',
-        locales: { en: 'en', fr: 'fr' },
+        defaultLocale: DEFAULT_LANGUAGE,
+        locales: sitemapLocales,
       },
       serialize(item) {
         item.lastmod = new Date().toISOString();
