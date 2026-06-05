@@ -116,10 +116,18 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
          <meta theme-color> tags to the topbar color for the current theme. -->
     <script is:inline define:vars={{ THEME_BAR }} set:html={themeBootstrap} />
   </head>
-  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-bkgnd font-sans text-ink transition-[background-color,color] duration-150">
-    <GridDecoration />
+  <!-- Body is the bar color, not the page background: Safari 26 derives its
+       toolbar tint from the <body> background, so a bar-colored body keeps the
+       browser chrome the same brown as the topbar — including the brief window
+       during a cross-document navigation when the new page's sticky topbar
+       isn't sampled yet (otherwise the chrome flashes to the page background).
+       The cream page background lives on <main> instead, which fills the space
+       between the topbar and footer; the body color shows only on overscroll,
+       where it matches the topbar and footer. -->
+  <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-bar font-sans text-ink transition-[background-color,color] duration-150">
     <Topbar />
-    <main class="relative flex-1">
+    <main class="relative z-0 flex-1 bg-bkgnd transition-[background-color] duration-150">
+      <GridDecoration />
       <section class={frameClass}>
         <div class="page-shell" style={shellStyle}>
           <slot />

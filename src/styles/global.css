@@ -58,20 +58,6 @@
   --color-text: #ede0d0;
 }
 
-/* ---- Document background (macOS Safari toolbar tint + overscroll) ----
-   Safari decides its tab-bar / toolbar tint from the page's ROOT background.
-   With <html> left transparent it has no color to sample, so it leaves the
-   toolbar its default grey on short, non-scrollable pages but samples the brown
-   topbar on scrollable ones — navigating between a short and a tall page then
-   flashes the chrome grey<->brown. (theme-color does NOT drive this on macOS
-   desktop; it's a mobile signal.) Giving <html> a background equal to the
-   topbar color gives Safari one consistent color in every scroll state, and
-   paints the overscroll/rubber-band area to match the topbar and footer. The
-   opaque min-h-screen <body> sits on top, so this only shows on overscroll. */
-html {
-  background-color: var(--color-bar);
-}
-
 /* ---- Grid decoration ---- */
 /* Wrapper: sits behind all content (z-index:-1 inside body's isolate context) */
 .grid-decoration {

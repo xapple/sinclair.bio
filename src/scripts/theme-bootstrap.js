@@ -3,9 +3,10 @@
 // runs before bundles load — FOUC guard.
 //
 // `THEME_BAR` is provided at inline time by Astro's `define:vars`, sourced
-// from src/scripts/theme-switcher.ts. It's the topbar color; the
-// <meta theme-color> tags use it so macOS Safari's toolbar (which samples the
-// brown sticky topbar on scrollable pages) matches the bar instead of flashing.
+// from src/scripts/theme-switcher.ts. It's the topbar/body color; the
+// <meta theme-color> tags use it so the chrome matches the topbar on mobile and
+// browsers that honor theme-color. (macOS Safari 26 ignores theme-color and
+// tints its toolbar from the <body> background instead — handled in Layout.)
 //
 // This file is the single source of truth for the apply-theme operation: it
 // exposes `applyTheme` on `window.__sinclairTheme` so the bundled TS module

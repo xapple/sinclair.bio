@@ -18,12 +18,13 @@ export const THEME_ACCENT = {
 } as const;
 
 // Topbar color — single source for --color-bar. Layout.astro mirrors it into
-// CSS as --theme-bar-{light,dark} and uses it for the <meta name="theme-color">
-// tags (and the blocking bootstrap rewrites those tags to match the live
-// theme). theme-color matches the topbar, NOT the page background: macOS Safari
-// samples the brown sticky topbar to tint its toolbar on scrollable pages, so
-// keeping theme-color on the bar color stops the toolbar flashing between the
-// bar color and the page background across navigations.
+// CSS as --theme-bar-{light,dark}. --color-bar drives the topbar AND the <body>
+// background (see Layout.astro): Safari 26 derives its toolbar tint from the
+// body background, so a bar-colored body keeps the browser chrome the same
+// brown as the topbar instead of flashing to the page background mid-navigation.
+// The same color also feeds the <meta name="theme-color"> tags, which color the
+// chrome on mobile and browsers that still honor that tag (Safari 26 ignores
+// it).
 export const THEME_BAR = {
   light: "#4a1e1e",
   dark: "#3a1414",
