@@ -6,8 +6,8 @@
 // Adding a language is a one-line edit here plus a translations block below;
 // routes generate automatically via langStaticPaths.
 export const LANGUAGES = {
-  en: { code: 'en', fullLabel: 'English',  flag: '🇬🇧', ogLocale: 'en_US' },
-  fr: { code: 'fr', fullLabel: 'Français', flag: '🇫🇷', ogLocale: 'fr_FR' },
+  en: { fullLabel: 'English',  flag: '🇬🇧', ogLocale: 'en_US' },
+  fr: { fullLabel: 'Français', flag: '🇫🇷', ogLocale: 'fr_FR' },
 } as const;
 
 export type Language = keyof typeof LANGUAGES;
@@ -212,16 +212,15 @@ export const translations = {
 } as const satisfies Record<Language, Record<TranslationKeyType, string>>;
 
 /**
- * Curried translation function.
+ * Curried translation lookup.
  * Usage: const t = useTranslations(lang); t("nav:contact");
- * Supports %s placeholder: t("%s project", "MyProject")
+ * The one interpolated string (the footer year) does its own %s substitution
+ * at the call site — see Footer.astro.
  */
 export function useTranslations(
   language: Language
-): (key: TranslationKeyType, replace?: string) => string {
-  return function t(key: TranslationKeyType, replace?: string): string {
-    let translated: string = translations[language][key];
-    if (replace !== undefined) translated = translated.replace("%s", replace);
-    return translated;
+): (key: TranslationKeyType) => string {
+  return function t(key: TranslationKeyType): string {
+    return translations[language][key];
   };
 }

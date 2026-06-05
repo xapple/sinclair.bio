@@ -1,10 +1,8 @@
 // --- Theme background colors ---
 // Single source of truth for the page background hex values. Layout.astro
-// injects these into CSS as --theme-bkgnd-light / --theme-bkgnd-dark (via
-// define:vars), which global.css's @theme + .dark blocks reference for
-// --color-bkgnd. The same constant is also passed to the blocking inline
-// bootstrap (theme-bootstrap.js) so it can set <meta theme-color> before CSS
-// loads, and to Layout.astro itself for the static <meta theme-color> tags.
+// injects these into CSS as --theme-bkgnd-light / --theme-bkgnd-dark, which
+// global.css's @theme + [data-theme] blocks reference for --color-bkgnd. (The
+// <meta name="theme-color"> tags use THEME_BAR, not this — see below.)
 export const THEME_BKGND = {
   light: "#fffff8",
   dark: "#140c07",
@@ -17,6 +15,18 @@ export const THEME_BKGND = {
 export const THEME_ACCENT = {
   light: "#6b2c2c",
   dark: "#cc6464",
+} as const;
+
+// Topbar color — single source for --color-bar. Layout.astro mirrors it into
+// CSS as --theme-bar-{light,dark} and uses it for the <meta name="theme-color">
+// tags (and the blocking bootstrap rewrites those tags to match the live
+// theme). theme-color matches the topbar, NOT the page background: macOS Safari
+// samples the brown sticky topbar to tint its toolbar on scrollable pages, so
+// keeping theme-color on the bar color stops the toolbar flashing between the
+// bar color and the page background across navigations.
+export const THEME_BAR = {
+  light: "#4a1e1e",
+  dark: "#3a1414",
 } as const;
 
 export type ThemeColor = keyof typeof THEME_BKGND;

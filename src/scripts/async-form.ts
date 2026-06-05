@@ -13,9 +13,8 @@ export interface FormResult {
   // Optional technical detail rendered on a second line in a smaller, muted
   // font (e.g. `Failed to fetch` under a friendly "something went wrong").
   detail?: string;
-  // Visual variant for the status element. The helper applies one of
-  // `${statusBaseClass} ${statusBaseClass}--{success,error}` (auth pages) or
-  // a caller-provided className per kind (contact form).
+  // Visual variant for the status element. The helper passes this to the
+  // caller's `classFor(kind)` to compute the status element's className.
   kind: 'success' | 'error';
   // If set, navigate here instead of writing status (used by login redirect).
   redirect?: string;
@@ -28,21 +27,13 @@ export interface AsyncFormOptions {
   selector?: string;
   // Selector for the status element. Required.
   statusSelector: string;
-  // Label shown on the submit button while the request is in flight.
-  // Read from form.dataset.sending if omitted.
-  sendingLabel?: string;
-  // Base class applied to the status element. For auth pages this is
-  // 'auth-status' and the helper appends '--success' / '--error' modifier
-  // classes. Pass `classFor` instead for fully custom per-result classes.
-  statusBaseClass?: string;
-  // Fully custom status className resolver (overrides statusBaseClass).
-  classFor?: (kind: 'success' | 'error') => string;
+  // Resolves the status element's className for a result kind, e.g.
+  // `auth-status auth-status--error` (auth) or a Tailwind chain (contact).
+  // Owned by the caller so each form keeps its own status styling.
+  classFor: (kind: 'success' | 'error') => string;
   // Maps a fetch response to a UI result. Receives the parsed JSON body
   // (`{}` if the body wasn't JSON) and the raw Response.
   mapResponse: (response: Response, data: unknown) => FormResult;
-  // Fallback text when the fetch itself throws (network error). Read from
-  // form.dataset.errorGeneric if omitted.
-  errorGenericLabel?: string;
 }
 
 export function initAsyncForm(options: AsyncFormOptions): void {
@@ -53,11 +44,10 @@ export function initAsyncForm(options: AsyncFormOptions): void {
   const status = document.querySelector<HTMLElement>(options.statusSelector);
   if (!submitBtn || !status) return;
 
-  const sending = options.sendingLabel ?? form.dataset.sending ?? '';
-  const errorGeneric = options.errorGenericLabel ?? form.dataset.errorGeneric ?? '';
-
-  const classFor = options.classFor
-    ?? ((kind) => `${options.statusBaseClass} ${options.statusBaseClass}--${kind}`);
+  // Localized labels ride on the form's data-* attributes (language-agnostic).
+  const sending = form.dataset.sending ?? '';
+  const errorGeneric = form.dataset.errorGeneric ?? '';
+  const { classFor } = options;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -66,7 +56,7 @@ export function initAsyncForm(options: AsyncFormOptions): void {
     submitBtn.textContent = sending;
     submitBtn.disabled = true;
     status.textContent = '';
-    status.className = options.statusBaseClass ?? '';
+    status.className = '';
 
     const applyResult = (result: FormResult) => {
       if (result.redirect) {

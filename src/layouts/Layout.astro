@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
 import { LANGUAGES, LANGUAGE_LIST, DEFAULT_LANGUAGE } from '../i18n/translations';
 import { getAlternatePath } from '../i18n/page';
-import { THEME_BKGND, THEME_ACCENT } from '../scripts/theme-switcher';
+import { THEME_BKGND, THEME_ACCENT, THEME_BAR } from '../scripts/theme-switcher';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
 import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
 import '../styles/global.css';
@@ -73,8 +73,8 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     {robots && <meta name="robots" content={robots} />}
     <meta name="author" content="Lucas Sinclair" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content={THEME_BKGND.light} />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={THEME_BKGND.dark} />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content={THEME_BAR.light} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={THEME_BAR.dark} />
     <title>{title}</title>
 
     <link rel="canonical" href={canonicalUrl} />
@@ -109,11 +109,12 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
     <!-- Single source of truth for theme hex values. Pushed into CSS as
          --theme-bkgnd-{light,dark} and --theme-accent-{light,dark}, which
          global.css's @theme + [data-theme] blocks reference. -->
-    <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; --theme-accent-light: ${THEME_ACCENT.light}; --theme-accent-dark: ${THEME_ACCENT.dark}; }`} />
+    <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; --theme-accent-light: ${THEME_ACCENT.light}; --theme-accent-dark: ${THEME_ACCENT.dark}; --theme-bar-light: ${THEME_BAR.light}; --theme-bar-dark: ${THEME_BAR.dark}; }`} />
     <!-- Blocking theme bootstrap. Source: src/scripts/theme-bootstrap.js,
          imported as raw text and inlined here so it runs before bundles load.
-         THEME_BKGND comes from theme-switcher.ts via define:vars. -->
-    <script is:inline define:vars={{ THEME_BKGND }} set:html={themeBootstrap} />
+         THEME_BAR comes from theme-switcher.ts via define:vars and sets the
+         <meta theme-color> tags to the topbar color for the current theme. -->
+    <script is:inline define:vars={{ THEME_BAR }} set:html={themeBootstrap} />
   </head>
   <body class="relative z-0 flex min-h-screen flex-col overflow-x-hidden bg-bkgnd font-sans text-ink transition-[background-color,color] duration-150">
     <GridDecoration />

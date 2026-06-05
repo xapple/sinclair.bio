@@ -20,6 +20,40 @@ export const SOCIAL_LINKS = [
   { icon: 'linkedin', label: 'in/sinclair-bio', href: PROFILES.linkedin },
 ] as const;
 
+// Peer-reviewed publications shown on the portfolio page. Language-invariant
+// (titles, authors, journals, DOIs and years never translate), so they live
+// here as one source rather than duplicated across content/portfolio/{en,fr}.json.
+export const PUBLICATIONS = [
+  {
+    title: 'Comparing Reported Forest Biomass Gains and Losses in European and Global Datasets',
+    href: 'https://doi.org/10.3390/f12020176',
+    authors: 'Sinclair L., Rougieux P.',
+    journal: 'Forests',
+    year: '2021',
+  },
+  {
+    title: 'Seqenv: linking sequences to environments through text mining',
+    href: 'https://doi.org/10.7717/peerj.2690',
+    authors: 'Sinclair L., Ijaz U.Z., Jensen L.J., et al.',
+    journal: 'PeerJ',
+    year: '2016',
+  },
+  {
+    title: 'Microbial Community Composition and Diversity via 16S rRNA Gene Amplicons: Evaluating the Illumina Platform',
+    href: 'https://doi.org/10.1371/journal.pone.0116955',
+    authors: 'Sinclair L., Osman O.A., Bertilsson S., Eiler A.',
+    journal: 'PLOS One',
+    year: '2015',
+  },
+  {
+    title: 'HTSstation: A Web Application and Open-Access Libraries for High-Throughput Sequencing Data Analysis',
+    href: 'https://doi.org/10.1371/journal.pone.0085879',
+    authors: 'David F.P.A., Delafontaine J., …, Sinclair L., et al.',
+    journal: 'PLOS One',
+    year: '2014',
+  },
+] as const;
+
 // Direct-messaging channels shown in the home contact section.
 export const DM_CHANNELS = [
   { icon: 'telegram', label: 'Telegram', handle: '@sinclair99',   href: 'https://t.me/sinclair99' },

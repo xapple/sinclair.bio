@@ -16,7 +16,7 @@ const { experiences, education, certifications = [] } = entry.data;
 const SECTION_DELAY = { experience: 0, education: 300, certifications: 600 };
 ---
 
-<Layout title={t('journey:page-title')} description={t('journey:intro')} frame="standard">
+<Layout title={t('journey:page-title')} description={t('journey:intro')}>
   <div class="section-stack">
     <div class="journey-section">
       <Reveal delay={SECTION_DELAY.experience}>

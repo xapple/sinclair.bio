@@ -1,0 +1,52 @@
+---
+// One reference-list row: a titled external link above a meta line. Shared by
+// the portfolio Publications and Coursework lists, which differ only in how the
+// meta line is composed — so the title/href come in as props and the meta line
+// is passed as children via the default slot (keeps inline markup like <em>).
+interface Props {
+  title: string;
+  href: string;
+}
+
+const { title, href } = Astro.props;
+---
+
+<li class="ref-item">
+  <p class="ref-title"><a href={href} target="_blank" rel="noopener noreferrer">{title}</a></p>
+  <p class="ref-meta"><slot /></p>
+</li>
+
+<style>
+  .ref-item {
+    border-left: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
+    padding: 0.15rem 0 0.15rem 1rem;
+  }
+
+  .ref-title {
+    margin: 0 0 0.3rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    line-height: 1.45;
+  }
+
+  .ref-title a {
+    color: inherit;
+    text-decoration: none;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  .ref-title a:hover,
+  .ref-title a:focus-visible {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .ref-meta {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+</style>

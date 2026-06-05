@@ -17,6 +17,11 @@ export async function getLangEntry<C extends CollectionKey>(
   collection: C,
   lang: Language,
 ): Promise<CollectionEntry<C>> {
+  // The glob loader keys each entry by id, and our collections use the language
+  // code as the id (src/content/*/{en,fr}.{json,md}). getEntry(collection, lang)
+  // reads more directly, but over a generic CollectionKey its conditional return
+  // type won't narrow to CollectionEntry<C> without a cast — so we keep the
+  // cast-free getCollection().find() here.
   const entries = await getCollection(collection);
   const entry = entries.find((e) => e.id === lang);
   if (!entry) throw new Error(`No "${collection}" content found for lang: ${lang}`);

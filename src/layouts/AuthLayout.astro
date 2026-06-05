@@ -94,22 +94,17 @@ const { t } = Astro.locals;
     letter-spacing: 0.02em;
   }
 
-  .auth-form :global(input[type="email"]),
-  .auth-form :global(input[type="password"]) {
+  /* Auth inputs reuse the shared .field-input primitive (set in the page
+     markup); these scoped rules add only the auth-specific deltas — a slightly
+     different size and a focus ring. :global because the inputs are slotted in
+     from the child page. */
+  .auth-form :global(.field-input) {
     padding: 0.6rem 0.85rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    background: var(--color-bkgnd);
-    color: var(--color-ink);
     font-size: 0.95rem;
-    font-family: inherit;
     transition: border-color 150ms ease, box-shadow 150ms ease;
   }
 
-  .auth-form :global(input[type="email"]:focus),
-  .auth-form :global(input[type="password"]:focus) {
-    outline: none;
-    border-color: var(--color-accent);
+  .auth-form :global(.field-input:focus) {
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
   }
 

@@ -15,7 +15,8 @@ function basename(path: string): string {
   return path.replace(/^\.\//, '').replace(/\.svg$/, '');
 }
 
-export const icons: Record<string, string> = Object.fromEntries(
+// Module-local: callers go through getIcon(), which validates the name.
+const icons: Record<string, string> = Object.fromEntries(
   Object.entries(modules).map(([path, svg]) => [basename(path), svg]),
 );
 

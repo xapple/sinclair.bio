@@ -1,9 +1,10 @@
 // Cal.com inline embed bootstrap & lifecycle helpers.
 //
-// The Cal.com docs ship a tightly-minified IIFE loader; we keep it as the
-// `installCalLoader` private helper (renamed identifiers, properly typed) so
-// it stays close to upstream. The public surface (`mountCalEmbed`,
-// `watchThemeAndRestyle`) is what the page script actually calls.
+// The Cal.com loader (the queueing IIFE that installs `window.Cal` and
+// lazy-loads embed.js) is the official `@calcom/embed-snippet` default export.
+// The public surface (`mountCalEmbed`, `watchThemeAndRestyle`) is what the page
+// script actually calls.
+import snippet from '@calcom/embed-snippet';
 //
 // Theme handling on a light/dark toggle:
 //   app.cal.eu's deployed booker reads its light/dark palette from the iframe
@@ -32,27 +33,20 @@ export interface CalEmbedOptions {
 
 // --- Cal global typing ---------------------------------------------------
 
-// Cal's queue entries are method-call tuples like ['init', 'ns', {...}].
-type CalQueueEntry = unknown[];
-
-type CalNamespaceMethod = 'inline' | 'ui' | 'on';
-
+// @calcom/embed-core ships an ambient `window.Cal` global with strict
+// per-action config types. We instead drive Cal through its string-dispatch
+// form — Cal('init', ns, cfg) and Cal.ns[x]('inline'|'ui'|'on', cfg) — against
+// this loose local shape, casting `window.Cal` to it at the two read sites
+// below. Embed-core's types don't model the string-dispatch form and omit the
+// 'bookerReady' event we listen to, so satisfying them would mean changing
+// runtime behavior; one boundary cast is the cleaner trade.
 interface CalNamespace {
-  (method: CalNamespaceMethod, config: unknown): void;
-  q: CalQueueEntry[];
+  (method: 'inline' | 'ui' | 'on', config: unknown): void;
 }
 
 interface CalInstance {
   (method: string, ...args: unknown[]): void;
-  loaded: boolean;
-  q: CalQueueEntry[];
   ns: Record<string, CalNamespace>;
-}
-
-declare global {
-  interface Window {
-    Cal?: CalInstance;
-  }
 }
 
 // --- Defaults ------------------------------------------------------------
@@ -124,48 +118,6 @@ function renderInline(
   Cal.ns[options.namespace]('ui', uiConfigFor(theme, options.brandColors));
 }
 
-// Official Cal.com embed bootstrap. Installs `window.Cal` as a queueing
-// proxy and lazy-loads embed.js on first call. Idempotent — once `Cal` is
-// installed, subsequent calls are a no-op.
-function installCalLoader(win: Window, scriptSrc: string, initMethod: string): void {
-  const push = (target: { q: CalQueueEntry[] }, args: CalQueueEntry): void => {
-    target.q.push(args);
-  };
-  const doc = win.document;
-  if (win.Cal) return;
-
-  const cal = function (this: unknown): void {
-    // eslint-disable-next-line prefer-rest-params
-    const args = Array.from(arguments) as CalQueueEntry;
-    const self = cal as unknown as CalInstance;
-    if (!self.loaded) {
-      self.ns = {};
-      self.q = self.q || [];
-      doc.head.appendChild(doc.createElement('script')).setAttribute('src', scriptSrc);
-      self.loaded = true;
-    }
-    if (args[0] === initMethod) {
-      const api = function (this: unknown): void {
-        // eslint-disable-next-line prefer-rest-params
-        push(api as unknown as { q: CalQueueEntry[] }, Array.from(arguments) as CalQueueEntry);
-      } as unknown as CalNamespace;
-      const ns = args[1];
-      api.q = api.q || [];
-      if (typeof ns === 'string') {
-        self.ns[ns] = self.ns[ns] || api;
-        push(self.ns[ns], args);
-        push(self, ['initNamespace', ns]);
-      } else {
-        push(self, args);
-      }
-      return;
-    }
-    push(self, args);
-  } as unknown as CalInstance;
-
-  win.Cal = cal;
-}
-
 // --- Public API ----------------------------------------------------------
 
 // Mounts the Cal.com inline embed in the given element. Mounts at most once.
@@ -176,9 +128,12 @@ export function mountCalEmbed(options: CalEmbedOptions): void {
   const el = document.querySelector<HTMLElement>(selector);
   if (!el) return;
 
-  installCalLoader(window, options.embedSrc, 'init');
+  // Install Cal's official embed loader (idempotent — a no-op once window.Cal
+  // exists). We pass our self-hosted embed.js URL; the booking origin is set
+  // via the 'init' call below, exactly as the Cal docs prescribe.
+  snippet(options.embedSrc);
 
-  const Cal = window.Cal;
+  const Cal = window.Cal as unknown as CalInstance | undefined;
   if (!Cal) return;
 
   Cal('init', options.namespace, { origin: options.origin });
@@ -222,7 +177,7 @@ export function watchThemeAndRestyle(options: CalEmbedOptions): void {
     if (theme === lastTheme) return;
     lastTheme = theme;
 
-    const Cal = window.Cal;
+    const Cal = window.Cal as unknown as CalInstance | undefined;
     if (!Cal?.ns?.[options.namespace]) return;
 
     if (engaged) {

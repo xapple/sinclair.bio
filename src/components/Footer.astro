@@ -6,7 +6,7 @@ const { t } = Astro.locals;
 
 <footer class="bg-bar">
   <div class="mx-auto flex max-w-3xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-bar-fg/70 sm:flex-row">
-    <span>{t('footer:copyright', new Date().getFullYear().toString())}</span>
+    <span>{t('footer:copyright').replace('%s', new Date().getFullYear().toString())}</span>
     <span class="flex items-center gap-2">
       {t('footer:made-with')}
       <Icon name="bot" size="sm" label={t('a11y:ai')} />

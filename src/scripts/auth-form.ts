@@ -17,7 +17,7 @@ export function initAuthForm(selector = '.auth-form'): void {
   initAsyncForm({
     selector,
     statusSelector: '[data-auth-status]',
-    statusBaseClass: 'auth-status',
+    classFor: (kind) => `auth-status auth-status--${kind}`,
     mapResponse(response, data) {
       const body = data as { redirect?: unknown; status?: unknown; error?: unknown };
 

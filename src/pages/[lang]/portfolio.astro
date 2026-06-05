@@ -2,20 +2,20 @@
 import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Callout from '../../components/Callout.astro';
+import RefItem from '../../components/portfolio/RefItem.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
-import { PROFILES } from '../../data/profile';
+import { PROFILES, PUBLICATIONS } from '../../data/profile';
 
 export const getStaticPaths = langStaticPaths;
 
 const { lang, t } = Astro.locals;
 const entry = await getLangEntry('portfolio', lang);
-const { projects, testimonials, publications, classes } = entry.data;
+const { projects, testimonials, classes } = entry.data;
 ---
 
 <Layout
   title={t('portfolio:page-title')}
   description={t('meta:portfolio-description')}
-  frame="standard"
   shellWidth="1100px"
 >
   <div class="section-stack">
@@ -63,12 +63,11 @@ const { projects, testimonials, publications, classes } = entry.data;
     <section class="portfolio-section">
       <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
 
-      <ul class="publication-list">
-        {publications.map((publication) => (
-          <li class="publication">
-            <p class="pub-title"><a href={publication.href} target="_blank" rel="noopener noreferrer">{publication.title}</a></p>
-            <p class="pub-meta">{publication.authors} — <em>{publication.journal}</em>, {publication.year}</p>
-          </li>
+      <ul class="ref-list">
+        {PUBLICATIONS.map((publication) => (
+          <RefItem title={publication.title} href={publication.href}>
+            {publication.authors} — <em>{publication.journal}</em>, {publication.year}
+          </RefItem>
         ))}
       </ul>
 
@@ -81,12 +80,11 @@ const { projects, testimonials, publications, classes } = entry.data;
     <section class="portfolio-section">
       <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
 
-      <ul class="publication-list">
+      <ul class="ref-list">
         {classes.map((klass) => (
-          <li class="publication">
-            <p class="pub-title"><a href={klass.href} target="_blank" rel="noopener noreferrer">{klass.title}</a></p>
-            <p class="pub-meta">{klass.institution} — {klass.year}</p>
-          </li>
+          <RefItem title={klass.title} href={klass.href}>
+            {klass.institution} — {klass.year}
+          </RefItem>
         ))}
       </ul>
     </section>
@@ -244,44 +242,12 @@ const { projects, testimonials, publications, classes } = entry.data;
     margin: 0;
   }
 
-  .publication-list {
+  /* Shared by the Publications + Coursework lists; each row is a <RefItem>. */
+  .ref-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     gap: 1.25rem;
-  }
-
-  .publication {
-    border-left: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
-    padding: 0.15rem 0 0.15rem 1rem;
-  }
-
-  .pub-title {
-    margin: 0 0 0.3rem;
-    font-size: 0.98rem;
-    font-weight: 700;
-    color: var(--color-ink);
-    line-height: 1.45;
-  }
-
-  .pub-title a {
-    color: inherit;
-    text-decoration: none;
-    text-decoration-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
-    text-underline-offset: 3px;
-  }
-
-  .pub-title a:hover,
-  .pub-title a:focus-visible {
-    color: var(--color-accent);
-    text-decoration: underline;
-  }
-
-  .pub-meta {
-    margin: 0;
-    font-size: 0.87rem;
-    color: var(--color-muted);
-    line-height: 1.5;
   }
 </style>

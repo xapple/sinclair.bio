@@ -68,15 +68,6 @@ const portfolio = defineCollection({
         translated: z.boolean().optional(),
       })
     ),
-    publications: z.array(
-      z.object({
-        title: z.string(),
-        href: z.url(),
-        authors: z.string(),
-        journal: z.string(),
-        year: z.string(),
-      })
-    ),
     classes: z.array(
       z.object({
         title: z.string(),

@@ -2,8 +2,10 @@
 // (via `?raw`) and inlined inside a `<script is:inline>` tag in <head> so it
 // runs before bundles load — FOUC guard.
 //
-// `THEME_BKGND` is provided at inline time by Astro's `define:vars`, sourced
-// from src/scripts/theme-switcher.ts.
+// `THEME_BAR` is provided at inline time by Astro's `define:vars`, sourced
+// from src/scripts/theme-switcher.ts. It's the topbar color; the
+// <meta theme-color> tags use it so macOS Safari's toolbar (which samples the
+// brown sticky topbar on scrollable pages) matches the bar instead of flashing.
 //
 // This file is the single source of truth for the apply-theme operation: it
 // exposes `applyTheme` on `window.__sinclairTheme` so the bundled TS module
@@ -44,7 +46,7 @@ function applyTheme(color, root) {
 
   var metas = root.querySelectorAll('meta[name="theme-color"]');
   for (var i = 0; i < metas.length; i++) {
-    metas[i].setAttribute('content', THEME_BKGND[color]);
+    metas[i].setAttribute('content', THEME_BAR[color]);
   }
 }
 
