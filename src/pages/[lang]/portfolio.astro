@@ -5,12 +5,15 @@ import Callout from '../../components/Callout.astro';
 import RefItem from '../../components/portfolio/RefItem.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 import { PROFILES, PUBLICATIONS } from '../../data/profile';
+import { PERSONAL } from '../../data/personal';
+import { INCLUDE_PERSONAL } from 'astro:env/server';
 
 export const getStaticPaths = langStaticPaths;
 
 const { lang, t } = Astro.locals;
 const entry = await getLangEntry('portfolio', lang);
 const { projects, testimonials, classes } = entry.data;
+const personal = PERSONAL[lang];
 ---
 
 <Layout
@@ -88,6 +91,22 @@ const { projects, testimonials, classes } = entry.data;
         ))}
       </ul>
     </section>
+
+    {INCLUDE_PERSONAL && (
+      <section class="portfolio-section">
+        <SectionHeading icon="mountain-snow" text={personal.heading} id="personal-heading" />
+
+        <p class="m-0 max-w-[60ch] text-base leading-[1.7] text-ink opacity-[0.85]">
+          {personal.intro} {personal.linksLabel}<br />
+          {personal.favorites.map((fav, i) => (
+            <Fragment>
+              {i > 0 && <span aria-hidden="true" class="opacity-50">{' · '}</span>}
+              <a class="link-underline" href={fav.href} target="_blank" rel="noopener noreferrer">{fav.label}</a>
+            </Fragment>
+          ))}
+        </p>
+      </section>
+    )}
   </div>
 </Layout>
 

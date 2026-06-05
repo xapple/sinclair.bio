@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { LANGUAGE_LIST, DEFAULT_LANGUAGE } from './src/i18n/translations';
@@ -10,6 +10,19 @@ const sitemapLocales = Object.fromEntries(LANGUAGE_LIST.map((l) => [l, l]));
 // https://astro.build/config
 export default defineConfig({
   site: 'https://sinclair.bio',
+  // Build-time switch for the optional "Personal" section on the portfolio
+  // page. Unset (default false) -> the section is dropped at build time, so
+  // none of its content reaches dist/. Include it with:
+  //   INCLUDE_PERSONAL=true pnpm build
+  env: {
+    schema: {
+      INCLUDE_PERSONAL: envField.boolean({
+        context: 'server',
+        access: 'public',
+        default: false,
+      }),
+    },
+  },
   i18n: {
     defaultLocale: DEFAULT_LANGUAGE,
     locales: [...LANGUAGE_LIST],
