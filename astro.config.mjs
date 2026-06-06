@@ -10,16 +10,16 @@ const sitemapLocales = Object.fromEntries(LANGUAGE_LIST.map((l) => [l, l]));
 // https://astro.build/config
 export default defineConfig({
   site: 'https://sinclair.bio',
-  // Build-time switch for the optional "Personal" section on the portfolio
-  // page. Unset (default false) -> the section is dropped at build time, so
-  // none of its content reaches dist/. Include it with:
-  //   INCLUDE_PERSONAL=true pnpm build
+  // Build-time switch for the "Personal" section on the portfolio page. It
+  // renders by default everywhere (dev + production). To drop it from a build
+  // -- so none of its content reaches dist/ -- set:
+  //   INCLUDE_PERSONAL=false pnpm build
   env: {
     schema: {
       INCLUDE_PERSONAL: envField.boolean({
         context: 'server',
         access: 'public',
-        default: false,
+        default: true,
       }),
     },
   },

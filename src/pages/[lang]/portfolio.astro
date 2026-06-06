@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Callout from '../../components/Callout.astro';
 import RefItem from '../../components/portfolio/RefItem.astro';
+import Reveal from '../../components/Reveal.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 import { PROFILES, PUBLICATIONS } from '../../data/profile';
 import { PERSONAL } from '../../data/personal';
@@ -14,6 +15,18 @@ const { lang, t } = Astro.locals;
 const entry = await getLangEntry('portfolio', lang);
 const { projects, testimonials, classes } = entry.data;
 const personal = PERSONAL[lang];
+
+// Reveal cascade: each section reveals AFTER the one above it, not in parallel.
+// A section's heading shows at its base delay; items stagger STEP ms after it;
+// the next section's base is pushed past the current section's last item.
+// Chained off the live counts so it stays sequential for any length / language
+// -- the portfolio analogue of the journey page's SECTION_DELAY.
+const STEP = 80;
+const baseOpenSource = 0;
+const baseTestimonials = baseOpenSource + (projects.length + 1) * STEP;
+const basePublications = baseTestimonials + (testimonials.length + 1) * STEP;
+const baseClasses = basePublications + (PUBLICATIONS.length + 1) * STEP;
+const basePersonal = baseClasses + (classes.length + 1) * STEP;
 ---
 
 <Layout
@@ -23,7 +36,9 @@ const personal = PERSONAL[lang];
 >
   <div class="section-stack">
     <section class="portfolio-section">
-      <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" />
+      <Reveal delay={baseOpenSource}>
+        <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" />
+      </Reveal>
 
       <div class="card-grid">
         {projects.map((project, i) => (
@@ -32,7 +47,7 @@ const personal = PERSONAL[lang];
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            style={`--reveal-delay: ${i * 80}ms`}
+            style={`--reveal-delay: ${baseOpenSource + (i + 1) * STEP}ms`}
           >
             <div class:list={["card-thumb", { "has-image": project.image }]}>
               {project.image && <img class="thumb-light" src={project.image} alt="" loading="lazy" decoding="async" />}
@@ -51,11 +66,13 @@ const personal = PERSONAL[lang];
     </section>
 
     <section class="portfolio-section">
-      <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" />
+      <Reveal delay={baseTestimonials}>
+        <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" />
+      </Reveal>
 
       <div class="testimonial-list">
-        {testimonials.map((testimonial) => (
-          <figure class="testimonial">
+        {testimonials.map((testimonial, i) => (
+          <figure class="testimonial page-reveal" style={`--reveal-delay: ${baseTestimonials + (i + 1) * STEP}ms`}>
             <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
             <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
           </figure>
@@ -64,11 +81,13 @@ const personal = PERSONAL[lang];
     </section>
 
     <section class="portfolio-section">
-      <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
+      <Reveal delay={basePublications}>
+        <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
+      </Reveal>
 
       <ul class="ref-list">
-        {PUBLICATIONS.map((publication) => (
-          <RefItem title={publication.title} href={publication.href}>
+        {PUBLICATIONS.map((publication, i) => (
+          <RefItem title={publication.title} href={publication.href} revealDelay={basePublications + (i + 1) * STEP}>
             {publication.authors} — <em>{publication.journal}</em>, {publication.year}
           </RefItem>
         ))}
@@ -81,11 +100,13 @@ const personal = PERSONAL[lang];
     </section>
 
     <section class="portfolio-section">
-      <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
+      <Reveal delay={baseClasses}>
+        <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
+      </Reveal>
 
       <ul class="ref-list">
-        {classes.map((klass) => (
-          <RefItem title={klass.title} href={klass.href}>
+        {classes.map((klass, i) => (
+          <RefItem title={klass.title} href={klass.href} revealDelay={baseClasses + (i + 1) * STEP}>
             {klass.institution} — {klass.year}
           </RefItem>
         ))}
@@ -94,17 +115,21 @@ const personal = PERSONAL[lang];
 
     {INCLUDE_PERSONAL && (
       <section class="portfolio-section">
-        <SectionHeading icon="mountain-snow" text={personal.heading} id="personal-heading" />
+        <Reveal delay={basePersonal}>
+          <SectionHeading icon="mountain-snow" text={personal.heading} id="personal-heading" />
+        </Reveal>
 
-        <p class="m-0 max-w-[60ch] text-base leading-[1.7] text-ink opacity-[0.85]">
-          {personal.intro} {personal.linksLabel}<br />
-          {personal.favorites.map((fav, i) => (
-            <Fragment>
-              {i > 0 && <span aria-hidden="true" class="opacity-50">{' · '}</span>}
-              <a class="link-underline" href={fav.href} target="_blank" rel="noopener noreferrer">{fav.label}</a>
-            </Fragment>
-          ))}
-        </p>
+        <Reveal delay={basePersonal + STEP}>
+          <p class="m-0 max-w-[60ch] text-base leading-[1.7] text-ink opacity-[0.85]">
+            {personal.intro} {personal.linksLabel}<br />
+            {personal.favorites.map((fav, i) => (
+              <Fragment>
+                {i > 0 && <span aria-hidden="true" class="opacity-50">{' · '}</span>}
+                <a class="link-underline" href={fav.href} target="_blank" rel="noopener noreferrer">{fav.label}</a>
+              </Fragment>
+            ))}
+          </p>
+        </Reveal>
       </section>
     )}
   </div>
