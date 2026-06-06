@@ -6,7 +6,11 @@ It is made with the following build technology: [Astro](https://docs.astro.build
 
 ### Screenshot
 
+---
+
 ![The sinclair.bio homepage](public/screenshot.webp)
+
+---
 
 ### Running locally
 
@@ -39,9 +43,9 @@ Other useful commands:
 Hosting is **provisioned as code** with [OpenTofu](https://opentofu.org): the
 config in [`tofu/`](tofu/) creates the git-connected Cloudflare Pages project,
 attaches the `sinclair.bio` custom domain, creates the apex DNS record, and
-301-redirects `www` to the apex. See
-[`tofu/README.md`](tofu/README.md) for the prerequisites (API token, one-time
-GitHub authorization) and the `tofu init` / `plan` / `apply` workflow.
+301-redirects `www` to the apex. See [`tofu/README.md`](tofu/README.md) for
+the prerequisites (API token, one-time  GitHub authorization) and the
+`tofu init` / `plan` / `apply` workflow.
 
 Once provisioned, Cloudflare builds and deploys automatically on every push to
 `main` — build command `pnpm build`, output `dist/`, `NODE_VERSION=22`. It also

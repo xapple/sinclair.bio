@@ -16,7 +16,10 @@ terraform {
 # The provider reads credentials from the environment, so nothing secret is
 # stored in these files or in version control:
 #
-#   export CLOUDFLARE_API_TOKEN=...   (Account: Pages:Edit, Zone: DNS:Edit)
+#   export CLOUDFLARE_API_TOKEN=...
+#
+# Token scopes: Account > Cloudflare Pages > Edit, Zone > DNS > Edit, and
+# Zone > Single Redirect > Edit (for the www -> apex redirect rule).
 #
 provider "cloudflare" {}
 
