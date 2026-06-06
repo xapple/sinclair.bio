@@ -36,20 +36,17 @@ Other useful commands:
 
 ### Deploying to Cloudflare Pages
 
-To set up the CL hosting to automatically follow the latest commit on the main branch, do the following:
+Hosting is **provisioned as code** with [OpenTofu](https://opentofu.org): the
+config in [`tofu/`](tofu/) creates the git-connected Cloudflare Pages project,
+attaches the `sinclair.bio` custom domain, and creates the apex DNS record. See
+[`tofu/README.md`](tofu/README.md) for the prerequisites (API token, one-time
+GitHub authorization) and the `tofu init` / `plan` / `apply` workflow.
 
-1. **Create the project** — CF dashboard → Workers & Pages → Create → Pages → Connect to Git → Pick this repo.
- 
-2. **Build settings**:
-   - Framework preset: **Astro**
-   - Build command: `pnpm build`
-   - Build output: `dist`
-   - Root directory: (leave blank)
-   - Environment variable: `NODE_VERSION=22`
-
-3. **First deploy** runs automatically. CF auto-detects `functions/` at the repo root — no extra config needed. The function at `functions/index.ts` intercepts `/` and 302s to `/en/` or `/fr/` based on the `Accept-Language` header.
-
-4. **Custom domain** — Pages project → Custom domains → add `sinclair.bio`. CF will configure DNS automatically if `sinclair.bio` is already on Cloudflare DNS; otherwise it provides the CNAME target.
+Once provisioned, Cloudflare builds and deploys automatically on every push to
+`main` — build command `pnpm build`, output `dist/`, `NODE_VERSION=22`. It also
+auto-detects `functions/` at the repo root with no extra config, so
+`functions/index.ts` intercepts `/` and 302-redirects to `/en/` or `/fr/` based
+on the visitor's `Accept-Language` header.
 
 ### Testing
 
