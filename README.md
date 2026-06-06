@@ -4,6 +4,10 @@ This is the website at `https://sinclair.bio`.
 
 It is made with the following build technology: [Astro](https://docs.astro.build).
 
+### Screenshot
+
+![The sinclair.bio homepage](public/screenshot.webp)
+
 ### Running locally
 
 This project uses [Node.js](https://nodejs.org) (22 or newer) and the
