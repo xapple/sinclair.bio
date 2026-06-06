@@ -1,4 +1,4 @@
-# `www.sinclair` version 0.0.1
+# `sinclair.bio` version 0.9.0
 
 This is the website at `https://sinclair.bio`.
 
