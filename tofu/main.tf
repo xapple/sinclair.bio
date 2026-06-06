@@ -72,6 +72,20 @@ variable "node_version" {
 
 # --------------------------------- Resources --------------------------------- #
 
+# Both Pages environments share the same build config and env vars, so define
+# them once. The Pages API also requires fail_open to match across preview and
+# production (error 8000066 otherwise) -- sharing one object guarantees that.
+# If preview and production ever need to differ, split this back into two.
+locals {
+  pages_deployment_config = {
+    fail_open = true
+    env_vars = {
+      NODE_VERSION     = { type = "plain_text", value = var.node_version }
+      INCLUDE_PERSONAL = { type = "plain_text", value = "true" }
+    }
+  }
+}
+
 # Cloudflare Pages project, git-connected to the GitHub repo. Cloudflare builds
 # and deploys automatically on every push to the production branch.
 #
@@ -99,17 +113,10 @@ resource "cloudflare_pages_project" "site" {
     }
   }
 
+  # Preview and production use identical settings (defined in locals above).
   deployment_configs = {
-    production = {
-      env_vars = {
-        NODE_VERSION = {
-          type  = "plain_text"
-          value = var.node_version
-        }
-        # Enable the optional "Personal" portfolio section in production:
-        INCLUDE_PERSONAL = { type = "plain_text", value = "true" }
-      }
-    }
+    preview    = local.pages_deployment_config
+    production = local.pages_deployment_config
   }
 }
 
