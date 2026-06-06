@@ -38,7 +38,8 @@ Other useful commands:
 
 Hosting is **provisioned as code** with [OpenTofu](https://opentofu.org): the
 config in [`tofu/`](tofu/) creates the git-connected Cloudflare Pages project,
-attaches the `sinclair.bio` custom domain, and creates the apex DNS record. See
+attaches the `sinclair.bio` custom domain, creates the apex DNS record, and
+301-redirects `www` to the apex. See
 [`tofu/README.md`](tofu/README.md) for the prerequisites (API token, one-time
 GitHub authorization) and the `tofu init` / `plan` / `apply` workflow.
 

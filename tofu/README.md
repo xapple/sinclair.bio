@@ -4,12 +4,15 @@ OpenTofu config that provisions the Cloudflare Pages project for `sinclair.bio`,
 git-connected to this repository so Cloudflare builds and deploys automatically
 on every push to `main`.
 
-It manages three resources:
+It manages five resources:
 
 - `cloudflare_pages_project.site` — the Pages project + build settings.
 - `cloudflare_pages_domain.apex` — the `sinclair.bio` custom domain.
 - `cloudflare_dns_record.apex` — the apex CNAME (proxied, flattened) pointing at
   the project's `*.pages.dev` origin.
+- `cloudflare_dns_record.www` — a proxied `www` CNAME so the edge can handle it.
+- `cloudflare_ruleset.redirect_www` — a single redirect that 301s `www.sinclair.bio`
+  to the apex (preserving path + query). `www` never reaches Pages.
 
 ## Prerequisites
 
@@ -39,7 +42,7 @@ It manages three resources:
     # edit terraform.tfvars: account_id, zone_id, github_owner
 
     tofu init
-    tofu plan      # expect: 3 resources to add
+    tofu plan      # expect: 5 resources to add
     tofu apply
 
 After apply:

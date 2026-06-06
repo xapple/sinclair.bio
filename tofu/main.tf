@@ -128,6 +128,44 @@ resource "cloudflare_dns_record" "apex" {
   ttl     = 1 # 1 = automatic; required when proxied.
 }
 
+# www -> apex. A proxied record so the request reaches Cloudflare's edge, where the
+# single-redirect rule below 301s it to the apex. www never reaches Pages, and
+# Universal SSL already covers *.sinclair.bio, so HTTPS on www works with no extra
+# certificate or Pages custom-domain attachment.
+resource "cloudflare_dns_record" "www" {
+  zone_id = var.zone_id
+  name    = "www.${var.domain}"
+  type    = "CNAME"
+  content = var.domain
+  proxied = true
+  ttl     = 1 # 1 = automatic; required when proxied.
+}
+
+# Single Redirect: 301 https://www.<domain>/<path> -> https://<domain>/<path>,
+# preserving the path and query string. Runs in the dynamic-redirect phase.
+resource "cloudflare_ruleset" "redirect_www" {
+  zone_id = var.zone_id
+  name    = "Redirect www to apex"
+  kind    = "zone"
+  phase   = "http_request_dynamic_redirect"
+
+  rules = [{
+    ref         = "redirect_www_to_apex"
+    description = "301 www.${var.domain} to the apex domain"
+    expression  = "(http.host eq \"www.${var.domain}\")"
+    action      = "redirect"
+    action_parameters = {
+      from_value = {
+        status_code           = 301
+        preserve_query_string = true
+        target_url = {
+          expression = "concat(\"https://${var.domain}\", http.request.uri.path)"
+        }
+      }
+    }
+  }]
+}
+
 # ---------------------------------- Outputs ---------------------------------- #
 
 output "pages_dev_url" {
