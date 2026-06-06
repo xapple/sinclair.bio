@@ -26,7 +26,7 @@ src/
 ├── assets/
 │   ├── icons/               # Inline SVGs + index.ts registry; reference by basename via <Icon name="…" />
 │   ├── profile.webp         # Hero portrait
-│   ├── logo-name.svg        # "Sinclair" wordmark SVG (JS-targeted IDs; rendered via ?raw)
+│   ├── logo-name.svg        # "Sinclair" wordmark SVG (fill="currentColor"; inlined via ?raw)
 │   └── theme-switcher.svg   # Pill-shaped toggle SVG
 ├── components/
 │   ├── Callout.astro            # "More on X →" / stat callout (portfolio sections)
@@ -148,5 +148,5 @@ Three layers, each with a defined job — choose by scope, not preference:
 ### Components
 - `Icon` renders an SVG by name (basename in `src/assets/icons/`) at preset sizes (`xs|sm|md|lg`). The registry in `src/assets/icons/index.ts` auto-loads every `.svg` in that directory via `import.meta.glob` — adding an icon is a drop-in, no import/barrel updates needed. It exports `getIcon(name)` (throws with the available list on an unknown name; used by `Icon` and `Callout`) — use `<Fragment set:html={getIcon('<name>')} />` for the few places that need raw SVG inside a custom-styled wrapper.
 - `InfoCard` is a card primitive that becomes a link when given `href`. `icon` prop is an icon name (forwarded to `<Icon name=…>`).
-- `ThemeToggle` uses `?raw` SVG import (`src/assets/theme-switcher.svg`) rendered inline via `set:html` so WAAPI can target SVG element IDs. `logo-name.svg` is similar — both live at `src/assets/` root, outside `/icons/`, because they're single-use, sized differently, and have JS-targeted internal IDs.
+- `ThemeToggle` uses `?raw` SVG import (`src/assets/theme-switcher.svg`) rendered inline via `set:html` so WAAPI can target the SVG's internal IDs (`#theme-switcher-sun`/`-moon`) and animate them — impossible from an opaque `<img>`. `logo-name.svg` is inlined the same way but for a different reason: it has no internal IDs and is painted with `fill="currentColor"`, so inlining lets it inherit the topbar text color and flip with the theme (an `<img src>` SVG is sandboxed from page CSS). Both live at `src/assets/` root, outside `/icons/`, because they're single-use, sized differently, and must be part of the DOM rather than fetched as opaque files from `public/`.
 - `LanguageSwitcher` uses `<span>` for active lang (not a link), `<a rel="alternate" hreflang>` for others.
