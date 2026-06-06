@@ -1,0 +1,14 @@
+# Copy this file to terraform.tfvars (gitignored) and fill in your values.
+# The API token is NOT set here -- export it in your shell instead:
+#   $ export CLOUDFLARE_API_TOKEN=...
+
+account_id   = "your-cloudflare-account-id"
+zone_id      = "your-sinclair.bio-zone-id"
+github_owner = "your-github-username"
+
+# Defaults already match this repo; override only if needed:
+# repo_name         = "www.sinclair"
+# project_name      = "www-sinclair"
+# domain            = "sinclair.bio"
+# production_branch = "main"
+# node_version      = "22"

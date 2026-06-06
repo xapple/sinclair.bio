@@ -1,0 +1,7 @@
+# State holds secrets and IDs; tfvars holds account/zone IDs. Keep both local.
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+crash.log
