@@ -32,7 +32,7 @@ It manages five resources:
    Token scopes:
    - **Account → Cloudflare Pages → Edit**
    - **Zone → DNS → Edit** (for the `sinclair.bio` zone)
-   - **Zone → Single Redirect → Edit** (for the `www` → apex redirect rule)
+   - **Zone → Dynamic URL Redirects → Edit** (for the `www` → apex redirect rule)
 
 4. **Your `account_id` and `zone_id`** — both on the Cloudflare dashboard
    overview pages. Put them in `terraform.tfvars` (see below).

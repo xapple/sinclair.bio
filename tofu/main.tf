@@ -19,7 +19,7 @@ terraform {
 #   export CLOUDFLARE_API_TOKEN=...
 #
 # Token scopes: Account > Cloudflare Pages > Edit, Zone > DNS > Edit, and
-# Zone > Single Redirect > Edit (for the www -> apex redirect rule).
+# Zone > Dynamic URL Redirects > Edit (for the www -> apex redirect rule).
 #
 provider "cloudflare" {}
 
