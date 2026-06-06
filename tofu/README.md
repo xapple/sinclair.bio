@@ -31,11 +31,14 @@ It manages five resources:
 
    Token scopes:
    - **Account → Cloudflare Pages → Edit**
+   - **Account → Notifications → Edit** (for the deploy-failure alert)
    - **Zone → DNS → Edit** (for the `sinclair.bio` zone)
    - **Zone → Dynamic URL Redirects → Edit** (for the `www` → apex redirect rule)
+   - **Zone → Zone Settings → Edit** (for the TLS settings)
 
-4. **Your `account_id` and `zone_id`** — both on the Cloudflare dashboard
-   overview pages. Put them in `terraform.tfvars` (see below).
+4. **Your `account_id`, `zone_id`, and a `notification_email`** — the two IDs
+   are on the Cloudflare dashboard overview pages; the email is where
+   deploy-failure alerts are sent. Put them in `terraform.tfvars` (see below).
 
 ## Usage
 

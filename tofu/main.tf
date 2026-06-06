@@ -18,8 +18,9 @@ terraform {
 #
 #   export CLOUDFLARE_API_TOKEN=...
 #
-# Token scopes: Account > Cloudflare Pages > Edit, Zone > DNS > Edit, and
-# Zone > Dynamic URL Redirects > Edit (for the www -> apex redirect rule).
+# Token scopes: Account > Cloudflare Pages > Edit, Account > Notifications >
+# Edit, Zone > DNS > Edit, Zone > Dynamic URL Redirects > Edit, and
+# Zone > Zone Settings > Edit.
 #
 provider "cloudflare" {}
 
@@ -68,6 +69,11 @@ variable "node_version" {
   type        = string
   description = "Node.js version for the Cloudflare Pages build."
   default     = "22"
+}
+
+variable "notification_email" {
+  type        = string
+  description = "Email address for Cloudflare deploy-failure notifications."
 }
 
 # --------------------------------- Resources --------------------------------- #
@@ -174,6 +180,55 @@ resource "cloudflare_ruleset" "redirect_www" {
       }
     }
   }]
+}
+
+# Zone-level TLS hardening, managed as code. ssl=strict requires every proxied
+# origin to present a valid cert -- Pages and Cloudflare Tunnels both do.
+resource "cloudflare_zone_setting" "ssl" {
+  zone_id    = var.zone_id
+  setting_id = "ssl"
+  value      = "strict"
+}
+
+resource "cloudflare_zone_setting" "always_use_https" {
+  zone_id    = var.zone_id
+  setting_id = "always_use_https"
+  value      = "on"
+}
+
+resource "cloudflare_zone_setting" "min_tls_version" {
+  zone_id    = var.zone_id
+  setting_id = "min_tls_version"
+  value      = "1.2"
+}
+
+resource "cloudflare_zone_setting" "automatic_https_rewrites" {
+  zone_id    = var.zone_id
+  setting_id = "automatic_https_rewrites"
+  value      = "on"
+}
+
+# Email alert when a production Pages deployment fails, so a broken build (like
+# the rollup/sharp one) surfaces immediately instead of failing silently.
+resource "cloudflare_notification_policy" "pages_deploy_failed" {
+  account_id  = var.account_id
+  name        = "Pages deployment failed"
+  description = "Alert when a ${var.project_name} production deployment fails."
+  alert_type  = "pages_event_alert"
+  enabled     = true
+
+  # pages_event_alert requires the project UUID here, which the
+  # cloudflare_pages_project resource does not expose (its id is the name). This
+  # is the project's stable UUID -- only changes if the project is recreated.
+  filters = {
+    event       = ["EVENT_DEPLOYMENT_FAILED"]
+    environment = ["ENVIRONMENT_PRODUCTION"]
+    project_id  = ["81177d4a-d847-49c2-abe4-a7693727ea36"]
+  }
+
+  mechanisms = {
+    email = [{ id = var.notification_email }]
+  }
 }
 
 # ---------------------------------- Outputs ---------------------------------- #
