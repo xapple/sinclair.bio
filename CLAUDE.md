@@ -1,4 +1,4 @@
-# www.sinclair
+# sinclair.bio
 
 Personal portfolio site at sinclair.bio.
 

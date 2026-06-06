@@ -40,13 +40,13 @@ variable "github_owner" {
 variable "repo_name" {
   type        = string
   description = "GitHub repository name (dots allowed)."
-  default     = "www.sinclair"
+  default     = "sinclair.bio"
 }
 
 variable "project_name" {
   type        = string
   description = "Cloudflare Pages project name (lowercase, alphanumeric + hyphens, no dots)."
-  default     = "www-sinclair"
+  default     = "sinclair-bio"
 }
 
 variable "domain" {

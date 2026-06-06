@@ -14,7 +14,7 @@ It manages three resources:
 ## Prerequisites
 
 1. **The GitHub repo must exist and be pushed.** The `source` block points at a
-   real repository (`<owner>/www.sinclair`).
+   real repository (`<owner>/sinclair.bio`).
 
 2. **Authorize GitHub in the Cloudflare dashboard — once.** This is an OAuth step
    that tofu cannot perform: Workers & Pages → Create → Pages → Connect to Git →
@@ -44,7 +44,7 @@ It manages three resources:
 
 After apply:
 
-    tofu output pages_dev_url     # https://www-sinclair.pages.dev
+    tofu output pages_dev_url     # https://sinclair-bio.pages.dev
 
 The custom domain takes a few minutes to go **active**. Then `https://sinclair.bio/`
 serves the site (and 302-redirects to `/en/` or `/fr/` via the Pages Function in

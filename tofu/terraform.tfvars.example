@@ -7,8 +7,8 @@ zone_id      = "your-sinclair.bio-zone-id"
 github_owner = "your-github-username"
 
 # Defaults already match this repo; override only if needed:
-# repo_name         = "www.sinclair"
-# project_name      = "www-sinclair"
+# repo_name         = "sinclair.bio"
+# project_name      = "sinclair-bio"
 # domain            = "sinclair.bio"
 # production_branch = "main"
 # node_version      = "22"

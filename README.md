@@ -25,14 +25,14 @@ The site will be live at <http://localhost:4321>, with hot-reloading on file cha
 Other useful commands:
 
 | Command        | Action                                          |
-| -------------- | ----------------------------------------------- |
+|----------------|-------------------------------------------------|
 | `pnpm build`   | Type-check and build the static site to `dist/` |
 | `pnpm preview` | Serve the production build locally              |
 | `pnpm check`   | Run the Astro/TypeScript type-checker           |
 
 ### Deploying to Cloudflare Pages
 
-To setup the CL hosting to automatically follow the latest commit on the main branch, do the following:
+To set up the CL hosting to automatically follow the latest commit on the main branch, do the following:
 
 1. **Create the project** — CF dashboard → Workers & Pages → Create → Pages → Connect to Git → Pick this repo.
  
