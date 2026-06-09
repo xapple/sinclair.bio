@@ -61,3 +61,7 @@ directory and use [pytest](https://docs.pytest.org). Run the suite from the
 root of the repository:
 
     $ uv run --with pytest pytest tests/
+
+### TODO
+
+Maybe add the Cloudflare Web Analytics snippet since it's cookieless.
