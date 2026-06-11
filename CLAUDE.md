@@ -80,6 +80,8 @@ src/
 │   ├── cal-embed.ts         # Cal.com inline embed (mount + theme remount)
 │   ├── contact-form.ts      # Home page contact form (delegates to async-form)
 │   ├── lang-dropdown.ts     # Mobile language-switcher dropdown
+│   ├── lang-pill.ts         # Language-pill FLIP slide, old-page half (stashes slot on click)
+│   ├── lang-pill-slide.js   # Language-pill FLIP slide, new-page half (imported as ?raw)
 │   ├── mobile-menu.ts       # Topbar hamburger toggle
 │   ├── theme-bootstrap.js   # Blocking pre-CSS theme init (imported as ?raw)
 │   └── theme-switcher.ts    # setTheme() + initThemeToggles() with WAAPI
@@ -143,10 +145,10 @@ Three layers, each with a defined job — choose by scope, not preference:
   ```
 - Form-submit UI (button → "sending…", POST via fetch, write status, restore button) is shared in `async-form.ts` (`initAsyncForm`). Each caller (`contact-form.ts`, `auth-form.ts`) only supplies a `mapResponse` callback owning its response-shape branching (HTTP codes, JSON fields, redirects).
 - Localized strings for these scripts ride on `data-*` attributes on the relevant element, so the script files stay language-agnostic.
-- Exception: `theme-bootstrap.js` is imported as `?raw` and inlined as a blocking script (must run before CSS to avoid FOUC).
+- Exception: `theme-bootstrap.js` and `lang-pill-slide.js` are imported as `?raw` and inlined in `<head>` (the former must run before CSS to avoid FOUC; the latter must hold the language pill at its pre-navigation slot before the topbar's first paint).
 
 ### Components
 - `Icon` renders an SVG by name (basename in `src/assets/icons/`) at preset sizes (`xs|sm|md|lg`). The registry in `src/assets/icons/index.ts` auto-loads every `.svg` in that directory via `import.meta.glob` — adding an icon is a drop-in, no import/barrel updates needed. It exports `getIcon(name)` (throws with the available list on an unknown name; used by `Icon` and `Callout`) — use `<Fragment set:html={getIcon('<name>')} />` for the few places that need raw SVG inside a custom-styled wrapper.
 - `InfoCard` is a card primitive that becomes a link when given `href`. `icon` prop is an icon name (forwarded to `<Icon name=…>`).
 - `ThemeToggle` uses `?raw` SVG import (`src/assets/theme-switcher.svg`) rendered inline via `set:html` so WAAPI can target the SVG's internal IDs (`#theme-switcher-sun`/`-moon`) and animate them — impossible from an opaque `<img>`. `logo-name.svg` is inlined the same way but for a different reason: it has no internal IDs and is painted with `fill="currentColor"`, so inlining lets it inherit the topbar text color and flip with the theme (an `<img src>` SVG is sandboxed from page CSS). Both live at `src/assets/` root, outside `/icons/`, because they're single-use, sized differently, and must be part of the DOM rather than fetched as opaque files from `public/`.
-- `LanguageSwitcher` uses `<span>` for active lang (not a link), `<a rel="alternate" hreflang>` for others.
+- `LanguageSwitcher` uses `<span>` for active lang (not a link), `<a rel="alternate" hreflang>` for others. On a language switch the active pill slides via a FLIP handoff across the (full MPA) navigation: `lang-pill.ts` stashes the outgoing slot in sessionStorage at click time, and the inlined `lang-pill-slide.js` holds the pill there for one painted frame on the next page before a CSS transition slides it home. Deliberately not view transitions — the cross-document kind froze navigation in Safari and never ran in Firefox.

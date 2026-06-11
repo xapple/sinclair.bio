@@ -6,6 +6,7 @@ import { LANGUAGES, LANGUAGE_LIST, DEFAULT_LANGUAGE } from '../i18n/translations
 import { getAlternatePath } from '../i18n/page';
 import { THEME_BKGND, THEME_ACCENT, THEME_BAR } from '../scripts/theme-switcher';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
+import langPillSlide from '../scripts/lang-pill-slide.js?raw';
 import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
 import '../styles/global.css';
 
@@ -60,6 +61,10 @@ const ogAlternateLocales = LANGUAGE_LIST
 const schemaArgs = { siteUrl, ogImageUrl, lang, t };
 const personSchema = buildPersonSchema(schemaArgs);
 const websiteSchema = buildWebsiteSchema(schemaArgs);
+
+// The slot this page renders its language-switcher pill at; the
+// lang-pill-slide bootstrap compares the previous page's slot against it.
+const LANG_INDEX = LANGUAGE_LIST.indexOf(lang);
 ---
 
 <!doctype html>
@@ -116,6 +121,12 @@ const websiteSchema = buildWebsiteSchema(schemaArgs);
          THEME_BAR comes from theme-switcher.ts via define:vars and sets the
          <meta theme-color> tags to the topbar color for the current theme. -->
     <script is:inline define:vars={{ THEME_BAR }} set:html={themeBootstrap} />
+    <!-- Language-pill FLIP slide, new-page half. Source:
+         src/scripts/lang-pill-slide.js, inlined raw so it runs before the
+         topbar's first paint: it holds the switcher pill at the slot the
+         previous page stashed in sessionStorage, then releases it so the
+         pill's CSS transition slides it home (see LanguageSwitcher.astro). -->
+    <script is:inline define:vars={{ LANG_INDEX }} set:html={langPillSlide} />
   </head>
   <!-- Body is the bar color, not the page background: Safari 26 derives its
        toolbar tint from the <body> background, so a bar-colored body keeps the

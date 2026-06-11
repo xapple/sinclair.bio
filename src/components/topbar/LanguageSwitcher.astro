@@ -29,15 +29,15 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
 <div
   class="language-switcher-desktop relative hidden overflow-hidden rounded-md border border-white/20 md:grid"
   style={`--lang-count:${langLinks.length};`}
+  data-lang-index={activeIndex}
 >
   <span
-    transition:name="language-switcher-active"
     aria-hidden="true"
     class="language-switcher-active pointer-events-none absolute inset-y-0 left-0 z-0 rounded-[5px] bg-bar-fg"
     style={`--lang-index:${activeIndex};`}
   ></span>
 
-  {langLinks.map((link) => {
+  {langLinks.map((link, slot) => {
     const isActive = link.href === null;
     const itemClasses = [
       'relative z-10 flex items-center justify-center px-2.5 py-1.5 text-sm font-medium leading-none whitespace-nowrap',
@@ -47,11 +47,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
     ];
 
     return isActive ? (
-      <span
-        transition:name="language-switcher-active-label"
-        class:list={itemClasses}
-        aria-current="true"
-      >
+      <span class:list={itemClasses} aria-current="true">
         {link.label}
       </span>
     ) : (
@@ -59,6 +55,7 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
         href={link.href}
         rel="alternate"
         hreflang={link.lang}
+        data-slot={slot}
         class:list={itemClasses}
       >
         {link.label}
@@ -123,25 +120,43 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
   .language-switcher-active {
     width: calc(100% / var(--lang-count));
     transform: translateX(calc(var(--lang-index) * 100%));
+    /* Drives the cross-page FLIP slide (and nothing else: --lang-index is
+       static per page, so the transition only ever fires when the hold rule
+       below releases). global.css's prefers-reduced-motion block zeroes it. */
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* The active label crossfades on the same clock as the pill's FLIP
+     release; its hold-state color is set in the global block below. */
+  .language-switcher-desktop [aria-current] {
+    transition: color 360ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 </style>
 
 <style is:global>
-  /* ::view-transition-* selectors must be global — they target pseudo-elements
-     attached to the document root, not the component subtree. */
-  ::view-transition-group(language-switcher-active) {
-    animation-duration: 360ms;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  /* FLIP hold — global because it keys off a class the inline bootstrap
+     (src/scripts/lang-pill-slide.js, in Layout's <head>) sets on <html>
+     before first paint: while present, the pill sits at the slot it
+     occupied on the previous page; the bootstrap removes the class one
+     painted frame later and the scoped transitions slide everything home.
+
+     The labels ride along so the held switcher still reads as the page the
+     visitor just left: the new active label wears the inactive look here
+     (the pill is not under it yet — text-bar on the bare bar would be
+     invisible), and the previous slot's link wears the active look via a
+     rule lang-pill-slide.js injects (only the script knows the slot). */
+  html.lang-pill-slide .language-switcher-active {
+    transform: translateX(calc(var(--lang-pill-from) * 100%));
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    ::view-transition-group(language-switcher-active) {
-      animation-duration: 0.01ms;
-    }
+  html.lang-pill-slide .language-switcher-desktop [aria-current] {
+    color: color-mix(in oklab, var(--color-bar-fg) 60%, transparent);
   }
 </style>
 
 <script>
   import { initLangDropdown } from '../../scripts/lang-dropdown';
+  import { initLangPillFlag } from '../../scripts/lang-pill';
   initLangDropdown();
+  initLangPillFlag();
 </script>

@@ -328,35 +328,6 @@ html:not([data-dom-loaded]) footer {
   }
 }
 
-/* ---- View transition policy ----
-   Opt in to native cross-document view transitions (Chrome/Edge/Safari;
-   Firefox just navigates instantly — graceful degradation). The default
-   `root` group would fade the entire page, which produces a jarring
-   cross-fade and partial-render artifacts when scrolled; we disable it so
-   navigation looks instant. Named groups still animate on their own timing
-   — see ::view-transition-group(language-switcher-active) below. */
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-}
-
-/* Topbar is sticky and visually identical across pages. Promote it to its
-   own view-transition group with no animation so Chrome treats it as a
-   stable atomic unit during cross-document navigation — without this the
-   sticky header can flicker when the root group's snapshot is swapped. */
-header.site-topbar {
-  view-transition-name: site-topbar;
-}
-
-::view-transition-old(site-topbar),
-::view-transition-new(site-topbar) {
-  animation: none;
-}
-
 /* Sliding circle: sits to the right by default (light), slides left in dark.
    Light-default / dark-override to match every other theme rule in this file
    — theme-bootstrap.js always writes an explicit data-theme, so the default
