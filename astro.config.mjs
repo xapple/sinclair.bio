@@ -36,6 +36,13 @@ export default defineConfig({
   redirects: {
     '/': `/${DEFAULT_LANGUAGE}/`,
   },
+  // Fetch every linked page's HTML right after load; with the 5-minute
+  // Cache-Control on HTML (public/_headers) navigations are then served
+  // entirely from the browser cache.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'load',
+  },
   integrations: [
     sitemap({
       // Root `/` is a noindex redirect to /en/, and all auth pages
@@ -56,5 +63,10 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // One site-wide stylesheet instead of per-page chunks: first visit
+      // costs ~2 kB extra, navigations never fetch CSS again.
+      cssCodeSplit: false,
+    },
   },
 });

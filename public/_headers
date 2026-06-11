@@ -10,3 +10,13 @@
 # keep stable names and stay on default caching.)
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# HTML: cacheable for 5 minutes so prefetched pages survive until clicked.
+# Chrome's prefetch cache tolerates max-age=0, but Safari/Firefox fall back
+# to fetch() and need a real freshness lifetime. Deploys reach returning
+# visitors within 5 minutes.
+/en/*
+  Cache-Control: public, max-age=300
+
+/fr/*
+  Cache-Control: public, max-age=300
