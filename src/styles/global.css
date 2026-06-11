@@ -114,9 +114,14 @@
 }
 
 /* ---- FOUC prevention ---- */
-/* Hide main content until DOMContentLoaded fires.
-   visibility:hidden (not display:none) so layout is reserved — prevents CLS. */
-html:not([data-dom-loaded]) main,
+/* Hide the content column until DOMContentLoaded fires.
+   visibility:hidden (not display:none) so layout is reserved — prevents CLS.
+   Scoped to .page-frame rather than all of <main>: <main> carries the page
+   background and the grid decoration, and hiding it suppresses those paints
+   too — the bar-colored <body> would show through as a full-page brown flash
+   on every cross-document navigation. The footer stays in the guard; its
+   background matches the body, so hiding it is invisible. */
+html:not([data-dom-loaded]) main .page-frame,
 html:not([data-dom-loaded]) footer {
   visibility: hidden;
 }

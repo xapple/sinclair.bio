@@ -129,7 +129,7 @@ Three layers, each with a defined job — choose by scope, not preference:
 ### Dark Mode
 - **Single state**: a `data-theme="light|dark"` attribute on `<html>` drives everything. The Tailwind `dark:` variant is redefined in `global.css` (`@custom-variant dark (&:where([data-theme="dark"], …))`) to key off it, and the token blocks + SVG-toggle CSS read the same attribute — no separate `.dark` class to keep in sync.
 - **Blocking inline script** in `<head>` (source: `src/scripts/theme-bootstrap.js`, imported as `?raw` and inlined via `set:html`) prevents flash of wrong theme. `THEME_BKGND` colors come in via `define:vars`.
-- **`data-dom-loaded`** attribute hides `<main>`/`<footer>` until DOMContentLoaded (FOUC guard).
+- **`data-dom-loaded`** attribute hides the `.page-frame` content column + `<footer>` until DOMContentLoaded (FOUC guard). Deliberately scoped to `.page-frame`, not all of `<main>`, so the page background and grid decoration stay painted during cross-document navigations — hiding `<main>` suppressed its background paint and the bar-colored `<body>` flashed through.
 - **Persistence**: localStorage key `"theme"`, falls back to `prefers-color-scheme`.
 - **Meta tags**: `theme-color` (mobile browser chrome) and `color-scheme` updated dynamically.
 - **Animation**: Web Animations API (`element.animate()`) with a cubic-bezier approximation of GSAP's sine.inOut (`cubic-bezier(0.37, 0, 0.63, 1)`), respects `prefers-reduced-motion`.

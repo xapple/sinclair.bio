@@ -111,7 +111,7 @@ const LANG_INDEX = LANGUAGE_LIST.indexOf(lang);
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
-    <noscript><style>html:not([data-dom-loaded]) main, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
+    <noscript><style>html:not([data-dom-loaded]) main .page-frame, html:not([data-dom-loaded]) footer { visibility: visible !important; }</style></noscript>
     <!-- Single source of truth for theme hex values. Pushed into CSS as
          --theme-bkgnd-{light,dark} and --theme-accent-{light,dark}, which
          global.css's @theme + [data-theme] blocks reference. -->
