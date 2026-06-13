@@ -214,8 +214,9 @@ export const translations = {
 /**
  * Curried translation lookup.
  * Usage: const t = useTranslations(lang); t("nav:contact");
- * The one interpolated string (the footer year) does its own %s substitution
- * at the call site — see Footer.astro.
+ * t() returns the raw string; it does not interpolate. The few keys carrying a
+ * %s placeholder (footer:copyright, home:contact-error) do their own
+ * substitution at the call site — see Footer.astro and contact-form.ts.
  */
 export function useTranslations(
   language: Language

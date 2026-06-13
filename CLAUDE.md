@@ -44,6 +44,8 @@ src/
 │   │   └── ContactSection.astro     # Contact form + DM info + meeting card
 │   ├── journey/
 │   │   └── TimelineEntry.astro      # Shared timeline-row primitive (page maps fields onto it)
+│   ├── portfolio/
+│   │   └── RefItem.astro            # Reference-list row (publications / coursework)
 │   └── topbar/
 │       ├── LanguageSwitcher.astro   # EN/FR pill with hreflang SEO links
 │       ├── Logo.astro               # SVG logo + "Sinclair" wordmark
@@ -55,7 +57,9 @@ src/
 │   └── portfolio/{en,fr}.json    # Testimonials / publications / classes
 ├── content.config.ts         # Zod schemas for the collections above
 ├── data/
-│   └── profile.ts            # Canonical profile URLs + social/DM channels (single source)
+│   ├── personal.ts          # Build-gated "Personal" section content (INCLUDE_PERSONAL)
+│   ├── profile.ts           # Canonical profile URLs + social/DM channels (single source)
+│   └── theme.ts             # Theme color hex values — single source, pure data (no DOM)
 ├── env.d.ts                  # Ambient App.Locals declaration (lang, t)
 ├── i18n/
 │   ├── page.ts              # langStaticPaths(), getLangEntry(), getAlternatePath()
@@ -104,7 +108,7 @@ docs/                        # TEMPLATES.md, mockup.pages, make-forest-puller-ca
 - **Routing**: `prefixDefaultLocale: true` — EN at `/en/`, FR at `/fr/`. In production the Cloudflare Pages Function at `functions/index.ts` handles `/` with an `Accept-Language`-aware 302; the static `'/' → '/en/'` redirect in `astro.config.mjs` is only a fallback (local `astro preview`, or if Functions are disabled).
 - **Dynamic routes**: every page under `src/pages/[lang]/` uses `export const getStaticPaths = langStaticPaths` from `i18n/page.ts` — no duplication per locale.
 - **Lang + translator on every page/component**: `src/middleware.ts` reads `Astro.currentLocale` once per request and populates `Astro.locals.lang` and `Astro.locals.t`. Pages and components just destructure: `const { lang, t } = Astro.locals` — no per-file `usePage`/`usePageFromUrl` helpers. The shape is typed via `App.Locals` in `src/env.d.ts`.
-- **Translations**: `useTranslations(lang)` returns a curried `t(key)` function. Flat colon-separated keys (`"nav:contact"`), fully typed. Supports `%s` placeholder replacement.
+- **Translations**: `useTranslations(lang)` returns a curried `t(key)` function. Flat colon-separated keys (`"nav:contact"`), fully typed. `t()` returns the raw string — the few keys carrying a `%s` placeholder (`footer:copyright`, `home:contact-error`) are interpolated at the call site (see `Footer.astro`, `contact-form.ts`).
 - **Adding a language**: add an entry to the `LANGUAGES` map in `translations.ts` + a translations block — routes generate automatically.
 
 ### Content collections
@@ -133,7 +137,7 @@ Three layers, each with a defined job — choose by scope, not preference:
 - **Persistence**: localStorage key `"theme"`, falls back to `prefers-color-scheme`.
 - **Meta tags**: `theme-color` (mobile browser chrome) and `color-scheme` updated dynamically.
 - **Animation**: Web Animations API (`element.animate()`) with a cubic-bezier approximation of GSAP's sine.inOut (`cubic-bezier(0.37, 0, 0.63, 1)`), respects `prefers-reduced-motion`.
-- **Color tokens**: `--color-bkgnd`, `--color-surface`, `--color-ink`, `--color-muted`, `--color-border`, `--color-accent`, plus `--color-bar` / `--color-bar-fg` (topbar stays dark in both modes). `--color-text` bridges Tailwind colors to the SVG toggle. The light/dark `--color-bkgnd` and `--color-accent` hexes are single-sourced from `THEME_BKGND` / `THEME_ACCENT` in `theme-switcher.ts`, injected by `Layout.astro` as `--theme-*` CSS vars (`define:vars`) and referenced here — one source, no copy to sync.
+- **Color tokens**: `--color-bkgnd`, `--color-surface`, `--color-ink`, `--color-muted`, `--color-border`, `--color-accent`, plus `--color-bar` / `--color-bar-fg` (topbar stays dark in both modes). `--color-text` bridges Tailwind colors to the SVG toggle. The light/dark `--color-bkgnd` and `--color-accent` hexes are single-sourced from `THEME_BKGND` / `THEME_ACCENT` in `data/theme.ts` (pure data; the WAAPI runtime lives in `scripts/theme-switcher.ts`), injected by `Layout.astro` as `--theme-*` CSS vars (`define:vars`) and referenced here — one source, no copy to sync.
 
 ### Client scripts
 - Non-trivial interactivity lives in `src/scripts/*.ts` as exported init functions (e.g. `initContactForm`, `initMobileMenu`). Components mount them with a 3-line `<script>` block:
