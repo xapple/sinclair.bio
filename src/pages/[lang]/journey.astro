@@ -11,9 +11,19 @@ const { lang, t } = Astro.locals;
 const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
 
-// Per-section base reveal delay (ms): the heading reveals at this delay and
-// TimelineEntry staggers its rows after it. One source for both uses below.
-const SECTION_DELAY = { experience: 0, education: 300, certifications: 600 };
+// Per-section base reveal delay (ms): each section's heading reveals after the
+// previous section's last row, so the page always cascades top-to-bottom no
+// matter how many entries a section has. Chained off the live counts (the
+// journey analogue of portfolio.astro's STEP chain) instead of the former
+// hardcoded {0,300,600}, which fell out of order once Experience grew past a
+// few rows. STEP must equal TimelineEntry's STAGGER_STEP so the section
+// headings and their rows share one stagger rhythm.
+const STEP = 90;
+const SECTION_DELAY = {
+  experience: 0,
+  education: (experiences.length + 1) * STEP,
+  certifications: (experiences.length + 1 + education.length + 1) * STEP,
+};
 ---
 
 <Layout title={t('journey:page-title')} description={t('journey:intro')}>
