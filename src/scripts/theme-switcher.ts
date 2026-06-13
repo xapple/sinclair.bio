@@ -1,36 +1,8 @@
-// --- Theme background colors ---
-// Single source of truth for the page background hex values. Layout.astro
-// injects these into CSS as --theme-bkgnd-light / --theme-bkgnd-dark, which
-// global.css's @theme + [data-theme] blocks reference for --color-bkgnd. (The
-// <meta name="theme-color"> tags use THEME_BAR, not this — see below.)
-export const THEME_BKGND = {
-  light: "#fffff8",
-  dark: "#140c07",
-} as const;
-
-// Brand burgundy — single source for --color-accent (both modes) and for
-// third-party embeds that need literal hex (e.g. Cal.com's cssVarsPerTheme).
-// Layout.astro pipes these into CSS as --theme-accent-{light,dark} via
-// define:vars; global.css references them in @theme + .dark.
-export const THEME_ACCENT = {
-  light: "#6b2c2c",
-  dark: "#cc6464",
-} as const;
-
-// Topbar color — single source for --color-bar. Layout.astro mirrors it into
-// CSS as --theme-bar-{light,dark}. --color-bar drives the topbar AND the <body>
-// background (see Layout.astro): Safari 26 derives its toolbar tint from the
-// body background, so a bar-colored body keeps the browser chrome the same
-// brown as the topbar instead of flashing to the page background mid-navigation.
-// The same color also feeds the <meta name="theme-color"> tags, which color the
-// chrome on mobile and browsers that still honor that tag (Safari 26 ignores
-// it).
-export const THEME_BAR = {
-  light: "#4a1e1e",
-  dark: "#3a1414",
-} as const;
-
-export type ThemeColor = keyof typeof THEME_BKGND;
+// Theme runtime: persists the user's light/dark choice (localStorage, best
+// effort) and animates the desktop pill toggle via the Web Animations API. The
+// theme COLOR values are pure data and live in src/data/theme.ts; this module
+// owns behavior only. The blocking pre-CSS flash guard is theme-bootstrap.js.
+import { type ThemeColor } from "../data/theme";
 
 // cubic-bezier approximation of GSAP's sine.inOut
 const EASE_SINE_IN_OUT = "cubic-bezier(0.37, 0, 0.63, 1)";

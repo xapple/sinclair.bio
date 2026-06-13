@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
 import { LANGUAGES, LANGUAGE_LIST, DEFAULT_LANGUAGE } from '../i18n/translations';
 import { getAlternatePath } from '../i18n/page';
-import { THEME_BKGND, THEME_ACCENT, THEME_BAR } from '../scripts/theme-switcher';
+import { THEME_BKGND, THEME_ACCENT, THEME_BAR } from '../data/theme';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
 import langPillSlide from '../scripts/lang-pill-slide.js?raw';
 import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
@@ -118,7 +118,7 @@ const LANG_INDEX = LANGUAGE_LIST.indexOf(lang);
     <style is:global is:inline set:html={`:root { --theme-bkgnd-light: ${THEME_BKGND.light}; --theme-bkgnd-dark: ${THEME_BKGND.dark}; --theme-accent-light: ${THEME_ACCENT.light}; --theme-accent-dark: ${THEME_ACCENT.dark}; --theme-bar-light: ${THEME_BAR.light}; --theme-bar-dark: ${THEME_BAR.dark}; }`} />
     <!-- Blocking theme bootstrap. Source: src/scripts/theme-bootstrap.js,
          imported as raw text and inlined here so it runs before bundles load.
-         THEME_BAR comes from theme-switcher.ts via define:vars and sets the
+         THEME_BAR comes from data/theme.ts via define:vars and sets the
          <meta theme-color> tags to the topbar color for the current theme. -->
     <script is:inline define:vars={{ THEME_BAR }} set:html={themeBootstrap} />
     <!-- Language-pill FLIP slide, new-page half. Source:

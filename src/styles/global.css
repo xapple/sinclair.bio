@@ -4,7 +4,7 @@
 
 /* ---- Design tokens ----
    --color-bkgnd is single-sourced from THEME_BKGND in
-   src/scripts/theme-switcher.ts. Layout.astro injects those hex values as
+   src/data/theme.ts. Layout.astro injects those hex values as
    --theme-bkgnd-light / --theme-bkgnd-dark on :root via define:vars, and the
    declarations below pull them in. */
 @theme {
@@ -22,7 +22,7 @@
   --color-accent:  var(--theme-accent-light); /* brand burgundy */
 
   /* Topbar — always dark regardless of mode. --color-bar is single-sourced
-     from THEME_BAR in theme-switcher.ts (injected as --theme-bar-* by
+     from THEME_BAR in data/theme.ts (injected as --theme-bar-* by
      Layout.astro), which also feeds the <meta theme-color> tags — so the
      browser chrome and the topbar token stay one value. */
   --color-bar:    var(--theme-bar-light);
@@ -41,7 +41,7 @@
      --color-bkgnd (#140c07, ratio ~5.0) and --color-surface (#1f1209,
      ratio ~4.8). The auth submit button compensates by switching its
      label color to var(--color-bkgnd) instead of pure white.
-     Source hex lives in THEME_ACCENT in src/scripts/theme-switcher.ts. */
+     Source hex lives in THEME_ACCENT in src/data/theme.ts. */
   --color-accent:  var(--theme-accent-dark);
 
   --color-bar:    var(--theme-bar-dark);
