@@ -17,4 +17,14 @@ export function initLangDropdown(): void {
       toggle.setAttribute('aria-expanded', 'false');
     }
   });
+
+  // Escape closes the open menu and returns focus to the toggle, so the
+  // role="menu" it advertises is actually keyboard-dismissible.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
+      dropdown.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+  });
 }
