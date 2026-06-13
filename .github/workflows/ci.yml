@@ -1,0 +1,24 @@
+# Pre-merge gate: runs the same `astro check && astro build` the Cloudflare
+# Pages deploy runs, but on PRs only — so a type error or broken
+# content-collection reference fails review instead of mid-deploy after merge.
+# PR-only on purpose: a push to `main` is already built by Cloudflare Pages, so
+# a `push` trigger here would just build the same commit twice.
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Reads the pinned version from package.json's "packageManager" field.
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # `build` already chains `astro check` (see package.json scripts).
+      - run: pnpm build
