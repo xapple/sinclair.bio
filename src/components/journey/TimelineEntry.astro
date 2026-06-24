@@ -271,6 +271,18 @@ const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
     height: 3.24rem;
   }
 
+  /* Sinclair.Bio wordmark paints with currentColor, so its tone is a pure
+     per-theme color swap: strong brand brown on the light page, and the
+     existing muted tone on the dark page. (:global escapes the html-level
+     [data-theme] so Astro doesn't scope it to this component.) */
+  .entry-logo[data-logo='logo-name'] {
+    color: var(--color-ink);
+  }
+
+  :global([data-theme='dark']) .entry-logo[data-logo='logo-name'] {
+    color: var(--color-muted);
+  }
+
   .summary {
     margin: 0;
     color: var(--color-ink);
