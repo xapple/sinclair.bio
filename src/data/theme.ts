@@ -17,7 +17,7 @@ export const THEME_BKGND = {
 // --- Brand burgundy ---
 // Single source for --color-accent (both modes) and for third-party embeds that
 // need literal hex (e.g. Cal.com's cssVarsPerTheme — CSS vars don't reach inside
-// the iframe, so talk.astro passes these in). Layout.astro pipes them into CSS as
+// the iframe, so contact.astro passes these in). Layout.astro pipes them into CSS as
 // --theme-accent-{light,dark} via define:vars; global.css references them in
 // @theme + the dark block.
 export const THEME_ACCENT = {

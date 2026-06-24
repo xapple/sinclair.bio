@@ -35,7 +35,7 @@ const { t } = Astro.locals;
     data-error-generic={t(`${kind}:error-generic`)}
   >
     <slot />
-    <button type="submit" class="auth-submit">{t(`${kind}:submit`)}</button>
+    <button type="submit" class="auth-submit btn-primary">{t(`${kind}:submit`)}</button>
   </form>
 
   <span data-auth-status class="auth-status" role="status" aria-live="polite"></span>
@@ -137,35 +137,13 @@ const { t } = Astro.locals;
     text-decoration: underline;
   }
 
+  /* Visual identity (accent fill, hover, focus, active) comes from the shared
+     .btn-primary primitive in global.css; these are only the auth-specific
+     size deltas — full-width inside the card, slightly larger. */
   .auth-submit {
-    appearance: none;
     width: 100%;
     padding: 0.7rem;
-    border-radius: 0.5rem;
-    border: none;
-    background: var(--color-accent);
-    /* Use the page background token (near-white in light, near-black in
-       dark) so the label stays >= 4.5:1 against accent in both modes —
-       pure #fff would drop below AA on the lightened dark accent. */
-    color: var(--color-bkgnd);
     font-size: 0.95rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 150ms ease, transform 150ms ease;
-  }
-
-  .auth-submit:hover {
-    background: color-mix(in srgb, var(--color-accent) 88%, black);
-  }
-
-  .auth-submit:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
-    outline-offset: 2px;
-  }
-
-  .auth-submit:active {
-    transform: translateY(1px);
   }
 
   .auth-status {

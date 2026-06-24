@@ -36,8 +36,8 @@
   --color-ink:     #ede0d0;
   --color-muted:   #a08870;
   --color-border:  #352218;
-  /* Lightened from #b85252 so small accent text (e.g. ContactSection's
-     `text-xs ... text-accent` heading) clears WCAG AA 4.5:1 against both
+  /* Lightened from #b85252 so small accent text (e.g. the `.section-eyebrow`
+     uppercase accent heading) clears WCAG AA 4.5:1 against both
      --color-bkgnd (#140c07, ratio ~5.0) and --color-surface (#1f1209,
      ratio ~4.8). The auth submit button compensates by switching its
      label color to var(--color-bkgnd) instead of pure white.
@@ -283,7 +283,7 @@ html:not([data-dom-loaded]) footer {
   }
 }
 
-/* Bordered form input used across the home contact form. */
+/* Bordered form input used across the contact form. */
 .field-input {
   width: 100%;
   padding: 0.625rem 1rem;
@@ -303,8 +303,38 @@ html:not([data-dom-loaded]) footer {
   border-color: var(--color-accent);
 }
 
+/* Primary action button — accent fill with a page-background label that keeps
+   >= 4.5:1 contrast in both themes (pure #fff would drop below AA on the
+   lightened dark accent). Shared by the contact Send button and the auth
+   (login / forgot) submit; callers add their own sizing. */
+.btn-primary {
+  appearance: none;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-accent);
+  color: var(--color-bkgnd);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--color-accent) 88%, black);
+}
+.btn-primary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+  outline-offset: 2px;
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* The one fade-up entrance primitive (keyframe `reveal`). Applied via the
-   <Reveal> wrapper (home sections, Talk page) or directly as a class on
+   <Reveal> wrapper (home sections, contact page) or directly as a class on
    elements that carry their own tag/attributes (journey rows, portfolio cards,
    the centered auth frame). --reveal-delay drives per-element stagger;
    --reveal-duration tunes speed. Both default here so most call sites only set

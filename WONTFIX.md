@@ -10,7 +10,7 @@ This actually works well for the mobile interface navigation.
 
 ## The booking page does not reach a usable scheduler
 
-In `talk.astro`, the embed is initialized with `calLink: 'sinclair.bio'`,
+In `contact.astro`, the embed is initialized with `calLink: 'sinclair.bio'`,
 which loads the Cal profile rather than the configured 30-minute event.
 This is good because now the user change choose either 15 or 30 minutes bookings.
 
@@ -23,15 +23,6 @@ The home outline skips from `<h1>` to `<h3>`. This is a design choice.
 The bootstrap respects a stored preference, but `ThemeToggle.astro` (line 14)
 calls `setTheme()` whenever the operating-system preference changes, writing
 over the saved manual choice. We want the OS to take precedence in such cases.
-
-## The “Contact” navigation item navigates to Home
-
-The “Contact” navigation item does not navigate to the contact section.
-In NavLinks.astro (line 5), it links to /${lang}/, and ContactSection.astro
-(line 15) has no target id.
-From Journey, Portfolio, or Talk, visitors selecting “Contact” land at the 
-hero instead of the form.
-This is expected as the home page is actually the contact form.
 
 ## Sitemap `lastmod` claims every page changed on every deployment
 

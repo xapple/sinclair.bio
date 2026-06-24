@@ -40,8 +40,7 @@ src/
 │   ├── home/
 │   │   ├── HeroSection.astro        # Greeting + portrait + tagline
 │   │   ├── InfoCardsSection.astro   # Location / Languages / Links cards
-│   │   ├── AboutSection.astro       # Prose from content/home/{lang}.md
-│   │   └── ContactSection.astro     # Contact form + DM info + meeting card
+│   │   └── AboutSection.astro       # Prose from content/home/{lang}.md
 │   ├── journey/
 │   │   └── TimelineEntry.astro      # Shared timeline-row primitive (page maps fields onto it)
 │   ├── portfolio/
@@ -49,7 +48,7 @@ src/
 │   └── topbar/
 │       ├── LanguageSwitcher.astro   # EN/FR pill with hreflang SEO links
 │       ├── Logo.astro               # SVG logo + "Sinclair" wordmark
-│       ├── NavLinks.astro           # Contact, Journey, Portfolio, Talk
+│       ├── NavLinks.astro           # About, Journey, Portfolio, Contact
 │       └── ThemeToggle.astro        # Animated dark/light pill toggle (WAAPI)
 ├── content/                  # Astro content collections (per-lang)
 │   ├── home/{en,fr}.md           # About prose (markdown body)
@@ -72,17 +71,17 @@ src/
 ├── middleware.ts            # Populates Astro.locals.lang + Astro.locals.t per request
 ├── pages/
 │   └── [lang]/              # Dynamic routes — getStaticPaths over LANGUAGE_LIST
+│       ├── contact.astro
 │       ├── forgot.astro
 │       ├── index.astro
 │       ├── journey.astro
 │       ├── login.astro
-│       ├── portfolio.astro
-│       └── talk.astro
+│       └── portfolio.astro
 ├── scripts/
 │   ├── async-form.ts        # Shared async form-submit lifecycle (button state + status)
 │   ├── auth-form.ts         # Login / forgot form wiring (delegates to async-form)
 │   ├── cal-embed.ts         # Cal.com inline embed (mount + theme remount)
-│   ├── contact-form.ts      # Home page contact form (delegates to async-form)
+│   ├── contact-form.ts      # Contact page contact form (delegates to async-form)
 │   ├── lang-dropdown.ts     # Mobile language-switcher dropdown
 │   ├── lang-pill.ts         # Language-pill FLIP slide, old-page half (stashes slot on click)
 │   ├── lang-pill-slide.js   # Language-pill FLIP slide, new-page half (imported as ?raw)
@@ -108,7 +107,7 @@ docs/                        # TEMPLATES.md, mockup.pages, make-forest-puller-ca
 - **Routing**: `prefixDefaultLocale: true` — EN at `/en/`, FR at `/fr/`. In production the Cloudflare Pages Function at `functions/index.ts` handles `/` with an `Accept-Language`-aware 302; the static `'/' → '/en/'` redirect in `astro.config.mjs` is only a fallback (local `astro preview`, or if Functions are disabled).
 - **Dynamic routes**: every page under `src/pages/[lang]/` uses `export const getStaticPaths = langStaticPaths` from `i18n/page.ts` — no duplication per locale.
 - **Lang + translator on every page/component**: `src/middleware.ts` reads `Astro.currentLocale` once per request and populates `Astro.locals.lang` and `Astro.locals.t`. Pages and components just destructure: `const { lang, t } = Astro.locals` — no per-file `usePage`/`usePageFromUrl` helpers. The shape is typed via `App.Locals` in `src/env.d.ts`.
-- **Translations**: `useTranslations(lang)` returns a curried `t(key)` function. Flat colon-separated keys (`"nav:contact"`), fully typed. `t()` returns the raw string — the few keys carrying a `%s` placeholder (`footer:copyright`, `home:contact-error`) are interpolated at the call site (see `Footer.astro`, `contact-form.ts`).
+- **Translations**: `useTranslations(lang)` returns a curried `t(key)` function. Flat colon-separated keys (`"nav:contact"`), fully typed. `t()` returns the raw string — the few keys carrying a `%s` placeholder (`footer:copyright`, `contact:error`) are interpolated at the call site (see `Footer.astro`, `contact-form.ts`).
 - **Adding a language**: add an entry to the `LANGUAGES` map in `translations.ts` + a translations block — routes generate automatically.
 
 ### Content collections
@@ -126,7 +125,7 @@ docs/                        # TEMPLATES.md, mockup.pages, make-forest-puller-ca
 ### Styling
 Three layers, each with a defined job — choose by scope, not preference:
 - **Tailwind utilities in markup** — one-off layout & spacing with no reuse (hero, topbar, footer, contact-form shell).
-- **Named classes in `global.css`** — primitives shared across unrelated components: `.surface-card`, `.field-input`, `.link-underline`, `.section-heading`, `.section-eyebrow`, `.page-reveal`, `.bar-icon-btn`. Plain CSS (no `@apply`, so no `@reference` needed); `.surface-card` / `.bar-icon-btn` sit in `@layer components` so Tailwind utilities (`md:hidden`, `hover:border-accent`) still win the cascade.
+- **Named classes in `global.css`** — primitives shared across unrelated components: `.surface-card`, `.field-input`, `.btn-primary` (accent action button — contact Send + auth submit; callers add sizing), `.link-underline`, `.section-heading`, `.section-eyebrow`, `.page-reveal`, `.bar-icon-btn`. Plain CSS (no `@apply`, so no `@reference` needed); `.surface-card` / `.bar-icon-btn` sit in `@layer components` so Tailwind utilities (`md:hidden`, `hover:border-accent`) still win the cascade.
 - **Scoped `<style>` in a component** — bespoke, self-contained visuals with no reuse (journey timeline, portfolio cards, auth form, `Callout`).
 - Colors always flow through `--color-*` tokens — never hardcode a hex in a component.
 

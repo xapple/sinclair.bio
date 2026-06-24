@@ -14,7 +14,7 @@ export function initMobileMenu(): void {
     // Capture focus location before `inert` blurs any focused menu link.
     const focusWasInside = menu.contains(document.activeElement);
     // Remove closed menu from the keyboard / a11y tree — CSS only hides it
-    // visually, so without `inert` the Journey/Portfolio/Talk anchors remain
+    // visually, so without `inert` the Journey/Portfolio/Contact anchors remain
     // tab-focusable while collapsed.
     menu.toggleAttribute('inert', isClosed);
     // Closing while focus sat on a menu link drops focus to <body>; send it

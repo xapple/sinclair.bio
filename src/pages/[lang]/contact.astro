@@ -1,0 +1,172 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Reveal from '../../components/Reveal.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { DM_CHANNELS } from '../../data/profile';
+import { langStaticPaths } from '../../i18n/page';
+
+export const getStaticPaths = langStaticPaths;
+
+const { t } = Astro.locals;
+---
+
+<Layout
+  title={t('contact:page-title')}
+  description={t('meta:contact-description')}
+  shellWidth="960px"
+>
+  <!-- By email -->
+  <Reveal duration={400}>
+    <section class="contact-section contact-section--first">
+      <SectionHeading icon="mail" text={t('contact:email-heading')} />
+
+      <form
+        id="contact-form"
+        class="flex flex-col gap-3 w-full max-w-xl"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        data-sending={t('contact:sending')}
+        data-sent={t('contact:sent')}
+        data-error={t('contact:error')}
+        data-error-generic={t('contact:error-generic')}
+      >
+        <input type="hidden" name="access_key" value="cb34a33c-14b3-4b35-b978-25080a102993" />
+        <input
+          type="text"
+          name="name"
+          placeholder={t('contact:name')}
+          aria-label={t('contact:name')}
+          autocomplete="name"
+          required
+          class="field-input"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder={t('contact:email')}
+          aria-label={t('contact:email')}
+          autocomplete="email"
+          required
+          class="field-input"
+        />
+        <textarea
+          name="message"
+          placeholder={t('contact:message')}
+          aria-label={t('contact:message')}
+          rows={5}
+          required
+          class="field-input resize-none"
+        ></textarea>
+        <div class="flex items-center justify-end gap-3">
+          <span data-contact-status class="text-sm"></span>
+          <button type="submit" class="btn-primary px-6 py-2.5 text-sm">
+            {t('contact:send')}
+          </button>
+        </div>
+      </form>
+    </section>
+  </Reveal>
+
+  <!-- By talking -->
+  <Reveal duration={400} delay={120}>
+    <section class="contact-section">
+      <SectionHeading icon="calendar" text={t('contact:talking-heading')} />
+      <p class="subtitle">{t('contact:talking-intro')}</p>
+
+      <div class="scheduler">
+        <div id="cal-inline" class="cal-inline"></div>
+        <p class="embed-notice">* {t('contact:embed-notice')}</p>
+      </div>
+    </section>
+  </Reveal>
+
+  <!-- By message -->
+  <Reveal duration={400} delay={240}>
+    <section class="contact-section">
+      <SectionHeading icon="messages-square" text={t('contact:message-heading')} />
+
+      <ul class="channels grid grid-cols-[max-content_max-content] items-center gap-x-6 gap-y-3 text-base">
+        {DM_CHANNELS.map(({ icon, label, handle, href }) => (
+          <li class="contents">
+            <span class="flex items-center gap-1.5 text-muted">
+              <Icon name={icon} size="sm" />
+              {label}:
+            </span>
+            <a href={href} target="_blank" rel="noopener noreferrer" class="link-underline">{handle}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </Reveal>
+</Layout>
+
+<script>
+  import { initContactForm } from '../../scripts/contact-form';
+  import { mountCalEmbed, watchThemeAndRestyle, type CalEmbedOptions } from '../../scripts/cal-embed';
+  import { THEME_ACCENT } from '../../data/theme';
+
+  initContactForm();
+
+  const options: CalEmbedOptions = {
+    calLink: 'sinclair.bio',
+    namespace: '30min',
+    origin: 'https://app.cal.eu',
+    embedSrc: 'https://app.cal.eu/embed/embed.js',
+    brandColors: THEME_ACCENT,
+  };
+
+  mountCalEmbed(options);
+  watchThemeAndRestyle(options);
+</script>
+
+<style>
+  /* Grid + gap own the heading-to-content rhythm (mirrors .portfolio-section),
+     so the SectionHeading / subtitle / embed elements carry no margins of
+     their own. */
+  .contact-section {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .contact-section--first {
+    margin-top: 0;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    line-height: 1.6;
+  }
+
+  /* Chat-app glyphs a touch larger than the icon-sm preset, sized between the
+     sm (1rem) and md (1.5rem) steps. */
+  .channels :global(.icon) {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .cal-inline {
+    width: 100%;
+    /* Floor ≈ the booker's event-type-list content height (~481px), so it
+       reserves space during load without leaving an empty band below once
+       Cal auto-sizes the iframe. Only a floor: the wrapper still grows past
+       it when the visitor opens a meeting and Cal's month view gets taller. */
+    min-height: 483px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .embed-notice {
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    text-align: center;
+  }
+</style>

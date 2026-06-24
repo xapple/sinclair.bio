@@ -3,10 +3,10 @@ const { lang, t } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
 const links = [
-  { label: t('nav:contact'), href: `/${lang}/` },
+  { label: t('nav:about'), href: `/${lang}/` },
   { label: t('nav:journey'), href: `/${lang}/journey` },
   { label: t('nav:portfolio'), href: `/${lang}/portfolio` },
-  { label: t('nav:talk'), href: `/${lang}/talk` },
+  { label: t('nav:contact'), href: `/${lang}/contact` },
 ];
 
 const activeClasses = 'rounded-md px-3 py-2 text-base font-semibold text-bar-fg bg-white/10';

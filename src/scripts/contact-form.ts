@@ -1,4 +1,4 @@
-// Wires the home-page contact form. The async submit / button-state / status
+// Wires the contact-page contact form. The async submit / button-state / status
 // lifecycle lives in scripts/async-form.ts; this module just supplies the
 // response-shape mapping and the Tailwind status classes.
 import { initAsyncForm } from './async-form';

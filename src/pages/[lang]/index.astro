@@ -4,7 +4,6 @@ import Reveal from '../../components/Reveal.astro';
 import HeroSection from '../../components/home/HeroSection.astro';
 import InfoCardsSection from '../../components/home/InfoCardsSection.astro';
 import AboutSection from '../../components/home/AboutSection.astro';
-import ContactSection from '../../components/home/ContactSection.astro';
 import { langStaticPaths } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -16,5 +15,4 @@ const { t } = Astro.locals;
   <Reveal delay={0}><HeroSection /></Reveal>
   <Reveal delay={80}><InfoCardsSection /></Reveal>
   <Reveal delay={200}><AboutSection /></Reveal>
-  <Reveal delay={340}><ContactSection /></Reveal>
 </Layout>
