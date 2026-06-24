@@ -5,14 +5,19 @@
 // runtime cost; the SVG strings are inlined into the rendered HTML only on
 // pages that reference them via the registry.
 
-const modules = import.meta.glob<string>('./*.svg', {
+// Every .svg in this directory, plus the shared "Sinclair.Bio" wordmark that
+// lives one level up (single-sourced with the topbar Logo, which imports the
+// same file directly). Exposing it here lets entries reference it as
+// <Icon name="logo-name" /> without copying the asset.
+const modules = import.meta.glob<string>(['./*.svg', '../logo-name.svg'], {
   query: '?raw',
   import: 'default',
   eager: true,
 });
 
 function basename(path: string): string {
-  return path.replace(/^\.\//, '').replace(/\.svg$/, '');
+  const file = path.split('/').pop() ?? path;
+  return file.replace(/\.svg$/, '');
 }
 
 // Module-local: callers go through getIcon(), which validates the name.
