@@ -6,14 +6,12 @@
 interface Props {
   title: string;
   href: string;
-  revealDelay?: number; // ms — opts the row into the shared .page-reveal fade-up
 }
 
-const { title, href, revealDelay } = Astro.props;
-const style = revealDelay !== undefined ? `--reveal-delay: ${revealDelay}ms` : undefined;
+const { title, href } = Astro.props;
 ---
 
-<li class:list={['ref-item', { 'page-reveal': revealDelay !== undefined }]} style={style}>
+<li class="ref-item page-reveal">
   <p class="ref-title"><a href={href} target="_blank" rel="noopener noreferrer">{title}</a></p>
   <p class="ref-meta"><slot /></p>
 </li>

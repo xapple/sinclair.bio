@@ -10,34 +10,19 @@ export const getStaticPaths = langStaticPaths;
 const { lang, t } = Astro.locals;
 const entry = await getLangEntry('journey', lang);
 const { experiences, education, certifications = [] } = entry.data;
-
-// Per-section base reveal delay (ms): each section's heading reveals after the
-// previous section's last row, so the page always cascades top-to-bottom no
-// matter how many entries a section has. Chained off the live counts (the
-// journey analogue of portfolio.astro's STEP chain) instead of the former
-// hardcoded {0,300,600}, which fell out of order once Experience grew past a
-// few rows. STEP must equal TimelineEntry's STAGGER_STEP so the section
-// headings and their rows share one stagger rhythm.
-const STEP = 90;
-const SECTION_DELAY = {
-  experience: 0,
-  education: (experiences.length + 1) * STEP,
-  certifications: (experiences.length + 1 + education.length + 1) * STEP,
-};
 ---
 
 <Layout title={t('journey:page-title')} description={t('journey:intro')}>
   <div class="section-stack">
     <div class="journey-section">
-      <Reveal delay={SECTION_DELAY.experience}>
+      <Reveal>
         <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" />
       </Reveal>
 
       <ol class="entry-list" aria-labelledby="experience-heading">
-        {experiences.map((item, index) => (
+        {experiences.map((item) => (
           <TimelineEntry
             layout="wide"
-            baseDelay={SECTION_DELAY.experience}
             title={item.role}
             titleHref={item.href}
             primary={item.company}
@@ -47,22 +32,20 @@ const SECTION_DELAY = {
             location={item.location}
             summary={item.summary}
             bullets={item.highlights}
-            index={index}
           />
         ))}
       </ol>
     </div>
 
     <div class="journey-section">
-      <Reveal delay={SECTION_DELAY.education}>
+      <Reveal>
         <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" />
       </Reveal>
 
       <ol class="entry-list" aria-labelledby="education-heading">
-        {education.map((item, index) => (
+        {education.map((item) => (
           <TimelineEntry
             layout="narrow"
-            baseDelay={SECTION_DELAY.education}
             title={item.school}
             titleHref={item.href}
             primary={item.degree}
@@ -71,7 +54,6 @@ const SECTION_DELAY = {
             period={item.period}
             summary={item.summary}
             bullets={item.details}
-            index={index}
           />
         ))}
       </ol>
@@ -79,15 +61,14 @@ const SECTION_DELAY = {
 
     {certifications.length > 0 && (
       <div class="journey-section">
-        <Reveal delay={SECTION_DELAY.certifications}>
+        <Reveal>
           <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" />
         </Reveal>
 
         <ol class="entry-list" aria-labelledby="certifications-heading">
-          {certifications.map((item, index) => (
+          {certifications.map((item) => (
             <TimelineEntry
               layout="narrow"
-              baseDelay={SECTION_DELAY.certifications}
               title={item.name}
               titleHref={item.href}
               primary={item.issuer}
@@ -96,7 +77,6 @@ const SECTION_DELAY = {
               period={item.period}
               summary={item.summary}
               bullets={item.details}
-              index={index}
             />
           ))}
         </ol>

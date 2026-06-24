@@ -1,18 +1,16 @@
 ---
-// Fade-up entrance wrapper. Uses the `.page-reveal` keyframe in global.css —
-// pass `delay`/`duration` to tune timing, `as` to swap the wrapper tag.
+// Fade-up entrance wrapper. Uses the `.page-reveal` keyframe in global.css.
+// Timing/stagger is owned by reveal-on-scroll.js (each element animates as it
+// scrolls into view), so there's no per-element delay knob — pass `duration`
+// to tune fade speed, `as` to swap the wrapper tag.
 interface Props {
-  delay?: number;       // ms
   duration?: number;    // ms — omit to inherit the .page-reveal default
   as?: keyof HTMLElementTagNameMap;
   class?: string;
 }
 
-const { delay = 0, duration, as: Tag = 'div', class: extraClass } = Astro.props;
-const parts: string[] = [];
-if (delay) parts.push(`--reveal-delay:${delay}ms`);
-if (duration !== undefined) parts.push(`--reveal-duration:${duration}ms`);
-const style = parts.length ? parts.join('; ') : undefined;
+const { duration, as: Tag = 'div', class: extraClass } = Astro.props;
+const style = duration !== undefined ? `--reveal-duration:${duration}ms` : undefined;
 ---
 
 <Tag class:list={['page-reveal', extraClass]} style={style}>

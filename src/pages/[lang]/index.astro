@@ -12,7 +12,7 @@ const { t } = Astro.locals;
 ---
 
 <Layout title={t('home:page-title')} description={t('meta:home-description')} shellWidth="48rem">
-  <Reveal delay={0}><HeroSection /></Reveal>
-  <Reveal delay={80}><InfoCardsSection /></Reveal>
-  <Reveal delay={200}><AboutSection /></Reveal>
+  <Reveal><HeroSection /></Reveal>
+  <Reveal><InfoCardsSection /></Reveal>
+  <Reveal><AboutSection /></Reveal>
 </Layout>

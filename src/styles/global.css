@@ -363,23 +363,20 @@ html:not([data-dom-loaded]) footer {
 /* The one fade-up entrance primitive (keyframe `reveal`). Applied via the
    <Reveal> wrapper (home sections, contact page) or directly as a class on
    elements that carry their own tag/attributes (journey rows, portfolio cards,
-   the centered auth frame). --reveal-delay drives per-element stagger;
-   --reveal-duration tunes speed. Both default here so most call sites only set
-   --reveal-delay.
+   the centered auth frame). --reveal-duration tunes fade speed (the auth frame
+   and the contact sections set it); everything else inherits the default.
 
-   This block is the NO-JS FALLBACK: every element fades up on load, with the
-   per-element delay capped at --reveal-delay-cap (default 400ms) so a long page
-   can't take >2.5s for the last row to start. When JS runs, reveal-on-scroll.js
-   sets [data-js-reveal] (below) and only the on-screen elements animate — that
-   path exists because iOS Safari suppresses nav taps while it composites a
-   whole-page entrance. */
+   This block is the NO-JS FALLBACK: every element just fades up together on
+   load. When JS runs, reveal-on-scroll.js sets [data-js-reveal] (below) and
+   instead reveals each element as it scrolls into view — that path exists
+   because iOS Safari suppresses nav taps while it composites a whole-page
+   entrance. */
 .page-reveal {
   opacity: 0;
   transform: translateY(12px);
   animation-name: reveal;
   animation-duration: var(--reveal-duration, 560ms);
   animation-timing-function: ease-out;
-  animation-delay: min(var(--reveal-delay, 0ms), var(--reveal-delay-cap, 400ms));
   animation-fill-mode: forwards;
 }
 
@@ -388,9 +385,8 @@ html:not([data-dom-loaded]) footer {
    script before the FOUC guard reveals content, so the on-load cascade above
    never auto-starts. Revealing only the on-screen handful keeps iOS Safari from
    suppressing nav taps while it composites the whole page's entrance at once.
-   --reveal-delay is intentionally ignored here; the script staggers the initial
-   on-screen batch via an inline animation-delay, and scrolled-in items fade
-   immediately. */
+   The script staggers the initial on-screen batch via an inline animation-delay;
+   scrolled-in items fade immediately. */
 html[data-js-reveal] .page-reveal {
   animation: none;
 }
