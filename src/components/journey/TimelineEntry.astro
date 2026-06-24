@@ -32,12 +32,6 @@ const { layout, title, titleHref, primary, tertiary, logo, period, location, sum
 const variantClass = layout === 'wide' ? 'entry-item--wide' : 'entry-item--narrow';
 const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
 
-// A `logo` that is a root-relative path (e.g. "/logos/bbcf.png") is a raster
-// image rendered via <img>; anything else is an icon-registry basename for
-// <Icon>. `logoKey` is the bare slug used as the data-logo size hook either way.
-const isImageLogo = logo?.startsWith('/') ?? false;
-const logoKey = logo?.split('/').pop()?.replace(/\.\w+$/, '');
-
 // Stagger: each row reveals STAGGER_STEP ms after the previous, offset by the
 // section's baseDelay. (index + 1) so the first row trails its section heading.
 const STAGGER_STEP = 90;
@@ -69,12 +63,8 @@ const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
       </div>
 
       {logo && (
-        <div class="entry-logo" data-logo={logoKey}>
-          {isImageLogo ? (
-            <img src={logo} alt="" />
-          ) : (
-            <Icon name={logo} size="lg" />
-          )}
+        <div class="entry-logo" data-logo={logo}>
+          <Icon name={logo} size="lg" />
         </div>
       )}
     </div>
@@ -260,14 +250,6 @@ const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
     width: auto;
   }
 
-  /* Raster logos (e.g. the BBCF mark) sized the same way: by height, width
-     follows the image's aspect ratio. */
-  .entry-logo img {
-    display: block;
-    height: 1.8rem;
-    width: auto;
-  }
-
   /* The EU emblem is sparser than the wordmarks, so it carries 1.5× the
      shared height (1.8rem) for comparable visual weight. */
   .entry-logo[data-logo='european-commission'] :global(.icon) {
@@ -284,14 +266,9 @@ const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
     height: 3.6rem;
   }
 
-  /* Uppsala seal is detailed; 1.5× so the engraving reads. */
+  /* Uppsala seal is detailed; 1.8× the base height so the engraving reads. */
   .entry-logo[data-logo='uppsala-university'] :global(.icon) {
-    height: 2.7rem;
-  }
-
-  /* BBCF lettermark (raster) — 1.5× so the B/C/F read. */
-  .entry-logo[data-logo='bbcf'] img {
-    height: 2.7rem;
+    height: 3.24rem;
   }
 
   .summary {
