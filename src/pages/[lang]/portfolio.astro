@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
+import Icon from '../../components/Icon.astro';
 import Callout from '../../components/Callout.astro';
 import RefItem from '../../components/portfolio/RefItem.astro';
 import Reveal from '../../components/Reveal.astro';
@@ -18,14 +19,20 @@ const personal = PERSONAL[lang];
 
 // Reveal cascade: each section reveals AFTER the one above it, not in parallel.
 // A section's heading shows at its base delay; items stagger STEP ms after it;
-// the next section's base is pushed past the current section's last item.
+// the next section's base is pushed past the current section's last item. The
+// trailing "More on …" callouts count as items too, so each section that ends
+// in one reserves an extra STEP for it (the +2 vs +1 sections below).
 // Chained off the live counts so it stays sequential for any length / language
 // -- the portfolio analogue of the journey page's SECTION_DELAY.
 const STEP = 80;
 const baseOpenSource = 0;
-const baseTestimonials = baseOpenSource + (projects.length + 1) * STEP;
+// heading + each project + the "More on GitHub" callout
+const baseTestimonials = baseOpenSource + (projects.length + 2) * STEP;
+// heading + each testimonial
 const basePublications = baseTestimonials + (testimonials.length + 1) * STEP;
-const baseClasses = basePublications + (PUBLICATIONS.length + 1) * STEP;
+// heading + each publication + the h-index / ORCID callouts
+const baseClasses = basePublications + (PUBLICATIONS.length + 2) * STEP;
+// heading + each class
 const basePersonal = baseClasses + (classes.length + 1) * STEP;
 ---
 
@@ -54,7 +61,7 @@ const basePersonal = baseClasses + (classes.length + 1) * STEP;
               {project.imageDark && <img class="thumb-dark" src={project.imageDark} alt="" loading="lazy" decoding="async" />}
             </div>
             <div class="card-body">
-              <h3>{project.name}</h3>
+              <h3>{project.name}<Icon name="external-link" size="xs" class="card-ext-icon" /></h3>
               <p>{project.description}</p>
               {project.tags.map((tag) => <span class="tag">{tag}</span>)}
             </div>
@@ -62,7 +69,9 @@ const basePersonal = baseClasses + (classes.length + 1) * STEP;
         ))}
       </div>
 
-      <Callout icon="github" text={t("portfolio:github-link")} href={PROFILES.github} />
+      <Reveal delay={baseOpenSource + (projects.length + 1) * STEP}>
+        <Callout icon="github" text={t("portfolio:github-link")} href={PROFILES.github} />
+      </Reveal>
     </section>
 
     <section class="portfolio-section">
@@ -93,10 +102,12 @@ const basePersonal = baseClasses + (classes.length + 1) * STEP;
         ))}
       </ul>
 
-      <div class="pub-links">
-        <Callout icon="scopus" text={t("portfolio:hindex-label")} value={10} href={PROFILES.scopus} />
-        <Callout icon="orcid" text={t("portfolio:orcid-link")} href={PROFILES.orcid} />
-      </div>
+      <Reveal delay={basePublications + (PUBLICATIONS.length + 1) * STEP}>
+        <div class="pub-links">
+          <Callout icon="scopus" text={t("portfolio:hindex-label")} value={10} href={PROFILES.scopus} />
+          <Callout icon="orcid" text={t("portfolio:orcid-link")} href={PROFILES.orcid} />
+        </div>
+      </Reveal>
     </section>
 
     <section class="portfolio-section">
@@ -162,6 +173,15 @@ const basePersonal = baseClasses + (classes.length + 1) * STEP;
       transform 150ms ease,
       border-color 150ms ease,
       box-shadow 150ms ease;
+  }
+
+  /* External-link affordance, inline just after the project title. Inherits the
+     h3's accent color so it reads as part of the linked heading; nudged up to
+     sit with the cap height rather than the baseline. */
+  .card-body h3 :global(.card-ext-icon) {
+    margin-left: 0.4rem;
+    vertical-align: -0.05em;
+    opacity: 0.85;
   }
 
   /* Unlayered, so the accent border wins over .surface-card's @layer border. */
