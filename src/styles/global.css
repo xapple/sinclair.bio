@@ -161,6 +161,33 @@ html:not([data-dom-loaded]) footer {
 .mobile-menu-toggle[data-menu-closed] .mobile-menu-icon-open  { display: none; }
 .mobile-menu-toggle[data-menu-closed] .mobile-menu-icon-closed { display: inline-flex; }
 
+/* ---- Topbar narrow-width fit ----
+   The bar carries a ~138px logo plus four 44px controls (language, theme,
+   login, hamburger — kept at 44px as a11y tap targets), so its content needs
+   ~382px to lay out. Below that the right cluster overflows past the viewport.
+   Because the cluster is the only horizontal overflow on the page and the bar
+   is a full-bleed sticky element, that overflow let the bar paint wider than
+   the <main> beneath it — exposing the page background as an empty column to
+   the right of the (narrower) content. `overflow-x: clip` keeps the bar's
+   overflow from ever reaching the document, so the bar and <main> stay the
+   same width at any viewport. `clip` (not `hidden`) leaves overflow-y truly
+   visible, so the downward mobile language dropdown and the expanding mobile
+   menu are untouched. The tighter gap + padding below 420px make everything
+   fit with no overflow on real phones (>=360px); the clip only ever engages
+   when a desktop window is dragged narrower than any device. */
+.site-topbar {
+  overflow-x: clip;
+}
+
+@media (max-width: 420px) {
+  .site-topbar > nav {
+    padding-inline: 0.5rem;
+  }
+  .topbar-widgets {
+    gap: 0.375rem;
+  }
+}
+
 /* ---- Page scaffolding ----
    Shared structure for pages rendered via <Layout frame="standard|centered">.
    Each page can set --shell-width via the `shellWidth` prop. */
