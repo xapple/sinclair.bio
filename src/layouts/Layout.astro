@@ -7,6 +7,7 @@ import { getAlternatePath } from '../i18n/page';
 import { THEME_BKGND, THEME_ACCENT, THEME_BAR } from '../data/theme';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
 import langPillSlide from '../scripts/lang-pill-slide.js?raw';
+import revealOnScroll from '../scripts/reveal-on-scroll.js?raw';
 import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
 import '../styles/global.css';
 
@@ -147,5 +148,10 @@ const LANG_INDEX = LANGUAGE_LIST.indexOf(lang);
       </section>
     </main>
     <Footer />
+    <!-- Scroll-triggered reveal, inlined raw at end of <body> so it always runs
+         (no bundle-load failure could leave the page's [data-js-reveal] gate
+         holding content invisible) and sets that gate before the FOUC guard
+         reveals content. Source: src/scripts/reveal-on-scroll.js. -->
+    <script is:inline set:html={revealOnScroll} />
   </body>
 </html>
