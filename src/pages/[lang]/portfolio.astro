@@ -82,7 +82,10 @@ const basePersonal = baseClasses + (classes.length + 1) * STEP;
       <div class="testimonial-list">
         {testimonials.map((testimonial, i) => (
           <figure class="testimonial page-reveal" style={`--reveal-delay: ${baseTestimonials + (i + 1) * STEP}ms`}>
-            <blockquote>"{testimonial.quote}"{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
+            {/* Curly typographic quotes, not straight ASCII " — a straight quote is a
+                symmetric vertical mark with no italic form, so it stays upright inside
+                the italic blockquote and reads as un-italicized against the slanted text. */}
+            <blockquote>“{testimonial.quote}”{testimonial.translated && <span class="translation-note"> {t("portfolio:testimonial-translation-note")}</span>}</blockquote>
             <figcaption>— {testimonial.author}, <span>{testimonial.role}</span></figcaption>
           </figure>
         ))}
