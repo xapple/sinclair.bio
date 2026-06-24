@@ -1,4 +1,6 @@
 ---
+import Icon from '../Icon.astro';
+
 // Visual primitive for journey timeline rows.
 //
 // `layout` controls two coupled visual choices:
@@ -13,6 +15,8 @@ interface Props {
   primary: string;
   // Optional third line (employmentType / field of study).
   tertiary?: string;
+  // Optional brand mark (icon basename) shown under the heading, right-aligned.
+  logo?: string;
   period: string;
   location?: string;
   summary: string;
@@ -23,7 +27,7 @@ interface Props {
   baseDelay?: number;
 }
 
-const { layout, title, titleHref, primary, tertiary, period, location, summary, bullets, index, baseDelay = 0 } = Astro.props;
+const { layout, title, titleHref, primary, tertiary, logo, period, location, summary, bullets, index, baseDelay = 0 } = Astro.props;
 
 const variantClass = layout === 'wide' ? 'entry-item--wide' : 'entry-item--narrow';
 const tertiaryClass = layout === 'wide' ? 'secondary-meta' : 'field-meta';
@@ -57,6 +61,12 @@ const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
         )}
         {tertiary && <p class={tertiaryClass}>{tertiary}</p>}
       </div>
+
+      {logo && (
+        <div class="entry-logo">
+          <Icon name={logo} size="lg" />
+        </div>
+      )}
     </div>
 
     <div class="entry-body">
@@ -216,6 +226,28 @@ const revealDelay = baseDelay + (index + 1) * STAGGER_STEP;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+  }
+
+  /* Brand mark under the heading, left-aligned in the left column.
+     Inherits currentColor from the muted tone so it flips with the theme. */
+  .entry-logo {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 0.7rem;
+    color: var(--color-muted);
+    opacity: 0.85;
+  }
+
+  /* Size by the wordmark's height; width follows the cropped aspect ratio so
+     there's no transparent padding around the mark. :global because the .icon
+     span + svg are rendered by <Icon>, outside this component's style scope. */
+  .entry-logo :global(.icon) {
+    width: auto;
+    height: 1.8rem;
+  }
+
+  .entry-logo :global(.icon > svg) {
+    width: auto;
   }
 
   .summary {

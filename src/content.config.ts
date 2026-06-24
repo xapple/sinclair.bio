@@ -11,6 +11,9 @@ const journey = defineCollection({
         company: z.string(),
         href: z.url().optional(),
         employmentType: z.string().optional(),
+        // Optional brand mark shown under the company line — an icon basename
+        // from src/assets/icons/ (e.g. "gsk").
+        logo: z.string().optional(),
         period: z.string(),
         location: z.string().optional(),
         summary: z.string(),
@@ -23,6 +26,7 @@ const journey = defineCollection({
         degree: z.string(),
         href: z.url().optional(),
         field: z.string().optional(),
+        logo: z.string().optional(),
         period: z.string(),
         summary: z.string(),
         details: z.array(z.string()).optional(),
@@ -35,6 +39,7 @@ const journey = defineCollection({
           href: z.url().optional(),
           issuer: z.string(),
           field: z.string().optional(),
+          logo: z.string().optional(),
           period: z.string(),
           summary: z.string(),
           details: z.array(z.string()).optional(),
