@@ -4,7 +4,11 @@
 // LanguageSwitcher, Layout (hreflang + og:locale), and the schema builders.
 //
 // Adding a language is a one-line edit here plus a translations block below;
-// routes generate automatically via langStaticPaths.
+// routes generate automatically via langStaticPaths. That covers only the typed
+// string layer, though: each new language must ALSO ship
+// src/content/{journey,portfolio}/<lang>.json and src/content/home/<lang>.md.
+// Those content files are unchecked at compile time — a missing one throws at
+// build render via getLangEntry (i18n/page.ts), not as a type error.
 export const LANGUAGES = {
   en: { fullLabel: 'English',  flag: '🇬🇧', ogLocale: 'en_US' },
   fr: { fullLabel: 'Français', flag: '🇫🇷', ogLocale: 'fr_FR' },
@@ -104,6 +108,7 @@ const en = {
   "portfolio:orcid-link": "More on ORCID",
   "portfolio:hindex-label": "h-index",
   "portfolio:testimonial-translation-note": "(translated from French)",
+  "meta:og-image-alt": "Lucas Sinclair — Senior Data Scientist, PhD in Bioinformatics",
   "meta:site-description": "Lucas Sinclair — Senior Data Scientist & PhD in Bioinformatics. 15+ years turning life-sciences research into data products: pipelines, web apps, and decision-grade analytics.",
   "meta:home-description": "Personal site of Lucas Sinclair, Senior Data Scientist and PhD in Bioinformatics based in Geneva. Independent consulting for life sciences and beyond.",
   "meta:portfolio-description": "Selected open-source projects, peer-reviewed publications, client testimonials and coursework by Lucas Sinclair.",
@@ -199,6 +204,7 @@ export const translations = {
     "portfolio:orcid-link": "Plus sur ORCID",
     "portfolio:hindex-label": "indice h",
     "portfolio:testimonial-translation-note": "(traduit de l'anglais)",
+    "meta:og-image-alt": "Lucas Sinclair — Spécialiste senior en science des données, PhD en bioinformatique",
     "meta:site-description": "Lucas Sinclair — Spécialiste senior en science des données, PhD en bioinformatique. Plus de 15 ans à transformer la recherche en sciences de la vie en produits data: pipelines, applications web et analyses décisionnelles.",
     "meta:home-description": "Site personnel de Lucas Sinclair, Spécialiste senior en science des données et docteur en bioinformatique basé à Genève. Conseil indépendant pour les sciences de la vie et d'autres domaines.",
     "meta:portfolio-description": "Sélection de projets open source, publications scientifiques, témoignages clients et formations de Lucas Sinclair.",

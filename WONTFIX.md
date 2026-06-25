@@ -12,17 +12,19 @@ This actually works well for the mobile interface navigation.
 
 In `contact.astro`, the embed is initialized with `calLink: 'sinclair.bio'`,
 which loads the Cal profile rather than the configured 30-minute event.
-This is good because now the user change choose either 15 or 30 minutes bookings.
+This is good because now the user can choose either 15 or 30 minutes bookings.
 
 ## Journey and Portfolio do not have page-level headings
 
-The home outline skips from `<h1>` to `<h3>`. This is a design choice.
+The home outline skips from `<h1>` to `<h2>`. This is a design choice.
 
 ## System theme changes overwrite an explicit user-selected theme
 
 The bootstrap respects a stored preference, but `ThemeToggle.astro` (line 14)
 calls `setTheme()` whenever the operating-system preference changes, writing
 over the saved manual choice. We want the OS to take precedence in such cases.
+Indeed, we always want to follow a live OS color-scheme change, though we don't
+need to persist it as the saved choice.
 
 ## Sitemap `lastmod` claims every page changed on every deployment
 

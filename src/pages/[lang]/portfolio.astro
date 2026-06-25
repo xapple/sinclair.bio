@@ -29,10 +29,8 @@ const personal = PERSONAL[lang];
   shellWidth="1100px"
 >
   <div class="section-stack">
-    <section class="portfolio-section">
-      <Reveal>
-        <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" />
-      </Reveal>
+    <section class="section-block">
+      <SectionHeading icon="package-open" text={t("portfolio:open-source-heading")} id="open-source-heading" reveal />
 
       <div class="card-grid">
         {projects.map((project) => (
@@ -60,10 +58,8 @@ const personal = PERSONAL[lang];
       </Reveal>
     </section>
 
-    <section class="portfolio-section">
-      <Reveal>
-        <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" />
-      </Reveal>
+    <section class="section-block">
+      <SectionHeading icon="quote" text={t("portfolio:testimonials-heading")} id="testimonials-heading" reveal />
 
       <div class="testimonial-list">
         {testimonials.map((testimonial) => (
@@ -78,10 +74,8 @@ const personal = PERSONAL[lang];
       </div>
     </section>
 
-    <section class="portfolio-section">
-      <Reveal>
-        <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" />
-      </Reveal>
+    <section class="section-block">
+      <SectionHeading icon="book" text={t("portfolio:publications-heading")} id="publications-heading" reveal />
 
       <ul class="ref-list">
         {PUBLICATIONS.map((publication) => (
@@ -99,10 +93,8 @@ const personal = PERSONAL[lang];
       </Reveal>
     </section>
 
-    <section class="portfolio-section">
-      <Reveal>
-        <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" />
-      </Reveal>
+    <section class="section-block">
+      <SectionHeading icon="graduation-cap" text={t("portfolio:classes-heading")} id="classes-heading" reveal />
 
       <ul class="ref-list">
         {classes.map((klass) => (
@@ -114,10 +106,8 @@ const personal = PERSONAL[lang];
     </section>
 
     {INCLUDE_PERSONAL && (
-      <section class="portfolio-section">
-        <Reveal>
-          <SectionHeading icon="mountain-snow" text={personal.heading} id="personal-heading" />
-        </Reveal>
+      <section class="section-block">
+        <SectionHeading icon="mountain-snow" text={personal.heading} id="personal-heading" reveal />
 
         <Reveal>
           <p class="m-0 max-w-[60ch] text-base leading-[1.7] text-ink opacity-[0.85]">
@@ -138,11 +128,6 @@ const personal = PERSONAL[lang];
 <style>
   .section-stack {
     --section-stack-gap: clamp(3rem, 6vw, 4.5rem);
-  }
-
-  .portfolio-section {
-    display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
   .card-grid {

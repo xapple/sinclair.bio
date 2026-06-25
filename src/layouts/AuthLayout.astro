@@ -24,6 +24,9 @@ const { t } = Astro.locals;
     <p>{t(`${kind}:intro`)}</p>
   </header>
 
+  <!-- Submission is JS-driven: initAuthForm (async-form.ts) intercepts submit
+       and POSTs via fetch. With JS off this is a native POST to the
+       clients.sinclair.bio backend, landing on its raw JSON response. -->
   <form
     class="auth-form"
     action={action}
@@ -163,7 +166,7 @@ const { t } = Astro.locals;
   }
 
   .auth-status--error {
-    color: #d33;
+    color: var(--color-error);
   }
 
   .auth-status :global(small) {

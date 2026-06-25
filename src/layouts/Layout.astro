@@ -2,13 +2,13 @@
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
 import GridDecoration from '../components/GridDecoration.astro';
-import { LANGUAGES, LANGUAGE_LIST, DEFAULT_LANGUAGE } from '../i18n/translations';
-import { getAlternatePath } from '../i18n/page';
+import { LANGUAGE_LIST } from '../i18n/translations';
 import { THEME_BKGND, THEME_ACCENT, THEME_BAR } from '../data/theme';
 import themeBootstrap from '../scripts/theme-bootstrap.js?raw';
 import langPillSlide from '../scripts/lang-pill-slide.js?raw';
 import revealOnScroll from '../scripts/reveal-on-scroll.js?raw';
 import { buildPersonSchema, buildWebsiteSchema } from '../lib/schema';
+import { buildSeoMeta } from '../lib/seo';
 import '../styles/global.css';
 
 interface Props {
@@ -38,26 +38,17 @@ const frameClass = frame === 'centered'
 const { lang, t } = Astro.locals;
 const metaDescription = description ?? t('meta:site-description');
 
-// Build absolute URLs for canonical / og:url / hreflang.
-// Astro.site is set in astro.config.mjs.
-const siteUrl = Astro.site ?? new URL('https://sinclair.bio');
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
-const ogImageUrl = new URL('/og_card.png', siteUrl).toString();
-
-// Alternate-language URLs for hreflang. Swap the first path segment.
-const alternateLinks = LANGUAGE_LIST.map((l) => ({
-  hreflang: l,
-  href: new URL(getAlternatePath(lang, l, Astro.url.pathname), siteUrl).toString(),
-}));
-const xDefaultHref = new URL(
-  getAlternatePath(lang, DEFAULT_LANGUAGE, Astro.url.pathname),
+// Canonical / hreflang / Open Graph / Twitter URL surface — built in lib/seo.ts
+// (pure data, mirroring lib/schema.ts) so this frontmatter stays a single call.
+const {
   siteUrl,
-).toString();
-
-const ogLocale = LANGUAGES[lang].ogLocale;
-const ogAlternateLocales = LANGUAGE_LIST
-  .filter((l) => l !== lang)
-  .map((l) => LANGUAGES[l].ogLocale);
+  canonicalUrl,
+  ogImageUrl,
+  alternateLinks,
+  xDefaultHref,
+  ogLocale,
+  ogAlternateLocales,
+} = buildSeoMeta({ pathname: Astro.url.pathname, site: Astro.site, lang });
 
 const schemaArgs = { siteUrl, ogImageUrl, lang, t };
 const personSchema = buildPersonSchema(schemaArgs);
@@ -98,7 +89,7 @@ const LANG_INDEX = LANGUAGE_LIST.indexOf(lang);
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Lucas Sinclair — Senior Data Scientist, PhD in Bioinformatics" />
+    <meta property="og:image:alt" content={t('meta:og-image-alt')} />
     <meta property="og:locale" content={ogLocale} />
     {ogAlternateLocales.map((l) => (
       <meta property="og:locale:alternate" content={l} />

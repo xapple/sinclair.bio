@@ -32,6 +32,22 @@ export function setTheme(color: ThemeColor): void {
   window.__sinclairTheme.applyTheme(color);
 }
 
+// Follow a live OS color-scheme change (e.g. macOS auto dark-mode at sunset),
+// but only for visitors who have NOT made an explicit choice. A stored
+// 'light'/'dark' always wins — matching resolveTheme()'s precedence in
+// theme-bootstrap.js — and when we do follow the OS we apply WITHOUT persisting,
+// so a later toggle still takes over. Calling setTheme() here instead would both
+// override and permanently overwrite the visitor's explicit toggle in storage.
+export function followSystemPreference(isDark: boolean): void {
+  try {
+    const stored = localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return;
+  } catch {
+    // Storage access blocked — fall through and just apply the OS preference.
+  }
+  window.__sinclairTheme.applyTheme(isDark ? "dark" : "light");
+}
+
 let runningAnimation: Animation | undefined;
 
 // Animates the sun/moon SVG sliding in (desktop pill only). The compact mobile

@@ -18,9 +18,12 @@ const { t } = Astro.locals;
 >
   <!-- By email -->
   <Reveal duration={400}>
-    <section class="contact-section contact-section--first">
+    <section class="contact-section section-block contact-section--first">
       <SectionHeading icon="mail" text={t('contact:email-heading')} />
 
+      <!-- Submission is JS-driven: initContactForm (async-form.ts) intercepts
+           submit and POSTs via fetch. With JS off this is a native POST to
+           web3forms, landing on its raw JSON response. -->
       <form
         id="contact-form"
         class="flex flex-col gap-3 w-full max-w-xl"
@@ -70,7 +73,7 @@ const { t } = Astro.locals;
 
   <!-- By talking -->
   <Reveal duration={400}>
-    <section class="contact-section">
+    <section class="contact-section section-block">
       <SectionHeading icon="calendar" text={t('contact:talking-heading')} />
       <p class="subtitle">{t('contact:talking-intro')}</p>
 
@@ -83,7 +86,7 @@ const { t } = Astro.locals;
 
   <!-- By message -->
   <Reveal duration={400}>
-    <section class="contact-section">
+    <section class="contact-section section-block">
       <SectionHeading icon="messages-square" text={t('contact:message-heading')} />
 
       <ul class="channels grid grid-cols-[max-content_max-content] items-center gap-x-6 gap-y-3 text-base">
@@ -121,13 +124,12 @@ const { t } = Astro.locals;
 </script>
 
 <style>
-  /* Grid + gap own the heading-to-content rhythm (mirrors .portfolio-section),
-     so the SectionHeading / subtitle / embed elements carry no margins of
-     their own. */
+  /* The shared .section-block class owns the heading-to-content grid + gap, so
+     the SectionHeading / subtitle / embed elements carry no margins of their
+     own; .contact-section adds only the inter-section top margin (there's no
+     .section-stack wrapper on this page). */
   .contact-section {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
-    display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
   .contact-section--first {

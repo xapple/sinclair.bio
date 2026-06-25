@@ -6,10 +6,12 @@ const { t } = Astro.locals;
 ---
 
 <script>
-  import { initThemeToggles, setTheme } from "../../scripts/theme-switcher";
+  import { initThemeToggles, followSystemPreference } from "../../scripts/theme-switcher";
 
+  // Reflect a live OS theme change only for visitors who haven't toggled
+  // manually; an explicit stored choice wins (see followSystemPreference).
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    setTheme(e.matches ? "dark" : "light");
+    followSystemPreference(e.matches);
   });
 
   initThemeToggles();

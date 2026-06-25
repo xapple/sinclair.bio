@@ -24,6 +24,9 @@ export async function getLangEntry<C extends CollectionKey>(
   // cast-free getCollection().find() here.
   const entries = await getCollection(collection);
   const entry = entries.find((e) => e.id === lang);
+  // Build-time guard for the unchecked content dependency: adding a language to
+  // LANGUAGES (translations.ts) without its matching content file lands here as
+  // a render-time throw, not a compile error.
   if (!entry) throw new Error(`No "${collection}" content found for lang: ${lang}`);
   return entry;
 }

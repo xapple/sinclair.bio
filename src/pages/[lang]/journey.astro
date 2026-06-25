@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import TimelineEntry from '../../components/journey/TimelineEntry.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
-import Reveal from '../../components/Reveal.astro';
 import { langStaticPaths, getLangEntry } from '../../i18n/page';
 
 export const getStaticPaths = langStaticPaths;
@@ -14,10 +13,8 @@ const { experiences, education, certifications = [] } = entry.data;
 
 <Layout title={t('journey:page-title')} description={t('journey:intro')}>
   <div class="section-stack">
-    <div class="journey-section">
-      <Reveal>
-        <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" />
-      </Reveal>
+    <div class="journey-section section-block">
+      <SectionHeading icon="briefcase" text={t('journey:experience-eyebrow')} id="experience-heading" reveal />
 
       <ol class="entry-list" aria-labelledby="experience-heading">
         {experiences.map((item) => (
@@ -37,10 +34,8 @@ const { experiences, education, certifications = [] } = entry.data;
       </ol>
     </div>
 
-    <div class="journey-section">
-      <Reveal>
-        <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" />
-      </Reveal>
+    <div class="journey-section section-block">
+      <SectionHeading icon="graduation-cap" text={t('journey:education-eyebrow')} id="education-heading" reveal />
 
       <ol class="entry-list" aria-labelledby="education-heading">
         {education.map((item) => (
@@ -60,10 +55,8 @@ const { experiences, education, certifications = [] } = entry.data;
     </div>
 
     {certifications.length > 0 && (
-      <div class="journey-section">
-        <Reveal>
-          <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" />
-        </Reveal>
+      <div class="journey-section section-block">
+        <SectionHeading icon="certificate" text={t('journey:certifications-eyebrow')} id="certifications-heading" reveal />
 
         <ol class="entry-list" aria-labelledby="certifications-heading">
           {certifications.map((item) => (
@@ -92,11 +85,6 @@ const { experiences, education, certifications = [] } = entry.data;
     --entry-indent: clamp(1.1rem, 2vw, 1.45rem);
     --entry-inner-pad: 1rem;
     --section-stack-gap: clamp(3rem, 6vw, 4.5rem);
-  }
-
-  .journey-section {
-    display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
   /* Align section heading with the indented entry content.

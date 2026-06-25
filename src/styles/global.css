@@ -20,6 +20,9 @@
                                lighter) to keep cards distinct from the page. */
   --color-border:  #c8bfa8; /* borders / dividers */
   --color-accent:  var(--theme-accent-light); /* brand burgundy */
+  /* Form-error red. Theme-agnostic — reads on both the light and dark
+     surface/card backgrounds, so it carries no [data-theme] override. */
+  --color-error:   #d33;
 
   /* Topbar — always dark regardless of mode. --color-bar is single-sourced
      from THEME_BAR in data/theme.ts (injected as --theme-bar-* by
@@ -220,6 +223,14 @@ html:not([data-dom-loaded]) footer {
 .section-stack {
   display: grid;
   gap: var(--section-stack-gap, clamp(1.25rem, 2.5vw, 1.75rem));
+}
+
+/* Heading-to-content rhythm shared by the journey / portfolio / contact section
+   wrappers. Applied alongside each page's own section class, which keeps only
+   its page-specific deltas (heading indent, first-section reset). */
+.section-block {
+  display: grid;
+  gap: var(--section-block-gap, clamp(1rem, 2vw, 1.5rem));
 }
 
 .section-heading {
