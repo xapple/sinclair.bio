@@ -64,8 +64,10 @@ const activeIndex = langLinks.findIndex((link) => link.href === null);
   })}
 </div>
 
-<!-- Mobile: globe icon + dropdown menu. -->
-<div class="relative md:hidden">
+<!-- Mobile: globe icon + dropdown menu. z-20 keeps the open dropdown above the
+     mobile menu row (.mobile-menu, z-10), which Safari otherwise composites on
+     top — see the .mobile-menu note in global.css. -->
+<div class="relative z-20 md:hidden">
   <button
     id="lang-dropdown-toggle"
     class="bar-icon-btn relative"

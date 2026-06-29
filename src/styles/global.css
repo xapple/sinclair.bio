@@ -153,6 +153,14 @@ html:not([data-dom-loaded]) footer {
   overflow: hidden;
   max-height: 3.5rem;  /* 56px */
   transition: max-height 200ms ease, opacity 150ms ease;
+  /* The opacity transition promotes this row to its own compositing layer in
+     Safari, which then paints above the language dropdown (a later-in-paint
+     positioned sibling with no explicit z-index) — so the dropdown's second
+     row disappears behind this menu on iOS/Safari only. Giving both an explicit
+     z-index (this 10, the dropdown's wrapper 20) makes the compositor honor the
+     intended order. position is required for z-index to apply. */
+  position: relative;
+  z-index: 10;
 }
 .mobile-menu[data-closed] {
   max-height: 0;
