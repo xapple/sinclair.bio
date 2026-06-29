@@ -190,6 +190,16 @@ html:not([data-dom-loaded]) footer {
   overflow-x: clip;
 }
 
+/* …but overflow-x: clip is supposed to leave the y-axis visible so the open
+   mobile language dropdown can hang below the bar. Chromium honors that;
+   Safari/WebKit clips the dropdown's downward overflow anyway, hiding its lower
+   rows. So while the dropdown is open, drop the clip entirely (it only matters
+   for the closed-bar narrow-width paint, which isn't in play mid-interaction).
+   :has() is supported in every browser that ships this site. */
+.site-topbar:has(#lang-dropdown:not(.hidden)) {
+  overflow: visible;
+}
+
 @media (max-width: 420px) {
   .site-topbar > nav {
     padding-inline: 0.5rem;
